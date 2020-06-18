@@ -1,0 +1,919 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta property="og:type" content="article">
+<meta property="og:title" content="使用Python对淘宝用户行为进行数据分析">
+<meta property="og:url" content="http://yoursite.com/2020/06/18/%E4%BD%BF%E7%94%A8Python%E5%AF%B9%E6%B7%98%E5%AE%9D%E7%94%A8%E6%88%B7%E8%A1%8C%E4%B8%BA%E8%BF%9B%E8%A1%8C%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90/index.html">
+<meta property="og:site_name" content="今天你DEBUG了吗">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200429154952128.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200428165245175.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200428182653709.PNG">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200428182746692.PNG">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200428182859412.PNG">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200428195148932.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200428195401501.PNG">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200429160428770.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200429160413221.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200430152910340.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200429202820614.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200429202657966.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200429160546213.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200429144949479.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200429221206329.PNG">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200429221828232.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200428182946544.PNG">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200428183309451.PNG">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/2020042818371289.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200428183945718.PNG">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200428183945615.PNG">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200428184115560.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200428185100247.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200429205729118.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200429134429735.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200429134429728.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200429134737600.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200429134857925.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200429150740642.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200429154952128.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70">
+<meta property="article:published_time" content="2020-06-18T07:48:01.501Z">
+<meta property="article:modified_time" content="2020-06-18T07:53:45.081Z">
+<meta property="article:author" content="Patrick Yan">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img-blog.csdnimg.cn/20200429154952128.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2020/06/18/使用Python对淘宝用户行为进行数据分析/"/>
+
+
+
+
+
+  <title>使用Python对淘宝用户行为进行数据分析 | 今天你DEBUG了吗</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">今天你DEBUG了吗</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/06/18/%E4%BD%BF%E7%94%A8Python%E5%AF%B9%E6%B7%98%E5%AE%9D%E7%94%A8%E6%88%B7%E8%A1%8C%E4%B8%BA%E8%BF%9B%E8%A1%8C%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Patrick Yan">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/panda.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="今天你DEBUG了吗">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">使用Python对淘宝用户行为进行数据分析</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-06-18T15:48:01+08:00">
+                2020-06-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><img src="https://img-blog.csdnimg.cn/20200429154952128.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<a id="more"></a>
+
+
+<h1 id="1-分析背景与意义"><a href="#1-分析背景与意义" class="headerlink" title="1  分析背景与意义"></a>1  分析背景与意义</h1><p>淘宝网是中国深受欢迎的网购零售平台，拥有近5亿的注册用户数，每天有超过6000万的固定访客，同时每天的在线商品数已经超过了8亿件，平均每分钟售出4.8万件商品。<br>用户行为分析则是电商平台的重要事务，通过对用户行为的分析，有助于企业根据用户的行为习惯，找出网站、推广渠道等企业营销环境存在的问题，从而让企业的营销更加精准、有效，提升企业的广告收益。</p>
+<h1 id="2-分析思路"><a href="#2-分析思路" class="headerlink" title="2  分析思路"></a>2  分析思路</h1><p>针对数据集中的用户、商品、商品种类、用户行为、时间等信息，使用Python对数据进行切片分类汇总等多种数据分析手段，从不同角度挖掘蕴含的价值。本次通过以下四个方向探索淘宝用户行为：<br><img src="https://img-blog.csdnimg.cn/20200428165245175.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<h1 id="3-分析内容"><a href="#3-分析内容" class="headerlink" title="3  分析内容"></a>3  分析内容</h1><h2 id="3-1-提出问题"><a href="#3-1-提出问题" class="headerlink" title="3.1  提出问题"></a>3.1  提出问题</h2><p>本次通过对淘宝用户行为数据分析，期望解决以下业务问题：</p>
+<p> 1） 用户从浏览到最终购买整个过程的流失情况，确定夹点位置。<br> 2） 找出用户最活跃的日期以及活跃时间段，了解用户的行为时间模式。<br> 3） 找出最具价值的核心付费用户群。<br> 4） 找出最受用户青睐的产品。</p>
+<h2 id="3-2-理解数据"><a href="#3-2-理解数据" class="headerlink" title="3.2  理解数据"></a>3.2  理解数据</h2><p>数据集：UserBehavior.csv。本次报告随机采集了在2017年11月25日至2017年12月3日之间，淘宝用户的行为，其中行为包括浏览、加购物车、收藏、购买等。数据集主要包含：用户数量约3万（37,376），商品数量约9万（930,607），商品类目数量7106以及总的淘宝用户行为记录数量为3百万（3,835,329）。<br>数据来源：<a href="https://tianchi.aliyun.com/dataset/dataDetail?dataId=649&amp;userId=1" target="_blank" rel="noopener">https://tianchi.aliyun.com/dataset/dataDetail?dataId=649&amp;userId=1</a><br>字段含义：<br>| 列名称 | 说明 |<br>|–|–|<br>|User ID  | 整数类型，序列化后的用户ID |<br>|Item ID| 整数类型，序列化后的商品ID |<br>|Category ID | 整数类型，序列化后的商品所属类目ID |<br>|Behavior type  | 字符串，枚举类型，包括(‘pv’, ‘buy’, ‘cart’, ‘fav’) |<br>|Timestamp | 行为发生的时间戳 |</p>
+<p>用户行为类型共有四种，它们分别是：</p>
+<table>
+<thead>
+<tr>
+<th>行为类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>pv</td>
+<td>商品详情页pv，等价于点击</td>
+</tr>
+<tr>
+<td>buy</td>
+<td>商品购买</td>
+</tr>
+<tr>
+<td>cart</td>
+<td>将商品加入购物车</td>
+</tr>
+<tr>
+<td>fav</td>
+<td>收藏商品</td>
+</tr>
+</tbody></table>
+<h2 id="3-3-数据清洗"><a href="#3-3-数据清洗" class="headerlink" title="3.3  数据清洗"></a>3.3  数据清洗</h2><h3 id="3-3-1-数据导入"><a href="#3-3-1-数据导入" class="headerlink" title="3.3.1 数据导入"></a>3.3.1 数据导入</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">import</span> seaborn <span class="keyword">as</span> sns</span><br><span class="line"></span><br><span class="line">%matplotlib inline</span><br><span class="line">plt.rcParams[<span class="string">'font.sans-serif'</span>] = [<span class="string">'SimHei'</span>]</span><br><span class="line">plt.rcParams[<span class="string">'axes.unicode_minus'</span>] = <span class="literal">False</span></span><br><span class="line"></span><br><span class="line">path = <span class="string">'./data/UserBehavior.csv'</span></span><br><span class="line">data_user = pd.read_csv(path)</span><br><span class="line">cols = [<span class="string">'UserID'</span>, <span class="string">'ItemID'</span>, <span class="string">'CatogoryID'</span>, <span class="string">'BehaviorType'</span>, <span class="string">'TimeStamps'</span>]</span><br><span class="line">data_user.columns = cols</span><br><span class="line">data_user.head()</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://img-blog.csdnimg.cn/20200428182653709.PNG" alt="UserID    ItemID    CatogoryID    BehaviorType    TimeStamps
+0    1    2333346    2520771    pv    1.511562e+09
+1    1    2576651    149192    pv    1.511573e+09
+2    1    3830808    4181361    pv    1.511593e+09
+3    1    4365585    2520377    pv    1.511596e+09
+4    1    4606018    2735466    pv    1.511616e+09"></p>
+<h3 id="3-3-2-缺失值分析"><a href="#3-3-2-缺失值分析" class="headerlink" title="3.3.2 缺失值分析"></a>3.3.2 缺失值分析</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">data_user.apply(<span class="keyword">lambda</span> x: sum(x.isnull()))</span><br></pre></td></tr></table></figure>
+<p><img src="https://img-blog.csdnimg.cn/20200428182746692.PNG" alt="UserID          0
+ItemID          0
+CatogoryID      0
+BehaviorType    0
+TimeStamps      1
+dtype: int64"></p>
+<p>仅一条数据含有缺失值，删除即可。</p>
+<h3 id="3-3-3-选取时间范围"><a href="#3-3-3-选取时间范围" class="headerlink" title="3.3.3 选取时间范围"></a>3.3.3 选取时间范围</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> time</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_unixtime</span><span class="params">(timeStr)</span>:</span></span><br><span class="line">    formatStr = <span class="string">"%Y-%m-%d %H:%M:%S"</span></span><br><span class="line">    tmObject = time.strptime(timeStr, formatStr)</span><br><span class="line">    tmStamp = time.mktime(tmObject)</span><br><span class="line">        </span><br><span class="line">    <span class="keyword">return</span> int(tmStamp)</span><br><span class="line">    </span><br><span class="line"><span class="comment"># 数据集描述的时间范围</span></span><br><span class="line">startTime = get_unixtime(<span class="string">"2017-11-25 00:00:00"</span>)</span><br><span class="line">endTime = get_unixtime(<span class="string">"2017-12-3 23:59:59"</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 筛选出符合时间范围的数据</span></span><br><span class="line">data_user[<span class="string">'TimeStamps'</span>] = data_user[<span class="string">'TimeStamps'</span>].astype(<span class="string">'int64'</span>)</span><br><span class="line">data_user = data_user.loc[(data_user[<span class="string">'TimeStamps'</span>] &gt;= startTime) &amp; (data_user[<span class="string">'TimeStamps'</span>] &lt;= endTime)]</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-3-4-时间格式处理"><a href="#3-3-4-时间格式处理" class="headerlink" title="3.3.4 时间格式处理"></a>3.3.4 时间格式处理</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#时间处理</span></span><br><span class="line">data_user[<span class="string">'time'</span>] = data_user[<span class="string">'TimeStamps'</span>].apply(<span class="keyword">lambda</span> t: time.strftime(<span class="string">'%Y-%m-%d %H:%M:%S'</span>, time.localtime(t)))</span><br><span class="line">data_user[<span class="string">'date'</span>] = data_user[<span class="string">'time'</span>].str[<span class="number">0</span>:<span class="number">10</span>]</span><br><span class="line">data_user[<span class="string">'hour'</span>] = data_user[<span class="string">'time'</span>].str[<span class="number">11</span>:<span class="number">13</span>].astype(int)</span><br><span class="line">data_user[<span class="string">'date'</span>] = pd.to_datetime(data_user[<span class="string">'date'</span>])</span><br><span class="line"></span><br><span class="line">data_user.head()</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://img-blog.csdnimg.cn/20200428182859412.PNG" alt="在这里插入图片描述"></p>
+<h2 id="3-4-构建模型"><a href="#3-4-构建模型" class="headerlink" title="3.4 构建模型"></a>3.4 构建模型</h2><h3 id="3-4-1-用户行为转化（AARRR模型）"><a href="#3-4-1-用户行为转化（AARRR模型）" class="headerlink" title="3.4.1 用户行为转化（AARRR模型）"></a>3.4.1 用户行为转化（AARRR模型）</h3><p><strong>跳失率计算：</strong><br>跳失率 = 只浏览一个页面就离开的访问次数 / 该页面的全部访问次数<br>结果显示只有点击行为没有收藏、加购物车以及购买行为的总用户数是2196，除以总用户数37376得到跳失率为5.88%。说明用户对商品详情页的关注很大，商品详情页的商品描述，细节等吸引点不足，是流失用户的的重要原因之一。具体造成用户在浏览商品详情页后流失的原因，要根据实际情况分析，建议可以采用在线问卷调查的方式get用户的痛点，针对性调整。</p>
+<p><strong>日ARPPU计算：</strong><br>ARPPU全称为Average Revenue Per Paying User，也就是每付费用户平均收益。这个指标考核的是某时间段内平均每个付费用户为应用创造的收入。在用户数量上，ARPPU只考虑某一时间段内的付费用户，而非该时间段内所有的活跃用户。<br>对于同一时间的同一应用而言，ARPPU的数值会明显高于ARPU。<br>ARPPU能够反映付费用户为你的应用带来了多少收益，显示出一个忠诚付费用户实际上愿意支付的金额。同时，这个指标也可以显示用户对一些付费项目的反应。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">data_user_buy1 = data_user[data_user.BehaviorType == <span class="string">'buy'</span>].groupby([<span class="string">'date'</span>,<span class="string">'UserID'</span>]).count()[<span class="string">'BehaviorType'</span>].reset_index().rename(columns=&#123;<span class="string">'BehaviorType'</span>:<span class="string">'total'</span>&#125;)</span><br><span class="line"></span><br><span class="line">data_user_buy2 = data_user_buy1.groupby(<span class="string">'date'</span>).sum()[<span class="string">'total'</span>] / data_user_buy1.groupby(<span class="string">'date'</span>).count()[<span class="string">'total'</span>]</span><br><span class="line"></span><br><span class="line">plt.figure(figsize=(<span class="number">10</span>,<span class="number">7</span>))</span><br><span class="line">data_user_buy2.plot()</span><br><span class="line">plt.ylabel(<span class="string">'日ARPPU'</span>)</span><br><span class="line">plt.title(<span class="string">'ARPPU变化情况'</span>)</span><br><span class="line">plt.savefig(<span class="string">'ARPPU变化情况'</span>)</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://img-blog.csdnimg.cn/20200428195148932.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70" alt=""><br><img src="https://img-blog.csdnimg.cn/20200428195401501.PNG" alt="在这里插入图片描述"><br>由图像可以看出，在12月2日及12月3日的日ARPPU为最低位，分析可能是由于高的PV值但实际消费的用户数并不多。</p>
+<p><strong>日ARPU计算：</strong><br>ARPU的全称是Average Revenue Per User，也就是每用户平均收入。这个指标计算的是某时间段内平均每个活跃用户为应用创造的收入。<br>ARPU的计算中，所有的用户都被纳入了计算范围——无论是付费用户或非付费用户。ARPU是评估应用变现有效性的指标：ARPU越高，就代表用户在这段时间内为应用带来的变现收入就越多。<br>ARPU可用于评估应用中的变动是否能有效提升变现收益：如果ARPU提升，证明应用的变动有利于提升应用变现收益；如果ARPU不升反降，应用开发者可能就需要确认一下变动的有效性了。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">data_user[<span class="string">'operation'</span>] = <span class="number">1</span></span><br><span class="line">data_user_buy2 = data_user.groupby([<span class="string">'date'</span>, <span class="string">'UserID'</span>, <span class="string">'BehaviorType'</span>])[<span class="string">'operation'</span>].count().reset_index().rename(columns = &#123;<span class="string">'operation'</span>:<span class="string">'total'</span>&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">#每天消费总次数/每天总活跃人数</span></span><br><span class="line">data_user_buy2.groupby(<span class="string">'date'</span>).apply(<span class="keyword">lambda</span> x: x[x[<span class="string">'BehaviorType'</span>] == <span class="string">'buy'</span>].total.sum()/len(x.UserID.unique()) ).plot()</span><br><span class="line">plt.ylabel(<span class="string">'日ARPU'</span>)</span><br><span class="line">plt.title(<span class="string">'ARPU变化情况'</span>)</span><br><span class="line">plt.savefig(<span class="string">'ARPU变化情况'</span>)</span><br></pre></td></tr></table></figure>
+<p><img src="https://img-blog.csdnimg.cn/20200429160428770.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#（付费率）每天消费人数/每天总活跃人数</span></span><br><span class="line">data_user_buy2.groupby(<span class="string">'date'</span>).apply(<span class="keyword">lambda</span> x: x[x[<span class="string">'BehaviorType'</span>] == <span class="string">'buy'</span>].total.count()/len(x.UserID.unique()) ).plot()</span><br><span class="line">plt.ylabel(<span class="string">'付费率'</span>)</span><br><span class="line">plt.title(<span class="string">'付费率变化情况'</span>)</span><br><span class="line">plt.savefig(<span class="string">'付费率变化情况'</span>)</span><br></pre></td></tr></table></figure>
+<p><img src="https://img-blog.csdnimg.cn/20200429160413221.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>日ARPU图像、付费率图像相似，均在12月2日和12月3日处于低位，而在工作日处于较高的水平。</p>
+<p><strong>用户行为情况</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 多子图绘制 如：将上面用到的图形一起绘制</span></span><br><span class="line"><span class="comment"># 导入subplots（类似matplotlib）</span></span><br><span class="line"><span class="keyword">from</span> plotly.subplots <span class="keyword">import</span> make_subplots</span><br><span class="line"></span><br><span class="line">labels = df_userbehavior[<span class="string">'behavior'</span>]</span><br><span class="line"></span><br><span class="line"><span class="comment"># Create subplots: use 'domain' type for Pie subplot</span></span><br><span class="line">fig = make_subplots(rows=<span class="number">1</span>, cols=<span class="number">2</span>, specs=[[&#123;<span class="string">'type'</span>:<span class="string">'domain'</span>&#125;, &#123;<span class="string">'type'</span>:<span class="string">'domain'</span>&#125;]])</span><br><span class="line">fig.add_trace(go.Pie(labels=labels, values=data_user_count.values, name=<span class="string">"淘宝用户行为"</span>),</span><br><span class="line">              <span class="number">1</span>, <span class="number">1</span>)</span><br><span class="line">fig.add_trace(go.Pie(labels=labels, values=df_userbehavior[<span class="string">'count'</span>], name=<span class="string">"淘宝独立用户行为"</span>),</span><br><span class="line">              <span class="number">1</span>, <span class="number">2</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Use `hole` to create a donut-like pie chart</span></span><br><span class="line">fig.update_traces(hole=<span class="number">.4</span>, hoverinfo=<span class="string">"label+percent+name"</span>)</span><br><span class="line"></span><br><span class="line">fig.update_layout(</span><br><span class="line">    title_text=<span class="string">"淘宝用户行为情况 | 左：淘宝用户行为， 右：淘宝独立用户行为"</span>,</span><br><span class="line">    <span class="comment"># Add annotations in the center of the donut pies.</span></span><br><span class="line">    annotations=[dict(text=<span class="string">'非独立'</span>, x=<span class="number">0.18</span>, y=<span class="number">0.5</span>, font_size=<span class="number">20</span>, showarrow=<span class="literal">False</span>),</span><br><span class="line">                 dict(text=<span class="string">'独立'</span>, x=<span class="number">0.8</span>, y=<span class="number">0.5</span>, font_size=<span class="number">20</span>, showarrow=<span class="literal">False</span>)])</span><br><span class="line">fig.show()</span><br></pre></td></tr></table></figure>
+<p><img src="https://img-blog.csdnimg.cn/20200430152910340.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<p>用户点击行为占总行为数的89.5%，收藏和加购行为加起来的行为数只占总行为数的8.47%，而对于独立用户来说，点击行为的占比明显缩小为35.2%。推测用户可能在挑选产品环节浪费了较多的时间。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pyecharts <span class="keyword">import</span> options <span class="keyword">as</span> opts</span><br><span class="line"><span class="keyword">from</span> pyecharts.charts <span class="keyword">import</span> Funnel</span><br><span class="line"><span class="keyword">from</span> pyecharts.faker <span class="keyword">import</span> Faker</span><br><span class="line"></span><br><span class="line">attr = [<span class="string">'浏览'</span>, <span class="string">'放入购物车'</span>, <span class="string">'收藏'</span>, <span class="string">'购买'</span>]</span><br><span class="line">value = [<span class="number">3431904</span>, <span class="number">213634</span>, <span class="number">111140</span>, <span class="number">76707</span>]    <span class="comment">#这里有个bug</span></span><br><span class="line">funnel = Funnel()</span><br><span class="line">funnel.add(<span class="string">"淘宝用户行为"</span>, [list(z) <span class="keyword">for</span> z <span class="keyword">in</span> zip(attr, value)])</span><br><span class="line">funnel.set_global_opts(title_opts=opts.TitleOpts(title=<span class="string">"淘宝用户行为"</span>))</span><br><span class="line">funnel.render(<span class="string">"funnel_base.html"</span>) </span><br><span class="line">funnel.render_notebook()</span><br></pre></td></tr></table></figure>
+<p><img src="https://img-blog.csdnimg.cn/20200429202820614.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<table>
+<thead>
+<tr>
+<th>项目</th>
+<th>流失率</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>pv_to_cart</td>
+<td>93.78%</td>
+</tr>
+<tr>
+<td>cart_to_fav</td>
+<td>47.98%</td>
+</tr>
+<tr>
+<td>fav_to_buy</td>
+<td>30.98%</td>
+</tr>
+<tr>
+<td>pv_to_buy</td>
+<td>97.76%</td>
+</tr>
+</tbody></table>
+<p>从点击到购买的全过程中，流失率主要集中在点击到加入购物车这一环节，流失率高达93.78%，收藏及加入购物车后购买商品的可能性增大。</p>
+<p><strong>用户留存率</strong><br>留存用户：在某段时间开始使用产品，经过一段时间后仍然继续使用产品的用户，即为留存用户。<br>留存率=仍旧使用产品的用户量/最初的总用户量。<br>根据时间维度进行分类，留存率经常分为次日留存、3日留存、7日留存以及30日留存等。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> datetime <span class="keyword">import</span> timedelta</span><br><span class="line"></span><br><span class="line"><span class="comment">#建立n日留存率计算函数</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">cal_retention</span><span class="params">(data,n)</span>:</span> <span class="comment">#n为n日留存</span></span><br><span class="line">    user=[]</span><br><span class="line">    date=pd.Series(data.date.unique()).sort_values()[:-n] <span class="comment">#时间截取至最后一天的前n天</span></span><br><span class="line">    retention_rates=[]</span><br><span class="line">    new_users=[]</span><br><span class="line">    retention_user=[]</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> date:</span><br><span class="line">        new_user=set(data[data.date==i].UserID.unique())-set(user) <span class="comment">#识别新用户，本案例中设初始用户量为零</span></span><br><span class="line">        user.extend(new_user)  <span class="comment">#将新用户加入用户群中</span></span><br><span class="line">        <span class="comment">#第n天留存情况</span></span><br><span class="line">        user_nday=data[data.date==i+timedelta(n)].UserID.unique() <span class="comment">#第n天登录的用户情况</span></span><br><span class="line">        a=<span class="number">0</span></span><br><span class="line">        <span class="keyword">for</span> UserID <span class="keyword">in</span> user_nday:</span><br><span class="line">            <span class="keyword">if</span> UserID <span class="keyword">in</span> new_user:</span><br><span class="line">                a+=<span class="number">1</span></span><br><span class="line">        b = len(new_user)</span><br><span class="line">        retention_rate=a/b <span class="comment">#计算该天第n日留存率</span></span><br><span class="line">        retention_rates.append(retention_rate) <span class="comment">#汇总n日留存数据</span></span><br><span class="line">        new_users.append(b) <span class="comment">#汇总n日的新用户数</span></span><br><span class="line">        retention_user.append(a) <span class="comment">#汇总n日留存的用户数</span></span><br><span class="line">    data_new_user = pd.Series(new_users, index=date)</span><br><span class="line">    data_retention_user = pd.Series(retention_user, index=date)</span><br><span class="line">    data_retention_rate = pd.Series(retention_rates,index=date)</span><br><span class="line">    data_retention = pd.concat([data_new_user,data_retention_user,data_retention_rate], axis=<span class="number">1</span>)</span><br><span class="line">    data_retention.columns=[<span class="string">'new_user'</span>,<span class="string">'retention_user'</span>,<span class="string">'retention_rate'</span>]</span><br><span class="line">    <span class="keyword">return</span> data_retention</span><br><span class="line"></span><br><span class="line">data_retention1=cal_retention(data_user,<span class="number">1</span>)</span><br><span class="line">data_retention2=cal_retention(data_user,<span class="number">2</span>)</span><br><span class="line">data_retention6=cal_retention(data_user,<span class="number">6</span>)</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://img-blog.csdnimg.cn/20200429202657966.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>用户的次日留存率及3日留存率均约为60%-70%的范围内，现有数据可以看出7日的留存率较高，推测是由于临近双十二，商家纷纷举办活动，促使留存率提高。可继续观测留存率等指标，以确定留存率的变化规律。</p>
+<p><strong>复购</strong><br><img src="https://img-blog.csdnimg.cn/20200429160546213.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20200429144949479.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">data_rebuy[data_rebuy&gt;=<span class="number">2</span>].count()/data_rebuy.count()</span><br></pre></td></tr></table></figure>
+<p>复购率=54.94%<br><img src="https://img-blog.csdnimg.cn/20200429221206329.PNG" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20200429221828232.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<p>淘宝平台和用户的粘性很高，9日内的复购率达到54.94%。但有的用户购买次数高达到84次。9天里有84次的购买行为，平均一天有9次购买行为，这不符合常理，为什么他们的购买次数如此高呢？是否存在刷单现象？进一步分析验证购买次数较高的用户平时购买情况，以及账户，购物，物流等信息才能判断。这里数据有限，不深入探究其原由。</p>
+<h3 id="3-4-2-用户活跃时间"><a href="#3-4-2-用户活跃时间" class="headerlink" title="3.4.2 用户活跃时间"></a>3.4.2 用户活跃时间</h3><p>找出用户最活跃的日期以及活跃时间段，了解用户的行为时间模式。</p>
+<p> <strong>按日统计流量指标</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">pv_daily = data_user.groupby(<span class="string">'date'</span>).count()[<span class="string">'UserID'</span>]</span><br><span class="line">uv_daily = data_user.groupby(<span class="string">'date'</span>)[<span class="string">'UserID'</span>].apply(<span class="keyword">lambda</span> x: x.drop_duplicates().count())</span><br><span class="line"></span><br><span class="line">pv_uv_daily = pd.concat([pv_daily,uv_daily], axis=<span class="number">1</span>)</span><br><span class="line">pv_uv_daily.columns=[<span class="string">'pv'</span>,<span class="string">'uv'</span>]</span><br><span class="line">pv_uv_daily</span><br></pre></td></tr></table></figure>
+<p><img src="https://img-blog.csdnimg.cn/20200428182946544.PNG" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20200428183309451.PNG" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/2020042818371289.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<p>可以发现，PV与UV的每日变化趋势大致相同：工作日维持在低值，其中周二（11-27）的访问量达到统计范围内最低值；而11月25日、11月26日和12月2日、12月3日同为周末，但后者却有更多的活跃用户，环比增长率约为32%，推测可能是平台做促销活动。检索可知正值“双十二”前夕，各类预热活动促进用户访问增长。</p>
+<p><strong>按小时统计流量指标</strong><br><img src="https://img-blog.csdnimg.cn/20200428183945718.PNG" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20200428183945615.PNG" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20200428184115560.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20200428185100247.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>结合人们日常作息规律，0点至6点是休息时间，点击量处于低谷阶段；6点至10点，人们慢慢开始工作，点击量开始回暖；10点至18点为正常工作时间，点击量保持平稳；18点至20点，人们相继下班休息，点击量不断升高；在21点至22点期间，点击量到达高峰。</p>
+<table>
+<thead>
+<tr>
+<th>项目</th>
+<th>数值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>pv</td>
+<td>3833385</td>
+</tr>
+<tr>
+<td>uv</td>
+<td>264304</td>
+</tr>
+<tr>
+<td>pv/uv</td>
+<td>14.50</td>
+</tr>
+</tbody></table>
+<h3 id="3-4-3-用户价值分析（RFM模型）"><a href="#3-4-3-用户价值分析（RFM模型）" class="headerlink" title="3.4.3 用户价值分析（RFM模型）"></a>3.4.3 用户价值分析（RFM模型）</h3><p>因为本数据集没有提供M（消费金额）列，因此只能通过R（最近一次购买时间）和F（消费频率）的数据对客户价值进行打分。<br>|RFM|业务含义|1分|2分|<br>|–|–|–|–|<br>|R|最近交易日期与2017.12.4距离天数|3<del>9|0</del>3|<br>|F|购买次数|0<del>2|2</del>84|<br>其中，<br>RF=11为重要挽回客户；<br>RF=12为重要唤回客户；<br>RF=21为重要深耕客户：<br>RF=22为重要价值客户。</p>
+<p><img src="https://img-blog.csdnimg.cn/20200429205729118.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">trace_basic = [go.Bar(x = rfm[<span class="string">'rank'</span>].value_counts().index,</span><br><span class="line">                     y = rfm[<span class="string">'rank'</span>].value_counts().values,</span><br><span class="line">                     marker = dict(color=<span class="string">'orange'</span>), opacity=<span class="number">0.50</span>)]</span><br><span class="line">layout = go.Layout(title=<span class="string">'用户等级情况'</span>, xaxis=dict(title=<span class="string">'用户重要度'</span>))</span><br><span class="line">figure_basic = go.Figure(data=trace_basic, layout=layout)</span><br><span class="line">figure_basic</span><br><span class="line"></span><br><span class="line">trace = [go.Pie(labels=rfm[<span class="string">'rank'</span>].value_counts().index,</span><br><span class="line">                values = rfm[<span class="string">'rank'</span>].value_counts().values,</span><br><span class="line">               textfont = dict(size=<span class="number">12</span>,color=<span class="string">'white'</span>))]</span><br><span class="line">layout = go.Layout(title=<span class="string">'用户等级比例'</span>)</span><br><span class="line">figure_pie = go.Figure(data=trace, layout=layout)</span><br><span class="line">figure_pie</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://img-blog.csdnimg.cn/20200429134429735.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20200429134429728.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<h3 id="3-4-4-用户产品偏好"><a href="#3-4-4-用户产品偏好" class="headerlink" title="3.4.4 用户产品偏好"></a>3.4.4 用户产品偏好</h3><p><strong>商品</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">fig = plt.figure(figsize=(<span class="number">16</span>,<span class="number">12</span>))</span><br><span class="line"><span class="comment">#柱形图</span></span><br><span class="line">ax1 = fig.add_subplot(<span class="number">111</span>)</span><br><span class="line">ax1.bar(data_item_count.index, data_item_count.values)</span><br><span class="line"><span class="keyword">for</span> a,b <span class="keyword">in</span> zip(data_item_count.index,data_item_count.values):</span><br><span class="line">    plt.text(a, b+<span class="number">100</span>,<span class="string">'%s'</span>% b, ha=<span class="string">'center'</span>, va= <span class="string">'bottom'</span>,fontsize=<span class="number">10</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#平滑化</span></span><br><span class="line"><span class="keyword">from</span> scipy <span class="keyword">import</span> interpolate</span><br><span class="line"></span><br><span class="line">x = data_item_count.index</span><br><span class="line">y = df_item_count[<span class="string">'percentage'</span>]</span><br><span class="line">tck = interpolate.splrep(x, y, s=<span class="number">0</span>)</span><br><span class="line">xnew = np.linspace(x.min(),x.max(),<span class="number">100</span>)</span><br><span class="line">ynew = interpolate.splev(xnew, tck, der=<span class="number">0</span>) </span><br><span class="line"></span><br><span class="line"><span class="comment">#折线图</span></span><br><span class="line">ax2 = ax1.twinx()</span><br><span class="line">ax2.plot(xnew, ynew, label=<span class="string">"percentage"</span>, color=<span class="string">'red'</span>)</span><br><span class="line"></span><br><span class="line">ax1.set_ylabel(<span class="string">'商品数目'</span>)</span><br><span class="line">ax2.set_ylabel(<span class="string">'所占百分比'</span>)</span><br><span class="line">ax2.set_xlabel(<span class="string">'购买次数'</span>)</span><br><span class="line">plt.title(<span class="string">'商品销售分布'</span>, fontsize=<span class="number">25</span>)</span><br><span class="line">plt.savefig(<span class="string">'商品销售分布'</span>)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://img-blog.csdnimg.cn/20200429134737600.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>没有出现购买数量非常集中的商品，说明店铺盈利主要依靠长尾商品的累积效应。在电子商务行业中，相较于传统零售行业成本减少，使得后80%的商品也可以销售出去，并且实现盈利，因此将长尾部分的商品优化推荐好，能够给企业带来更大的收益。</p>
+<p><strong>商品种类</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">ax1 = df_catogory_buy[[<span class="string">'buy'</span>, <span class="string">'fav'</span>, <span class="string">'cart'</span>, <span class="string">'pv'</span>]].plot.bar()</span><br><span class="line"></span><br><span class="line">ax2 = ax1.twinx()</span><br><span class="line">df_catogory_buy.index = df_catogory_buy.index.astype(str)</span><br><span class="line">ax2.plot(df_catogory_buy.index, df_catogory_buy[[<span class="string">'buy/pv'</span>]])</span><br><span class="line"></span><br><span class="line">ax1.set_ylabel(<span class="string">'次数'</span>)</span><br><span class="line">ax2.set_ylabel(<span class="string">'转化率'</span>)</span><br><span class="line">plt.title(<span class="string">'购买次数前二十的商品种类'</span>)</span><br><span class="line">plt.savefig(<span class="string">'购买次数前二十的商品种类'</span>)</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://img-blog.csdnimg.cn/20200429134857925.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> plotly.express <span class="keyword">as</span> px</span><br><span class="line">fig = px.treemap(</span><br><span class="line">    df_buy, path=[<span class="string">'CatogoryID'</span>], values=<span class="string">'购买次数'</span>, title=<span class="string">'购买次数前二十的商品种类'</span></span><br><span class="line">)</span><br><span class="line">fig.show() </span><br><span class="line"></span><br><span class="line">fig = px.treemap(</span><br><span class="line">    df_item_buy, path=[<span class="string">'CatogoryID'</span>,<span class="string">'ItemID'</span>], values=<span class="string">'count'</span>, title=<span class="string">'商品购买情况(销量前100)'</span></span><br><span class="line">)</span><br><span class="line">fig.show()</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://img-blog.csdnimg.cn/20200429150740642.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<p><img src="https://img-blog.csdnimg.cn/20200429154952128.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<h1 id="4-结论与建议"><a href="#4-结论与建议" class="headerlink" title="4 结论与建议"></a>4 结论与建议</h1><p>本报告基于AARRR模型和RFM模型，从四个维度提出关于淘宝业务问题。<br><strong>A.  通过AARRR模型分析用户行为转化的各个环节</strong></p>
+<p><strong>获取用户（Acquisition）</strong><br>根据12月2日和12月3日活跃用户明显增长，推测在此期间店铺举办了营销活动。检索可知正值“双十二”前夕，各类预热活动促进用户访问增长。<br>获取用户意味着需要拓展页面流量，相对较大型的电商营销活动至少可以从以下三个方面获取流量：</p>
+<ul>
+<li><input disabled="" type="checkbox"> 充分利用站内资源</li>
+<li><input disabled="" type="checkbox"> 跨行合作</li>
+<li><input disabled="" type="checkbox"> 产品功能辅助流量增长（场次预约、SNS后置奖品分享）</li>
+</ul>
+<p><strong>激活用户（Activation）</strong><br>计算跳失率为5.88%，独立访客从浏览到购买的转化率为xxx%，说明产品详情页对用户有着不错的吸引力；但从用户行为转化漏斗来看，用户行为转化夹点位置在点击-加购环节，其中用户点击行为占总行为数的89.50%，而收藏和加购行为加起来的行为数只占总行为数的8.47%，推测用户可能在挑选产品环节浪费了较多的时间，另外低购买意愿转化率还可能与刚完成的双11大促有关。</p>
+<p>提高加购转化率的建议：</p>
+<ul>
+<li><input disabled="" type="checkbox"> 优化搜索引擎，利用用户画像优化商品匹配，个性化地推荐用户感兴趣的商品</li>
+<li><input disabled="" type="checkbox"> 优化商品界面加购与收藏按键布局，以便用户触达</li>
+<li><input disabled="" type="checkbox"> 分析双十一活动对双十二的影响，合理设置活动内容</li>
+</ul>
+<p><strong>留存用户（Retention）</strong><br>用户留存其指标之于电商就是回访率。用户的次日留存率及3日留存率均约为60%-70%的范围内，现有数据可以看出7日的留存率较高，推测是由于临近双十二，商家纷纷举办活动，促使留存率提高。<br>活动基本都会划分为三个阶段：</p>
+<ul>
+<li><input disabled="" type="checkbox"> 预热期：预约造势，通过sns、定金裂变等玩法吸引用户关注</li>
+<li><input disabled="" type="checkbox"> 正式期：前面如果证实是好的激励体系，可以让活动健康持续发展</li>
+<li><input disabled="" type="checkbox"> 高潮期：进一步引爆高潮，使用的激励方式，成长值会员体系、签到体系、积分任务体系等</li>
+</ul>
+<p><strong>增加收入（Revenue）</strong><br>在有购买行为的用户中，54.94%的用户选择重复购买。<br>对于用户复购情况，9天内网站有复购现象的用户数接近60%，但是总体上约30%的用户产生了80%的消费次数，复购次数多的用户偏少，可能与双11刚结束，双12未开始的特殊时段有关，建议拉长分析区间分析复购情况。<br>提高收入的建议：</p>
+<ul>
+<li><input disabled="" type="checkbox"> 开展营销活动，比如淘宝的达成金主的条件限制，鼓励用户复购</li>
+<li><input disabled="" type="checkbox"> 在客户发生首购行为后，定时通过客服/短信发放特殊优惠，以提高复购率</li>
+<li><input disabled="" type="checkbox"> 优惠券的和优惠策略的在制定时需考虑成本，充分使用推广资金</li>
+</ul>
+<p><strong>自传播（Refer）</strong><br>通过自传播获取用户的成本很低，而且效果有可能非常好，唯一的前提是产品自身要足够好，有很好的口碑。因此平台需要建立对产品的质量监控机制，如在产品的差评率较高时需对产品进行检测。</p>
+<ul>
+<li><input disabled="" type="checkbox"> 优化产品，保证产品的质量</li>
+<li><input disabled="" type="checkbox"> 提高服务售前及售后质量</li>
+</ul>
+<p><strong>B.  研究用户时间模式，找到用户在不同时间周期下的活跃规律</strong><br>a)  分析2017年11月25日至12月3日9天里用户每天的点击量：</p>
+<p>发现工作日维持在低值，其中周二（11-27）的访问量达到统计范围内最低值；而11月25日、11月26日和12月2日、12月3日同为周末，但后者却有更多的活跃用户，环比增长率约为32%，推测可能是平台做促销活动。检索可知正值“双十二”前夕，各类预热活动促进用户访问增长。</p>
+<p>b)  分析2017年11月25日至12月3日9天里用户每时段的点击量：</p>
+<p>结合人们日常作息规律，0点至6点是休息时间，点击量处于低谷阶段；6点至10点，人们慢慢开始工作，点击量开始回暖；10点至18点为正常工作时间，点击量保持平稳；18点至20点，人们相继下班休息，点击量不断升高；在21点至22点期间，点击量到达高峰。高峰期用户最活跃，建议商家在用户该时段，经常更新产品信息，黄金展位，活动推荐商品等 。 </p>
+<p><strong>C.  通过RFM模型对用户价值分层</strong><br>通过RFM模型分析得到的不同类型的用户，应该采取不同的激励方案。<br>对于RF=22的重要价值客户，应该提高满意度，增加留存。<br>对于RF=21的重要深耕客户，可通过折扣或捆绑销售等活动，提高购买频率。<br>对于RF=12的重要唤回客户，分析其偏好，更精准地推送商品，以防流失。<br>对于RF=11的重要挽回客户，可考虑发放限时优惠券，促进关注与消费。</p>
+<p><strong>D.  找出用户产品偏好，制定商品营销策略</strong><br>用户偏好商品类别里并没有出现购买数量非常集中的商品，说明商品售卖主要依靠长尾商品的累积效应，而非爆款商品的带动，这也是双11之后用户的补充采买的特征，同时发现此时用户购买的品类以及商品的浏览量很低，用户的个人喜好特征表现明显，同时浏览量高的商品购买转化率低。<br>对于高浏览量商品，可以将重心转移至定价上，实行差异化定价，同时改善商品页面、详情页以及评论区的管理，以提高购买量<br>对于高购买率商品，建议提高曝光率，结合多平台宣传，提高浏览量<br>对于明星商品，建议平台给予表扬与内部公开，以保证持续的优质</p>
+<h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1><p>[1] <a href="http://www.zuopm.com/data/188.html" target="_blank" rel="noopener">http://www.zuopm.com/data/188.html</a><br>[2] <a href="https://blog.csdn.net/MsSpark/article/details/86727058" target="_blank" rel="noopener">https://blog.csdn.net/MsSpark/article/details/86727058</a><br>[3] <a href="https://zhuanlan.zhihu.com/p/63853715" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/63853715</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/06/18/%E7%88%AC%E8%99%AB%E7%88%AC%E5%8F%96%E6%8B%9B%E8%81%98%E4%BF%A1%E6%81%AF%E5%B9%B6%E8%BF%9B%E8%A1%8C%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90/" rel="prev" title="爬虫爬取招聘信息并进行数据分析">
+                爬虫爬取招聘信息并进行数据分析 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/panda.jpg"
+                alt="Patrick Yan" />
+            
+              <p class="site-author-name" itemprop="name">Patrick Yan</p>
+              <p class="site-description motion-element" itemprop="description">交个朋友吧 (*^▽^*)</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/%7C%7C%20archive">
+              
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/PatrickYan01" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:yanyx9530@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                友情链接
+              </div>
+              <ul class="links-of-blogroll-list">
+				
+				  <span class="links-of-author-item" style="text-align:left">
+					<a href="https://blog.csdn.net/weixin_45399074" title="CSDN" target="_blank">
+					  CSDN
+					</a>
+				  </span>
+				
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-分析背景与意义"><span class="nav-number">1.</span> <span class="nav-text">1  分析背景与意义</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-分析思路"><span class="nav-number">2.</span> <span class="nav-text">2  分析思路</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-分析内容"><span class="nav-number">3.</span> <span class="nav-text">3  分析内容</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#3-1-提出问题"><span class="nav-number">3.1.</span> <span class="nav-text">3.1  提出问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-2-理解数据"><span class="nav-number">3.2.</span> <span class="nav-text">3.2  理解数据</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-3-数据清洗"><span class="nav-number">3.3.</span> <span class="nav-text">3.3  数据清洗</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3-1-数据导入"><span class="nav-number">3.3.1.</span> <span class="nav-text">3.3.1 数据导入</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3-2-缺失值分析"><span class="nav-number">3.3.2.</span> <span class="nav-text">3.3.2 缺失值分析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3-3-选取时间范围"><span class="nav-number">3.3.3.</span> <span class="nav-text">3.3.3 选取时间范围</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3-4-时间格式处理"><span class="nav-number">3.3.4.</span> <span class="nav-text">3.3.4 时间格式处理</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-4-构建模型"><span class="nav-number">3.4.</span> <span class="nav-text">3.4 构建模型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-4-1-用户行为转化（AARRR模型）"><span class="nav-number">3.4.1.</span> <span class="nav-text">3.4.1 用户行为转化（AARRR模型）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-4-2-用户活跃时间"><span class="nav-number">3.4.2.</span> <span class="nav-text">3.4.2 用户活跃时间</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-4-3-用户价值分析（RFM模型）"><span class="nav-number">3.4.3.</span> <span class="nav-text">3.4.3 用户价值分析（RFM模型）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-4-4-用户产品偏好"><span class="nav-number">3.4.4.</span> <span class="nav-text">3.4.4 用户产品偏好</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-结论与建议"><span class="nav-number">4.</span> <span class="nav-text">4 结论与建议</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考资料"><span class="nav-number">5.</span> <span class="nav-text">参考资料</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Patrick Yan</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
