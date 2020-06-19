@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="SQL,MySQL," />
 
 
 
@@ -79,14 +79,39 @@
 
 
 
-<meta name="description" content="交个朋友吧 (*^▽^*)">
-<meta property="og:type" content="website">
-<meta property="og:title" content="今天你DEBUG了吗">
-<meta property="og:url" content="http://yoursite.com/index.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="关于SQL易忘的知识点">
+<meta property="og:url" content="http://yoursite.com/2020/06/19/%E5%85%B3%E4%BA%8ESQL%E6%98%93%E5%BF%98%E7%9A%84%E5%8D%81%E4%BA%94%E4%B8%AA%E7%9F%A5%E8%AF%86%E7%82%B9/index.html">
 <meta property="og:site_name" content="今天你DEBUG了吗">
-<meta property="og:description" content="交个朋友吧 (*^▽^*)">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200619102150246.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200502213747941.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200502215248363.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200502220002901.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200502220945880.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200502221139784.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/2020050222152389.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200502224543982.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/2020050222515799.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200502225707163.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200502231413483.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200502231547428.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200503104310481.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/2020050310553535.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/2020050311335215.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200503113851840.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200503114745745.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200503115115309.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200503152023293.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200503152023113.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200503152215262.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200524190007537.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70">
+<meta property="article:published_time" content="2020-06-19T02:23:52.000Z">
+<meta property="article:modified_time" content="2020-06-19T02:24:24.525Z">
 <meta property="article:author" content="Patrick Yan">
+<meta property="article:tag" content="SQL">
+<meta property="article:tag" content="MySQL">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img-blog.csdnimg.cn/20200619102150246.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70">
 
 
 
@@ -116,13 +141,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/"/>
+  <link rel="canonical" href="http://yoursite.com/2020/06/19/关于SQL易忘的十五个知识点/"/>
 
 
 
 
 
-  <title>今天你DEBUG了吗</title>
+  <title>关于SQL易忘的知识点 | 今天你DEBUG了吗</title>
   
 
 
@@ -151,8 +176,7 @@
     
   
 
-  <div class="container sidebar-position-left 
-  page-home">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -279,9 +303,9 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
 
   
 
@@ -311,9 +335,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2020/06/19/%E5%85%B3%E4%BA%8ESQL%E6%98%93%E5%BF%98%E7%9A%84%E5%8D%81%E4%BA%94%E4%B8%AA%E7%9F%A5%E8%AF%86%E7%82%B9/" itemprop="url">关于SQL易忘的知识点</a></h1>
+          <h1 class="post-title" itemprop="name headline">关于SQL易忘的知识点</h1>
         
 
         <div class="post-meta">
@@ -396,16 +418,67 @@
       
 
       
-        
-          <p><img src="https://img-blog.csdnimg.cn/20200619102150246.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2020/06/19/%E5%85%B3%E4%BA%8ESQL%E6%98%93%E5%BF%98%E7%9A%84%E5%8D%81%E4%BA%94%E4%B8%AA%E7%9F%A5%E8%AF%86%E7%82%B9/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
+        <p><img src="https://img-blog.csdnimg.cn/20200619102150246.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<a id="more"></a>
+
+<p>主要记录SQL尤其是MySQL中，一些看了就忘，需要经常查的小知识点~</p>
+<h2 id="1-下划线-通配符与百分号-通配符的区别"><a href="#1-下划线-通配符与百分号-通配符的区别" class="headerlink" title="1. 下划线_通配符与百分号%通配符的区别"></a>1. 下划线_通配符与百分号%通配符的区别</h2><p>下划线的用途与%一样，但是%能匹配0个字符不一样，_总是匹配一个字符，不能多也不能少。<br><img src="https://img-blog.csdnimg.cn/20200502213747941.png" alt="在这里插入图片描述"></p>
+<h2 id="2-匹配不区分大小写"><a href="#2-匹配不区分大小写" class="headerlink" title="2. 匹配不区分大小写"></a>2. 匹配不区分大小写</h2><p>通过使用BINARY可以区分，如：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">WHERE prod_name REGEXP BINARY 'JetPack .000'</span><br></pre></td></tr></table></figure>
+
+<h2 id="3-MySQL正则表达式"><a href="#3-MySQL正则表达式" class="headerlink" title="3. MySQL正则表达式"></a>3. MySQL正则表达式</h2><p>正则表达式的作用是匹配文本，将一个模式（正则表达式）与一个文本串进行比较。MySQL<br>用WHERE子句对正则表达式提供了初步的支持，允许你指定正则表达式，过滤SELECT检索出的数据。</p>
+<h2 id="4-LIKE和REGEXP的区别"><a href="#4-LIKE和REGEXP的区别" class="headerlink" title="4. LIKE和REGEXP的区别"></a>4. LIKE和REGEXP的区别</h2><p>LIKE匹配整个列。如果被匹配的文本在列值中出现，LIKE将不会找到它，相应的行也不被返回（除非使用通配符）。而REGEXP在列值内进行匹配，如果被匹配的文本在列值中出现，REGEXP将会找到它，相应的行将被返回。这是一个非常重要的差别。</p>
+<h2 id="5-匹配"><a href="#5-匹配" class="headerlink" title="5. 匹配"></a>5. 匹配</h2><p><strong>匹配字符</strong><br><img src="https://img-blog.csdnimg.cn/20200502215248363.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br><strong>匹配特殊字符</strong><br>为了匹配特殊字符，必须用\为前导。\-表示查找-，\.表示查找.。这种处理就是所谓的转义（escaping），正则表达式内具有特殊意义的所有字符都必须以这种方式转义。这包括.、|、[]以及迄今为止使用过的其他特殊字符。<br>\也用来引用元字符（具有特殊含义的字符）。<br><img src="https://img-blog.csdnimg.cn/20200502220002901.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>例：<br><img src="https://img-blog.csdnimg.cn/20200502220945880.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br><strong>定位符</strong><br><img src="https://img-blog.csdnimg.cn/20200502221139784.png" alt="在这里插入图片描述"><br>例：<br><img src="https://img-blog.csdnimg.cn/2020050222152389.png" alt="在这里插入图片描述"><br><strong>注：^的双重用途</strong><br>^有两种用法。在集合中（用[和]定义），用它来否定该集合，否则，用来指串的开始处。</p>
+<h2 id="6-文本处理函数"><a href="#6-文本处理函数" class="headerlink" title="6. 文本处理函数"></a>6. 文本处理函数</h2><p><img src="https://img-blog.csdnimg.cn/20200502224543982.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>SOUNDEX是一个将任何文本串转换为描述其语音表示的字母数字模式的算法。使用Soundex()函数进行搜索，它匹配所有发音类似于Y.Lie的联系名：<br><img src="https://img-blog.csdnimg.cn/2020050222515799.png" alt="在这里插入图片描述"><br>拼接：将值联结到一起构成单个值。<br>解决办法是把两个列拼接起来。在MySQL的SELECT语句中，可使用Concat()函数来拼接两个列。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="keyword">Concat</span>(ven_name, <span class="string">'('</span>, vend_country, <span class="string">')'</span>)</span><br></pre></td></tr></table></figure>
+
+<h2 id="7-日期和时间处理函数"><a href="#7-日期和时间处理函数" class="headerlink" title="7. 日期和时间处理函数"></a>7. 日期和时间处理函数</h2><p><img src="https://img-blog.csdnimg.cn/20200502225707163.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20200502231413483.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<h2 id="8-数值处理函数"><a href="#8-数值处理函数" class="headerlink" title="8. 数值处理函数"></a>8. 数值处理函数</h2><p><img src="https://img-blog.csdnimg.cn/20200502231547428.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<h2 id="9-聚集函数"><a href="#9-聚集函数" class="headerlink" title="9. 聚集函数"></a>9. 聚集函数</h2><p><img src="https://img-blog.csdnimg.cn/20200503104310481.png" alt="在这里插入图片描述"><br>其中，在用于文本数据时，如果数据按相应的列排序，则MAX()返回最后一行，MIN()返回第一行。<br>COUNT()函数有两种使用方式。使用COUNT(*)对表中行的数目进行计数，不管表列中包含的是空值（NULL）还是非空值。使用COUNT(column)对特定列中具有值的行进行计数，忽略NULL值。</p>
+<h2 id="10-HAVING和WHERE的区别"><a href="#10-HAVING和WHERE的区别" class="headerlink" title="10. HAVING和WHERE的区别"></a>10. HAVING和WHERE的区别</h2><p>“Where” 是一个约束声明，使用Where来约束来之数据库的数据，Where是在结果返回之前起作用的，且Where中不能使用聚合函数。<br>“Having”是一个过滤声明，是在查询返回结果集以后对查询结果进行的过滤操作，在Having中可以使用聚合函数。<br><img src="https://img-blog.csdnimg.cn/2020050310553535.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<h2 id="11-组合查询UNION"><a href="#11-组合查询UNION" class="headerlink" title="11. 组合查询UNION"></a>11. 组合查询UNION</h2><p>UNION 返回匹配行，不保留重复行<br>UNION ALL 返回匹配行，包括重复行</p>
+<p>UNION中的每个查询必须包含相同的列、表达式或聚集函数（不过各个列不需要以相同的次序列出）。<br>在用UNION组合查询时，只能使用一条ORDER BY子句，它必须出现在最后一条SELECT语句之后。对于结果集，不存在用一种方式排序一部分，而又用另一种方式排序另一部分的情况，因此不允许使用多条ORDER BY子句。</p>
+<h2 id="12-全文本搜索"><a href="#12-全文本搜索" class="headerlink" title="12. 全文本搜索"></a>12. 全文本搜索</h2><p><img src="https://img-blog.csdnimg.cn/2020050311335215.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>查询扩展<br><img src="https://img-blog.csdnimg.cn/20200503113851840.png" alt="在这里插入图片描述"><br>表中的行越多（这些行中的文本就越多），使用查询扩展返回的结果越好。</p>
+<p>布尔文本搜索<br><img src="https://img-blog.csdnimg.cn/20200503114745745.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20200503115115309.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>在布尔方式中，不按等级值降序排序返回的行。</p>
+<h2 id="13-数据插入"><a href="#13-数据插入" class="headerlink" title="13. 数据插入"></a>13. 数据插入</h2><p>插入一行<br><img src="https://img-blog.csdnimg.cn/20200503152023293.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>插入多行<br><img src="https://img-blog.csdnimg.cn/20200503152023113.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>插入检索出的数据<br><img src="https://img-blog.csdnimg.cn/20200503152215262.png" alt="在这里插入图片描述"></p>
+<h2 id="14-更新数据、删除数据"><a href="#14-更新数据、删除数据" class="headerlink" title="14. 更新数据、删除数据"></a>14. 更新数据、删除数据</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#更新多个列</span></span><br><span class="line"><span class="keyword">UPDATE</span> customers</span><br><span class="line"><span class="keyword">SET</span> cust_name = <span class="string">'The Fudds'</span>,</span><br><span class="line">	cust_email = <span class="string">'elmer@fudd.com'</span></span><br><span class="line"><span class="keyword">WHERE</span> cust_id = <span class="number">10005</span> ;     <span class="comment">#不要省略WHERE子句</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#删除某个列的值</span></span><br><span class="line"><span class="keyword">UPDATE</span> customers</span><br><span class="line"><span class="keyword">SET</span> cust_email = <span class="literal">NULL</span>    <span class="comment">#其中NULL用来去除cust_email列中的值。</span></span><br><span class="line"><span class="keyword">WHERE</span> cust_id = <span class="number">10005</span> ; </span><br><span class="line"></span><br><span class="line"><span class="comment">#删除数据</span></span><br><span class="line"><span class="keyword">DELETE</span> <span class="keyword">FROM</span> customers</span><br><span class="line"><span class="keyword">WHERE</span> cust_id = <span class="number">10005</span> ;</span><br><span class="line"><span class="comment">#DELETE不需要列名或通配符。DELETE删除整行而不是删除列,但DELETE不删除表本身。为了删除指定的列，请使用UPDATE语句。</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="15-主键、索引和外键"><a href="#15-主键、索引和外键" class="headerlink" title="15. 主键、索引和外键"></a>15. 主键、索引和外键</h2><p>主键的作用：</p>
+<ul>
+<li>惟一地标识一行。 </li>
+<li>作为一个可以被外键有效引用的对象。</li>
+</ul>
+<p>索引：索引分为主键索引、唯一索引、普通索引、全文索引、组合索引等</p>
+<ul>
+<li>主键索引（PRIMARY KEY）：<strong>不可以为空</strong>，<strong>可以做外键</strong>，一张表中只能有一个主键索引。</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> <span class="string">`table_name`</span> <span class="keyword">ADD</span> PRIMARY <span class="keyword">KEY</span> ( <span class="string">`column`</span> )</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>唯一索引（UNIQUE）：被索引的数据列不允许包含重复的值，但<strong>允许有空值。</strong></li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> <span class="string">`table_name`</span> <span class="keyword">ADD</span> <span class="keyword">UNIQUE</span> (<span class="string">`column`</span>)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>普通索引（INDEX）：用来加速数据访问速度而建立的索引。多建立在经常出现在查询条件的字段和经常用于排序的字段。被索引的数据列允许包含重复的值。</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> <span class="string">`table_name`</span> <span class="keyword">ADD</span> <span class="keyword">INDEX</span> index_name ( <span class="string">`column`</span> )</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>全文索引（FULLTEXT）：仅可用于 MyISAM 表，针对较大的数据，生成全文索引很耗时好空间。</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> <span class="string">`table_name`</span> <span class="keyword">ADD</span> FULLTEXT ( <span class="string">`column`</span> )</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>组合索引：为了更多的提高mysql效率可建立组合索引，遵循”最左前缀“原则。</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> <span class="string">`table_name`</span> <span class="keyword">ADD</span> <span class="keyword">INDEX</span> index_name ( <span class="string">`column1`</span>, <span class="string">`column2`</span>, <span class="string">`column3`</span> )</span><br></pre></td></tr></table></figure>
+
+
+<p>主键和索引：主键是为了标识数据库记录唯一性，不允许记录重复，且键值不能为空，主也是一个特殊索引。数据表中只允许有一个主键，但是可以有多个索引。</p>
+<p>外键：<br><img src="https://img-blog.csdnimg.cn/20200524190007537.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><p>《MySQL必知必会》Ben Forta 著，刘晓霞 钟鸣 译<br><a href="https://www.liaoxuefeng.com/wiki/1177760294764384/1218728424164736" target="_blank" rel="noopener">SQL教程 廖雪峰。</a></p>
+
       
     </div>
     
@@ -420,350 +493,38 @@
 
     <footer class="post-footer">
       
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/06/18/%E4%BD%BF%E7%94%A8Python%E5%AF%B9%E6%B7%98%E5%AE%9D%E7%94%A8%E6%88%B7%E8%A1%8C%E4%B8%BA%E8%BF%9B%E8%A1%8C%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Patrick Yan">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/panda.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="今天你DEBUG了吗">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2020/06/18/%E4%BD%BF%E7%94%A8Python%E5%AF%B9%E6%B7%98%E5%AE%9D%E7%94%A8%E6%88%B7%E8%A1%8C%E4%B8%BA%E8%BF%9B%E8%A1%8C%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90/" itemprop="url">使用Python对淘宝用户行为进行数据分析</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-06-18T16:32:48+08:00">
-                2020-06-18
-              </time>
-            
-
-            
-
-            
-          </span>
-
+        <div class="post-tags">
           
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/python/" itemprop="url" rel="index">
-                    <span itemprop="name">python</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/python/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90/" itemprop="url" rel="index">
-                    <span itemprop="name">数据分析</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
+            <a href="/tags/SQL/" rel="tag"># SQL</a>
           
-
+            <a href="/tags/MySQL/" rel="tag"># MySQL</a>
           
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2020/06/18/%E4%BD%BF%E7%94%A8Python%E5%AF%B9%E6%B7%98%E5%AE%9D%E7%94%A8%E6%88%B7%E8%A1%8C%E4%B8%BA%E8%BF%9B%E8%A1%8C%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2020/06/18/使用Python对淘宝用户行为进行数据分析/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
         </div>
-      </header>
-    
+      
 
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
+      
       
       
 
       
-        
-          <p><img src="https://img-blog.csdnimg.cn/20200429154952128.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2020/06/18/%E4%BD%BF%E7%94%A8Python%E5%AF%B9%E6%B7%98%E5%AE%9D%E7%94%A8%E6%88%B7%E8%A1%8C%E4%B8%BA%E8%BF%9B%E8%A1%8C%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/06/18/%E4%BD%BF%E7%94%A8Python%E5%AF%B9%E6%B7%98%E5%AE%9D%E7%94%A8%E6%88%B7%E8%A1%8C%E4%B8%BA%E8%BF%9B%E8%A1%8C%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90/" rel="next" title="使用Python对淘宝用户行为进行数据分析">
+                <i class="fa fa-chevron-left"></i> 使用Python对淘宝用户行为进行数据分析
+              </a>
+            
           </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
 
-    
+          <span class="post-nav-divider"></span>
 
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/06/18/%E7%88%AC%E8%99%AB%E7%88%AC%E5%8F%96%E6%8B%9B%E8%81%98%E4%BF%A1%E6%81%AF%E5%B9%B6%E8%BF%9B%E8%A1%8C%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Patrick Yan">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/panda.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="今天你DEBUG了吗">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2020/06/18/%E7%88%AC%E8%99%AB%E7%88%AC%E5%8F%96%E6%8B%9B%E8%81%98%E4%BF%A1%E6%81%AF%E5%B9%B6%E8%BF%9B%E8%A1%8C%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90/" itemprop="url">爬虫爬取招聘信息并进行数据分析</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
+          <div class="post-nav-prev post-nav-item">
             
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-06-18T16:30:40+08:00">
-                2020-06-18
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/python/" itemprop="url" rel="index">
-                    <span itemprop="name">python</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/python/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90/" itemprop="url" rel="index">
-                    <span itemprop="name">数据分析</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2020/06/18/%E7%88%AC%E8%99%AB%E7%88%AC%E5%8F%96%E6%8B%9B%E8%81%98%E4%BF%A1%E6%81%AF%E5%B9%B6%E8%BF%9B%E8%A1%8C%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2020/06/18/爬虫爬取招聘信息并进行数据分析/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
+          </div>
         </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
       
 
       
-        
-          <p><img src="https://img-blog.csdnimg.cn/20200618161152222.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2020/06/18/%E7%88%AC%E8%99%AB%E7%88%AC%E5%8F%96%E6%8B%9B%E8%81%98%E4%BF%A1%E6%81%AF%E5%B9%B6%E8%BF%9B%E8%A1%8C%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
       
     </footer>
   </div>
@@ -773,10 +534,11 @@
   </article>
 
 
-    
-  </section>
 
-  
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -784,6 +546,20 @@
 
 
           
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript" target="_blank" rel="noopener">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
 
         </div>
         
@@ -804,8 +580,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -900,6 +685,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-下划线-通配符与百分号-通配符的区别"><span class="nav-text">1. 下划线_通配符与百分号%通配符的区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-匹配不区分大小写"><span class="nav-text">2. 匹配不区分大小写</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-MySQL正则表达式"><span class="nav-text">3. MySQL正则表达式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-LIKE和REGEXP的区别"><span class="nav-text">4. LIKE和REGEXP的区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-匹配"><span class="nav-text">5. 匹配</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-文本处理函数"><span class="nav-text">6. 文本处理函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-日期和时间处理函数"><span class="nav-text">7. 日期和时间处理函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#8-数值处理函数"><span class="nav-text">8. 数值处理函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#9-聚集函数"><span class="nav-text">9. 聚集函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#10-HAVING和WHERE的区别"><span class="nav-text">10. HAVING和WHERE的区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#11-组合查询UNION"><span class="nav-text">11. 组合查询UNION</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#12-全文本搜索"><span class="nav-text">12. 全文本搜索</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#13-数据插入"><span class="nav-text">13. 数据插入</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#14-更新数据、删除数据"><span class="nav-text">14. 更新数据、删除数据</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#15-主键、索引和外键"><span class="nav-text">15. 主键、索引和外键</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考资料"><span class="nav-text">参考资料</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -1040,6 +841,10 @@
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 
@@ -1057,6 +862,18 @@
       <script id="dsq-count-scr" src="https://.disqus.com/count.js" async></script>
     
 
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'http://yoursite.com/2020/06/19/%E5%85%B3%E4%BA%8ESQL%E6%98%93%E5%BF%98%E7%9A%84%E5%8D%81%E4%BA%94%E4%B8%AA%E7%9F%A5%E8%AF%86%E7%82%B9/';
+          this.page.identifier = '2020/06/19/关于SQL易忘的十五个知识点/';
+          this.page.title = '关于SQL易忘的知识点';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
     
 
   

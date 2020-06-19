@@ -1,0 +1,1227 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="python,flask,BeautifulSoup," />
+
+
+
+
+
+
+
+
+
+
+<meta property="og:type" content="article">
+<meta property="og:title" content="爬虫爬取招聘信息并进行数据分析">
+<meta property="og:url" content="http://yoursite.com/2020/06/18/%E7%88%AC%E8%99%AB%E7%88%AC%E5%8F%96%E6%8B%9B%E8%81%98%E4%BF%A1%E6%81%AF%E5%B9%B6%E8%BF%9B%E8%A1%8C%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90/index.html">
+<meta property="og:site_name" content="今天你DEBUG了吗">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200618161152222.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200531144422829.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/2020053115105068.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70">
+<meta property="article:published_time" content="2020-06-18T08:30:40.000Z">
+<meta property="article:modified_time" content="2020-06-18T08:31:50.345Z">
+<meta property="article:author" content="Patrick Yan">
+<meta property="article:tag" content="python">
+<meta property="article:tag" content="flask">
+<meta property="article:tag" content="BeautifulSoup">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img-blog.csdnimg.cn/20200618161152222.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2020/06/18/爬虫爬取招聘信息并进行数据分析/"/>
+
+
+
+
+
+  <title>爬虫爬取招聘信息并进行数据分析 | 今天你DEBUG了吗</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?07169a0eb332beb35e3d76cae04890b9";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">今天你DEBUG了吗</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/06/18/%E7%88%AC%E8%99%AB%E7%88%AC%E5%8F%96%E6%8B%9B%E8%81%98%E4%BF%A1%E6%81%AF%E5%B9%B6%E8%BF%9B%E8%A1%8C%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Patrick Yan">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/panda.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="今天你DEBUG了吗">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">爬虫爬取招聘信息并进行数据分析</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-06-18T16:30:40+08:00">
+                2020-06-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/python/" itemprop="url" rel="index">
+                    <span itemprop="name">python</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/python/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90/" itemprop="url" rel="index">
+                    <span itemprop="name">数据分析</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2020/06/18/%E7%88%AC%E8%99%AB%E7%88%AC%E5%8F%96%E6%8B%9B%E8%81%98%E4%BF%A1%E6%81%AF%E5%B9%B6%E8%BF%9B%E8%A1%8C%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2020/06/18/爬虫爬取招聘信息并进行数据分析/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><img src="https://img-blog.csdnimg.cn/20200618161152222.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<a id="more"></a>
+
+<h1 id="一、结果放在最前面"><a href="#一、结果放在最前面" class="headerlink" title="一、结果放在最前面"></a>一、结果放在最前面</h1><p><img src="https://img-blog.csdnimg.cn/20200531144422829.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70" alt="请忽略"><br>（请忽略截图右边的蓝色正方形）<br>使用爬虫爬取智联招聘上关于“数据分析师”岗位的信息，并应用flask和echarts技术实现数据分析结果。</p>
+<h1 id="二、爬虫"><a href="#二、爬虫" class="headerlink" title="二、爬虫"></a>二、爬虫</h1><p>主函数(main)：实现网页解析以及数据存储。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">main</span><span class="params">()</span>:</span></span><br><span class="line">    kw = input(<span class="string">"请输入你要搜索的岗位关键字："</span>).strip()</span><br><span class="line">    keyword = urllib.parse.quote(urllib.parse.quote(kw))   <span class="comment">#二次编码</span></span><br><span class="line">    <span class="comment"># ka = input("请输入你要搜索的地区：").strip()</span></span><br><span class="line">    <span class="comment"># karea = getArea(ka)</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>, <span class="number">165</span>):</span><br><span class="line">        print(<span class="string">'正在爬取第&#123;&#125;页信息'</span>.format(i))</span><br><span class="line">        baseurl = <span class="string">"https://search.51job.com/list/"</span>+ str(<span class="number">000000</span>) +<span class="string">",000000,0000,00,9,99,"</span>+ keyword +<span class="string">",2,"</span>+ str(i) +<span class="string">".html"</span>    <span class="comment">#全国+keyword</span></span><br><span class="line">        html = askURL(baseurl)</span><br><span class="line">        bs = BeautifulSoup(html,<span class="string">"html.parser"</span>)</span><br><span class="line"></span><br><span class="line">        datalist = getData(bs)</span><br><span class="line">        dbpath = <span class="string">"./51job.db"</span></span><br><span class="line">        saveDB(datalist, dbpath)</span><br></pre></td></tr></table></figure>
+<p>网页解析(askURL)：调用request和BeautifulSoup实现网页解析。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">askURL</span><span class="params">(url)</span>:</span></span><br><span class="line">    head = &#123;</span><br><span class="line">        <span class="string">"User-Agent"</span>: <span class="string">"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36"</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    request = urllib.request.Request(url,headers=head)</span><br><span class="line">    html = <span class="string">""</span></span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        response = urllib.request.urlopen(request)</span><br><span class="line">        html = response.read().decode(<span class="string">'gbk'</span>, <span class="string">'ignore'</span>)</span><br><span class="line">        <span class="comment"># print(html)</span></span><br><span class="line">    <span class="keyword">except</span> urllib.error.URLError <span class="keyword">as</span> e:</span><br><span class="line">        <span class="keyword">if</span> hasattr(e, <span class="string">"code"</span>):</span><br><span class="line">            print(e.code)</span><br><span class="line">        <span class="keyword">if</span> hasattr(e,<span class="string">"reason"</span>):</span><br><span class="line">            print(e.reason)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> html</span><br></pre></td></tr></table></figure>
+<p>数据爬取(getData)：获取招聘信息，公司链接、招聘岗位链接、公司名称、岗位名称、地区、薪水；调用getCOM获取公司链接内的信息，调用getREC获取招聘岗位信息，并合并返回给main()。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">getData</span><span class="params">(bs)</span>:</span></span><br><span class="line">    datalist = []</span><br><span class="line">    <span class="keyword">for</span> item <span class="keyword">in</span> bs.select(<span class="string">".dw_table &gt; div.el"</span>):</span><br><span class="line">        data = &#123;&#125;</span><br><span class="line">        item = str(item)</span><br><span class="line"></span><br><span class="line">        link = re.findall(findLink, item)</span><br><span class="line">        data[<span class="string">'link'</span>] = <span class="string">''</span>.join(link)</span><br><span class="line"></span><br><span class="line">        title = re.findall(findTitle, item)</span><br><span class="line">        data[<span class="string">'title'</span>] = <span class="string">''</span>.join(title)</span><br><span class="line"></span><br><span class="line">        area = re.findall(findArea, item)</span><br><span class="line">        data[<span class="string">'area'</span>] = <span class="string">''</span>.join(area)</span><br><span class="line"></span><br><span class="line">        com = re.findall(findCom, item)</span><br><span class="line">        data[<span class="string">'com'</span>] = <span class="string">''</span>.join(com)</span><br><span class="line"></span><br><span class="line">        comlink = re.findall(findComLink, item)</span><br><span class="line">        data[<span class="string">'comlink'</span>] = <span class="string">''</span>.join(comlink)</span><br><span class="line"></span><br><span class="line">        salary = re.findall(findSalary, item)</span><br><span class="line">        data[<span class="string">'salary'</span>] = <span class="string">''</span>.join(salary)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        strhtml = <span class="string">'https://jobs.51job.com/'</span></span><br><span class="line">        <span class="keyword">if</span> data[<span class="string">"link"</span>].startswith(strhtml) <span class="keyword">and</span> data[<span class="string">'comlink'</span>].startswith(strhtml):</span><br><span class="line"></span><br><span class="line">            com_link = data[<span class="string">'comlink'</span>]</span><br><span class="line">            com_data = getCOM(com_link)</span><br><span class="line">            data = dict(data.items(), **com_data)</span><br><span class="line"></span><br><span class="line">            rec_link = data[<span class="string">'link'</span>]</span><br><span class="line">            recruit_data = getREC(rec_link)</span><br><span class="line">            data = dict(data.items(), **recruit_data)</span><br><span class="line">            datalist.append(data)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> datalist</span><br></pre></td></tr></table></figure>
+<p>爬取公司信息(getCOM)：获取公司链接内的信息，公司性质、公司规模、公司行业</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">getCOM</span><span class="params">(com_link)</span>:</span></span><br><span class="line">    com_html = askURL(com_link)</span><br><span class="line">    bs = BeautifulSoup(com_html, <span class="string">"html.parser"</span>)</span><br><span class="line">    <span class="comment"># 公司信息</span></span><br><span class="line">    CP_TYPE = [<span class="string">'民营公司'</span>, <span class="string">'上市公司'</span>, <span class="string">'事业单位'</span>, <span class="string">'国企'</span>, <span class="string">'外资（欧美）'</span>, <span class="string">'外资（非欧美）'</span>,</span><br><span class="line">               <span class="string">'创业公司'</span>, <span class="string">'政府机关'</span>, <span class="string">'合资'</span>, <span class="string">'外资'</span>, <span class="string">'合资'</span>, <span class="string">'外企代表处'</span>, <span class="string">'非营利组织'</span>]</span><br><span class="line">    CP_SCALE = [<span class="string">'少于50人'</span>, <span class="string">'50-150人'</span>, <span class="string">'150-500人'</span>, <span class="string">'500-1000人'</span>,</span><br><span class="line">                <span class="string">'1000-5000人'</span>, <span class="string">'5000-10000人'</span>, <span class="string">'10000人以上'</span>]</span><br><span class="line"></span><br><span class="line">    cp_info = bs.select(<span class="string">'.in &gt; p.ltype'</span>)[<span class="number">0</span>].text.split(<span class="string">'\xa0\xa0|\xa0\xa0'</span>)</span><br><span class="line">    com_data = &#123;&#125;</span><br><span class="line">    com_data[<span class="string">'cp_type'</span>] = com_data[<span class="string">'cp_scale'</span>] = com_data[<span class="string">'industry'</span>] = <span class="string">''</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> CP_TYPE:</span><br><span class="line">        <span class="keyword">if</span> i <span class="keyword">in</span> cp_info:</span><br><span class="line">            com_data[<span class="string">'cp_type'</span>] = i</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> CP_SCALE:</span><br><span class="line">        <span class="keyword">if</span> i <span class="keyword">in</span> cp_info:</span><br><span class="line">            com_data[<span class="string">'cp_scale'</span>] = i</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> cp_info:</span><br><span class="line">        <span class="keyword">if</span> i <span class="keyword">not</span> <span class="keyword">in</span> CP_TYPE <span class="keyword">and</span> i <span class="keyword">not</span> <span class="keyword">in</span> CP_SCALE:</span><br><span class="line">            com_data[<span class="string">'industry'</span>] = i</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> com_data</span><br></pre></td></tr></table></figure>
+<p>爬取招聘信息(getREC)：获取招聘岗位链接内的信息，经验、学历、招聘人数、发布日期、工作描述</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">getREC</span><span class="params">(rec_link)</span>:</span></span><br><span class="line">    jobHtml = askURL(rec_link)  <span class="comment">#获取详情页</span></span><br><span class="line">    bs = BeautifulSoup(jobHtml,<span class="string">"html.parser"</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 经验、学历、招聘人数、发布日期</span></span><br><span class="line">    text = bs.select(<span class="string">".ltype"</span>)</span><br><span class="line">    job = &#123;&#125;</span><br><span class="line">    <span class="keyword">if</span> len(text) != <span class="number">0</span>:</span><br><span class="line">        info = text[<span class="number">0</span>].text.split(<span class="string">'\xa0\xa0|\xa0\xa0'</span>)</span><br><span class="line">        EDU = [<span class="string">'博士'</span>, <span class="string">'硕士'</span>, <span class="string">'本科'</span>, <span class="string">'大专'</span>,</span><br><span class="line">               <span class="string">'中专'</span>, <span class="string">'中技'</span>, <span class="string">'高中'</span>, <span class="string">'初中及以下'</span>]</span><br><span class="line"></span><br><span class="line">        job[<span class="string">'exp'</span>] = job[<span class="string">'edu'</span>] = job[<span class="string">'other'</span>] = job[<span class="string">'demand'</span>] = job[<span class="string">'pubdate'</span>] = <span class="string">" "</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> info:</span><br><span class="line">            <span class="keyword">if</span> <span class="string">'经验'</span> <span class="keyword">in</span> i:</span><br><span class="line">                job[<span class="string">'exp'</span>] = i</span><br><span class="line">            <span class="keyword">elif</span> i <span class="keyword">in</span> EDU:</span><br><span class="line">                job[<span class="string">'edu'</span>] = i</span><br><span class="line">            <span class="keyword">elif</span> <span class="string">'招'</span> <span class="keyword">in</span> i:</span><br><span class="line">                job[<span class="string">'demand'</span>] = i</span><br><span class="line">            <span class="keyword">elif</span> <span class="string">'发布'</span> <span class="keyword">in</span> i:</span><br><span class="line">                job[<span class="string">'pubdate'</span>] = i</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                job[<span class="string">'other'</span>] = i</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        job[<span class="string">'exp'</span>] = job[<span class="string">'edu'</span>] = job[<span class="string">'other'</span>] = job[<span class="string">'demand'</span>] = job[<span class="string">'pubdate'</span>] = <span class="string">" "</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    job[<span class="string">'msg'</span>] = <span class="string">" "</span></span><br><span class="line">    jobMsgList = bs.select(<span class="string">".job_msg &gt; p"</span>)  <span class="comment">#工作描述</span></span><br><span class="line">    jobMsgStr = <span class="string">""</span></span><br><span class="line">    <span class="keyword">for</span> str <span class="keyword">in</span> jobMsgList:</span><br><span class="line">        jobMsgStr = jobMsgStr + str.text</span><br><span class="line">    job[<span class="string">"msg"</span>] = jobMsgStr</span><br><span class="line"></span><br><span class="line">    <span class="comment"># jobList.append(job)</span></span><br><span class="line">    <span class="keyword">return</span> job</span><br></pre></td></tr></table></figure>
+
+<p>数据存储(saveData)：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">saveDB</span><span class="params">(datalist, dbpath)</span>:</span></span><br><span class="line">    init_db(dbpath)</span><br><span class="line">    conn = sqlite3.connect(dbpath)</span><br><span class="line">    cur = conn.cursor()</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> data <span class="keyword">in</span> datalist:</span><br><span class="line">        print(data)</span><br><span class="line">        sql = <span class="string">'''</span></span><br><span class="line"><span class="string">                insert or ignore into job_quanguo(</span></span><br><span class="line"><span class="string">                link,title,comlink,com,area,salary,cp_type,cp_scale,industry,exp,edu,other,demand,pubdate,msg</span></span><br><span class="line"><span class="string">                 ) </span></span><br><span class="line"><span class="string">                 values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)'''</span></span><br><span class="line">        <span class="comment"># print(sql)</span></span><br><span class="line">        cur.execute(sql,(data[<span class="string">'link'</span>],data[<span class="string">'title'</span>],data[<span class="string">'comlink'</span>],data[<span class="string">'com'</span>],data[<span class="string">'area'</span>],data[<span class="string">'salary'</span>],data[<span class="string">'cp_type'</span>],</span><br><span class="line">                         data[<span class="string">'cp_scale'</span>],data[<span class="string">'industry'</span>],data[<span class="string">'exp'</span>],data[<span class="string">'edu'</span>],data[<span class="string">'other'</span>],data[<span class="string">'demand'</span>],data[<span class="string">'pubdate'</span>],data[<span class="string">'msg'</span>]))</span><br><span class="line">        conn.commit()</span><br><span class="line">    cur.close()</span><br><span class="line">    conn.close()</span><br></pre></td></tr></table></figure>
+<p>爬取结果：<br><img src="https://img-blog.csdnimg.cn/2020053115105068.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>一共爬取了7277条数据，包括：公司名称、链接、岗位名称、地区、薪水、企业性质、企业规模、行业、招聘要求、招聘信息等等。</p>
+<h1 id="三、数据处理"><a href="#三、数据处理" class="headerlink" title="三、数据处理"></a>三、数据处理</h1><p>薪水处理：由于薪水是以上下限显示的，故将薪水分成三列，分别为下限，上限以及平均薪水。同时删除一部分没有显示薪水的信息。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">getSalary</span><span class="params">()</span>:</span></span><br><span class="line">    datalist = []</span><br><span class="line">    con = sqlite3.connect(<span class="string">"51job.db"</span>)</span><br><span class="line">    cur = con.cursor()</span><br><span class="line">    sql = <span class="string">"SELECT com,title,area,cp_type,cp_scale,industry,exp,edu,salary FROM job_quanguo"</span></span><br><span class="line">    data_quanguo = cur.execute(sql)</span><br><span class="line">    <span class="keyword">for</span> item <span class="keyword">in</span> data_quanguo:</span><br><span class="line">        string = <span class="string">""</span>.join(item[<span class="number">8</span>])</span><br><span class="line">        <span class="keyword">if</span> string.endswith(<span class="string">'千/月'</span>):</span><br><span class="line">            num = string.replace(<span class="string">"千/月"</span>,<span class="string">""</span>).split(<span class="string">"-"</span>)</span><br><span class="line">            sal = pd.to_numeric(num)*<span class="number">1000</span></span><br><span class="line">            <span class="comment"># datalist.append(pd.to_numeric(num)*1000)</span></span><br><span class="line">            data1 = append_other(item)</span><br><span class="line">            data2 = append_salary(sal)</span><br><span class="line">        <span class="keyword">elif</span> string.endswith(<span class="string">'万/月'</span>):</span><br><span class="line">            num = string.replace(<span class="string">"万/月"</span>,<span class="string">""</span>).split(<span class="string">"-"</span>)</span><br><span class="line">            sal = pd.to_numeric(num)*<span class="number">10000</span></span><br><span class="line">            <span class="comment"># datalist.append(pd.to_numeric(num)*10000)</span></span><br><span class="line">            data1 = append_other(item)</span><br><span class="line">            data2 = append_salary(sal)</span><br><span class="line">        <span class="keyword">elif</span> string.endswith(<span class="string">'万/年'</span>):</span><br><span class="line">            num = string.replace(<span class="string">"万/年"</span>,<span class="string">""</span>).split(<span class="string">"-"</span>)</span><br><span class="line">            sal = pd.to_numeric(num)*<span class="number">10000</span>/<span class="number">12</span></span><br><span class="line">            <span class="comment"># datalist.append(pd.to_numeric(num)*10000/12)</span></span><br><span class="line">            <span class="comment"># append_other(item)</span></span><br><span class="line">            data1 = append_other(item)</span><br><span class="line">            data2 = append_salary(sal)</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">continue</span></span><br><span class="line">        data = dict(data1.items(), **data2)</span><br><span class="line">        datalist.append(data)</span><br><span class="line">    cur.close()</span><br><span class="line">    con.close()</span><br><span class="line"></span><br><span class="line">    <span class="comment"># df_salary = pd.DataFrame(columns=['low-salary','high-salary'])</span></span><br><span class="line">    dbpath = <span class="string">"./51job.db"</span></span><br><span class="line">    saveDB(datalist, dbpath)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">append_salary</span><span class="params">(sal)</span>:</span></span><br><span class="line">    data1 = &#123;&#125;</span><br><span class="line">    data1[<span class="string">'low-salary'</span>] = sal[<span class="number">0</span>].astype(np.int64)</span><br><span class="line">    data1[<span class="string">'high-salary'</span>] = sal[<span class="number">1</span>].astype(np.int64)</span><br><span class="line">    data1[<span class="string">'avg-salary'</span>] = (sal[<span class="number">0</span>].astype(np.int64)+sal[<span class="number">1</span>].astype(np.int64))/<span class="number">2</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> data1</span><br></pre></td></tr></table></figure>
+
+<h1 id="四、Flask与ECharts"><a href="#四、Flask与ECharts" class="headerlink" title="四、Flask与ECharts"></a>四、Flask与ECharts</h1><p>主要参考了ECharts官方文档，在此就不一一论述了。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/python/" rel="tag"># python</a>
+          
+            <a href="/tags/flask/" rel="tag"># flask</a>
+          
+            <a href="/tags/BeautifulSoup/" rel="tag"># BeautifulSoup</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/06/18/%E4%BD%BF%E7%94%A8Python%E5%AF%B9%E6%B7%98%E5%AE%9D%E7%94%A8%E6%88%B7%E8%A1%8C%E4%B8%BA%E8%BF%9B%E8%A1%8C%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90/" rel="prev" title="使用Python对淘宝用户行为进行数据分析">
+                使用Python对淘宝用户行为进行数据分析 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript" target="_blank" rel="noopener">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/panda.jpg"
+                alt="Patrick Yan" />
+            
+              <p class="site-author-name" itemprop="name">Patrick Yan</p>
+              <p class="site-description motion-element" itemprop="description">交个朋友吧 (*^▽^*)</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/%7C%7C%20archive">
+              
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/PatrickYan01" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:yanyx9530@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                友情链接
+              </div>
+              <ul class="links-of-blogroll-list">
+				
+				  <span class="links-of-author-item" style="text-align:left">
+					<a href="https://blog.csdn.net/weixin_45399074" title="CSDN" target="_blank">
+					  CSDN
+					</a>
+				  </span>
+				
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#一、结果放在最前面"><span class="nav-text">一、结果放在最前面</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#二、爬虫"><span class="nav-text">二、爬虫</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#三、数据处理"><span class="nav-text">三、数据处理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#四、Flask与ECharts"><span class="nav-text">四、Flask与ECharts</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Patrick Yan</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'http://yoursite.com/2020/06/18/%E7%88%AC%E8%99%AB%E7%88%AC%E5%8F%96%E6%8B%9B%E8%81%98%E4%BF%A1%E6%81%AF%E5%B9%B6%E8%BF%9B%E8%A1%8C%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90/';
+          this.page.identifier = '2020/06/18/爬虫爬取招聘信息并进行数据分析/';
+          this.page.title = '爬虫爬取招聘信息并进行数据分析';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'NBmS0rYRfqeIXHQQIGRmNaPM-gzGzoHsz',
+        appKey: 'aKyem3OJz4CXooX0S5dzuL0m',
+        placeholder: 'Welcome to my blog.',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
