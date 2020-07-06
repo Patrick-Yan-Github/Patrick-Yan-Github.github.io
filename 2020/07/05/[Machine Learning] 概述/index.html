@@ -93,7 +93,7 @@
 <meta property="og:image" content="https://img-blog.csdnimg.cn/20200705203242595.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center">
 <meta property="og:image" content="https://img-blog.csdnimg.cn/20200705202235316.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center">
 <meta property="article:published_time" content="2020-07-05T12:46:30.000Z">
-<meta property="article:modified_time" content="2020-07-05T12:51:50.600Z">
+<meta property="article:modified_time" content="2020-07-06T05:43:37.796Z">
 <meta property="article:author" content="Patrick Yan">
 <meta property="article:tag" content="Machine Learning">
 <meta name="twitter:card" content="summary">
@@ -438,7 +438,7 @@
         <p><img src="https://img-blog.csdnimg.cn/20200705203342231.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
 <a id="more"></a>
 
-<p>@<a href="点Ta">TOC</a></p>
+
 <h2 id="1-概述"><a href="#1-概述" class="headerlink" title="1 概述"></a>1 概述</h2><p>机器学习即在进行特定编程的情况下，使用计算机作为工具并致力于真实实时的模拟人类学习方式， 并将现有内容进行知识结构划分来有效提高学习效率。</p>
 <p>根据训练数据是否拥有标记信息，学习任务可大致分为：“监督学习”、“无监督学习”。可理解为，监督学习这个想法是指我们将教计算机如何去完成任务；而在无监督学习中我们打算让它自己进行学习。分类和回归是前者的代表，聚类是后者的代表。</p>
 <h3 id="1-1-Learning-Map"><a href="#1-1-Learning-Map" class="headerlink" title="1.1 Learning Map"></a>1.1 Learning Map</h3><p>蓝色方块指的是scenario，即学习的情境。通常学习的情境是我们没有办法控制的，比如做reinforcement Learning是因为我们没有data、没有办法来做supervised Learning的情况下才去做的。如果有data，supervised Learning当然比reinforcement Learning要好；因此手上有什么样的data，就决定你使用什么样的scenario。</p>
@@ -449,19 +449,20 @@
 <p>而这种function的output，通常被叫做==label(标签)==，也就是说，我们要使用supervised learning这样一种技术，我们需要告诉机器，function的input和output分别是什么，而这种output通常是通过人工的方式标注出来的，因此称为人工标注的label，它的缺点是需要大量的人工effort。</p>
 <h4 id="1-2-1-Case1-Housing-price-prediction"><a href="#1-2-1-Case1-Housing-price-prediction" class="headerlink" title="1.2.1 Case1: Housing price prediction"></a>1.2.1 Case1: Housing price prediction</h4><p>通过收集的房价数据绘制如下图，那基于这组数据，若有一套 750 平方英尺房子，那么这房子能卖多少钱。</p>
 <p>关于这个问题，机器学习算法将会怎么帮助你呢？<br><img src="https://img-blog.csdnimg.cn/20200705162412478.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>应用学习算法，可以在这组数据中画一条直线，即==拟合一条直线==，根据这条线我们可以推测出，这套房子可能卖$150,000，当然这不是唯一的算法。可能还有更好的，比如我们不用直线拟合这些数据，==用二次方程去拟合==可能效果会更好。根据二次方程的曲线，我们可以从这个点推测出，这套房子能卖接近$200,000。稍后我们将讨论如何选择学习算法，如何决定用直线还是二次方程来拟合。两个方案中有一个能让你朋友的房子出售得更合理。这些都是学习算法里面很好的例子。以上就是监督学习的例子。</p>
-<p>可以看出，监督学习指的就是我们给学习算法一个数据集。这个数据集由“正确答案”组<br>成。在房价的例子中，我们给了一系列房子的数据，我们给定数据集中每个样本的正确价格，即它们实际的售价然后运用学习算法，算出更多的正确答案。比如你朋友那个新房子的价格。用术语来讲，这叫做==回归问题 (Regression)==。我们试着推测出一个连续值的结果，即房子的价格。</p>
+<p>可以看出，监督学习指的就是我们给学习算法一个数据集。这个数据集由“正确答案”组成。在房价的例子中，我们给了一系列房子的数据，我们给定数据集中每个样本的正确价格，即它们实际的售价然后运用学习算法，算出更多的正确答案。比如你朋友那个新房子的价格。用术语来讲，这叫做==回归问题 (Regression)==。我们试着推测出一个连续值的结果，即房子的价格。</p>
 <blockquote>
 <p>regression是machine learning的一个task，特点是通过regression找到的function，它的输出是一个scalar数值。<br>比如PM2.5的预测，给machine的training data是过去的PM2.5资料，而输出的是对未来PM2.5的预测<strong>数值</strong>，这就是一个典型的regression的问题。</p>
 </blockquote>
-<p>一般房子的价格会记到美分，所以房价实际上是一系列离散的值，但是我们通常又把房<br>价看成实数，看成是标量，所以又把它看成一个连续的数值。</p>
+<p>一般房子的价格会记到美分，所以房价实际上是一系列离散的值，但是我们通常又把房价看成实数，看成是标量，所以又把它看成一个连续的数值。</p>
 <h4 id="1-2-2-Case2-Breast-cancer-malignant-benign"><a href="#1-2-2-Case2-Breast-cancer-malignant-benign" class="headerlink" title="1.2.2 Case2: Breast cancer (malignant,benign)"></a>1.2.2 Case2: Breast cancer (malignant,benign)</h4><p>现有有 5 个良性肿瘤样本（O），5 个恶性肿瘤样本（X）。假设已知一个肿瘤的尺寸，那么机器学习的工作就在于能否估算出肿瘤是恶性的或是良性的概率。<br><img src="https://img-blog.csdnimg.cn/20200705163240876.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
 <p>用术语来讲，这是一个==分类问题 (Classification)==。分类指的是，我们试着推测出离散的输出值：0 或 1 良性或恶性，而事实上在分类问题中，输出可能不止两个值。比如说可能有三种乳腺癌，所以你希望预测离散输出 0、1、2、3。0 代表良性，1 表示第 1 类乳腺癌，2 表示第 2 类癌症，3 表示第 3 类，但这也是分类问题。</p>
 <blockquote>
 <p>regression和classification的区别是，我们要机器输出的东西的类型是不一样的，在regression里机器输出的是scalar（标量），而classification又分为两类：Binary Classification(二元分类)、Multi-class classification(多元分类)。<br><strong>在binary classification里</strong>，我们要机器输出的是yes or no，是或否。比如G-mail的spam filtering(垃圾邮件过滤器)，输入是邮件，输出是该邮件是否是垃圾邮件。<br><strong>在multi-class classification里</strong>，机器要做的是选择题，等于给他数个选项，每一个选项就是一个类别，它要从数个类别里面选择正确的类别。比如document classification(新闻文章分类)，输入是一则新闻，输出是这个新闻属于哪一个类别(选项)。</p>
 </blockquote>
 <p>在其它机器学习问题中，可能会遇到不止一种特征。举个例子，我们不仅知道肿瘤的尺寸，还知道对应患者的年龄。在其他机器学习问题中，我们通常有更多的特征，比如肿块密度，肿瘤细胞尺寸的一致性和形状的一致性等等，还有一些其他的特征。</p>
-<p><img src="https://img-blog.csdnimg.cn/20200705164946740.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>上图中，总共列举了 5 种不同的特征，坐标轴上的两种和右边的 3 种，但在一些学习问题上需要使用多种特征甚至无限，好让算法可以利用大量的特征，或者说线索来做推测。那如何处理无限多个特征，甚至如何存储这些特征都存在问题，你电脑的内存肯定不够用。我们以后会讲一个算法，叫==支持向量机==，里面有一个巧妙的数学技巧，能让计算机处理无限多个特征。想象一下，</p>
-<p>现在来回顾一下，这节课我们介绍了监督学习。其基本思想是，我们数据集中的每个样<br>本都有相应的“正确答案”。再根据这些样本作出预测，就像房子和肿瘤的例子中做的那样。<br>我们还介绍了回归问题，即通过回归来推出一个连续的输出，之后我们介绍了分类问题，其目标是推出一组离散的结果。</p>
+<p><img src="https://img-blog.csdnimg.cn/20200705164946740.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>上图中，总共列举了 5 种不同的特征，坐标轴上的两种和右边的 3 种，但在一些学习问题上需要使用多种特征甚至无限，好让算法可以利用大量的特征，或者说线索来做推测。那如何处理无限多个特征，甚至如何存储这些特征都存在问题，你电脑的内存肯定不够用。我们以后会讲一个算法，叫==支持向量机==，里面有一个巧妙的数学技巧，能让计算机处理无限多个特征。</p>
+<p>现在来回顾一下，这节课我们介绍了监督学习。其基本思想是，我们数据集中的每个样本都有相应的“正确答案”。再根据这些样本作出预测，就像房子和肿瘤的例子中做的那样。</p>
+<p>我们还介绍了回归问题，即通过回归来推出一个连续的输出，之后我们介绍了分类问题，其目标是推出一组离散的结果。</p>
 <h3 id="1-3-Unsupervised-Learning-无监督学习"><a href="#1-3-Unsupervised-Learning-无监督学习" class="headerlink" title="1.3 Unsupervised Learning(无监督学习)"></a>1.3 Unsupervised Learning(无监督学习)</h3><p>区别于supervised learning，unsupervised learning希望机器学到无师自通，在完全没有任何label的情况下，机器到底能学到什么样的知识。</p>
 <p><img src="https://img-blog.csdnimg.cn/20200705192208335.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
 <p>在无监督学习中，已知的数据不同于监督学习的数据，无监督学习中没有任何的标签或者是有相同的标签或者就是没标签。所以我们已知数据集，却不知如何处理，也未告知每个数据点是什么。针对数据集，无监督学习就能判断出数据有两个不同的聚集簇。这是一个，那是另一个，二者不同。是的，无监督学习算法可能会把这些数据分成两个不同的簇。所以叫做==聚类算法（Clustering Algorithm）==。</p>
@@ -528,6 +529,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/07/06/%5BMachine%20Learning%5D%20%E5%8D%95%E5%8F%98%E9%87%8F%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92(Linear%20Regression%20with%20One%20Variable)/" rel="prev" title="【Machine Learning】单变量线性回归(Linear Regression with One Variable)">
+                【Machine Learning】单变量线性回归(Linear Regression with One Variable) <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -618,7 +623,7 @@
               
                 <a href="/archives/%7C%7C%20archive">
               
-                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-count">7</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -680,6 +685,10 @@
 				  
 				  
 					<li class="recent_posts_li">
+					  <a href="/2020/07/06/%5BMachine%20Learning%5D%20%E5%8D%95%E5%8F%98%E9%87%8F%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92(Linear%20Regression%20with%20One%20Variable)/" title="【Machine Learning】单变量线性回归(Linear Regression with One Variable)" target="_blank">【Machine Learning】单变量线性回归(Linear Regression with One Variable)</a>
+					</li>
+				  
+					<li class="recent_posts_li">
 					  <a href="/2020/07/05/%5BMachine%20Learning%5D%20%E6%A6%82%E8%BF%B0/" title="【Machine Learning】概述" target="_blank">【Machine Learning】概述</a>
 					</li>
 				  
@@ -693,10 +702,6 @@
 				  
 					<li class="recent_posts_li">
 					  <a href="/2020/06/19/%E5%85%B3%E4%BA%8ESQL%E6%98%93%E5%BF%98%E7%9A%84%E5%8D%81%E4%BA%94%E4%B8%AA%E7%9F%A5%E8%AF%86%E7%82%B9/" title="关于SQL易忘的知识点" target="_blank">关于SQL易忘的知识点</a>
-					</li>
-				  
-					<li class="recent_posts_li">
-					  <a href="/2020/06/18/%E4%BD%BF%E7%94%A8Python%E5%AF%B9%E6%B7%98%E5%AE%9D%E7%94%A8%E6%88%B7%E8%A1%8C%E4%B8%BA%E8%BF%9B%E8%A1%8C%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90/" title="使用Python对淘宝用户行为进行数据分析" target="_blank">使用Python对淘宝用户行为进行数据分析</a>
 					</li>
 				  
 				</ul>
@@ -773,7 +778,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">13.4k</span>
+    <span title="Site words total count">15.4k</span>
   
 </div>
 
