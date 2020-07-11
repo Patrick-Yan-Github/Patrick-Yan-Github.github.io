@@ -42,6 +42,75 @@
       </tags>
   </entry>
   <entry>
+    <title>【Machine Learning】多变量线性回归(Linear Regression with Multiple Variables)</title>
+    <url>/2020/07/07/%5BMachine%20Learning%5D%20%E5%A4%9A%E5%8F%98%E9%87%8F%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92(Linear%20Regression%20with%20Multiple%20Variables)/</url>
+    <content><![CDATA[<p><img src="https://img-blog.csdnimg.cn/20200707131529483.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<a id="more"></a>
+
+<h2 id="3-Linear-Regression-with-Multiple-Variables-多变量线性回归"><a href="#3-Linear-Regression-with-Multiple-Variables-多变量线性回归" class="headerlink" title="3 Linear Regression with Multiple Variables(多变量线性回归)"></a>3 Linear Regression with Multiple Variables(多变量线性回归)</h2><h3 id="3-1-Multiple-Features-多维特征"><a href="#3-1-Multiple-Features-多维特征" class="headerlink" title="3.1 Multiple Features(多维特征)"></a>3.1 Multiple Features(多维特征)</h3><p><img src="https://img-blog.csdnimg.cn/20200707100825934.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20200707100922690.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>注：实际上不一定是线性的，仅本例中使用线性。非线性也是此思想。</p>
+<h3 id="3-2-Gradient-Descent-for-Multiple-Variables-多变量梯度下降"><a href="#3-2-Gradient-Descent-for-Multiple-Variables-多变量梯度下降" class="headerlink" title="3.2 Gradient Descent for Multiple Variables(多变量梯度下降)"></a>3.2 Gradient Descent for Multiple Variables(多变量梯度下降)</h3><p>与单变量线性回归类似，在多变量线性回归中，同样也构建一个代价函数，则这个代价函数是所有建模误差的平方和，即：<br><img src="https://img-blog.csdnimg.cn/20200707102308696.PNG#pic_center" alt="在这里插入图片描述"><br>目标和单变量线性回归问题中一样，是要找出使得代价函数最小的一系列参数。<img src="https://img-blog.csdnimg.cn/20200707101806364.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20200707101739874.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>上图右边显示了多变量线性回归的批量梯度下降算法，其开始随机选择一系列的参数值，计算所有的预测结果后，再给所有的参数一个新的值，如此循环直到收敛。</p>
+<p><strong>python代码：</strong></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">computeCost</span><span class="params">(X, y, theta)</span>:</span></span><br><span class="line">	inner = np.power(((X * theta.T) - y), <span class="number">2</span>)</span><br><span class="line">	<span class="keyword">return</span> np.sum(inner) / (<span class="number">2</span> * len(X))</span><br></pre></td></tr></table></figure>
+
+<h4 id="3-2-1-Gradient-Descent-in-Practice-I-Feature-Scaling-特征缩放"><a href="#3-2-1-Gradient-Descent-in-Practice-I-Feature-Scaling-特征缩放" class="headerlink" title="3.2.1 Gradient Descent in Practice I - Feature Scaling (特征缩放)"></a>3.2.1 Gradient Descent in Practice I - Feature Scaling (特征缩放)</h4><p><strong>在解决多维特征问题时，应该保证这些特征都具有相近的尺度，这将帮助梯度下降算法更快地收敛。</strong></p>
+<p>以房价问题为例，假设有两个特征，房屋的尺寸和房间的数量，尺寸的值为 0-2000 平方英尺，而房间数量的值则是 0-5，以两个参数分别为横纵坐标，绘制代价函数等高线图能，看出图像会显得很扁，梯度下降算法需要非常多次的迭代才能收敛。<br><img src="https://img-blog.csdnimg.cn/20200707104230484.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>解决方法是尝试将所有特征的尺度都尽量缩放到-1 到 1 之间，即==特征归一化==。如图：<br><img src="https://img-blog.csdnimg.cn/20200707104328954.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<blockquote>
+<p>数据的标准化（normalization）是将数据按比例缩放，使之落入一个小的特定区间。在某些比较和评价的指标处理中经常会用到，去除数据的单位限制，将其转化为无量纲的纯数值，便于不同单位或量级的指标能够进行比较和加权，可以大大提高分类器的准确性。<br>其中最典型的就是数据的归一化处理，即将数据统一映射到[0,1]区间上。</p>
+</blockquote>
+<p>归一化公式：<br><img src="https://img-blog.csdnimg.cn/20200707105004270.PNG#pic_center" alt="在这里插入图片描述"></p>
+<h4 id="3-2-2-Gradient-Descent-in-Practice-II-Learning-Rate-学习率"><a href="#3-2-2-Gradient-Descent-in-Practice-II-Learning-Rate-学习率" class="headerlink" title="3.2.2 Gradient Descent in Practice II - Learning Rate (学习率)"></a>3.2.2 Gradient Descent in Practice II - Learning Rate (学习率)</h4><p>梯度下降算法收敛所需要的迭代次数根据模型的不同而不同，无法提前预知，但可以绘制迭代次数和代价函数的图表来观测算法在何时趋于收敛。<br><img src="https://img-blog.csdnimg.cn/20200707105546868.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>图像300~400已经相当平坦了，可推测到达400左右时梯度下降法差不多已经收敛了。</p>
+<p>梯度下降算法的每次迭代受到学习率的影响，如果学习率𝑎过小，则达到收敛所需的迭代次数会非常多；如果学习率𝑎过大，每次迭代可能不会减小代价函数，可能会越过局部最小值导致无法收敛。</p>
+<p>通常可以考虑尝试些学习率：<br>𝛼 =…，0.001，0.003，0.01，0.03，0.1，0.3，1，…</p>
+<h3 id="3-3-Features-and-Polynomial-Regression-特征和多项式回归"><a href="#3-3-Features-and-Polynomial-Regression-特征和多项式回归" class="headerlink" title="3.3 Features and Polynomial Regression(特征和多项式回归)"></a>3.3 Features and Polynomial Regression(特征和多项式回归)</h3><p><img src="https://img-blog.csdnimg.cn/20200707121141207.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>线性回归并不适用于所有数据，有时需要曲线来适应数据，比如，<br>一个二次方模型：<img src="https://img-blog.csdnimg.cn/20200707121921446.PNG#pic_center" alt="在这里插入图片描述"><br>或者三次方模型：<img src="https://img-blog.csdnimg.cn/20200707121933949.PNG#pic_center" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20200707122024153.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>根据函数图形特性，我们还可以使：<br><img src="https://img-blog.csdnimg.cn/20200707122340253.PNG#pic_center" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20200707122358694.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>注：如果采用多项式回归模型，在运行梯度下降算法前，特征缩放非常有必要。</p>
+<h3 id="3-4-Normal-Equation-正规方程"><a href="#3-4-Normal-Equation-正规方程" class="headerlink" title="3.4 Normal Equation(正规方程)"></a>3.4 Normal Equation(正规方程)</h3><p>正规方程是区别于迭代方法的直接计算解法，即直接求导数等于0的点。<br><img src="https://img-blog.csdnimg.cn/20200707123106110.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>假设训练集特征矩阵为 𝑋（包含了 𝑥0 = 1）并且训练集结果为向量 𝑦，则利用正规方程解出向量：<img src="https://img-blog.csdnimg.cn/202007071243148.PNG#pic_center" alt="在这里插入图片描述"><br>例子：<br><img src="https://img-blog.csdnimg.cn/20200707124545251.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>注：对于不可逆的矩阵（通常是因为特征之间不独立，如同时包含英尺为单位的尺寸和米为单位的尺寸两个特征，也有可能是特征数量大于训练集的数量），正规方程方法是不能用的。</p>
+<p><strong>梯度下降与正规方程的比较</strong><br><img src="https://img-blog.csdnimg.cn/20200707125601290.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>注：只要特征变量的数目并不大，标准方程是一个很好的计算参数𝜃的替代方法。具体地说，只要特征变量数量小于一万，通常使用标准方程法，而不使用梯度下降法。</p>
+<p><strong>Normal Equation Noninvertibility(正规方程及不可逆性)</strong><br><img src="https://img-blog.csdnimg.cn/20200707130156670.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<p><strong>python实现正规方程：</strong></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">normalEqn</span><span class="params">(X, y)</span>:</span></span><br><span class="line">	theta = np.linalg.inv(X.T@X)@X.T@y <span class="comment">#X.T@X 等价于 X.T.dot(X)</span></span><br><span class="line">	<span class="keyword">return</span> theta</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://img-blog.csdnimg.cn/20200707130732297.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20200707130731881.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+]]></content>
+      <categories>
+        <category>机器学习</category>
+      </categories>
+      <tags>
+        <tag>Machine Learning</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>【Machine Learning】神经网络-表述(Neural Networks-Representation)</title>
+    <url>/2020/07/11/%5BMachine%20Learning%5D%20%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%EF%BC%9A%E8%A1%A8%E8%BF%B0(Neural%20Networks_%20Representation)/</url>
+    <content><![CDATA[<p><img src="https://img-blog.csdnimg.cn/20200711130358651.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<a id="more"></a>
+
+<h2 id="6-Neural-Networks-Representation-神经网络：表述"><a href="#6-Neural-Networks-Representation-神经网络：表述" class="headerlink" title="6 Neural Networks: Representation(神经网络：表述)"></a>6 Neural Networks: Representation(神经网络：表述)</h2><h3 id="6-1-Non-linear-hypotheses-非线性假设"><a href="#6-1-Non-linear-hypotheses-非线性假设" class="headerlink" title="6.1 Non-linear hypotheses(非线性假设)"></a>6.1 Non-linear hypotheses(非线性假设)</h3><p>无论是线性回归还是逻辑回归都有这样一个缺点，即：当特征太多时，计算的负荷会非常大。</p>
+<p>假设希望训练一个模型来识别视觉对象（例如识别一张图片上是否是一辆汽车），应该怎么做呢？一种方法是利用很多汽车的图片和很多非汽车的图片，然后利用这些图片上一个个像素的值（饱和度或亮度）来作为特征。<br><img src="https://img-blog.csdnimg.cn/20200710163445193.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>假如只选用灰度图片，每个像素则只有一个值（而非 RGB 值），可以选取图片上的两个不同位置上的两个像素，然后训练一个逻辑回归算法利用这两个像素的值来判断图片上是否是汽车：<br><img src="https://img-blog.csdnimg.cn/20200710163602179.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>假使采用的都是 50x50 像素的小图片，并且将所有的像素视为特征，则会有2500 个特征，如果要进一步将两两特征组合构成一个多项式模型，则会有约2500<sup>2</sup>/2个（接近 3 百万个）特征。普通的逻辑回归模型，不能有效地处理这么多的特征，这时候需要神经网络。</p>
+<h3 id="6-2-Model-Representation-模型表示"><a href="#6-2-Model-Representation-模型表示" class="headerlink" title="6.2 Model Representation(模型表示)"></a>6.2 Model Representation(模型表示)</h3><p>神经网络是一种很古老的算法，它最初产生的目的是制造能模拟大脑的机器。</p>
+<p>为了构建神经网络模型，首先需要思考大脑中的神经网络是怎样的？每一个神经元都可以被认为是一个处理单元/神经核（processing unit/Nucleus），它含有许多输入/树突（input/Dendrite），并且有一个输出/轴突（output/Axon）。神经网络是大量神经元相互链接并通过电脉冲来交流的一个网络。<br><img src="https://img-blog.csdnimg.cn/20200710180319605.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>神经元利用微弱的电流进行沟通。这些弱电流也称作动作电位，其实就是一些微弱的电流。所以如果神经元想要传递一个消息，它就会就通过它的轴突，发送一段微弱电流给其他神经元。</p>
+<p>下图是一条连接到输入神经，或者连接另一个神经元树突的神经，接下来这个神经元接收这条消息，做一些计算，它有可能会反过来将在轴突上的自己的消息传给其他神经元。这就是所有人类思考的模型：我们的神经元把自己的收到的消息进行计算，并向其他神经元传递消息。这也是感觉和肌肉运转的原理。如果想活动一块肌肉，就会触发一个神经元给肌肉发送脉冲，并引起你的肌肉收缩。如果一些感官：比如说眼睛想要给大脑传递一个消息，那么它就像这样发送电脉冲给大脑的。<br><img src="https://img-blog.csdnimg.cn/20200710183458169.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>神经网络模型建立在很多神经元之上，每一个神经元又是一个个学习模型。这些神经元（也叫激活单元，activation unit）采纳一些特征作为输出，并且根据本身的模型提供一个输出。下图是一个以逻辑回归模型作为自身学习模型的神经元示例，在神经网络中，参数又可被成为权重（weight）。<br><img src="https://img-blog.csdnimg.cn/20200710183840825.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>设计出了类似于神经元的神经网络，效果如下：<br><img src="https://img-blog.csdnimg.cn/20200710184011764.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>其中𝑥1, 𝑥2, 𝑥3是输入单元（input units），我们将原始数据输入给它们。𝑎1, 𝑎2, 𝑎3是中间单元，它们负责将数据进行处理，然后呈递到下一层。最后是输出单元，它负责计算ℎ𝜃<br>(𝑥)。</p>
+<p>神经网络模型是许多逻辑单元按照不同层级组织起来的网络，每一层的输出变量都是下一层的输入变量。下图为一个 3 层的神经网络，第一层成为输入层（Input Layer），最后一层称为输出层（Output Layer），中间一层成为隐藏层（Hidden Layers）。为每一层都增加一个偏差单位（bias unit）：<br><img src="https://img-blog.csdnimg.cn/2020071018415966.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>注：𝑎<sub>𝑖</sub><sup>(𝑗)</sup> 代表第𝑗 层的第 𝑖 个激活单元。𝜃<sup>(𝑗)</sup>代表从第 𝑗 层映射到第𝑗 + 1 层时的权重的矩阵，例如𝜃<sup>(1)</sup>代表从第一层映射到第二层的权重的矩阵。其尺寸为：以第 𝑗 + 1层的激活单元数量为行数，以第 𝑗 层的激活单元数加一为列数的矩阵。例如：上图所示的神经网络中𝜃<sup>(1)</sup>的尺寸为 3*4。</p>
+<p>对于上图所示的模型，激活单元和输出分别表达为：<br><img src="https://img-blog.csdnimg.cn/20200710185328930.PNG#pic_center" alt="在这里插入图片描述"><br>上面进行的讨论中只是将特征矩阵中的一行（一个训练实例）喂给了神经网络，我们需要将整个训练集都喂给我们的神经网络算法来学习模型。</p>
+<p>我们可以知道：每一个𝑎都是由上一层所有的𝑥和每一个𝑥所对应的决定的。<br>（我们把这样从左到右的算法称为前向传播算法( FORWARD PROPAGATION )）</p>
+<p>把𝑥, 𝜃, 𝑎 分别用矩阵表示，我们可以得到𝜃 ⋅ 𝑋 = a :<br><img src="https://img-blog.csdnimg.cn/20200710190032240.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>相对于使用循环来编码，利用向量化的方法会使得计算更为简便。以上面的神经网络为例，试着计算第二层的值：<br><img src="https://img-blog.csdnimg.cn/20200710194213751.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20200710194334438.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>为了更好了了解 Neuron Networks 的工作原理，先把左半部分遮住：<br><img src="https://img-blog.csdnimg.cn/20200710195253281.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>右半部分其实就是以𝑎0, 𝑎1, 𝑎2, 𝑎3, 按照 Logistic Regression 的方式输出ℎ𝜃(𝑥)：</p>
+<p><img src="https://img-blog.csdnimg.cn/20200710195332905.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>其实神经网络就像是 logistic regression，只不过把 logistic regression 中的输入向量[𝑥<sub>1</sub> ∼ 𝑥<sub>3</sub>] 变成了中间层的[𝑎<sub>1</sub><sup>(2)</sup>∼ 𝑎<sub>3</sub><sup>(2)</sup>], 即:<br><img src="https://img-blog.csdnimg.cn/20200710195730589.PNG#pic_center" alt="在这里插入图片描述"><br>可以把𝑎0, 𝑎1, 𝑎2, 𝑎3看成更为高级的特征值，也就是𝑥0, 𝑥1, 𝑥2, 𝑥3的进化体，并且它们是由 𝑥与决定的，因为是梯度下降的，所以𝑎是变化的，并且变得越来越厉害，所以这些更高级的特征值远比仅仅将 𝑥次方厉害，也能更好的预测新数据。这就是神经网络相比于逻辑回归和线性回归的优势。</p>
+<p>从本质上讲，神经网络能够通过学习得出其自身的一系列特征。在普通的逻辑回归中，被限制为使用数据中的原始特征𝑥1, 𝑥2, . . . , 𝑥𝑛，虽然可以使用一些二项式项来组合这些特征，但是仍然受到这些原始特征的限制。在神经网络中，原始特征只是输入层，在上面三层的神经网络例子中，第三层也就是输出层做出的预测利用的是第二层的特征，而非输入层中的原始特征，可以认为第二层中的特征是神经网络通过学习后自己得出的一系列用于预测输出变量的新特征。</p>
+<p>神经网络中，单层神经元（无中间层）的计算可用来表示逻辑运算，比如逻辑与(AND)、逻辑或(OR)。</p>
+<p>举例说明：逻辑与(AND)；下图中左半部分是神经网络的设计与 output 层表达式，右边上部分是 sigmod 函数，下半部分是真值表。</p>
+<p>可以用这样的一个神经网络表示 <strong>AND 函数：</strong><br><img src="https://img-blog.csdnimg.cn/20200711123825308.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br><strong>OR 函数：</strong><br><img src="https://img-blog.csdnimg.cn/20200711123956883.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>OR 与 AND 整体一样，区别只在于的取值不同。</p>
+<p>利用神经元来组合成更为复杂的神经网络可以实现更复杂的运算。例如要实现 XNOR 功能（输入的两个值必须一样，均为 1 或均为 0），即：<br>XNOR = (x1 ANDx2) OR((NOT x1)AND(NOT x2))</p>
+<p>首先构造能表达(x1 ANDx2)和(NOT x1)AND(NOT x2)部分的神经元：<br><img src="https://img-blog.csdnimg.cn/20200711125641473.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20200711125006673.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>然后将表示 AND 的神经元和表示(NOT x1)AND(NOT x2)的神经元以及表示 OR 的神经元进行组合：<br><img src="https://img-blog.csdnimg.cn/20200711125423807.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>这样就得到了一个能实现 XNOR 运算符功能的神经网络。</p>
+<p>按这种方法可以逐渐构造出越来越复杂的函数，也能得到更加厉害的特征值。这就是神经网络的厉害之处。</p>
+<h3 id="6-3-Multi-class-Classification-多元分类"><a href="#6-3-Multi-class-Classification-多元分类" class="headerlink" title="6.3 Multi-class Classification(多元分类)"></a>6.3 Multi-class Classification(多元分类)</h3><p>当有不止两种分类时（也就是𝑦 = 1,2,3 ….）<br><img src="https://img-blog.csdnimg.cn/2020071112595442.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+]]></content>
+      <categories>
+        <category>机器学习</category>
+      </categories>
+      <tags>
+        <tag>Machine Learning</tag>
+        <tag>Neural Networks</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>【Machine Learning】正则化(Regularization)</title>
     <url>/2020/07/08/%5BMachine%20Learning%5D%20%E6%AD%A3%E5%88%99%E5%8C%96(Regularization)/</url>
     <content><![CDATA[<p><img src="https://img-blog.csdnimg.cn/20200708161032267.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
@@ -71,87 +140,141 @@
       </tags>
   </entry>
   <entry>
-    <title>【Machine Learning】神经网络-表述(Neural Networks-Representation)</title>
-    <url>/2020/07/11/%5BMachine%20Learning%5D%20%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%EF%BC%9A%E8%A1%A8%E8%BF%B0(Neural%20Networks_%20Representation)/</url>
-    <content><![CDATA[<p><img src="https://img-blog.csdnimg.cn/20200711130358651.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+    <title>【Machine Learning】概述</title>
+    <url>/2020/07/05/%5BMachine%20Learning%5D%20%E6%A6%82%E8%BF%B0/</url>
+    <content><![CDATA[<p><img src="https://img-blog.csdnimg.cn/20200705203342231.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
 <a id="more"></a>
 
-<h2 id="6-Neural-Networks-Representation-神经网络：表述"><a href="#6-Neural-Networks-Representation-神经网络：表述" class="headerlink" title="6 Neural Networks: Representation(神经网络：表述)"></a>6 Neural Networks: Representation(神经网络：表述)</h2><h3 id="6-1-Non-linear-hypotheses-非线性假设"><a href="#6-1-Non-linear-hypotheses-非线性假设" class="headerlink" title="6.1 Non-linear hypotheses(非线性假设)"></a>6.1 Non-linear hypotheses(非线性假设)</h3><p>无论是线性回归还是逻辑回归都有这样一个缺点，即：当特征太多时，计算的负荷会非常大。</p>
-<p>假设希望训练一个模型来识别视觉对象（例如识别一张图片上是否是一辆汽车），应该怎么做呢？一种方法是利用很多汽车的图片和很多非汽车的图片，然后利用这些图片上一个个像素的值（饱和度或亮度）来作为特征。<br><img src="https://img-blog.csdnimg.cn/20200710163445193.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>假如只选用灰度图片，每个像素则只有一个值（而非 RGB 值），可以选取图片上的两个不同位置上的两个像素，然后训练一个逻辑回归算法利用这两个像素的值来判断图片上是否是汽车：<br><img src="https://img-blog.csdnimg.cn/20200710163602179.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>假使采用的都是 50x50 像素的小图片，并且将所有的像素视为特征，则会有2500 个特征，如果要进一步将两两特征组合构成一个多项式模型，则会有约2500<sup>2</sup>/2个（接近 3 百万个）特征。普通的逻辑回归模型，不能有效地处理这么多的特征，这时候需要神经网络。</p>
-<h3 id="6-2-Model-Representation-模型表示"><a href="#6-2-Model-Representation-模型表示" class="headerlink" title="6.2 Model Representation(模型表示)"></a>6.2 Model Representation(模型表示)</h3><p>神经网络是一种很古老的算法，它最初产生的目的是制造能模拟大脑的机器。</p>
-<p>为了构建神经网络模型，首先需要思考大脑中的神经网络是怎样的？每一个神经元都可以被认为是一个处理单元/神经核（processing unit/Nucleus），它含有许多输入/树突（input/Dendrite），并且有一个输出/轴突（output/Axon）。神经网络是大量神经元相互链接并通过电脉冲来交流的一个网络。<br><img src="https://img-blog.csdnimg.cn/20200710180319605.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>神经元利用微弱的电流进行沟通。这些弱电流也称作动作电位，其实就是一些微弱的电流。所以如果神经元想要传递一个消息，它就会就通过它的轴突，发送一段微弱电流给其他神经元。</p>
-<p>下图是一条连接到输入神经，或者连接另一个神经元树突的神经，接下来这个神经元接收这条消息，做一些计算，它有可能会反过来将在轴突上的自己的消息传给其他神经元。这就是所有人类思考的模型：我们的神经元把自己的收到的消息进行计算，并向其他神经元传递消息。这也是感觉和肌肉运转的原理。如果想活动一块肌肉，就会触发一个神经元给肌肉发送脉冲，并引起你的肌肉收缩。如果一些感官：比如说眼睛想要给大脑传递一个消息，那么它就像这样发送电脉冲给大脑的。<br><img src="https://img-blog.csdnimg.cn/20200710183458169.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>神经网络模型建立在很多神经元之上，每一个神经元又是一个个学习模型。这些神经元（也叫激活单元，activation unit）采纳一些特征作为输出，并且根据本身的模型提供一个输出。下图是一个以逻辑回归模型作为自身学习模型的神经元示例，在神经网络中，参数又可被成为权重（weight）。<br><img src="https://img-blog.csdnimg.cn/20200710183840825.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>设计出了类似于神经元的神经网络，效果如下：<br><img src="https://img-blog.csdnimg.cn/20200710184011764.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>其中𝑥1, 𝑥2, 𝑥3是输入单元（input units），我们将原始数据输入给它们。𝑎1, 𝑎2, 𝑎3是中间单元，它们负责将数据进行处理，然后呈递到下一层。最后是输出单元，它负责计算ℎ𝜃<br>(𝑥)。</p>
-<p>神经网络模型是许多逻辑单元按照不同层级组织起来的网络，每一层的输出变量都是下一层的输入变量。下图为一个 3 层的神经网络，第一层成为输入层（Input Layer），最后一层称为输出层（Output Layer），中间一层成为隐藏层（Hidden Layers）。为每一层都增<br>加一个偏差单位（bias unit）：<br><img src="https://img-blog.csdnimg.cn/2020071018415966.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>注：𝑎<sub>𝑖</sub><sup>(𝑗)</sup> 代表第𝑗 层的第 𝑖 个激活单元。𝜃<sup>(𝑗)</sup>代表从第 𝑗 层映射到第𝑗 + 1 层时的权重的矩阵，例如𝜃<sup>(1)</sup>代表从第一层映射到第二层的权重的矩阵。其尺寸为：以第 𝑗 + 1层的激活单元数量为行数，以第 𝑗 层的激活单元数加一为列数的矩阵。例如：上图所示的神经网络中𝜃<sup>(1)</sup>的尺寸为 3*4。</p>
-<p>对于上图所示的模型，激活单元和输出分别表达为：<br><img src="https://img-blog.csdnimg.cn/20200710185328930.PNG#pic_center" alt="在这里插入图片描述"><br>上面进行的讨论中只是将特征矩阵中的一行（一个训练实例）喂给了神经网络，我们需要将整个训练集都喂给我们的神经网络算法来学习模型。</p>
-<p>我们可以知道：每一个𝑎都是由上一层所有的𝑥和每一个𝑥所对应的决定的。<br>（我们把这样从左到右的算法称为前向传播算法( FORWARD PROPAGATION )）</p>
-<p>把𝑥, 𝜃, 𝑎 分别用矩阵表示，我们可以得到𝜃 ⋅ 𝑋 = a :<br><img src="https://img-blog.csdnimg.cn/20200710190032240.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>相对于使用循环来编码，利用向量化的方法会使得计算更为简便。以上面的神经网络为例，试着计算第二层的值：<br><img src="https://img-blog.csdnimg.cn/20200710194213751.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20200710194334438.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>为了更好了了解 Neuron Networks 的工作原理，先把左半部分遮住：<br><img src="https://img-blog.csdnimg.cn/20200710195253281.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>右半部分其实就是以𝑎0, 𝑎1, 𝑎2, 𝑎3, 按照 Logistic Regression 的方式输出ℎ𝜃(𝑥)：</p>
-<p><img src="https://img-blog.csdnimg.cn/20200710195332905.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>其实神经网络就像是 logistic regression，只不过把 logistic regression 中的输入向量[𝑥<sub>1</sub> ∼ 𝑥<sub>3</sub>] 变成了中间层的[𝑎<sub>1</sub><sup>(2)</sup>∼ 𝑎<sub>3</sub><sup>(2)</sup>], 即:<br><img src="https://img-blog.csdnimg.cn/20200710195730589.PNG#pic_center" alt="在这里插入图片描述"><br>可以把𝑎0, 𝑎1, 𝑎2, 𝑎3看成更为高级的特征值，也就是𝑥0, 𝑥1, 𝑥2, 𝑥3的进化体，并且它们是由 𝑥与决定的，因为是梯度下降的，所以𝑎是变化的，并且变得越来越厉害，所以这些更高级的特征值远比仅仅将 𝑥次方厉害，也能更好的预测新数据。这就是神经网络相比于逻辑回归和线性回归的优势。</p>
-<p>从本质上讲，神经网络能够通过学习得出其自身的一系列特征。在普通的逻辑回归中，被限制为使用数据中的原始特征𝑥1, 𝑥2, . . . , 𝑥𝑛，虽然可以使用一些二项式项来组合这些特征，但是仍然受到这些原始特征的限制。在神经网络中，原始特征只是输入层，在上面三层的神经网络例子中，第三层也就是输出层做出的预测利用的是第二层的特征，而非输入层中的原始特征，可以认为第二层中的特征是神经网络通过学习后自己得出的一系列用于预测输出变量的新特征。</p>
-<p>神经网络中，单层神经元（无中间层）的计算可用来表示逻辑运算，比如逻辑与(AND)、逻辑或(OR)。</p>
-<p>举例说明：逻辑与(AND)；下图中左半部分是神经网络的设计与 output 层表达式，右边上部分是 sigmod 函数，下半部分是真值表。</p>
-<p>可以用这样的一个神经网络表示 <strong>AND 函数：</strong><br><img src="https://img-blog.csdnimg.cn/20200711123825308.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br><strong>OR 函数：</strong><br><img src="https://img-blog.csdnimg.cn/20200711123956883.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>OR 与 AND 整体一样，区别只在于的取值不同。</p>
-<p>利用神经元来组合成更为复杂的神经网络可以实现更复杂的运算。例如要实现 XNOR 功能（输入的两个值必须一样，均为 1 或均为 0），即：<br>XNOR = (x1 ANDx2) OR((NOT x1)AND(NOT x2))</p>
-<p>首先构造能表达(x1 ANDx2)和(NOT x1)AND(NOT x2)部分的神经元：<br><img src="https://img-blog.csdnimg.cn/20200711125641473.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20200711125006673.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>然后将表示 AND 的神经元和表示(NOT x1)AND(NOT x2)的神经元以及表示 OR 的神经元进行组合：<br><img src="https://img-blog.csdnimg.cn/20200711125423807.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>这样就得到了一个能实现 XNOR 运算符功能的神经网络。<br>按这种方法可以逐渐构造出越来越复杂的函数，也能得到更加厉害的特征值。这就是神经网络的厉害之处。</p>
-<h3 id="6-3-Multi-class-Classification-多元分类"><a href="#6-3-Multi-class-Classification-多元分类" class="headerlink" title="6.3 Multi-class Classification(多元分类)"></a>6.3 Multi-class Classification(多元分类)</h3><p>当有不止两种分类时（也就是𝑦 = 1,2,3 ….）<br><img src="https://img-blog.csdnimg.cn/2020071112595442.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+
+<h2 id="1-概述"><a href="#1-概述" class="headerlink" title="1 概述"></a>1 概述</h2><p>机器学习即在进行特定编程的情况下，使用计算机作为工具并致力于真实实时的模拟人类学习方式， 并将现有内容进行知识结构划分来有效提高学习效率。</p>
+<p>根据训练数据是否拥有标记信息，学习任务可大致分为：“监督学习”、“无监督学习”。可理解为，监督学习这个想法是指我们将教计算机如何去完成任务；而在无监督学习中我们打算让它自己进行学习。分类和回归是前者的代表，聚类是后者的代表。</p>
+<h3 id="1-1-Learning-Map"><a href="#1-1-Learning-Map" class="headerlink" title="1.1 Learning Map"></a>1.1 Learning Map</h3><p>蓝色方块指的是scenario，即学习的情境。通常学习的情境是我们没有办法控制的，比如做reinforcement Learning是因为我们没有data、没有办法来做supervised Learning的情况下才去做的。如果有data，supervised Learning当然比reinforcement Learning要好；因此手上有什么样的data，就决定你使用什么样的scenario。</p>
+<p>红色方块指的是task，即要解决的问题。你要解的问题，随着你要找的function的output的不同，有输出scalar的regression、有输出options的classification、有输出structured object的structured Learning…</p>
+<p>绿色的方块指的是model，即用来解决问题的模型(function set)。在这些task里面有不同的model，也就是说，同样的task，我们可以用不同的方法来解它，比如linear model、Non-linear model(deep Learning、SVM、decision tree、K-NN…)</p>
+<p><img src="https://img-blog.csdnimg.cn/20200704201834783.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="&lt;img src=&quot;https://github.com/Sakura-gh/ML-notes/blob/master/img/learningMap.png?raw=true&quot; alt=&quot;learning map&quot; style=&quot;width: 60%;&quot; /&gt;"></p>
+<h3 id="1-2-Supervised-Learning-监督学习"><a href="#1-2-Supervised-Learning-监督学习" class="headerlink" title="1.2 Supervised Learning(监督学习)"></a>1.2 Supervised Learning(监督学习)</h3><p>supervised learning 需要大量的training data，这些training data要求我们找到function，当这个function看到某种input则输出a，看到另一种input输出b，看到……</p>
+<p>而这种function的output，通常被叫做==label(标签)==，也就是说，我们要使用supervised learning这样一种技术，我们需要告诉机器，function的input和output分别是什么，而这种output通常是通过人工的方式标注出来的，因此称为人工标注的label，它的缺点是需要大量的人工effort。</p>
+<h4 id="1-2-1-Case1-Housing-price-prediction"><a href="#1-2-1-Case1-Housing-price-prediction" class="headerlink" title="1.2.1 Case1: Housing price prediction"></a>1.2.1 Case1: Housing price prediction</h4><p>通过收集的房价数据绘制如下图，那基于这组数据，若有一套 750 平方英尺房子，那么这房子能卖多少钱。</p>
+<p>关于这个问题，机器学习算法将会怎么帮助你呢？<br><img src="https://img-blog.csdnimg.cn/20200705162412478.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>应用学习算法，可以在这组数据中画一条直线，即==拟合一条直线==，根据这条线我们可以推测出，这套房子可能卖$150,000，当然这不是唯一的算法。可能还有更好的，比如我们不用直线拟合这些数据，==用二次方程去拟合==可能效果会更好。根据二次方程的曲线，我们可以从这个点推测出，这套房子能卖接近$200,000。稍后我们将讨论如何选择学习算法，如何决定用直线还是二次方程来拟合。两个方案中有一个能让你朋友的房子出售得更合理。这些都是学习算法里面很好的例子。以上就是监督学习的例子。</p>
+<p>可以看出，监督学习指的就是我们给学习算法一个数据集。这个数据集由“正确答案”组成。在房价的例子中，我们给了一系列房子的数据，我们给定数据集中每个样本的正确价格，即它们实际的售价然后运用学习算法，算出更多的正确答案。比如你朋友那个新房子的价格。用术语来讲，这叫做==回归问题 (Regression)==。我们试着推测出一个连续值的结果，即房子的价格。</p>
+<blockquote>
+<p>regression是machine learning的一个task，特点是通过regression找到的function，它的输出是一个scalar数值。<br>比如PM2.5的预测，给machine的training data是过去的PM2.5资料，而输出的是对未来PM2.5的预测<strong>数值</strong>，这就是一个典型的regression的问题。</p>
+</blockquote>
+<p>一般房子的价格会记到美分，所以房价实际上是一系列离散的值，但是我们通常又把房价看成实数，看成是标量，所以又把它看成一个连续的数值。</p>
+<h4 id="1-2-2-Case2-Breast-cancer-malignant-benign"><a href="#1-2-2-Case2-Breast-cancer-malignant-benign" class="headerlink" title="1.2.2 Case2: Breast cancer (malignant,benign)"></a>1.2.2 Case2: Breast cancer (malignant,benign)</h4><p>现有有 5 个良性肿瘤样本（O），5 个恶性肿瘤样本（X）。假设已知一个肿瘤的尺寸，那么机器学习的工作就在于能否估算出肿瘤是恶性的或是良性的概率。<br><img src="https://img-blog.csdnimg.cn/20200705163240876.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<p>用术语来讲，这是一个==分类问题 (Classification)==。分类指的是，我们试着推测出离散的输出值：0 或 1 良性或恶性，而事实上在分类问题中，输出可能不止两个值。比如说可能有三种乳腺癌，所以你希望预测离散输出 0、1、2、3。0 代表良性，1 表示第 1 类乳腺癌，2 表示第 2 类癌症，3 表示第 3 类，但这也是分类问题。</p>
+<blockquote>
+<p>regression和classification的区别是，我们要机器输出的东西的类型是不一样的，在regression里机器输出的是scalar（标量），而classification又分为两类：Binary Classification(二元分类)、Multi-class classification(多元分类)。<br><strong>在binary classification里</strong>，我们要机器输出的是yes or no，是或否。比如G-mail的spam filtering(垃圾邮件过滤器)，输入是邮件，输出是该邮件是否是垃圾邮件。<br><strong>在multi-class classification里</strong>，机器要做的是选择题，等于给他数个选项，每一个选项就是一个类别，它要从数个类别里面选择正确的类别。比如document classification(新闻文章分类)，输入是一则新闻，输出是这个新闻属于哪一个类别(选项)。</p>
+</blockquote>
+<p>在其它机器学习问题中，可能会遇到不止一种特征。举个例子，我们不仅知道肿瘤的尺寸，还知道对应患者的年龄。在其他机器学习问题中，我们通常有更多的特征，比如肿块密度，肿瘤细胞尺寸的一致性和形状的一致性等等，还有一些其他的特征。</p>
+<p><img src="https://img-blog.csdnimg.cn/20200705164946740.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>上图中，总共列举了 5 种不同的特征，坐标轴上的两种和右边的 3 种，但在一些学习问题上需要使用多种特征甚至无限，好让算法可以利用大量的特征，或者说线索来做推测。那如何处理无限多个特征，甚至如何存储这些特征都存在问题，你电脑的内存肯定不够用。我们以后会讲一个算法，叫==支持向量机==，里面有一个巧妙的数学技巧，能让计算机处理无限多个特征。</p>
+<p>现在来回顾一下，这节课我们介绍了监督学习。其基本思想是，我们数据集中的每个样本都有相应的“正确答案”。再根据这些样本作出预测，就像房子和肿瘤的例子中做的那样。</p>
+<p>我们还介绍了回归问题，即通过回归来推出一个连续的输出，之后我们介绍了分类问题，其目标是推出一组离散的结果。</p>
+<h3 id="1-3-Unsupervised-Learning-无监督学习"><a href="#1-3-Unsupervised-Learning-无监督学习" class="headerlink" title="1.3 Unsupervised Learning(无监督学习)"></a>1.3 Unsupervised Learning(无监督学习)</h3><p>区别于supervised learning，unsupervised learning希望机器学到无师自通，在完全没有任何label的情况下，机器到底能学到什么样的知识。</p>
+<p><img src="https://img-blog.csdnimg.cn/20200705192208335.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<p>在无监督学习中，已知的数据不同于监督学习的数据，无监督学习中没有任何的标签或者是有相同的标签或者就是没标签。所以我们已知数据集，却不知如何处理，也未告知每个数据点是什么。针对数据集，无监督学习就能判断出数据有两个不同的聚集簇。这是一个，那是另一个，二者不同。是的，无监督学习算法可能会把这些数据分成两个不同的簇。所以叫做==聚类算法（Clustering Algorithm）==。</p>
+<p>聚类应用的一个例子就是在谷歌新闻中。谷歌新闻每天都在，收集非常多，非常多的网络的新闻内容。它再将这些新闻分组，组成有关联的新闻。所以谷歌新闻做的就是搜索非常多的新闻事件，自动地把它们聚类到一起，显示到一起。</p>
+<h4 id="1-3-1-Case-Cocktail-party-problem-algorithm"><a href="#1-3-1-Case-Cocktail-party-problem-algorithm" class="headerlink" title="1.3.1 Case: Cocktail party problem algorithm"></a>1.3.1 Case: Cocktail party problem algorithm</h4><p>在鸡尾酒宴上，人们都在聊天，这么多人同时在聊天，声音彼此重叠，所以可能会发生两个人同时都在说话的情形。现假设在一个小型鸡尾酒宴上，房间中有两个麦克风，因为这些麦克风在两个地方，每个麦克风记录下不同的声音，两份录音被叠加到一起，或是被归结到一起，产生了我们现在的这些录音。</p>
+<p>为区分出两个音频资源，似乎需要写大量复杂的代码或链接到一堆的合成器 JAVA 库。事实上，只要一行代码即可完成。</p>
+<p>[W,s,v] = svd((repmat(sum(x.<em>x,1),size(x,1),1).</em>x)*x’);</p>
+<h3 id="1-4-Semi-supervised-Learning-半监督学习"><a href="#1-4-Semi-supervised-Learning-半监督学习" class="headerlink" title="1.4 Semi-supervised Learning(半监督学习)"></a>1.4 Semi-supervised Learning(半监督学习)</h3><p>举例：如果想要做一个区分猫和狗的function。手头上有少量的labeled data，它们标注了图片上哪只是猫哪只是狗；同时又有大量的unlabeled data，它们仅仅只有猫和狗的图片，但没有标注去告诉机器哪只是猫哪只是狗。</p>
+<p>在Semi-supervised Learning的技术里面，这些没有labeled的data，对机器学习也是有帮助的。</p>
+<h3 id="1-5-Transfer-Learning-迁移学习"><a href="#1-5-Transfer-Learning-迁移学习" class="headerlink" title="1.5 Transfer Learning(迁移学习)"></a>1.5 Transfer Learning(迁移学习)</h3><p>假设一样我们要做猫和狗的分类问题。我们也一样只有少量的有labeled的data；但是我们现在有大量的不相干的data(不是猫和狗的图片，而是一些其他不相干的图片)，在这些大量的data里面，它可能有label也可能没有label。</p>
+<p>Transfer Learning要解决的问题是，这一堆不相干的data可以对结果带来什么样的帮助。</p>
+<p><img src="https://img-blog.csdnimg.cn/2020070520234656.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<h3 id="1-6-Structured-Learning-结构化学习"><a href="#1-6-Structured-Learning-结构化学习" class="headerlink" title="1.6 Structured Learning(结构化学习)"></a>1.6 Structured Learning(结构化学习)</h3><p>在structured Learning里，我们要机器输出的是，一个有结构性的东西。</p>
+<p>在分类的问题中，机器输出的只是一个选项；在structured类的problem里面，机器要输出的是一个复杂的物件。举例来说，在语音识别的情境下，机器的输入是一个声音信号，输出是一个句子；句子是由许多词汇拼凑而成，它是一个有结构性的object；或者说机器翻译、人脸识别(标出不同的人的名称)。</p>
+<p>比如<strong>GAN</strong>也是structured Learning的一种方法。</p>
+<p><img src="https://img-blog.csdnimg.cn/20200705203242595.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<h3 id="1-7-Reinforcement-Learning-强化学习"><a href="#1-7-Reinforcement-Learning-强化学习" class="headerlink" title="1.7 Reinforcement Learning(强化学习)"></a>1.7 Reinforcement Learning(强化学习)</h3><p><strong>Supervised Learning</strong>：我们会告诉机器正确的答案是什么 ，其特点是<strong>Learning from teacher</strong>。</p>
+<ul>
+<li>比如训练一个聊天机器人，告诉他如果使用者说了“Hello”，你就说“Hi”；如果使用者说了“Bye bye”，你就说“Good bye”；就好像有一个家教在它的旁边手把手地教他每一件事情。</li>
+</ul>
+<p><strong>Reinforcement Learning</strong>：我们没有告诉机器正确的答案是什么，机器最终得到的只有一个分数，就是它做的好还是不好，但他不知道自己到底哪里做的不好，他也没有正确的答案；很像真实社会中的学习，你没有一个正确的答案，你只知道自己是做得好还是不好。其特点是<strong>Learning from critics</strong>。</p>
+<ul>
+<li>比如训练一个聊天机器人，让它跟客人直接对话；如果客人勃然大怒把电话挂掉了，那机器就学到一件事情，刚才做错了，它不知道自己哪里做错了，必须自己回去反省检讨到底要如何改进，比如一开始不应该打招呼吗？还是中间不能骂脏话之类的。</li>
+</ul>
+<p><img src="https://img-blog.csdnimg.cn/20200705202235316.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<p>拿下棋这件事举例，supervised Learning是说看到眼前这个棋盘，告诉机器下一步要走什么位置；而reinforcement Learning是说让机器和对手互弈，下了好几手之后赢了，机器就知道这一局棋下的不错，但是到底哪一步是赢的关键，机器是不知道的，他只知道自己是赢了还是输了。</p>
+<p>其实Alpha Go是用supervised Learning+reinforcement Learning的方式去学习的，机器先是从棋谱学习，有棋谱就可以做supervised的学习；之后再做reinforcement Learning，机器的对手是另外一台机器，Alpha Go就是和自己下棋，然后不断的进步。</p>
 ]]></content>
       <categories>
         <category>机器学习</category>
       </categories>
       <tags>
         <tag>Machine Learning</tag>
-        <tag>Neural Networks</tag>
       </tags>
   </entry>
   <entry>
-    <title>【Machine Learning】逻辑回归(Logistic Regression)</title>
-    <url>/2020/07/08/%5BMachine%20Learning%5D%20%E9%80%BB%E8%BE%91%E5%9B%9E%E5%BD%92(Logistic%20Regression)/</url>
-    <content><![CDATA[<p><img src="https://img-blog.csdnimg.cn/20200708114415292.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+    <title>关于SQL易忘的知识点</title>
+    <url>/2020/06/19/%E5%85%B3%E4%BA%8ESQL%E6%98%93%E5%BF%98%E7%9A%84%E5%8D%81%E4%BA%94%E4%B8%AA%E7%9F%A5%E8%AF%86%E7%82%B9/</url>
+    <content><![CDATA[<p><img src="https://img-blog.csdnimg.cn/20200619102150246.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
 <a id="more"></a>
 
-<h2 id="4-Logistic-Regression-逻辑回归"><a href="#4-Logistic-Regression-逻辑回归" class="headerlink" title="4 Logistic Regression(逻辑回归)"></a>4 Logistic Regression(逻辑回归)</h2><h3 id="4-1-Classification"><a href="#4-1-Classification" class="headerlink" title="4.1 Classification"></a>4.1 Classification</h3><p>在分类问题中，需要预测的变量 𝑦 是离散的值，这种学习算法称为逻辑回归 (Logistic Regression) 的算法，这也是目前最流行的一种学习算法。</p>
-<p>分类问题的例子有：判断一封电子邮件是否是垃圾邮件；判断一次金融交易是否是欺诈；区别一个肿瘤是恶性的还是良性的。</p>
-<p><strong>以二元的分类问题为例</strong><br>将因变量(dependent variable)可能属于的两个类分别称为负向类（negative class）和正向类（positive class），则因变量y∈0,1，其中 0 表示负向类，1 表示正向类。<br><img src="https://img-blog.csdnimg.cn/20200707142758328.PNG#pic_center" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20200707142910758.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/2020070714301992.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br><strong>使用线性回归算法解决分类问题</strong></p>
-<ul>
-<li><p>对于分类， 𝑦 取值为 0 或者 1。</p>
-</li>
-<li><p>对于线性回归，那么假设函数的输出值可能远大于 1，或者远小于 0，即使所有训练样本的标签 𝑦 都等于 0 或1。尽管标签应该取值 0 或者 1，但是算法得到的值可能远大于 1 或者远小于 0的话。</p>
-</li>
-<li><p>所以需要研究一种新的算法——==逻辑回归算法==，这个算法的性质是：它的输出值永远在 0 到 1 之间。逻辑回归算法是分类算法，它是作为分类算法使用。</p>
-<h3 id="4-2-Hypothesis-Representation-假设陈述"><a href="#4-2-Hypothesis-Representation-假设陈述" class="headerlink" title="4.2 Hypothesis Representation(假设陈述)"></a>4.2 Hypothesis Representation(假设陈述)</h3><p><img src="https://img-blog.csdnimg.cn/20200707144925873.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>sigmoid函数也叫做logistic函数，用于隐层神经元输出，取值范围为（0,1），它可以将一个实数映射到（0,1）的区间，可用作二分类。</p>
-<h3 id="4-3-Decision-Boundary-决策边界"><a href="#4-3-Decision-Boundary-决策边界" class="headerlink" title="4.3 Decision Boundary(决策边界)"></a>4.3 Decision Boundary(决策边界)</h3><p>==决策边界(decision boundary)==的概念能更好地理解逻辑回归的假设函数在计算什么。</p>
-<blockquote>
-<p>在具有两个类的统计分类问题中，决策边界或决策表面是超曲面，其将基础向量空间划分为两个集合，一个集合。 分类器将决策边界一侧的所有点分类为属于一个类，而将另一侧的所有点分类为属于另一个类。<br>决策界限并不总是明确的。 也就是说，从特征空间中的一个类到另一个类的过渡不是不连续的，而是渐进的。</p>
-</blockquote>
-<p><img src="https://img-blog.csdnimg.cn/20200707151748236.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20200707152202723.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br><strong>case1 线性决策边界:</strong><br><img src="https://img-blog.csdnimg.cn/20200707152629993.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>参数𝜃 是向量[-3 1 1]，则当−3 + 𝑥1 + 𝑥2 ≥ 0，即𝑥1 + 𝑥2 ≥ 3时，模型将预测 𝑦 =1。 我们可以绘制直线𝑥1 + 𝑥2 = 3，这条线便是我们模型的分界线，将预测为 1 的区域和预测为 0的区域分隔开。</p>
-</li>
-</ul>
-<p><strong>case2 非线性决策边界：</strong><br><img src="https://img-blog.csdnimg.cn/20200707153019116.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>𝑦 = 0 的区域和 𝑦 = 1 的区域需要曲线才能分隔，二次方特征：ℎ𝜃(𝑥) = 𝑔(𝜃0 + 𝜃1𝑥1 + 𝜃2𝑥2 + 𝜃3𝑥12 + 𝜃4𝑥22)，其参数𝜃 是向量[-1 0 0 1 1]，则得到的决策边界恰好是圆点在原点且半径为 1 的圆形。</p>
-<h3 id="4-4-Cost-Function-代价函数"><a href="#4-4-Cost-Function-代价函数" class="headerlink" title="4.4 Cost Function(代价函数)"></a>4.4 Cost Function(代价函数)</h3><p>监督学习问题中的逻辑回归模型的拟合问题，即是要定义用来拟合参数的优化目标/代价函数。<br><img src="https://img-blog.csdnimg.cn/20200707155159582.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>对于线性回归模型，定义的代价函数是所有模型误差的平方和。理论上来说，逻辑回归模型可以沿用这个定义，但是问题在于，当将<img src="https://img-blog.csdnimg.cn/20200707155737548.PNG#pic_center" alt="在这里插入图片描述"><br>代入到这样定义的代价函数中时，得到的代价函数将是一个非凸函数（non-convexfunction）。这意味着我们的代价函数有许多局部最小值，这将影响梯度下降算法寻找全局最小值。<br><img src="https://img-blog.csdnimg.cn/202007071559442.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
-<p><img src="https://img-blog.csdnimg.cn/20200707160127498.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>这样构建的𝐶𝑜𝑠𝑡(ℎ𝜃(𝑥), 𝑦)函数的特点是：当实际的 𝑦 = 1 且ℎ𝜃(𝑥)也为 1 时误差为 0，当 𝑦 = 1 但ℎ𝜃(𝑥)不为 1 时误差随着ℎ𝜃(𝑥)变小而变大；当实际的 𝑦 = 0 且ℎ𝜃(𝑥)也为 0 时代价为 0，当𝑦 = 0 但ℎ𝜃(𝑥)不为 0 时误差随着 ℎ𝜃(𝑥)的变大而变大。<br><img src="https://img-blog.csdnimg.cn/20200707162318105.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br><strong>python代码实现：</strong></p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">cost</span><span class="params">(theta, X, y)</span>:</span></span><br><span class="line">	 theta = np.matrix(theta)</span><br><span class="line">	 X = np.matrix(X)</span><br><span class="line">	 y = np.matrix(y)</span><br><span class="line">	 first = np.multiply(-y, np.log(sigmoid(X* theta.T)))</span><br><span class="line">	 second = np.multiply((<span class="number">1</span> - y), np.log(<span class="number">1</span> - sigmoid(X* theta.T)))</span><br><span class="line">	 <span class="keyword">return</span> np.sum(first - second) / (len(X))</span><br></pre></td></tr></table></figure>
+<p>主要记录SQL尤其是MySQL中，一些看了就忘，需要经常查的小知识点~</p>
+<h2 id="1-下划线-通配符与百分号-通配符的区别"><a href="#1-下划线-通配符与百分号-通配符的区别" class="headerlink" title="1. 下划线_通配符与百分号%通配符的区别"></a>1. 下划线_通配符与百分号%通配符的区别</h2><p>下划线的用途与%一样，但是%能匹配0个字符不一样，_总是匹配一个字符，不能多也不能少。<br><img src="https://img-blog.csdnimg.cn/20200502213747941.png" alt="在这里插入图片描述"></p>
+<h2 id="2-匹配不区分大小写"><a href="#2-匹配不区分大小写" class="headerlink" title="2. 匹配不区分大小写"></a>2. 匹配不区分大小写</h2><p>通过使用BINARY可以区分，如：</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">WHERE prod_name REGEXP BINARY 'JetPack .000'</span><br></pre></td></tr></table></figure>
 
-<p>在得到这样一个代价函数以后，我们便可以用梯度下降算法来求得能使代价函数最小的参数了。算法为：<br><img src="https://img-blog.csdnimg.cn/20200707162938538.PNG#pic_center" alt="在这里插入图片描述"><br>求导后，得：<br><img src="https://img-blog.csdnimg.cn/20200707163047181.PNG#pic_center" alt="在这里插入图片描述"><br>推导过程：<br><img src="https://img-blog.csdnimg.cn/20200707163827673.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>注：虽然得到的梯度下降算法表面上看上去与线性回归的梯度下降算法一样，但是这里的ℎ<sub>𝜃</sub>(𝑥) = 𝑔(𝜃<sup>T</sup>𝑋)与线性回归中不同，所以实际上是不一样的。另外，在运行梯度下降算法之前，进行特征缩放依旧是非常必要的。</p>
-<p><strong>线性回归和逻辑回归是同一个算法吗？</strong><br>线性回归的假设函数：<img src="https://img-blog.csdnimg.cn/20200707192633258.PNG#pic_center" alt="在这里插入图片描述"><br>逻辑函数假设函数：<img src="https://img-blog.csdnimg.cn/20200707192654840.PNG#pic_center" alt="在这里插入图片描述"><br>因此，即使更新参数的规则看起来基本相同，但由于假设的定义发生了变化，所以逻辑函数的梯度下降，跟线性回归的梯度下降实际上是两个完全不同的东西。</p>
-<p>当使用线性回归的梯度下降法时，监控梯度下降法以确保其收敛，同样的方法用在逻辑回归中，来监测梯度下降，以确保它正常收敛。</p>
-<p>当使用梯度下降法来实现逻辑回归时，有不同的参数𝜃，就是𝜃0 𝜃1 𝜃2 一直到𝜃𝑛，需要用表达式来更新这些参数。我们还可以使用 for 循环来更新这些参数值，用 for i=1 to n，或者 for i=1 to n+1。当然，不用 for 循环也是可以的，理想情况下，更提倡使用向量化的实现，可以把所有这些 n 个参数同时更新。</p>
-<p>另外，线性回归的特征缩放的方法也适用于逻辑回归。如果特征范围差距很大的话，那么应用特征缩放的方法，同样也可以让逻辑回归中，梯度下降收敛更快。</p>
-<h3 id="4-5-Advanced-Optimization-高级优化"><a href="#4-5-Advanced-Optimization-高级优化" class="headerlink" title="4.5 Advanced Optimization(高级优化)"></a>4.5 Advanced Optimization(高级优化)</h3><p>高级优化的思路是通过梯度下降，进行逻辑回归的速度大大提高，而这也将使算法更加适合解决大型的机器学习问题，比如，我们有数目庞大的特征量。 另外，想要使代价函数𝐽(𝜃)最小化，那么需要做的是编写代码，当输入参数 𝜃 时，程序会计算出两样东西：𝐽(𝜃) 以及𝐽 等于 0、1 直到 𝑛 时的偏导数项。<br><img src="https://img-blog.csdnimg.cn/20200707194238293.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>假设已经完成了可以实现这两件事的代码，那么梯度下降所做的就是反复执行这些更新。</p>
-<p>另一种考虑梯度下降的思路是：需要写出代码来计算𝐽(𝜃) 和这些偏导数，然后把这些插入到梯度下降中，然后它就可以最小化这个函数。</p>
-<p>对于梯度下降来说，从技术上讲，实际并不需要编写代码来计算代价函数𝐽(𝜃)。只需要编写代码来计算导数项，但是，如果希望代码还要能够监控这些𝐽(𝜃) 的收敛性，那么就需要编写代码来计算代价函数𝐽(𝜃)和偏导数项 𝜕/𝜕𝜃<sub>𝑗</sub> 𝐽(𝜃)。所以，在写完能够计算这两者的代码之后，就可以使用梯度下降。</p>
-<p>然而梯度下降并不是唯一可使用的算法，还有其他一些算法，更高级、更复杂。如果能用这些方法来计算代价函数𝐽(𝜃)和偏导数项𝜕/𝜕𝜃<sub>𝑗</sub> 𝐽(𝜃)两个项的话，那么这些算法就是为优化代价函数的不同方法，<strong>Conjugate gradient(共轭梯度法)</strong> 、<strong>BFGS (变尺度法)</strong> 和 <strong>L-BFGS (限制变尺度法)</strong> 就是其中一些更高级的优化算法，它们需要有一种方法来计算𝐽(𝜃)，以及需要一种方法计算导数项，然后使用比梯度下降更复杂的算法来最小化代价函数。</p>
-<p><strong>三种算法的优缺点</strong></p>
+<h2 id="3-MySQL正则表达式"><a href="#3-MySQL正则表达式" class="headerlink" title="3. MySQL正则表达式"></a>3. MySQL正则表达式</h2><p>正则表达式的作用是匹配文本，将一个模式（正则表达式）与一个文本串进行比较。MySQL<br>用WHERE子句对正则表达式提供了初步的支持，允许你指定正则表达式，过滤SELECT检索出的数据。</p>
+<h2 id="4-LIKE和REGEXP的区别"><a href="#4-LIKE和REGEXP的区别" class="headerlink" title="4. LIKE和REGEXP的区别"></a>4. LIKE和REGEXP的区别</h2><p>LIKE匹配整个列。如果被匹配的文本在列值中出现，LIKE将不会找到它，相应的行也不被返回（除非使用通配符）。而REGEXP在列值内进行匹配，如果被匹配的文本在列值中出现，REGEXP将会找到它，相应的行将被返回。这是一个非常重要的差别。</p>
+<h2 id="5-匹配"><a href="#5-匹配" class="headerlink" title="5. 匹配"></a>5. 匹配</h2><p><strong>匹配字符</strong><br><img src="https://img-blog.csdnimg.cn/20200502215248363.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br><strong>匹配特殊字符</strong><br>为了匹配特殊字符，必须用\为前导。\-表示查找-，\.表示查找.。这种处理就是所谓的转义（escaping），正则表达式内具有特殊意义的所有字符都必须以这种方式转义。这包括.、|、[]以及迄今为止使用过的其他特殊字符。<br>\也用来引用元字符（具有特殊含义的字符）。<br><img src="https://img-blog.csdnimg.cn/20200502220002901.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>例：<br><img src="https://img-blog.csdnimg.cn/20200502220945880.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br><strong>定位符</strong><br><img src="https://img-blog.csdnimg.cn/20200502221139784.png" alt="在这里插入图片描述"><br>例：<br><img src="https://img-blog.csdnimg.cn/2020050222152389.png" alt="在这里插入图片描述"><br><strong>注：^的双重用途</strong><br>^有两种用法。在集合中（用[和]定义），用它来否定该集合，否则，用来指串的开始处。</p>
+<h2 id="6-文本处理函数"><a href="#6-文本处理函数" class="headerlink" title="6. 文本处理函数"></a>6. 文本处理函数</h2><p><img src="https://img-blog.csdnimg.cn/20200502224543982.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>SOUNDEX是一个将任何文本串转换为描述其语音表示的字母数字模式的算法。使用Soundex()函数进行搜索，它匹配所有发音类似于Y.Lie的联系名：<br><img src="https://img-blog.csdnimg.cn/2020050222515799.png" alt="在这里插入图片描述"><br>拼接：将值联结到一起构成单个值。<br>解决办法是把两个列拼接起来。在MySQL的SELECT语句中，可使用Concat()函数来拼接两个列。</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="keyword">Concat</span>(ven_name, <span class="string">'('</span>, vend_country, <span class="string">')'</span>)</span><br></pre></td></tr></table></figure>
+
+<h2 id="7-日期和时间处理函数"><a href="#7-日期和时间处理函数" class="headerlink" title="7. 日期和时间处理函数"></a>7. 日期和时间处理函数</h2><p><img src="https://img-blog.csdnimg.cn/20200502225707163.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20200502231413483.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<h2 id="8-数值处理函数"><a href="#8-数值处理函数" class="headerlink" title="8. 数值处理函数"></a>8. 数值处理函数</h2><p><img src="https://img-blog.csdnimg.cn/20200502231547428.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<h2 id="9-聚集函数"><a href="#9-聚集函数" class="headerlink" title="9. 聚集函数"></a>9. 聚集函数</h2><p><img src="https://img-blog.csdnimg.cn/20200503104310481.png" alt="在这里插入图片描述"><br>其中，在用于文本数据时，如果数据按相应的列排序，则MAX()返回最后一行，MIN()返回第一行。<br>COUNT()函数有两种使用方式。使用COUNT(*)对表中行的数目进行计数，不管表列中包含的是空值（NULL）还是非空值。使用COUNT(column)对特定列中具有值的行进行计数，忽略NULL值。</p>
+<h2 id="10-HAVING和WHERE的区别"><a href="#10-HAVING和WHERE的区别" class="headerlink" title="10. HAVING和WHERE的区别"></a>10. HAVING和WHERE的区别</h2><p>“Where” 是一个约束声明，使用Where来约束来之数据库的数据，Where是在结果返回之前起作用的，且Where中不能使用聚合函数。<br>“Having”是一个过滤声明，是在查询返回结果集以后对查询结果进行的过滤操作，在Having中可以使用聚合函数。<br><img src="https://img-blog.csdnimg.cn/2020050310553535.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<h2 id="11-组合查询UNION"><a href="#11-组合查询UNION" class="headerlink" title="11. 组合查询UNION"></a>11. 组合查询UNION</h2><p>UNION 返回匹配行，不保留重复行<br>UNION ALL 返回匹配行，包括重复行</p>
+<p>UNION中的每个查询必须包含相同的列、表达式或聚集函数（不过各个列不需要以相同的次序列出）。<br>在用UNION组合查询时，只能使用一条ORDER BY子句，它必须出现在最后一条SELECT语句之后。对于结果集，不存在用一种方式排序一部分，而又用另一种方式排序另一部分的情况，因此不允许使用多条ORDER BY子句。</p>
+<h2 id="12-全文本搜索"><a href="#12-全文本搜索" class="headerlink" title="12. 全文本搜索"></a>12. 全文本搜索</h2><p><img src="https://img-blog.csdnimg.cn/2020050311335215.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>查询扩展<br><img src="https://img-blog.csdnimg.cn/20200503113851840.png" alt="在这里插入图片描述"><br>表中的行越多（这些行中的文本就越多），使用查询扩展返回的结果越好。</p>
+<p>布尔文本搜索<br><img src="https://img-blog.csdnimg.cn/20200503114745745.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20200503115115309.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>在布尔方式中，不按等级值降序排序返回的行。</p>
+<h2 id="13-数据插入"><a href="#13-数据插入" class="headerlink" title="13. 数据插入"></a>13. 数据插入</h2><p>插入一行<br><img src="https://img-blog.csdnimg.cn/20200503152023293.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>插入多行<br><img src="https://img-blog.csdnimg.cn/20200503152023113.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>插入检索出的数据<br><img src="https://img-blog.csdnimg.cn/20200503152215262.png" alt="在这里插入图片描述"></p>
+<h2 id="14-更新数据、删除数据"><a href="#14-更新数据、删除数据" class="headerlink" title="14. 更新数据、删除数据"></a>14. 更新数据、删除数据</h2><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="comment">#更新多个列</span></span><br><span class="line"><span class="keyword">UPDATE</span> customers</span><br><span class="line"><span class="keyword">SET</span> cust_name = <span class="string">'The Fudds'</span>,</span><br><span class="line">	cust_email = <span class="string">'elmer@fudd.com'</span></span><br><span class="line"><span class="keyword">WHERE</span> cust_id = <span class="number">10005</span> ;     <span class="comment">#不要省略WHERE子句</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#删除某个列的值</span></span><br><span class="line"><span class="keyword">UPDATE</span> customers</span><br><span class="line"><span class="keyword">SET</span> cust_email = <span class="literal">NULL</span>    <span class="comment">#其中NULL用来去除cust_email列中的值。</span></span><br><span class="line"><span class="keyword">WHERE</span> cust_id = <span class="number">10005</span> ; </span><br><span class="line"></span><br><span class="line"><span class="comment">#删除数据</span></span><br><span class="line"><span class="keyword">DELETE</span> <span class="keyword">FROM</span> customers</span><br><span class="line"><span class="keyword">WHERE</span> cust_id = <span class="number">10005</span> ;</span><br><span class="line"><span class="comment">#DELETE不需要列名或通配符。DELETE删除整行而不是删除列,但DELETE不删除表本身。为了删除指定的列，请使用UPDATE语句。</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="15-主键、索引和外键"><a href="#15-主键、索引和外键" class="headerlink" title="15. 主键、索引和外键"></a>15. 主键、索引和外键</h2><p>主键的作用：</p>
 <ul>
-<li>优点是：一、<strong>通常不需要手动选择学习率𝛼</strong>，对于这些算法的一种思路是，给出计算导数项和代价函数的方法，可以认为算法有一个智能的内部循环，称为==线性搜索(line search)算法==，它可以自动尝试不同的学习速率 𝛼，并自动选择一个好的学习速率𝑎，因此它甚至可以为每次迭代选择不同的学习速率，那么就不需要手动选择。二、这些算法实际上不仅仅是选择一个好的学习率，它们最终<strong>收敛的速度一般快于梯度下降</strong>。</li>
-<li>缺点是：它们比梯度下降法复杂多了。</li>
+<li>惟一地标识一行。 </li>
+<li>作为一个可以被外键有效引用的对象。</li>
 </ul>
-<h3 id="4-6-Multiclass-Classification-One-vs-all-多类别分类：一对多"><a href="#4-6-Multiclass-Classification-One-vs-all-多类别分类：一对多" class="headerlink" title="4.6 Multiclass Classification: One-vs-all(多类别分类：一对多)"></a>4.6 Multiclass Classification: One-vs-all(多类别分类：一对多)</h3><p><img src="https://img-blog.csdnimg.cn/20200708111918112.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>对于二元分类可以使用逻辑回归，对于直线可以将数据集一分为二为正类和负类，对于一对多的分类思想可以将其用在多类分类问题上，有时这个方法也被称为 ==”一对余”方法== 。</p>
-<p>将多个类中的一个类标记为正向类（𝑦 = 1），然后将其他所有类都标记为负向类，这个模型记作ℎ𝜃(1)(𝑥)。接着，类似地选择另一个类标记为正向类（𝑦 = 2），再将其它类都标记为负向类，将这个模型记作 ℎ𝜃(2)(𝑥),依此类推，得到一系列的模型简记为： ℎ𝜃(𝑖)(𝑥) = 𝑝(𝑦 = 𝑖|𝑥; 𝜃)其中：𝑖 = (1,2,3. . . . 𝑘)。 最后，在预测时，将所有的分类机都运行一遍，然后对每一个输入变量，都选择最高可能性的输出变量。<br><img src="https://img-blog.csdnimg.cn/20200708112953805.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<p>索引：索引分为主键索引、唯一索引、普通索引、全文索引、组合索引等</p>
+<ul>
+<li>主键索引（PRIMARY KEY）：<strong>不可以为空</strong>，<strong>可以做外键</strong>，一张表中只能有一个主键索引。</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> <span class="string">`table_name`</span> <span class="keyword">ADD</span> PRIMARY <span class="keyword">KEY</span> ( <span class="string">`column`</span> )</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>唯一索引（UNIQUE）：被索引的数据列不允许包含重复的值，但<strong>允许有空值。</strong></li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> <span class="string">`table_name`</span> <span class="keyword">ADD</span> <span class="keyword">UNIQUE</span> (<span class="string">`column`</span>)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>普通索引（INDEX）：用来加速数据访问速度而建立的索引。多建立在经常出现在查询条件的字段和经常用于排序的字段。被索引的数据列允许包含重复的值。</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> <span class="string">`table_name`</span> <span class="keyword">ADD</span> <span class="keyword">INDEX</span> index_name ( <span class="string">`column`</span> )</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>全文索引（FULLTEXT）：仅可用于 MyISAM 表，针对较大的数据，生成全文索引很耗时好空间。</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> <span class="string">`table_name`</span> <span class="keyword">ADD</span> FULLTEXT ( <span class="string">`column`</span> )</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>组合索引：为了更多的提高mysql效率可建立组合索引，遵循”最左前缀“原则。</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> <span class="string">`table_name`</span> <span class="keyword">ADD</span> <span class="keyword">INDEX</span> index_name ( <span class="string">`column1`</span>, <span class="string">`column2`</span>, <span class="string">`column3`</span> )</span><br></pre></td></tr></table></figure>
+
+
+<p>主键和索引：主键是为了标识数据库记录唯一性，不允许记录重复，且键值不能为空，主也是一个特殊索引。数据表中只允许有一个主键，但是可以有多个索引。</p>
+<p>外键：<br><img src="https://img-blog.csdnimg.cn/20200524190007537.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><p>《MySQL必知必会》Ben Forta 著，刘晓霞 钟鸣 译<br><a href="https://www.liaoxuefeng.com/wiki/1177760294764384/1218728424164736" target="_blank" rel="noopener">SQL教程 廖雪峰。</a></p>
 ]]></content>
       <categories>
-        <category>机器学习</category>
+        <category>SQL</category>
       </categories>
       <tags>
-        <tag>Machine Learning</tag>
+        <tag>SQL</tag>
+        <tag>MySQL</tag>
       </tags>
   </entry>
   <entry>
@@ -353,114 +476,6 @@ dtype: int64"></p>
       </tags>
   </entry>
   <entry>
-    <title>关于SQL易忘的知识点</title>
-    <url>/2020/06/19/%E5%85%B3%E4%BA%8ESQL%E6%98%93%E5%BF%98%E7%9A%84%E5%8D%81%E4%BA%94%E4%B8%AA%E7%9F%A5%E8%AF%86%E7%82%B9/</url>
-    <content><![CDATA[<p><img src="https://img-blog.csdnimg.cn/20200619102150246.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
-<a id="more"></a>
-
-<p>主要记录SQL尤其是MySQL中，一些看了就忘，需要经常查的小知识点~</p>
-<h2 id="1-下划线-通配符与百分号-通配符的区别"><a href="#1-下划线-通配符与百分号-通配符的区别" class="headerlink" title="1. 下划线_通配符与百分号%通配符的区别"></a>1. 下划线_通配符与百分号%通配符的区别</h2><p>下划线的用途与%一样，但是%能匹配0个字符不一样，_总是匹配一个字符，不能多也不能少。<br><img src="https://img-blog.csdnimg.cn/20200502213747941.png" alt="在这里插入图片描述"></p>
-<h2 id="2-匹配不区分大小写"><a href="#2-匹配不区分大小写" class="headerlink" title="2. 匹配不区分大小写"></a>2. 匹配不区分大小写</h2><p>通过使用BINARY可以区分，如：</p>
-<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">WHERE prod_name REGEXP BINARY 'JetPack .000'</span><br></pre></td></tr></table></figure>
-
-<h2 id="3-MySQL正则表达式"><a href="#3-MySQL正则表达式" class="headerlink" title="3. MySQL正则表达式"></a>3. MySQL正则表达式</h2><p>正则表达式的作用是匹配文本，将一个模式（正则表达式）与一个文本串进行比较。MySQL<br>用WHERE子句对正则表达式提供了初步的支持，允许你指定正则表达式，过滤SELECT检索出的数据。</p>
-<h2 id="4-LIKE和REGEXP的区别"><a href="#4-LIKE和REGEXP的区别" class="headerlink" title="4. LIKE和REGEXP的区别"></a>4. LIKE和REGEXP的区别</h2><p>LIKE匹配整个列。如果被匹配的文本在列值中出现，LIKE将不会找到它，相应的行也不被返回（除非使用通配符）。而REGEXP在列值内进行匹配，如果被匹配的文本在列值中出现，REGEXP将会找到它，相应的行将被返回。这是一个非常重要的差别。</p>
-<h2 id="5-匹配"><a href="#5-匹配" class="headerlink" title="5. 匹配"></a>5. 匹配</h2><p><strong>匹配字符</strong><br><img src="https://img-blog.csdnimg.cn/20200502215248363.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br><strong>匹配特殊字符</strong><br>为了匹配特殊字符，必须用\为前导。\-表示查找-，\.表示查找.。这种处理就是所谓的转义（escaping），正则表达式内具有特殊意义的所有字符都必须以这种方式转义。这包括.、|、[]以及迄今为止使用过的其他特殊字符。<br>\也用来引用元字符（具有特殊含义的字符）。<br><img src="https://img-blog.csdnimg.cn/20200502220002901.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>例：<br><img src="https://img-blog.csdnimg.cn/20200502220945880.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br><strong>定位符</strong><br><img src="https://img-blog.csdnimg.cn/20200502221139784.png" alt="在这里插入图片描述"><br>例：<br><img src="https://img-blog.csdnimg.cn/2020050222152389.png" alt="在这里插入图片描述"><br><strong>注：^的双重用途</strong><br>^有两种用法。在集合中（用[和]定义），用它来否定该集合，否则，用来指串的开始处。</p>
-<h2 id="6-文本处理函数"><a href="#6-文本处理函数" class="headerlink" title="6. 文本处理函数"></a>6. 文本处理函数</h2><p><img src="https://img-blog.csdnimg.cn/20200502224543982.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>SOUNDEX是一个将任何文本串转换为描述其语音表示的字母数字模式的算法。使用Soundex()函数进行搜索，它匹配所有发音类似于Y.Lie的联系名：<br><img src="https://img-blog.csdnimg.cn/2020050222515799.png" alt="在这里插入图片描述"><br>拼接：将值联结到一起构成单个值。<br>解决办法是把两个列拼接起来。在MySQL的SELECT语句中，可使用Concat()函数来拼接两个列。</p>
-<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="keyword">Concat</span>(ven_name, <span class="string">'('</span>, vend_country, <span class="string">')'</span>)</span><br></pre></td></tr></table></figure>
-
-<h2 id="7-日期和时间处理函数"><a href="#7-日期和时间处理函数" class="headerlink" title="7. 日期和时间处理函数"></a>7. 日期和时间处理函数</h2><p><img src="https://img-blog.csdnimg.cn/20200502225707163.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20200502231413483.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
-<h2 id="8-数值处理函数"><a href="#8-数值处理函数" class="headerlink" title="8. 数值处理函数"></a>8. 数值处理函数</h2><p><img src="https://img-blog.csdnimg.cn/20200502231547428.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
-<h2 id="9-聚集函数"><a href="#9-聚集函数" class="headerlink" title="9. 聚集函数"></a>9. 聚集函数</h2><p><img src="https://img-blog.csdnimg.cn/20200503104310481.png" alt="在这里插入图片描述"><br>其中，在用于文本数据时，如果数据按相应的列排序，则MAX()返回最后一行，MIN()返回第一行。<br>COUNT()函数有两种使用方式。使用COUNT(*)对表中行的数目进行计数，不管表列中包含的是空值（NULL）还是非空值。使用COUNT(column)对特定列中具有值的行进行计数，忽略NULL值。</p>
-<h2 id="10-HAVING和WHERE的区别"><a href="#10-HAVING和WHERE的区别" class="headerlink" title="10. HAVING和WHERE的区别"></a>10. HAVING和WHERE的区别</h2><p>“Where” 是一个约束声明，使用Where来约束来之数据库的数据，Where是在结果返回之前起作用的，且Where中不能使用聚合函数。<br>“Having”是一个过滤声明，是在查询返回结果集以后对查询结果进行的过滤操作，在Having中可以使用聚合函数。<br><img src="https://img-blog.csdnimg.cn/2020050310553535.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
-<h2 id="11-组合查询UNION"><a href="#11-组合查询UNION" class="headerlink" title="11. 组合查询UNION"></a>11. 组合查询UNION</h2><p>UNION 返回匹配行，不保留重复行<br>UNION ALL 返回匹配行，包括重复行</p>
-<p>UNION中的每个查询必须包含相同的列、表达式或聚集函数（不过各个列不需要以相同的次序列出）。<br>在用UNION组合查询时，只能使用一条ORDER BY子句，它必须出现在最后一条SELECT语句之后。对于结果集，不存在用一种方式排序一部分，而又用另一种方式排序另一部分的情况，因此不允许使用多条ORDER BY子句。</p>
-<h2 id="12-全文本搜索"><a href="#12-全文本搜索" class="headerlink" title="12. 全文本搜索"></a>12. 全文本搜索</h2><p><img src="https://img-blog.csdnimg.cn/2020050311335215.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>查询扩展<br><img src="https://img-blog.csdnimg.cn/20200503113851840.png" alt="在这里插入图片描述"><br>表中的行越多（这些行中的文本就越多），使用查询扩展返回的结果越好。</p>
-<p>布尔文本搜索<br><img src="https://img-blog.csdnimg.cn/20200503114745745.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20200503115115309.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>在布尔方式中，不按等级值降序排序返回的行。</p>
-<h2 id="13-数据插入"><a href="#13-数据插入" class="headerlink" title="13. 数据插入"></a>13. 数据插入</h2><p>插入一行<br><img src="https://img-blog.csdnimg.cn/20200503152023293.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>插入多行<br><img src="https://img-blog.csdnimg.cn/20200503152023113.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>插入检索出的数据<br><img src="https://img-blog.csdnimg.cn/20200503152215262.png" alt="在这里插入图片描述"></p>
-<h2 id="14-更新数据、删除数据"><a href="#14-更新数据、删除数据" class="headerlink" title="14. 更新数据、删除数据"></a>14. 更新数据、删除数据</h2><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="comment">#更新多个列</span></span><br><span class="line"><span class="keyword">UPDATE</span> customers</span><br><span class="line"><span class="keyword">SET</span> cust_name = <span class="string">'The Fudds'</span>,</span><br><span class="line">	cust_email = <span class="string">'elmer@fudd.com'</span></span><br><span class="line"><span class="keyword">WHERE</span> cust_id = <span class="number">10005</span> ;     <span class="comment">#不要省略WHERE子句</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#删除某个列的值</span></span><br><span class="line"><span class="keyword">UPDATE</span> customers</span><br><span class="line"><span class="keyword">SET</span> cust_email = <span class="literal">NULL</span>    <span class="comment">#其中NULL用来去除cust_email列中的值。</span></span><br><span class="line"><span class="keyword">WHERE</span> cust_id = <span class="number">10005</span> ; </span><br><span class="line"></span><br><span class="line"><span class="comment">#删除数据</span></span><br><span class="line"><span class="keyword">DELETE</span> <span class="keyword">FROM</span> customers</span><br><span class="line"><span class="keyword">WHERE</span> cust_id = <span class="number">10005</span> ;</span><br><span class="line"><span class="comment">#DELETE不需要列名或通配符。DELETE删除整行而不是删除列,但DELETE不删除表本身。为了删除指定的列，请使用UPDATE语句。</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="15-主键、索引和外键"><a href="#15-主键、索引和外键" class="headerlink" title="15. 主键、索引和外键"></a>15. 主键、索引和外键</h2><p>主键的作用：</p>
-<ul>
-<li>惟一地标识一行。 </li>
-<li>作为一个可以被外键有效引用的对象。</li>
-</ul>
-<p>索引：索引分为主键索引、唯一索引、普通索引、全文索引、组合索引等</p>
-<ul>
-<li>主键索引（PRIMARY KEY）：<strong>不可以为空</strong>，<strong>可以做外键</strong>，一张表中只能有一个主键索引。</li>
-</ul>
-<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> <span class="string">`table_name`</span> <span class="keyword">ADD</span> PRIMARY <span class="keyword">KEY</span> ( <span class="string">`column`</span> )</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>唯一索引（UNIQUE）：被索引的数据列不允许包含重复的值，但<strong>允许有空值。</strong></li>
-</ul>
-<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> <span class="string">`table_name`</span> <span class="keyword">ADD</span> <span class="keyword">UNIQUE</span> (<span class="string">`column`</span>)</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>普通索引（INDEX）：用来加速数据访问速度而建立的索引。多建立在经常出现在查询条件的字段和经常用于排序的字段。被索引的数据列允许包含重复的值。</li>
-</ul>
-<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> <span class="string">`table_name`</span> <span class="keyword">ADD</span> <span class="keyword">INDEX</span> index_name ( <span class="string">`column`</span> )</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>全文索引（FULLTEXT）：仅可用于 MyISAM 表，针对较大的数据，生成全文索引很耗时好空间。</li>
-</ul>
-<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> <span class="string">`table_name`</span> <span class="keyword">ADD</span> FULLTEXT ( <span class="string">`column`</span> )</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>组合索引：为了更多的提高mysql效率可建立组合索引，遵循”最左前缀“原则。</li>
-</ul>
-<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> <span class="string">`table_name`</span> <span class="keyword">ADD</span> <span class="keyword">INDEX</span> index_name ( <span class="string">`column1`</span>, <span class="string">`column2`</span>, <span class="string">`column3`</span> )</span><br></pre></td></tr></table></figure>
-
-
-<p>主键和索引：主键是为了标识数据库记录唯一性，不允许记录重复，且键值不能为空，主也是一个特殊索引。数据表中只允许有一个主键，但是可以有多个索引。</p>
-<p>外键：<br><img src="https://img-blog.csdnimg.cn/20200524190007537.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
-<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><p>《MySQL必知必会》Ben Forta 著，刘晓霞 钟鸣 译<br><a href="https://www.liaoxuefeng.com/wiki/1177760294764384/1218728424164736" target="_blank" rel="noopener">SQL教程 廖雪峰。</a></p>
-]]></content>
-      <categories>
-        <category>SQL</category>
-      </categories>
-      <tags>
-        <tag>SQL</tag>
-        <tag>MySQL</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>【Machine Learning】多变量线性回归(Linear Regression with Multiple Variables)</title>
-    <url>/2020/07/07/%5BMachine%20Learning%5D%20%E5%A4%9A%E5%8F%98%E9%87%8F%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92(Linear%20Regression%20with%20Multiple%20Variables)/</url>
-    <content><![CDATA[<p><img src="https://img-blog.csdnimg.cn/20200707131529483.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
-<a id="more"></a>
-
-<h2 id="3-Linear-Regression-with-Multiple-Variables-多变量线性回归"><a href="#3-Linear-Regression-with-Multiple-Variables-多变量线性回归" class="headerlink" title="3 Linear Regression with Multiple Variables(多变量线性回归)"></a>3 Linear Regression with Multiple Variables(多变量线性回归)</h2><h3 id="3-1-Multiple-Features-多维特征"><a href="#3-1-Multiple-Features-多维特征" class="headerlink" title="3.1 Multiple Features(多维特征)"></a>3.1 Multiple Features(多维特征)</h3><p><img src="https://img-blog.csdnimg.cn/20200707100825934.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20200707100922690.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>注：实际上不一定是线性的，仅本例中使用线性。非线性也是此思想。</p>
-<h3 id="3-2-Gradient-Descent-for-Multiple-Variables-多变量梯度下降"><a href="#3-2-Gradient-Descent-for-Multiple-Variables-多变量梯度下降" class="headerlink" title="3.2 Gradient Descent for Multiple Variables(多变量梯度下降)"></a>3.2 Gradient Descent for Multiple Variables(多变量梯度下降)</h3><p>与单变量线性回归类似，在多变量线性回归中，同样也构建一个代价函数，则这个代价函数是所有建模误差的平方和，即：<br><img src="https://img-blog.csdnimg.cn/20200707102308696.PNG#pic_center" alt="在这里插入图片描述"><br>目标和单变量线性回归问题中一样，是要找出使得代价函数最小的一系列参数。<img src="https://img-blog.csdnimg.cn/20200707101806364.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20200707101739874.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>上图右边显示了多变量线性回归的批量梯度下降算法，其开始随机选择一系列的参数值，计算所有的预测结果后，再给所有的参数一个新的值，如此循环直到收敛。</p>
-<p><strong>python代码：</strong></p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">computeCost</span><span class="params">(X, y, theta)</span>:</span></span><br><span class="line">	inner = np.power(((X * theta.T) - y), <span class="number">2</span>)</span><br><span class="line">	<span class="keyword">return</span> np.sum(inner) / (<span class="number">2</span> * len(X))</span><br></pre></td></tr></table></figure>
-
-<h4 id="3-2-1-Gradient-Descent-in-Practice-I-Feature-Scaling-特征缩放"><a href="#3-2-1-Gradient-Descent-in-Practice-I-Feature-Scaling-特征缩放" class="headerlink" title="3.2.1 Gradient Descent in Practice I - Feature Scaling (特征缩放)"></a>3.2.1 Gradient Descent in Practice I - Feature Scaling (特征缩放)</h4><p><strong>在解决多维特征问题时，应该保证这些特征都具有相近的尺度，这将帮助梯度下降算法更快地收敛。</strong></p>
-<p>以房价问题为例，假设有两个特征，房屋的尺寸和房间的数量，尺寸的值为 0-2000 平方英尺，而房间数量的值则是 0-5，以两个参数分别为横纵坐标，绘制代价函数等高线图能，看出图像会显得很扁，梯度下降算法需要非常多次的迭代才能收敛。<br><img src="https://img-blog.csdnimg.cn/20200707104230484.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>解决方法是尝试将所有特征的尺度都尽量缩放到-1 到 1 之间，即==特征归一化==。如图：<br><img src="https://img-blog.csdnimg.cn/20200707104328954.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
-<blockquote>
-<p>数据的标准化（normalization）是将数据按比例缩放，使之落入一个小的特定区间。在某些比较和评价的指标处理中经常会用到，去除数据的单位限制，将其转化为无量纲的纯数值，便于不同单位或量级的指标能够进行比较和加权，可以大大提高分类器的准确性。<br>其中最典型的就是数据的归一化处理，即将数据统一映射到[0,1]区间上。</p>
-</blockquote>
-<p>归一化公式：<br><img src="https://img-blog.csdnimg.cn/20200707105004270.PNG#pic_center" alt="在这里插入图片描述"></p>
-<h4 id="3-2-2-Gradient-Descent-in-Practice-II-Learning-Rate-学习率"><a href="#3-2-2-Gradient-Descent-in-Practice-II-Learning-Rate-学习率" class="headerlink" title="3.2.2 Gradient Descent in Practice II - Learning Rate (学习率)"></a>3.2.2 Gradient Descent in Practice II - Learning Rate (学习率)</h4><p>梯度下降算法收敛所需要的迭代次数根据模型的不同而不同，无法提前预知，但可以绘制迭代次数和代价函数的图表来观测算法在何时趋于收敛。<br><img src="https://img-blog.csdnimg.cn/20200707105546868.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>图像300~400已经相当平坦了，可推测到达400左右时梯度下降法差不多已经收敛了。</p>
-<p>梯度下降算法的每次迭代受到学习率的影响，如果学习率𝑎过小，则达到收敛所需的迭代次数会非常多；如果学习率𝑎过大，每次迭代可能不会减小代价函数，可能会越过局部最小值导致无法收敛。</p>
-<p>通常可以考虑尝试些学习率：<br>𝛼 =…，0.001，0.003，0.01，0.03，0.1，0.3，1，…</p>
-<h3 id="3-3-Features-and-Polynomial-Regression-特征和多项式回归"><a href="#3-3-Features-and-Polynomial-Regression-特征和多项式回归" class="headerlink" title="3.3 Features and Polynomial Regression(特征和多项式回归)"></a>3.3 Features and Polynomial Regression(特征和多项式回归)</h3><p><img src="https://img-blog.csdnimg.cn/20200707121141207.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>线性回归并不适用于所有数据，有时需要曲线来适应数据，比如，<br>一个二次方模型：<img src="https://img-blog.csdnimg.cn/20200707121921446.PNG#pic_center" alt="在这里插入图片描述"><br>或者三次方模型：<img src="https://img-blog.csdnimg.cn/20200707121933949.PNG#pic_center" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20200707122024153.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>根据函数图形特性，我们还可以使：<br><img src="https://img-blog.csdnimg.cn/20200707122340253.PNG#pic_center" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20200707122358694.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>注：如果采用多项式回归模型，在运行梯度下降算法前，特征缩放非常有必要。</p>
-<h3 id="3-4-Normal-Equation-正规方程"><a href="#3-4-Normal-Equation-正规方程" class="headerlink" title="3.4 Normal Equation(正规方程)"></a>3.4 Normal Equation(正规方程)</h3><p>正规方程是区别于迭代方法的直接计算解法，即直接求导数等于0的点。<br><img src="https://img-blog.csdnimg.cn/20200707123106110.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>假设训练集特征矩阵为 𝑋（包含了 𝑥0 = 1）并且训练集结果为向量 𝑦，则利用正规方程解出向量：<img src="https://img-blog.csdnimg.cn/202007071243148.PNG#pic_center" alt="在这里插入图片描述"><br>例子：<br><img src="https://img-blog.csdnimg.cn/20200707124545251.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>注：对于不可逆的矩阵（通常是因为特征之间不独立，如同时包含英尺为单位的尺寸和米为单位的尺寸两个特征，也有可能是特征数量大于训练集的数量），正规方程方法是不能用的。</p>
-<p><strong>梯度下降与正规方程的比较</strong><br><img src="https://img-blog.csdnimg.cn/20200707125601290.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>注：只要特征变量的数目并不大，标准方程是一个很好的计算参数𝜃的替代方法。具体地说，只要特征变量数量小于一万，通常使用标准方程法，而不使用梯度下降法。</p>
-<p><strong>Normal Equation Noninvertibility(正规方程及不可逆性)</strong><br><img src="https://img-blog.csdnimg.cn/20200707130156670.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
-<p><strong>python实现正规方程：</strong></p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">normalEqn</span><span class="params">(X, y)</span>:</span></span><br><span class="line">	theta = np.linalg.inv(X.T@X)@X.T@y <span class="comment">#X.T@X 等价于 X.T.dot(X)</span></span><br><span class="line">	<span class="keyword">return</span> theta</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://img-blog.csdnimg.cn/20200707130732297.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20200707130731881.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
-]]></content>
-      <categories>
-        <category>机器学习</category>
-      </categories>
-      <tags>
-        <tag>Machine Learning</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>爬虫爬取招聘信息并进行数据分析</title>
     <url>/2020/06/18/%E7%88%AC%E8%99%AB%E7%88%AC%E5%8F%96%E6%8B%9B%E8%81%98%E4%BF%A1%E6%81%AF%E5%B9%B6%E8%BF%9B%E8%A1%8C%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90/</url>
     <content><![CDATA[<p><img src="https://img-blog.csdnimg.cn/20200618161152222.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
@@ -515,72 +530,6 @@ dtype: int64"></p>
       </categories>
       <tags>
         <tag>运营指标</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>【Machine Learning】概述</title>
-    <url>/2020/07/05/%5BMachine%20Learning%5D%20%E6%A6%82%E8%BF%B0/</url>
-    <content><![CDATA[<p><img src="https://img-blog.csdnimg.cn/20200705203342231.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
-<a id="more"></a>
-
-
-<h2 id="1-概述"><a href="#1-概述" class="headerlink" title="1 概述"></a>1 概述</h2><p>机器学习即在进行特定编程的情况下，使用计算机作为工具并致力于真实实时的模拟人类学习方式， 并将现有内容进行知识结构划分来有效提高学习效率。</p>
-<p>根据训练数据是否拥有标记信息，学习任务可大致分为：“监督学习”、“无监督学习”。可理解为，监督学习这个想法是指我们将教计算机如何去完成任务；而在无监督学习中我们打算让它自己进行学习。分类和回归是前者的代表，聚类是后者的代表。</p>
-<h3 id="1-1-Learning-Map"><a href="#1-1-Learning-Map" class="headerlink" title="1.1 Learning Map"></a>1.1 Learning Map</h3><p>蓝色方块指的是scenario，即学习的情境。通常学习的情境是我们没有办法控制的，比如做reinforcement Learning是因为我们没有data、没有办法来做supervised Learning的情况下才去做的。如果有data，supervised Learning当然比reinforcement Learning要好；因此手上有什么样的data，就决定你使用什么样的scenario。</p>
-<p>红色方块指的是task，即要解决的问题。你要解的问题，随着你要找的function的output的不同，有输出scalar的regression、有输出options的classification、有输出structured object的structured Learning…</p>
-<p>绿色的方块指的是model，即用来解决问题的模型(function set)。在这些task里面有不同的model，也就是说，同样的task，我们可以用不同的方法来解它，比如linear model、Non-linear model(deep Learning、SVM、decision tree、K-NN…)</p>
-<p><img src="https://img-blog.csdnimg.cn/20200704201834783.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="&lt;img src=&quot;https://github.com/Sakura-gh/ML-notes/blob/master/img/learningMap.png?raw=true&quot; alt=&quot;learning map&quot; style=&quot;width: 60%;&quot; /&gt;"></p>
-<h3 id="1-2-Supervised-Learning-监督学习"><a href="#1-2-Supervised-Learning-监督学习" class="headerlink" title="1.2 Supervised Learning(监督学习)"></a>1.2 Supervised Learning(监督学习)</h3><p>supervised learning 需要大量的training data，这些training data要求我们找到function，当这个function看到某种input则输出a，看到另一种input输出b，看到……</p>
-<p>而这种function的output，通常被叫做==label(标签)==，也就是说，我们要使用supervised learning这样一种技术，我们需要告诉机器，function的input和output分别是什么，而这种output通常是通过人工的方式标注出来的，因此称为人工标注的label，它的缺点是需要大量的人工effort。</p>
-<h4 id="1-2-1-Case1-Housing-price-prediction"><a href="#1-2-1-Case1-Housing-price-prediction" class="headerlink" title="1.2.1 Case1: Housing price prediction"></a>1.2.1 Case1: Housing price prediction</h4><p>通过收集的房价数据绘制如下图，那基于这组数据，若有一套 750 平方英尺房子，那么这房子能卖多少钱。</p>
-<p>关于这个问题，机器学习算法将会怎么帮助你呢？<br><img src="https://img-blog.csdnimg.cn/20200705162412478.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>应用学习算法，可以在这组数据中画一条直线，即==拟合一条直线==，根据这条线我们可以推测出，这套房子可能卖$150,000，当然这不是唯一的算法。可能还有更好的，比如我们不用直线拟合这些数据，==用二次方程去拟合==可能效果会更好。根据二次方程的曲线，我们可以从这个点推测出，这套房子能卖接近$200,000。稍后我们将讨论如何选择学习算法，如何决定用直线还是二次方程来拟合。两个方案中有一个能让你朋友的房子出售得更合理。这些都是学习算法里面很好的例子。以上就是监督学习的例子。</p>
-<p>可以看出，监督学习指的就是我们给学习算法一个数据集。这个数据集由“正确答案”组成。在房价的例子中，我们给了一系列房子的数据，我们给定数据集中每个样本的正确价格，即它们实际的售价然后运用学习算法，算出更多的正确答案。比如你朋友那个新房子的价格。用术语来讲，这叫做==回归问题 (Regression)==。我们试着推测出一个连续值的结果，即房子的价格。</p>
-<blockquote>
-<p>regression是machine learning的一个task，特点是通过regression找到的function，它的输出是一个scalar数值。<br>比如PM2.5的预测，给machine的training data是过去的PM2.5资料，而输出的是对未来PM2.5的预测<strong>数值</strong>，这就是一个典型的regression的问题。</p>
-</blockquote>
-<p>一般房子的价格会记到美分，所以房价实际上是一系列离散的值，但是我们通常又把房价看成实数，看成是标量，所以又把它看成一个连续的数值。</p>
-<h4 id="1-2-2-Case2-Breast-cancer-malignant-benign"><a href="#1-2-2-Case2-Breast-cancer-malignant-benign" class="headerlink" title="1.2.2 Case2: Breast cancer (malignant,benign)"></a>1.2.2 Case2: Breast cancer (malignant,benign)</h4><p>现有有 5 个良性肿瘤样本（O），5 个恶性肿瘤样本（X）。假设已知一个肿瘤的尺寸，那么机器学习的工作就在于能否估算出肿瘤是恶性的或是良性的概率。<br><img src="https://img-blog.csdnimg.cn/20200705163240876.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
-<p>用术语来讲，这是一个==分类问题 (Classification)==。分类指的是，我们试着推测出离散的输出值：0 或 1 良性或恶性，而事实上在分类问题中，输出可能不止两个值。比如说可能有三种乳腺癌，所以你希望预测离散输出 0、1、2、3。0 代表良性，1 表示第 1 类乳腺癌，2 表示第 2 类癌症，3 表示第 3 类，但这也是分类问题。</p>
-<blockquote>
-<p>regression和classification的区别是，我们要机器输出的东西的类型是不一样的，在regression里机器输出的是scalar（标量），而classification又分为两类：Binary Classification(二元分类)、Multi-class classification(多元分类)。<br><strong>在binary classification里</strong>，我们要机器输出的是yes or no，是或否。比如G-mail的spam filtering(垃圾邮件过滤器)，输入是邮件，输出是该邮件是否是垃圾邮件。<br><strong>在multi-class classification里</strong>，机器要做的是选择题，等于给他数个选项，每一个选项就是一个类别，它要从数个类别里面选择正确的类别。比如document classification(新闻文章分类)，输入是一则新闻，输出是这个新闻属于哪一个类别(选项)。</p>
-</blockquote>
-<p>在其它机器学习问题中，可能会遇到不止一种特征。举个例子，我们不仅知道肿瘤的尺寸，还知道对应患者的年龄。在其他机器学习问题中，我们通常有更多的特征，比如肿块密度，肿瘤细胞尺寸的一致性和形状的一致性等等，还有一些其他的特征。</p>
-<p><img src="https://img-blog.csdnimg.cn/20200705164946740.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>上图中，总共列举了 5 种不同的特征，坐标轴上的两种和右边的 3 种，但在一些学习问题上需要使用多种特征甚至无限，好让算法可以利用大量的特征，或者说线索来做推测。那如何处理无限多个特征，甚至如何存储这些特征都存在问题，你电脑的内存肯定不够用。我们以后会讲一个算法，叫==支持向量机==，里面有一个巧妙的数学技巧，能让计算机处理无限多个特征。</p>
-<p>现在来回顾一下，这节课我们介绍了监督学习。其基本思想是，我们数据集中的每个样本都有相应的“正确答案”。再根据这些样本作出预测，就像房子和肿瘤的例子中做的那样。</p>
-<p>我们还介绍了回归问题，即通过回归来推出一个连续的输出，之后我们介绍了分类问题，其目标是推出一组离散的结果。</p>
-<h3 id="1-3-Unsupervised-Learning-无监督学习"><a href="#1-3-Unsupervised-Learning-无监督学习" class="headerlink" title="1.3 Unsupervised Learning(无监督学习)"></a>1.3 Unsupervised Learning(无监督学习)</h3><p>区别于supervised learning，unsupervised learning希望机器学到无师自通，在完全没有任何label的情况下，机器到底能学到什么样的知识。</p>
-<p><img src="https://img-blog.csdnimg.cn/20200705192208335.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
-<p>在无监督学习中，已知的数据不同于监督学习的数据，无监督学习中没有任何的标签或者是有相同的标签或者就是没标签。所以我们已知数据集，却不知如何处理，也未告知每个数据点是什么。针对数据集，无监督学习就能判断出数据有两个不同的聚集簇。这是一个，那是另一个，二者不同。是的，无监督学习算法可能会把这些数据分成两个不同的簇。所以叫做==聚类算法（Clustering Algorithm）==。</p>
-<p>聚类应用的一个例子就是在谷歌新闻中。谷歌新闻每天都在，收集非常多，非常多的网络的新闻内容。它再将这些新闻分组，组成有关联的新闻。所以谷歌新闻做的就是搜索非常多的新闻事件，自动地把它们聚类到一起，显示到一起。</p>
-<h4 id="1-3-1-Case-Cocktail-party-problem-algorithm"><a href="#1-3-1-Case-Cocktail-party-problem-algorithm" class="headerlink" title="1.3.1 Case: Cocktail party problem algorithm"></a>1.3.1 Case: Cocktail party problem algorithm</h4><p>在鸡尾酒宴上，人们都在聊天，这么多人同时在聊天，声音彼此重叠，所以可能会发生两个人同时都在说话的情形。现假设在一个小型鸡尾酒宴上，房间中有两个麦克风，因为这些麦克风在两个地方，每个麦克风记录下不同的声音，两份录音被叠加到一起，或是被归结到一起，产生了我们现在的这些录音。</p>
-<p>为区分出两个音频资源，似乎需要写大量复杂的代码或链接到一堆的合成器 JAVA 库。事实上，只要一行代码即可完成。</p>
-<p>[W,s,v] = svd((repmat(sum(x.<em>x,1),size(x,1),1).</em>x)*x’);</p>
-<h3 id="1-4-Semi-supervised-Learning-半监督学习"><a href="#1-4-Semi-supervised-Learning-半监督学习" class="headerlink" title="1.4 Semi-supervised Learning(半监督学习)"></a>1.4 Semi-supervised Learning(半监督学习)</h3><p>举例：如果想要做一个区分猫和狗的function。手头上有少量的labeled data，它们标注了图片上哪只是猫哪只是狗；同时又有大量的unlabeled data，它们仅仅只有猫和狗的图片，但没有标注去告诉机器哪只是猫哪只是狗。</p>
-<p>在Semi-supervised Learning的技术里面，这些没有labeled的data，对机器学习也是有帮助的。</p>
-<h3 id="1-5-Transfer-Learning-迁移学习"><a href="#1-5-Transfer-Learning-迁移学习" class="headerlink" title="1.5 Transfer Learning(迁移学习)"></a>1.5 Transfer Learning(迁移学习)</h3><p>假设一样我们要做猫和狗的分类问题。我们也一样只有少量的有labeled的data；但是我们现在有大量的不相干的data(不是猫和狗的图片，而是一些其他不相干的图片)，在这些大量的data里面，它可能有label也可能没有label。</p>
-<p>Transfer Learning要解决的问题是，这一堆不相干的data可以对结果带来什么样的帮助。</p>
-<p><img src="https://img-blog.csdnimg.cn/2020070520234656.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
-<h3 id="1-6-Structured-Learning-结构化学习"><a href="#1-6-Structured-Learning-结构化学习" class="headerlink" title="1.6 Structured Learning(结构化学习)"></a>1.6 Structured Learning(结构化学习)</h3><p>在structured Learning里，我们要机器输出的是，一个有结构性的东西。</p>
-<p>在分类的问题中，机器输出的只是一个选项；在structured类的problem里面，机器要输出的是一个复杂的物件。举例来说，在语音识别的情境下，机器的输入是一个声音信号，输出是一个句子；句子是由许多词汇拼凑而成，它是一个有结构性的object；或者说机器翻译、人脸识别(标出不同的人的名称)。</p>
-<p>比如<strong>GAN</strong>也是structured Learning的一种方法。</p>
-<p><img src="https://img-blog.csdnimg.cn/20200705203242595.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
-<h3 id="1-7-Reinforcement-Learning-强化学习"><a href="#1-7-Reinforcement-Learning-强化学习" class="headerlink" title="1.7 Reinforcement Learning(强化学习)"></a>1.7 Reinforcement Learning(强化学习)</h3><p><strong>Supervised Learning</strong>：我们会告诉机器正确的答案是什么 ，其特点是<strong>Learning from teacher</strong>。</p>
-<ul>
-<li>比如训练一个聊天机器人，告诉他如果使用者说了“Hello”，你就说“Hi”；如果使用者说了“Bye bye”，你就说“Good bye”；就好像有一个家教在它的旁边手把手地教他每一件事情。</li>
-</ul>
-<p><strong>Reinforcement Learning</strong>：我们没有告诉机器正确的答案是什么，机器最终得到的只有一个分数，就是它做的好还是不好，但他不知道自己到底哪里做的不好，他也没有正确的答案；很像真实社会中的学习，你没有一个正确的答案，你只知道自己是做得好还是不好。其特点是<strong>Learning from critics</strong>。</p>
-<ul>
-<li>比如训练一个聊天机器人，让它跟客人直接对话；如果客人勃然大怒把电话挂掉了，那机器就学到一件事情，刚才做错了，它不知道自己哪里做错了，必须自己回去反省检讨到底要如何改进，比如一开始不应该打招呼吗？还是中间不能骂脏话之类的。</li>
-</ul>
-<p><img src="https://img-blog.csdnimg.cn/20200705202235316.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
-<p>拿下棋这件事举例，supervised Learning是说看到眼前这个棋盘，告诉机器下一步要走什么位置；而reinforcement Learning是说让机器和对手互弈，下了好几手之后赢了，机器就知道这一局棋下的不错，但是到底哪一步是赢的关键，机器是不知道的，他只知道自己是赢了还是输了。</p>
-<p>其实Alpha Go是用supervised Learning+reinforcement Learning的方式去学习的，机器先是从棋谱学习，有棋谱就可以做supervised的学习；之后再做reinforcement Learning，机器的对手是另外一台机器，Alpha Go就是和自己下棋，然后不断的进步。</p>
-]]></content>
-      <categories>
-        <category>机器学习</category>
-      </categories>
-      <tags>
-        <tag>Machine Learning</tag>
       </tags>
   </entry>
   <entry>
@@ -663,6 +612,58 @@ dtype: int64"></p>
       </categories>
       <tags>
         <tag>用户行为</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>【Machine Learning】逻辑回归(Logistic Regression)</title>
+    <url>/2020/07/08/%5BMachine%20Learning%5D%20%E9%80%BB%E8%BE%91%E5%9B%9E%E5%BD%92(Logistic%20Regression)/</url>
+    <content><![CDATA[<p><img src="https://img-blog.csdnimg.cn/20200708114415292.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<a id="more"></a>
+
+<h2 id="4-Logistic-Regression-逻辑回归"><a href="#4-Logistic-Regression-逻辑回归" class="headerlink" title="4 Logistic Regression(逻辑回归)"></a>4 Logistic Regression(逻辑回归)</h2><h3 id="4-1-Classification"><a href="#4-1-Classification" class="headerlink" title="4.1 Classification"></a>4.1 Classification</h3><p>在分类问题中，需要预测的变量 𝑦 是离散的值，这种学习算法称为逻辑回归 (Logistic Regression) 的算法，这也是目前最流行的一种学习算法。</p>
+<p>分类问题的例子有：判断一封电子邮件是否是垃圾邮件；判断一次金融交易是否是欺诈；区别一个肿瘤是恶性的还是良性的。</p>
+<p><strong>以二元的分类问题为例</strong><br>将因变量(dependent variable)可能属于的两个类分别称为负向类（negative class）和正向类（positive class），则因变量y∈0,1，其中 0 表示负向类，1 表示正向类。<br><img src="https://img-blog.csdnimg.cn/20200707142758328.PNG#pic_center" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20200707142910758.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/2020070714301992.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br><strong>使用线性回归算法解决分类问题</strong></p>
+<ul>
+<li><p>对于分类， 𝑦 取值为 0 或者 1。</p>
+</li>
+<li><p>对于线性回归，那么假设函数的输出值可能远大于 1，或者远小于 0，即使所有训练样本的标签 𝑦 都等于 0 或1。尽管标签应该取值 0 或者 1，但是算法得到的值可能远大于 1 或者远小于 0的话。</p>
+</li>
+<li><p>所以需要研究一种新的算法——==逻辑回归算法==，这个算法的性质是：它的输出值永远在 0 到 1 之间。逻辑回归算法是分类算法，它是作为分类算法使用。</p>
+<h3 id="4-2-Hypothesis-Representation-假设陈述"><a href="#4-2-Hypothesis-Representation-假设陈述" class="headerlink" title="4.2 Hypothesis Representation(假设陈述)"></a>4.2 Hypothesis Representation(假设陈述)</h3><p><img src="https://img-blog.csdnimg.cn/20200707144925873.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>sigmoid函数也叫做logistic函数，用于隐层神经元输出，取值范围为（0,1），它可以将一个实数映射到（0,1）的区间，可用作二分类。</p>
+<h3 id="4-3-Decision-Boundary-决策边界"><a href="#4-3-Decision-Boundary-决策边界" class="headerlink" title="4.3 Decision Boundary(决策边界)"></a>4.3 Decision Boundary(决策边界)</h3><p>==决策边界(decision boundary)==的概念能更好地理解逻辑回归的假设函数在计算什么。</p>
+<blockquote>
+<p>在具有两个类的统计分类问题中，决策边界或决策表面是超曲面，其将基础向量空间划分为两个集合，一个集合。 分类器将决策边界一侧的所有点分类为属于一个类，而将另一侧的所有点分类为属于另一个类。<br>决策界限并不总是明确的。 也就是说，从特征空间中的一个类到另一个类的过渡不是不连续的，而是渐进的。</p>
+</blockquote>
+<p><img src="https://img-blog.csdnimg.cn/20200707151748236.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20200707152202723.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br><strong>case1 线性决策边界:</strong><br><img src="https://img-blog.csdnimg.cn/20200707152629993.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>参数𝜃 是向量[-3 1 1]，则当−3 + 𝑥1 + 𝑥2 ≥ 0，即𝑥1 + 𝑥2 ≥ 3时，模型将预测 𝑦 =1。 我们可以绘制直线𝑥1 + 𝑥2 = 3，这条线便是我们模型的分界线，将预测为 1 的区域和预测为 0的区域分隔开。</p>
+</li>
+</ul>
+<p><strong>case2 非线性决策边界：</strong><br><img src="https://img-blog.csdnimg.cn/20200707153019116.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>𝑦 = 0 的区域和 𝑦 = 1 的区域需要曲线才能分隔，二次方特征：ℎ𝜃(𝑥) = 𝑔(𝜃0 + 𝜃1𝑥1 + 𝜃2𝑥2 + 𝜃3𝑥12 + 𝜃4𝑥22)，其参数𝜃 是向量[-1 0 0 1 1]，则得到的决策边界恰好是圆点在原点且半径为 1 的圆形。</p>
+<h3 id="4-4-Cost-Function-代价函数"><a href="#4-4-Cost-Function-代价函数" class="headerlink" title="4.4 Cost Function(代价函数)"></a>4.4 Cost Function(代价函数)</h3><p>监督学习问题中的逻辑回归模型的拟合问题，即是要定义用来拟合参数的优化目标/代价函数。<br><img src="https://img-blog.csdnimg.cn/20200707155159582.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>对于线性回归模型，定义的代价函数是所有模型误差的平方和。理论上来说，逻辑回归模型可以沿用这个定义，但是问题在于，当将<img src="https://img-blog.csdnimg.cn/20200707155737548.PNG#pic_center" alt="在这里插入图片描述"><br>代入到这样定义的代价函数中时，得到的代价函数将是一个非凸函数（non-convexfunction）。这意味着我们的代价函数有许多局部最小值，这将影响梯度下降算法寻找全局最小值。<br><img src="https://img-blog.csdnimg.cn/202007071559442.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<p><img src="https://img-blog.csdnimg.cn/20200707160127498.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>这样构建的𝐶𝑜𝑠𝑡(ℎ𝜃(𝑥), 𝑦)函数的特点是：当实际的 𝑦 = 1 且ℎ𝜃(𝑥)也为 1 时误差为 0，当 𝑦 = 1 但ℎ𝜃(𝑥)不为 1 时误差随着ℎ𝜃(𝑥)变小而变大；当实际的 𝑦 = 0 且ℎ𝜃(𝑥)也为 0 时代价为 0，当𝑦 = 0 但ℎ𝜃(𝑥)不为 0 时误差随着 ℎ𝜃(𝑥)的变大而变大。<br><img src="https://img-blog.csdnimg.cn/20200707162318105.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br><strong>python代码实现：</strong></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">cost</span><span class="params">(theta, X, y)</span>:</span></span><br><span class="line">	 theta = np.matrix(theta)</span><br><span class="line">	 X = np.matrix(X)</span><br><span class="line">	 y = np.matrix(y)</span><br><span class="line">	 first = np.multiply(-y, np.log(sigmoid(X* theta.T)))</span><br><span class="line">	 second = np.multiply((<span class="number">1</span> - y), np.log(<span class="number">1</span> - sigmoid(X* theta.T)))</span><br><span class="line">	 <span class="keyword">return</span> np.sum(first - second) / (len(X))</span><br></pre></td></tr></table></figure>
+
+<p>在得到这样一个代价函数以后，我们便可以用梯度下降算法来求得能使代价函数最小的参数了。算法为：<br><img src="https://img-blog.csdnimg.cn/20200707162938538.PNG#pic_center" alt="在这里插入图片描述"><br>求导后，得：<br><img src="https://img-blog.csdnimg.cn/20200707163047181.PNG#pic_center" alt="在这里插入图片描述"><br>推导过程：<br><img src="https://img-blog.csdnimg.cn/20200707163827673.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>注：虽然得到的梯度下降算法表面上看上去与线性回归的梯度下降算法一样，但是这里的ℎ<sub>𝜃</sub>(𝑥) = 𝑔(𝜃<sup>T</sup>𝑋)与线性回归中不同，所以实际上是不一样的。另外，在运行梯度下降算法之前，进行特征缩放依旧是非常必要的。</p>
+<p><strong>线性回归和逻辑回归是同一个算法吗？</strong><br>线性回归的假设函数：<img src="https://img-blog.csdnimg.cn/20200707192633258.PNG#pic_center" alt="在这里插入图片描述"><br>逻辑函数假设函数：<img src="https://img-blog.csdnimg.cn/20200707192654840.PNG#pic_center" alt="在这里插入图片描述"><br>因此，即使更新参数的规则看起来基本相同，但由于假设的定义发生了变化，所以逻辑函数的梯度下降，跟线性回归的梯度下降实际上是两个完全不同的东西。</p>
+<p>当使用线性回归的梯度下降法时，监控梯度下降法以确保其收敛，同样的方法用在逻辑回归中，来监测梯度下降，以确保它正常收敛。</p>
+<p>当使用梯度下降法来实现逻辑回归时，有不同的参数𝜃，就是𝜃0 𝜃1 𝜃2 一直到𝜃𝑛，需要用表达式来更新这些参数。我们还可以使用 for 循环来更新这些参数值，用 for i=1 to n，或者 for i=1 to n+1。当然，不用 for 循环也是可以的，理想情况下，更提倡使用向量化的实现，可以把所有这些 n 个参数同时更新。</p>
+<p>另外，线性回归的特征缩放的方法也适用于逻辑回归。如果特征范围差距很大的话，那么应用特征缩放的方法，同样也可以让逻辑回归中，梯度下降收敛更快。</p>
+<h3 id="4-5-Advanced-Optimization-高级优化"><a href="#4-5-Advanced-Optimization-高级优化" class="headerlink" title="4.5 Advanced Optimization(高级优化)"></a>4.5 Advanced Optimization(高级优化)</h3><p>高级优化的思路是通过梯度下降，进行逻辑回归的速度大大提高，而这也将使算法更加适合解决大型的机器学习问题，比如，我们有数目庞大的特征量。 另外，想要使代价函数𝐽(𝜃)最小化，那么需要做的是编写代码，当输入参数 𝜃 时，程序会计算出两样东西：𝐽(𝜃) 以及𝐽 等于 0、1 直到 𝑛 时的偏导数项。<br><img src="https://img-blog.csdnimg.cn/20200707194238293.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>假设已经完成了可以实现这两件事的代码，那么梯度下降所做的就是反复执行这些更新。</p>
+<p>另一种考虑梯度下降的思路是：需要写出代码来计算𝐽(𝜃) 和这些偏导数，然后把这些插入到梯度下降中，然后它就可以最小化这个函数。</p>
+<p>对于梯度下降来说，从技术上讲，实际并不需要编写代码来计算代价函数𝐽(𝜃)。只需要编写代码来计算导数项，但是，如果希望代码还要能够监控这些𝐽(𝜃) 的收敛性，那么就需要编写代码来计算代价函数𝐽(𝜃)和偏导数项 𝜕/𝜕𝜃<sub>𝑗</sub> 𝐽(𝜃)。所以，在写完能够计算这两者的代码之后，就可以使用梯度下降。</p>
+<p>然而梯度下降并不是唯一可使用的算法，还有其他一些算法，更高级、更复杂。如果能用这些方法来计算代价函数𝐽(𝜃)和偏导数项𝜕/𝜕𝜃<sub>𝑗</sub> 𝐽(𝜃)两个项的话，那么这些算法就是为优化代价函数的不同方法，<strong>Conjugate gradient(共轭梯度法)</strong> 、<strong>BFGS (变尺度法)</strong> 和 <strong>L-BFGS (限制变尺度法)</strong> 就是其中一些更高级的优化算法，它们需要有一种方法来计算𝐽(𝜃)，以及需要一种方法计算导数项，然后使用比梯度下降更复杂的算法来最小化代价函数。</p>
+<p><strong>三种算法的优缺点</strong></p>
+<ul>
+<li>优点是：一、<strong>通常不需要手动选择学习率𝛼</strong>，对于这些算法的一种思路是，给出计算导数项和代价函数的方法，可以认为算法有一个智能的内部循环，称为==线性搜索(line search)算法==，它可以自动尝试不同的学习速率 𝛼，并自动选择一个好的学习速率𝑎，因此它甚至可以为每次迭代选择不同的学习速率，那么就不需要手动选择。二、这些算法实际上不仅仅是选择一个好的学习率，它们最终<strong>收敛的速度一般快于梯度下降</strong>。</li>
+<li>缺点是：它们比梯度下降法复杂多了。</li>
+</ul>
+<h3 id="4-6-Multiclass-Classification-One-vs-all-多类别分类：一对多"><a href="#4-6-Multiclass-Classification-One-vs-all-多类别分类：一对多" class="headerlink" title="4.6 Multiclass Classification: One-vs-all(多类别分类：一对多)"></a>4.6 Multiclass Classification: One-vs-all(多类别分类：一对多)</h3><p><img src="https://img-blog.csdnimg.cn/20200708111918112.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>对于二元分类可以使用逻辑回归，对于直线可以将数据集一分为二为正类和负类，对于一对多的分类思想可以将其用在多类分类问题上，有时这个方法也被称为 ==”一对余”方法== 。</p>
+<p>将多个类中的一个类标记为正向类（𝑦 = 1），然后将其他所有类都标记为负向类，这个模型记作ℎ𝜃(1)(𝑥)。接着，类似地选择另一个类标记为正向类（𝑦 = 2），再将其它类都标记为负向类，将这个模型记作 ℎ𝜃(2)(𝑥),依此类推，得到一系列的模型简记为： ℎ𝜃(𝑖)(𝑥) = 𝑝(𝑦 = 𝑖|𝑥; 𝜃)其中：𝑖 = (1,2,3. . . . 𝑘)。 最后，在预测时，将所有的分类机都运行一遍，然后对每一个输入变量，都选择最高可能性的输出变量。<br><img src="https://img-blog.csdnimg.cn/20200708112953805.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+]]></content>
+      <categories>
+        <category>机器学习</category>
+      </categories>
+      <tags>
+        <tag>Machine Learning</tag>
       </tags>
   </entry>
 </search>
