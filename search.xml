@@ -42,6 +42,67 @@
       </tags>
   </entry>
   <entry>
+    <title>【Machine Learning】正则化(Regularization)</title>
+    <url>/2020/07/08/%5BMachine%20Learning%5D%20%E6%AD%A3%E5%88%99%E5%8C%96(Regularization)/</url>
+    <content><![CDATA[<p><img src="https://img-blog.csdnimg.cn/20200708161032267.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<a id="more"></a>
+
+<h2 id="5-Regularization-正则化"><a href="#5-Regularization-正则化" class="headerlink" title="5 Regularization(正则化)"></a>5 Regularization(正则化)</h2><h3 id="5-1-The-problem-of-overfitting"><a href="#5-1-The-problem-of-overfitting" class="headerlink" title="5.1 The problem of overfitting"></a>5.1 The problem of overfitting</h3><p><strong>case1：</strong><br><img src="https://img-blog.csdnimg.cn/20200708133431983.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<ul>
+<li>第一个模型是一个线性模型，欠拟合，不能很好地适应训练集；</li>
+<li>第三个模型是一个四次方的模型，过于强调拟合原始数据，而丢失了算法的本质：预测新数据。即，若给出一个新的值使之预测，它将表现的很差；</li>
+<li>而中间的模型似乎最合适。</li>
+</ul>
+<p><strong>case2：</strong><br><img src="https://img-blog.csdnimg.cn/20200708134042138.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>同上。</p>
+<p><strong>过拟合的解决方法</strong><br><img src="https://img-blog.csdnimg.cn/20200708134338840.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<h3 id="5-2-Cost-Function"><a href="#5-2-Cost-Function" class="headerlink" title="5.2 Cost Function"></a>5.2 Cost Function</h3><p>上面的回归问题中模型是：<br><img src="https://img-blog.csdnimg.cn/20200708135115992.PNG#pic_center" alt="在这里插入图片描述"><br>一般而言，正是那些高次项导致了过拟合的产生，所以如果能让这些高次项的系数接近于 0 的话，就能很好的拟合了，所以可以在一定程度上减小这些参数𝜃 的值，这正是正则化的基本方法。当要减少𝜃3和𝜃4的大小，需要做的便是修改代价函数，在其中𝜃3和𝜃4 设置一点惩罚。在尝试最小化代价时也需要将这个惩罚纳入考虑中，并最终导致选择较小一些的𝜃3和𝜃4。</p>
+<p>修改后的代价函数：<br><img src="https://img-blog.csdnimg.cn/2020070813555675.PNG#pic_center" alt="在这里插入图片描述"><br>通过这样的代价函数选择出的𝜃3和𝜃4 对预测结果的影响就比之前要小许多。假如有非常多的特征，并不知道其中哪些特征需要惩罚，可以将对所有的特征进行惩罚，并且让代价函数最优化的软件来选择这些惩罚的程度。这样的结果是得到了一个较为简单的能防止过拟合问题的假设：<br><img src="https://img-blog.csdnimg.cn/20200708135853580.PNG#pic_center" alt="在这里插入图片描述"><br>其中𝜆又称为==正则化参数（Regularization Parameter）==。 注：根据惯例，我们不对𝜃0 进行惩罚。经过正则化处理的模型（粉色）与原模型（蓝色）的可能对比如下图所示：<br><img src="https://img-blog.csdnimg.cn/2020070814004971.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>如果选择的正则化参数 λ 过大，则会把所有的参数都最小化了，那么𝜃（不包括𝜃0）都会趋近于 0，这样我们所得到的只能是一条平行于𝑥轴的直线，模型变成 ℎ<sub>𝜃</sub>(𝑥) =𝜃<sub>0</sub>，造成欠拟合。</p>
+<h3 id="5-3-Regularizede-linear-regression-正则化线性回归"><a href="#5-3-Regularizede-linear-regression-正则化线性回归" class="headerlink" title="5.3 Regularizede linear regression(正则化线性回归)"></a>5.3 Regularizede linear regression(正则化线性回归)</h3><p>对于线性回归的求解，之前推导了两种学习算法：一种基于梯度下降，一种基于正规方程。</p>
+<p>正则化线性回归的代价函数为：<br><img src="https://img-blog.csdnimg.cn/20200708142309532.PNG#pic_center" alt="在这里插入图片描述"><br>如果要使用梯度下降法令这个代价函数最小化，因为未进行正则化，所以梯度下降算法将分两种情形：<br><img src="https://img-blog.csdnimg.cn/20200708142428802.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>对上面的算法中𝑗 = 1,2, . . . , 𝑛 时的更新式子进行调整可得：<br><img src="https://img-blog.csdnimg.cn/2020070814252032.PNG#pic_center" alt="在这里插入图片描述"><br>可以看出，正则化线性回归的梯度下降算法的变化在于，每次都在原有算法更新规则的基础上令𝜃值减少了一个额外的值。</p>
+<p>注：在梯度下降时，对任意的θ<sub>j</sub>的处理可以分为两部分，J(θ)的偏导数 + 单独针对该θ<sub>j</sub>的正则化项。</p>
+<p>同样也可以利用正规方程来求解正则化线性回归模型，方法如下所示：<br><img src="https://img-blog.csdnimg.cn/20200708155229540.PNG#pic_center" alt="在这里插入图片描述"><br>图中的矩阵尺寸为 (𝑛 + 1) ∗ (𝑛 + 1)。</p>
+<h3 id="5-4-Regularized-Logistic-Regression-正则化的逻辑回归模型"><a href="#5-4-Regularized-Logistic-Regression-正则化的逻辑回归模型" class="headerlink" title="5.4 Regularized Logistic Regression(正则化的逻辑回归模型)"></a>5.4 Regularized Logistic Regression(正则化的逻辑回归模型)</h3><p>针对逻辑回归问题，之前已学习过两种优化算法：首先学习了使用梯度下降法来优化代价函数𝐽(𝜃)，接下来学习了更高级的优化算法，这些高级优化算法需要自己设计代价函数𝐽(𝜃)。<br><img src="https://img-blog.csdnimg.cn/20200708160007681.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>对于逻辑回归，代价函数正则化的表达式：<br><img src="https://img-blog.csdnimg.cn/20200708160155875.PNG#pic_center" alt="在这里插入图片描述"><br>要最小化该代价函数，通过求导，得出梯度下降算法为：<br><img src="https://img-blog.csdnimg.cn/20200708160313567.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>注：看上去同线性回归一样，但是知道 ℎ<sub>𝜃</sub>(𝑥) = 𝑔(𝜃<sup>𝑇</sup>𝑋)，所以与线性回归不同。𝜃<sub>0</sub>不参与其中的任何一个正则化。</p>
+]]></content>
+      <categories>
+        <category>机器学习</category>
+      </categories>
+      <tags>
+        <tag>Machine Learning</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>【Machine Learning】神经网络-表述(Neural Networks-Representation)</title>
+    <url>/2020/07/11/%5BMachine%20Learning%5D%20%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%EF%BC%9A%E8%A1%A8%E8%BF%B0(Neural%20Networks_%20Representation)/</url>
+    <content><![CDATA[<p><img src="https://img-blog.csdnimg.cn/20200711130358651.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<a id="more"></a>
+
+<h2 id="6-Neural-Networks-Representation-神经网络：表述"><a href="#6-Neural-Networks-Representation-神经网络：表述" class="headerlink" title="6 Neural Networks: Representation(神经网络：表述)"></a>6 Neural Networks: Representation(神经网络：表述)</h2><h3 id="6-1-Non-linear-hypotheses-非线性假设"><a href="#6-1-Non-linear-hypotheses-非线性假设" class="headerlink" title="6.1 Non-linear hypotheses(非线性假设)"></a>6.1 Non-linear hypotheses(非线性假设)</h3><p>无论是线性回归还是逻辑回归都有这样一个缺点，即：当特征太多时，计算的负荷会非常大。</p>
+<p>假设希望训练一个模型来识别视觉对象（例如识别一张图片上是否是一辆汽车），应该怎么做呢？一种方法是利用很多汽车的图片和很多非汽车的图片，然后利用这些图片上一个个像素的值（饱和度或亮度）来作为特征。<br><img src="https://img-blog.csdnimg.cn/20200710163445193.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>假如只选用灰度图片，每个像素则只有一个值（而非 RGB 值），可以选取图片上的两个不同位置上的两个像素，然后训练一个逻辑回归算法利用这两个像素的值来判断图片上是否是汽车：<br><img src="https://img-blog.csdnimg.cn/20200710163602179.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>假使采用的都是 50x50 像素的小图片，并且将所有的像素视为特征，则会有2500 个特征，如果要进一步将两两特征组合构成一个多项式模型，则会有约2500<sup>2</sup>/2个（接近 3 百万个）特征。普通的逻辑回归模型，不能有效地处理这么多的特征，这时候需要神经网络。</p>
+<h3 id="6-2-Model-Representation-模型表示"><a href="#6-2-Model-Representation-模型表示" class="headerlink" title="6.2 Model Representation(模型表示)"></a>6.2 Model Representation(模型表示)</h3><p>神经网络是一种很古老的算法，它最初产生的目的是制造能模拟大脑的机器。</p>
+<p>为了构建神经网络模型，首先需要思考大脑中的神经网络是怎样的？每一个神经元都可以被认为是一个处理单元/神经核（processing unit/Nucleus），它含有许多输入/树突（input/Dendrite），并且有一个输出/轴突（output/Axon）。神经网络是大量神经元相互链接并通过电脉冲来交流的一个网络。<br><img src="https://img-blog.csdnimg.cn/20200710180319605.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>神经元利用微弱的电流进行沟通。这些弱电流也称作动作电位，其实就是一些微弱的电流。所以如果神经元想要传递一个消息，它就会就通过它的轴突，发送一段微弱电流给其他神经元。</p>
+<p>下图是一条连接到输入神经，或者连接另一个神经元树突的神经，接下来这个神经元接收这条消息，做一些计算，它有可能会反过来将在轴突上的自己的消息传给其他神经元。这就是所有人类思考的模型：我们的神经元把自己的收到的消息进行计算，并向其他神经元传递消息。这也是感觉和肌肉运转的原理。如果想活动一块肌肉，就会触发一个神经元给肌肉发送脉冲，并引起你的肌肉收缩。如果一些感官：比如说眼睛想要给大脑传递一个消息，那么它就像这样发送电脉冲给大脑的。<br><img src="https://img-blog.csdnimg.cn/20200710183458169.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>神经网络模型建立在很多神经元之上，每一个神经元又是一个个学习模型。这些神经元（也叫激活单元，activation unit）采纳一些特征作为输出，并且根据本身的模型提供一个输出。下图是一个以逻辑回归模型作为自身学习模型的神经元示例，在神经网络中，参数又可被成为权重（weight）。<br><img src="https://img-blog.csdnimg.cn/20200710183840825.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>设计出了类似于神经元的神经网络，效果如下：<br><img src="https://img-blog.csdnimg.cn/20200710184011764.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>其中𝑥1, 𝑥2, 𝑥3是输入单元（input units），我们将原始数据输入给它们。𝑎1, 𝑎2, 𝑎3是中间单元，它们负责将数据进行处理，然后呈递到下一层。最后是输出单元，它负责计算ℎ𝜃<br>(𝑥)。</p>
+<p>神经网络模型是许多逻辑单元按照不同层级组织起来的网络，每一层的输出变量都是下一层的输入变量。下图为一个 3 层的神经网络，第一层成为输入层（Input Layer），最后一层称为输出层（Output Layer），中间一层成为隐藏层（Hidden Layers）。为每一层都增<br>加一个偏差单位（bias unit）：<br><img src="https://img-blog.csdnimg.cn/2020071018415966.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>注：𝑎<sub>𝑖</sub><sup>(𝑗)</sup> 代表第𝑗 层的第 𝑖 个激活单元。𝜃<sup>(𝑗)</sup>代表从第 𝑗 层映射到第𝑗 + 1 层时的权重的矩阵，例如𝜃<sup>(1)</sup>代表从第一层映射到第二层的权重的矩阵。其尺寸为：以第 𝑗 + 1层的激活单元数量为行数，以第 𝑗 层的激活单元数加一为列数的矩阵。例如：上图所示的神经网络中𝜃<sup>(1)</sup>的尺寸为 3*4。</p>
+<p>对于上图所示的模型，激活单元和输出分别表达为：<br><img src="https://img-blog.csdnimg.cn/20200710185328930.PNG#pic_center" alt="在这里插入图片描述"><br>上面进行的讨论中只是将特征矩阵中的一行（一个训练实例）喂给了神经网络，我们需要将整个训练集都喂给我们的神经网络算法来学习模型。</p>
+<p>我们可以知道：每一个𝑎都是由上一层所有的𝑥和每一个𝑥所对应的决定的。<br>（我们把这样从左到右的算法称为前向传播算法( FORWARD PROPAGATION )）</p>
+<p>把𝑥, 𝜃, 𝑎 分别用矩阵表示，我们可以得到𝜃 ⋅ 𝑋 = a :<br><img src="https://img-blog.csdnimg.cn/20200710190032240.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>相对于使用循环来编码，利用向量化的方法会使得计算更为简便。以上面的神经网络为例，试着计算第二层的值：<br><img src="https://img-blog.csdnimg.cn/20200710194213751.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20200710194334438.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>为了更好了了解 Neuron Networks 的工作原理，先把左半部分遮住：<br><img src="https://img-blog.csdnimg.cn/20200710195253281.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>右半部分其实就是以𝑎0, 𝑎1, 𝑎2, 𝑎3, 按照 Logistic Regression 的方式输出ℎ𝜃(𝑥)：</p>
+<p><img src="https://img-blog.csdnimg.cn/20200710195332905.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>其实神经网络就像是 logistic regression，只不过把 logistic regression 中的输入向量[𝑥<sub>1</sub> ∼ 𝑥<sub>3</sub>] 变成了中间层的[𝑎<sub>1</sub><sup>(2)</sup>∼ 𝑎<sub>3</sub><sup>(2)</sup>], 即:<br><img src="https://img-blog.csdnimg.cn/20200710195730589.PNG#pic_center" alt="在这里插入图片描述"><br>可以把𝑎0, 𝑎1, 𝑎2, 𝑎3看成更为高级的特征值，也就是𝑥0, 𝑥1, 𝑥2, 𝑥3的进化体，并且它们是由 𝑥与决定的，因为是梯度下降的，所以𝑎是变化的，并且变得越来越厉害，所以这些更高级的特征值远比仅仅将 𝑥次方厉害，也能更好的预测新数据。这就是神经网络相比于逻辑回归和线性回归的优势。</p>
+<p>从本质上讲，神经网络能够通过学习得出其自身的一系列特征。在普通的逻辑回归中，被限制为使用数据中的原始特征𝑥1, 𝑥2, . . . , 𝑥𝑛，虽然可以使用一些二项式项来组合这些特征，但是仍然受到这些原始特征的限制。在神经网络中，原始特征只是输入层，在上面三层的神经网络例子中，第三层也就是输出层做出的预测利用的是第二层的特征，而非输入层中的原始特征，可以认为第二层中的特征是神经网络通过学习后自己得出的一系列用于预测输出变量的新特征。</p>
+<p>神经网络中，单层神经元（无中间层）的计算可用来表示逻辑运算，比如逻辑与(AND)、逻辑或(OR)。</p>
+<p>举例说明：逻辑与(AND)；下图中左半部分是神经网络的设计与 output 层表达式，右边上部分是 sigmod 函数，下半部分是真值表。</p>
+<p>可以用这样的一个神经网络表示 <strong>AND 函数：</strong><br><img src="https://img-blog.csdnimg.cn/20200711123825308.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br><strong>OR 函数：</strong><br><img src="https://img-blog.csdnimg.cn/20200711123956883.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>OR 与 AND 整体一样，区别只在于的取值不同。</p>
+<p>利用神经元来组合成更为复杂的神经网络可以实现更复杂的运算。例如要实现 XNOR 功能（输入的两个值必须一样，均为 1 或均为 0），即：<br>XNOR = (x1 ANDx2) OR((NOT x1)AND(NOT x2))</p>
+<p>首先构造能表达(x1 ANDx2)和(NOT x1)AND(NOT x2)部分的神经元：<br><img src="https://img-blog.csdnimg.cn/20200711125641473.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20200711125006673.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>然后将表示 AND 的神经元和表示(NOT x1)AND(NOT x2)的神经元以及表示 OR 的神经元进行组合：<br><img src="https://img-blog.csdnimg.cn/20200711125423807.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>这样就得到了一个能实现 XNOR 运算符功能的神经网络。<br>按这种方法可以逐渐构造出越来越复杂的函数，也能得到更加厉害的特征值。这就是神经网络的厉害之处。</p>
+<h3 id="6-3-Multi-class-Classification-多元分类"><a href="#6-3-Multi-class-Classification-多元分类" class="headerlink" title="6.3 Multi-class Classification(多元分类)"></a>6.3 Multi-class Classification(多元分类)</h3><p>当有不止两种分类时（也就是𝑦 = 1,2,3 ….）<br><img src="https://img-blog.csdnimg.cn/2020071112595442.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+]]></content>
+      <categories>
+        <category>机器学习</category>
+      </categories>
+      <tags>
+        <tag>Machine Learning</tag>
+        <tag>Neural Networks</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>【Machine Learning】逻辑回归(Logistic Regression)</title>
     <url>/2020/07/08/%5BMachine%20Learning%5D%20%E9%80%BB%E8%BE%91%E5%9B%9E%E5%BD%92(Logistic%20Regression)/</url>
     <content><![CDATA[<p><img src="https://img-blog.csdnimg.cn/20200708114415292.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
@@ -85,114 +146,6 @@
 </ul>
 <h3 id="4-6-Multiclass-Classification-One-vs-all-多类别分类：一对多"><a href="#4-6-Multiclass-Classification-One-vs-all-多类别分类：一对多" class="headerlink" title="4.6 Multiclass Classification: One-vs-all(多类别分类：一对多)"></a>4.6 Multiclass Classification: One-vs-all(多类别分类：一对多)</h3><p><img src="https://img-blog.csdnimg.cn/20200708111918112.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>对于二元分类可以使用逻辑回归，对于直线可以将数据集一分为二为正类和负类，对于一对多的分类思想可以将其用在多类分类问题上，有时这个方法也被称为 ==”一对余”方法== 。</p>
 <p>将多个类中的一个类标记为正向类（𝑦 = 1），然后将其他所有类都标记为负向类，这个模型记作ℎ𝜃(1)(𝑥)。接着，类似地选择另一个类标记为正向类（𝑦 = 2），再将其它类都标记为负向类，将这个模型记作 ℎ𝜃(2)(𝑥),依此类推，得到一系列的模型简记为： ℎ𝜃(𝑖)(𝑥) = 𝑝(𝑦 = 𝑖|𝑥; 𝜃)其中：𝑖 = (1,2,3. . . . 𝑘)。 最后，在预测时，将所有的分类机都运行一遍，然后对每一个输入变量，都选择最高可能性的输出变量。<br><img src="https://img-blog.csdnimg.cn/20200708112953805.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
-]]></content>
-      <categories>
-        <category>机器学习</category>
-      </categories>
-      <tags>
-        <tag>Machine Learning</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>关于SQL易忘的知识点</title>
-    <url>/2020/06/19/%E5%85%B3%E4%BA%8ESQL%E6%98%93%E5%BF%98%E7%9A%84%E5%8D%81%E4%BA%94%E4%B8%AA%E7%9F%A5%E8%AF%86%E7%82%B9/</url>
-    <content><![CDATA[<p><img src="https://img-blog.csdnimg.cn/20200619102150246.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
-<a id="more"></a>
-
-<p>主要记录SQL尤其是MySQL中，一些看了就忘，需要经常查的小知识点~</p>
-<h2 id="1-下划线-通配符与百分号-通配符的区别"><a href="#1-下划线-通配符与百分号-通配符的区别" class="headerlink" title="1. 下划线_通配符与百分号%通配符的区别"></a>1. 下划线_通配符与百分号%通配符的区别</h2><p>下划线的用途与%一样，但是%能匹配0个字符不一样，_总是匹配一个字符，不能多也不能少。<br><img src="https://img-blog.csdnimg.cn/20200502213747941.png" alt="在这里插入图片描述"></p>
-<h2 id="2-匹配不区分大小写"><a href="#2-匹配不区分大小写" class="headerlink" title="2. 匹配不区分大小写"></a>2. 匹配不区分大小写</h2><p>通过使用BINARY可以区分，如：</p>
-<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">WHERE prod_name REGEXP BINARY 'JetPack .000'</span><br></pre></td></tr></table></figure>
-
-<h2 id="3-MySQL正则表达式"><a href="#3-MySQL正则表达式" class="headerlink" title="3. MySQL正则表达式"></a>3. MySQL正则表达式</h2><p>正则表达式的作用是匹配文本，将一个模式（正则表达式）与一个文本串进行比较。MySQL<br>用WHERE子句对正则表达式提供了初步的支持，允许你指定正则表达式，过滤SELECT检索出的数据。</p>
-<h2 id="4-LIKE和REGEXP的区别"><a href="#4-LIKE和REGEXP的区别" class="headerlink" title="4. LIKE和REGEXP的区别"></a>4. LIKE和REGEXP的区别</h2><p>LIKE匹配整个列。如果被匹配的文本在列值中出现，LIKE将不会找到它，相应的行也不被返回（除非使用通配符）。而REGEXP在列值内进行匹配，如果被匹配的文本在列值中出现，REGEXP将会找到它，相应的行将被返回。这是一个非常重要的差别。</p>
-<h2 id="5-匹配"><a href="#5-匹配" class="headerlink" title="5. 匹配"></a>5. 匹配</h2><p><strong>匹配字符</strong><br><img src="https://img-blog.csdnimg.cn/20200502215248363.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br><strong>匹配特殊字符</strong><br>为了匹配特殊字符，必须用\为前导。\-表示查找-，\.表示查找.。这种处理就是所谓的转义（escaping），正则表达式内具有特殊意义的所有字符都必须以这种方式转义。这包括.、|、[]以及迄今为止使用过的其他特殊字符。<br>\也用来引用元字符（具有特殊含义的字符）。<br><img src="https://img-blog.csdnimg.cn/20200502220002901.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>例：<br><img src="https://img-blog.csdnimg.cn/20200502220945880.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br><strong>定位符</strong><br><img src="https://img-blog.csdnimg.cn/20200502221139784.png" alt="在这里插入图片描述"><br>例：<br><img src="https://img-blog.csdnimg.cn/2020050222152389.png" alt="在这里插入图片描述"><br><strong>注：^的双重用途</strong><br>^有两种用法。在集合中（用[和]定义），用它来否定该集合，否则，用来指串的开始处。</p>
-<h2 id="6-文本处理函数"><a href="#6-文本处理函数" class="headerlink" title="6. 文本处理函数"></a>6. 文本处理函数</h2><p><img src="https://img-blog.csdnimg.cn/20200502224543982.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>SOUNDEX是一个将任何文本串转换为描述其语音表示的字母数字模式的算法。使用Soundex()函数进行搜索，它匹配所有发音类似于Y.Lie的联系名：<br><img src="https://img-blog.csdnimg.cn/2020050222515799.png" alt="在这里插入图片描述"><br>拼接：将值联结到一起构成单个值。<br>解决办法是把两个列拼接起来。在MySQL的SELECT语句中，可使用Concat()函数来拼接两个列。</p>
-<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="keyword">Concat</span>(ven_name, <span class="string">'('</span>, vend_country, <span class="string">')'</span>)</span><br></pre></td></tr></table></figure>
-
-<h2 id="7-日期和时间处理函数"><a href="#7-日期和时间处理函数" class="headerlink" title="7. 日期和时间处理函数"></a>7. 日期和时间处理函数</h2><p><img src="https://img-blog.csdnimg.cn/20200502225707163.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20200502231413483.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
-<h2 id="8-数值处理函数"><a href="#8-数值处理函数" class="headerlink" title="8. 数值处理函数"></a>8. 数值处理函数</h2><p><img src="https://img-blog.csdnimg.cn/20200502231547428.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
-<h2 id="9-聚集函数"><a href="#9-聚集函数" class="headerlink" title="9. 聚集函数"></a>9. 聚集函数</h2><p><img src="https://img-blog.csdnimg.cn/20200503104310481.png" alt="在这里插入图片描述"><br>其中，在用于文本数据时，如果数据按相应的列排序，则MAX()返回最后一行，MIN()返回第一行。<br>COUNT()函数有两种使用方式。使用COUNT(*)对表中行的数目进行计数，不管表列中包含的是空值（NULL）还是非空值。使用COUNT(column)对特定列中具有值的行进行计数，忽略NULL值。</p>
-<h2 id="10-HAVING和WHERE的区别"><a href="#10-HAVING和WHERE的区别" class="headerlink" title="10. HAVING和WHERE的区别"></a>10. HAVING和WHERE的区别</h2><p>“Where” 是一个约束声明，使用Where来约束来之数据库的数据，Where是在结果返回之前起作用的，且Where中不能使用聚合函数。<br>“Having”是一个过滤声明，是在查询返回结果集以后对查询结果进行的过滤操作，在Having中可以使用聚合函数。<br><img src="https://img-blog.csdnimg.cn/2020050310553535.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
-<h2 id="11-组合查询UNION"><a href="#11-组合查询UNION" class="headerlink" title="11. 组合查询UNION"></a>11. 组合查询UNION</h2><p>UNION 返回匹配行，不保留重复行<br>UNION ALL 返回匹配行，包括重复行</p>
-<p>UNION中的每个查询必须包含相同的列、表达式或聚集函数（不过各个列不需要以相同的次序列出）。<br>在用UNION组合查询时，只能使用一条ORDER BY子句，它必须出现在最后一条SELECT语句之后。对于结果集，不存在用一种方式排序一部分，而又用另一种方式排序另一部分的情况，因此不允许使用多条ORDER BY子句。</p>
-<h2 id="12-全文本搜索"><a href="#12-全文本搜索" class="headerlink" title="12. 全文本搜索"></a>12. 全文本搜索</h2><p><img src="https://img-blog.csdnimg.cn/2020050311335215.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>查询扩展<br><img src="https://img-blog.csdnimg.cn/20200503113851840.png" alt="在这里插入图片描述"><br>表中的行越多（这些行中的文本就越多），使用查询扩展返回的结果越好。</p>
-<p>布尔文本搜索<br><img src="https://img-blog.csdnimg.cn/20200503114745745.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20200503115115309.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>在布尔方式中，不按等级值降序排序返回的行。</p>
-<h2 id="13-数据插入"><a href="#13-数据插入" class="headerlink" title="13. 数据插入"></a>13. 数据插入</h2><p>插入一行<br><img src="https://img-blog.csdnimg.cn/20200503152023293.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>插入多行<br><img src="https://img-blog.csdnimg.cn/20200503152023113.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>插入检索出的数据<br><img src="https://img-blog.csdnimg.cn/20200503152215262.png" alt="在这里插入图片描述"></p>
-<h2 id="14-更新数据、删除数据"><a href="#14-更新数据、删除数据" class="headerlink" title="14. 更新数据、删除数据"></a>14. 更新数据、删除数据</h2><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="comment">#更新多个列</span></span><br><span class="line"><span class="keyword">UPDATE</span> customers</span><br><span class="line"><span class="keyword">SET</span> cust_name = <span class="string">'The Fudds'</span>,</span><br><span class="line">	cust_email = <span class="string">'elmer@fudd.com'</span></span><br><span class="line"><span class="keyword">WHERE</span> cust_id = <span class="number">10005</span> ;     <span class="comment">#不要省略WHERE子句</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#删除某个列的值</span></span><br><span class="line"><span class="keyword">UPDATE</span> customers</span><br><span class="line"><span class="keyword">SET</span> cust_email = <span class="literal">NULL</span>    <span class="comment">#其中NULL用来去除cust_email列中的值。</span></span><br><span class="line"><span class="keyword">WHERE</span> cust_id = <span class="number">10005</span> ; </span><br><span class="line"></span><br><span class="line"><span class="comment">#删除数据</span></span><br><span class="line"><span class="keyword">DELETE</span> <span class="keyword">FROM</span> customers</span><br><span class="line"><span class="keyword">WHERE</span> cust_id = <span class="number">10005</span> ;</span><br><span class="line"><span class="comment">#DELETE不需要列名或通配符。DELETE删除整行而不是删除列,但DELETE不删除表本身。为了删除指定的列，请使用UPDATE语句。</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="15-主键、索引和外键"><a href="#15-主键、索引和外键" class="headerlink" title="15. 主键、索引和外键"></a>15. 主键、索引和外键</h2><p>主键的作用：</p>
-<ul>
-<li>惟一地标识一行。 </li>
-<li>作为一个可以被外键有效引用的对象。</li>
-</ul>
-<p>索引：索引分为主键索引、唯一索引、普通索引、全文索引、组合索引等</p>
-<ul>
-<li>主键索引（PRIMARY KEY）：<strong>不可以为空</strong>，<strong>可以做外键</strong>，一张表中只能有一个主键索引。</li>
-</ul>
-<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> <span class="string">`table_name`</span> <span class="keyword">ADD</span> PRIMARY <span class="keyword">KEY</span> ( <span class="string">`column`</span> )</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>唯一索引（UNIQUE）：被索引的数据列不允许包含重复的值，但<strong>允许有空值。</strong></li>
-</ul>
-<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> <span class="string">`table_name`</span> <span class="keyword">ADD</span> <span class="keyword">UNIQUE</span> (<span class="string">`column`</span>)</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>普通索引（INDEX）：用来加速数据访问速度而建立的索引。多建立在经常出现在查询条件的字段和经常用于排序的字段。被索引的数据列允许包含重复的值。</li>
-</ul>
-<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> <span class="string">`table_name`</span> <span class="keyword">ADD</span> <span class="keyword">INDEX</span> index_name ( <span class="string">`column`</span> )</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>全文索引（FULLTEXT）：仅可用于 MyISAM 表，针对较大的数据，生成全文索引很耗时好空间。</li>
-</ul>
-<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> <span class="string">`table_name`</span> <span class="keyword">ADD</span> FULLTEXT ( <span class="string">`column`</span> )</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>组合索引：为了更多的提高mysql效率可建立组合索引，遵循”最左前缀“原则。</li>
-</ul>
-<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> <span class="string">`table_name`</span> <span class="keyword">ADD</span> <span class="keyword">INDEX</span> index_name ( <span class="string">`column1`</span>, <span class="string">`column2`</span>, <span class="string">`column3`</span> )</span><br></pre></td></tr></table></figure>
-
-
-<p>主键和索引：主键是为了标识数据库记录唯一性，不允许记录重复，且键值不能为空，主也是一个特殊索引。数据表中只允许有一个主键，但是可以有多个索引。</p>
-<p>外键：<br><img src="https://img-blog.csdnimg.cn/20200524190007537.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
-<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><p>《MySQL必知必会》Ben Forta 著，刘晓霞 钟鸣 译<br><a href="https://www.liaoxuefeng.com/wiki/1177760294764384/1218728424164736" target="_blank" rel="noopener">SQL教程 廖雪峰。</a></p>
-]]></content>
-      <categories>
-        <category>SQL</category>
-      </categories>
-      <tags>
-        <tag>SQL</tag>
-        <tag>MySQL</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>【Machine Learning】多变量线性回归(Linear Regression with Multiple Variables)</title>
-    <url>/2020/07/07/%5BMachine%20Learning%5D%20%E5%A4%9A%E5%8F%98%E9%87%8F%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92(Linear%20Regression%20with%20Multiple%20Variables)/</url>
-    <content><![CDATA[<p><img src="https://img-blog.csdnimg.cn/20200707131529483.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
-<a id="more"></a>
-
-<h2 id="3-Linear-Regression-with-Multiple-Variables-多变量线性回归"><a href="#3-Linear-Regression-with-Multiple-Variables-多变量线性回归" class="headerlink" title="3 Linear Regression with Multiple Variables(多变量线性回归)"></a>3 Linear Regression with Multiple Variables(多变量线性回归)</h2><h3 id="3-1-Multiple-Features-多维特征"><a href="#3-1-Multiple-Features-多维特征" class="headerlink" title="3.1 Multiple Features(多维特征)"></a>3.1 Multiple Features(多维特征)</h3><p><img src="https://img-blog.csdnimg.cn/20200707100825934.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20200707100922690.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>注：实际上不一定是线性的，仅本例中使用线性。非线性也是此思想。</p>
-<h3 id="3-2-Gradient-Descent-for-Multiple-Variables-多变量梯度下降"><a href="#3-2-Gradient-Descent-for-Multiple-Variables-多变量梯度下降" class="headerlink" title="3.2 Gradient Descent for Multiple Variables(多变量梯度下降)"></a>3.2 Gradient Descent for Multiple Variables(多变量梯度下降)</h3><p>与单变量线性回归类似，在多变量线性回归中，同样也构建一个代价函数，则这个代价函数是所有建模误差的平方和，即：<br><img src="https://img-blog.csdnimg.cn/20200707102308696.PNG#pic_center" alt="在这里插入图片描述"><br>目标和单变量线性回归问题中一样，是要找出使得代价函数最小的一系列参数。<img src="https://img-blog.csdnimg.cn/20200707101806364.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20200707101739874.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>上图右边显示了多变量线性回归的批量梯度下降算法，其开始随机选择一系列的参数值，计算所有的预测结果后，再给所有的参数一个新的值，如此循环直到收敛。</p>
-<p><strong>python代码：</strong></p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">computeCost</span><span class="params">(X, y, theta)</span>:</span></span><br><span class="line">	inner = np.power(((X * theta.T) - y), <span class="number">2</span>)</span><br><span class="line">	<span class="keyword">return</span> np.sum(inner) / (<span class="number">2</span> * len(X))</span><br></pre></td></tr></table></figure>
-
-<h4 id="3-2-1-Gradient-Descent-in-Practice-I-Feature-Scaling-特征缩放"><a href="#3-2-1-Gradient-Descent-in-Practice-I-Feature-Scaling-特征缩放" class="headerlink" title="3.2.1 Gradient Descent in Practice I - Feature Scaling (特征缩放)"></a>3.2.1 Gradient Descent in Practice I - Feature Scaling (特征缩放)</h4><p><strong>在解决多维特征问题时，应该保证这些特征都具有相近的尺度，这将帮助梯度下降算法更快地收敛。</strong></p>
-<p>以房价问题为例，假设有两个特征，房屋的尺寸和房间的数量，尺寸的值为 0-2000 平方英尺，而房间数量的值则是 0-5，以两个参数分别为横纵坐标，绘制代价函数等高线图能，看出图像会显得很扁，梯度下降算法需要非常多次的迭代才能收敛。<br><img src="https://img-blog.csdnimg.cn/20200707104230484.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>解决方法是尝试将所有特征的尺度都尽量缩放到-1 到 1 之间，即==特征归一化==。如图：<br><img src="https://img-blog.csdnimg.cn/20200707104328954.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
-<blockquote>
-<p>数据的标准化（normalization）是将数据按比例缩放，使之落入一个小的特定区间。在某些比较和评价的指标处理中经常会用到，去除数据的单位限制，将其转化为无量纲的纯数值，便于不同单位或量级的指标能够进行比较和加权，可以大大提高分类器的准确性。<br>其中最典型的就是数据的归一化处理，即将数据统一映射到[0,1]区间上。</p>
-</blockquote>
-<p>归一化公式：<br><img src="https://img-blog.csdnimg.cn/20200707105004270.PNG#pic_center" alt="在这里插入图片描述"></p>
-<h4 id="3-2-2-Gradient-Descent-in-Practice-II-Learning-Rate-学习率"><a href="#3-2-2-Gradient-Descent-in-Practice-II-Learning-Rate-学习率" class="headerlink" title="3.2.2 Gradient Descent in Practice II - Learning Rate (学习率)"></a>3.2.2 Gradient Descent in Practice II - Learning Rate (学习率)</h4><p>梯度下降算法收敛所需要的迭代次数根据模型的不同而不同，无法提前预知，但可以绘制迭代次数和代价函数的图表来观测算法在何时趋于收敛。<br><img src="https://img-blog.csdnimg.cn/20200707105546868.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>图像300~400已经相当平坦了，可推测到达400左右时梯度下降法差不多已经收敛了。</p>
-<p>梯度下降算法的每次迭代受到学习率的影响，如果学习率𝑎过小，则达到收敛所需的迭代次数会非常多；如果学习率𝑎过大，每次迭代可能不会减小代价函数，可能会越过局部最小值导致无法收敛。</p>
-<p>通常可以考虑尝试些学习率：<br>𝛼 =…，0.001，0.003，0.01，0.03，0.1，0.3，1，…</p>
-<h3 id="3-3-Features-and-Polynomial-Regression-特征和多项式回归"><a href="#3-3-Features-and-Polynomial-Regression-特征和多项式回归" class="headerlink" title="3.3 Features and Polynomial Regression(特征和多项式回归)"></a>3.3 Features and Polynomial Regression(特征和多项式回归)</h3><p><img src="https://img-blog.csdnimg.cn/20200707121141207.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>线性回归并不适用于所有数据，有时需要曲线来适应数据，比如，<br>一个二次方模型：<img src="https://img-blog.csdnimg.cn/20200707121921446.PNG#pic_center" alt="在这里插入图片描述"><br>或者三次方模型：<img src="https://img-blog.csdnimg.cn/20200707121933949.PNG#pic_center" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20200707122024153.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>根据函数图形特性，我们还可以使：<br><img src="https://img-blog.csdnimg.cn/20200707122340253.PNG#pic_center" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20200707122358694.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>注：如果采用多项式回归模型，在运行梯度下降算法前，特征缩放非常有必要。</p>
-<h3 id="3-4-Normal-Equation-正规方程"><a href="#3-4-Normal-Equation-正规方程" class="headerlink" title="3.4 Normal Equation(正规方程)"></a>3.4 Normal Equation(正规方程)</h3><p>正规方程是区别于迭代方法的直接计算解法，即直接求导数等于0的点。<br><img src="https://img-blog.csdnimg.cn/20200707123106110.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>假设训练集特征矩阵为 𝑋（包含了 𝑥0 = 1）并且训练集结果为向量 𝑦，则利用正规方程解出向量：<img src="https://img-blog.csdnimg.cn/202007071243148.PNG#pic_center" alt="在这里插入图片描述"><br>例子：<br><img src="https://img-blog.csdnimg.cn/20200707124545251.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>注：对于不可逆的矩阵（通常是因为特征之间不独立，如同时包含英尺为单位的尺寸和米为单位的尺寸两个特征，也有可能是特征数量大于训练集的数量），正规方程方法是不能用的。</p>
-<p><strong>梯度下降与正规方程的比较</strong><br><img src="https://img-blog.csdnimg.cn/20200707125601290.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>注：只要特征变量的数目并不大，标准方程是一个很好的计算参数𝜃的替代方法。具体地说，只要特征变量数量小于一万，通常使用标准方程法，而不使用梯度下降法。</p>
-<p><strong>Normal Equation Noninvertibility(正规方程及不可逆性)</strong><br><img src="https://img-blog.csdnimg.cn/20200707130156670.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
-<p><strong>python实现正规方程：</strong></p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">normalEqn</span><span class="params">(X, y)</span>:</span></span><br><span class="line">	theta = np.linalg.inv(X.T@X)@X.T@y <span class="comment">#X.T@X 等价于 X.T.dot(X)</span></span><br><span class="line">	<span class="keyword">return</span> theta</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://img-blog.csdnimg.cn/20200707130732297.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20200707130731881.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
 ]]></content>
       <categories>
         <category>机器学习</category>
@@ -400,6 +353,114 @@ dtype: int64"></p>
       </tags>
   </entry>
   <entry>
+    <title>关于SQL易忘的知识点</title>
+    <url>/2020/06/19/%E5%85%B3%E4%BA%8ESQL%E6%98%93%E5%BF%98%E7%9A%84%E5%8D%81%E4%BA%94%E4%B8%AA%E7%9F%A5%E8%AF%86%E7%82%B9/</url>
+    <content><![CDATA[<p><img src="https://img-blog.csdnimg.cn/20200619102150246.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<a id="more"></a>
+
+<p>主要记录SQL尤其是MySQL中，一些看了就忘，需要经常查的小知识点~</p>
+<h2 id="1-下划线-通配符与百分号-通配符的区别"><a href="#1-下划线-通配符与百分号-通配符的区别" class="headerlink" title="1. 下划线_通配符与百分号%通配符的区别"></a>1. 下划线_通配符与百分号%通配符的区别</h2><p>下划线的用途与%一样，但是%能匹配0个字符不一样，_总是匹配一个字符，不能多也不能少。<br><img src="https://img-blog.csdnimg.cn/20200502213747941.png" alt="在这里插入图片描述"></p>
+<h2 id="2-匹配不区分大小写"><a href="#2-匹配不区分大小写" class="headerlink" title="2. 匹配不区分大小写"></a>2. 匹配不区分大小写</h2><p>通过使用BINARY可以区分，如：</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">WHERE prod_name REGEXP BINARY 'JetPack .000'</span><br></pre></td></tr></table></figure>
+
+<h2 id="3-MySQL正则表达式"><a href="#3-MySQL正则表达式" class="headerlink" title="3. MySQL正则表达式"></a>3. MySQL正则表达式</h2><p>正则表达式的作用是匹配文本，将一个模式（正则表达式）与一个文本串进行比较。MySQL<br>用WHERE子句对正则表达式提供了初步的支持，允许你指定正则表达式，过滤SELECT检索出的数据。</p>
+<h2 id="4-LIKE和REGEXP的区别"><a href="#4-LIKE和REGEXP的区别" class="headerlink" title="4. LIKE和REGEXP的区别"></a>4. LIKE和REGEXP的区别</h2><p>LIKE匹配整个列。如果被匹配的文本在列值中出现，LIKE将不会找到它，相应的行也不被返回（除非使用通配符）。而REGEXP在列值内进行匹配，如果被匹配的文本在列值中出现，REGEXP将会找到它，相应的行将被返回。这是一个非常重要的差别。</p>
+<h2 id="5-匹配"><a href="#5-匹配" class="headerlink" title="5. 匹配"></a>5. 匹配</h2><p><strong>匹配字符</strong><br><img src="https://img-blog.csdnimg.cn/20200502215248363.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br><strong>匹配特殊字符</strong><br>为了匹配特殊字符，必须用\为前导。\-表示查找-，\.表示查找.。这种处理就是所谓的转义（escaping），正则表达式内具有特殊意义的所有字符都必须以这种方式转义。这包括.、|、[]以及迄今为止使用过的其他特殊字符。<br>\也用来引用元字符（具有特殊含义的字符）。<br><img src="https://img-blog.csdnimg.cn/20200502220002901.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>例：<br><img src="https://img-blog.csdnimg.cn/20200502220945880.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br><strong>定位符</strong><br><img src="https://img-blog.csdnimg.cn/20200502221139784.png" alt="在这里插入图片描述"><br>例：<br><img src="https://img-blog.csdnimg.cn/2020050222152389.png" alt="在这里插入图片描述"><br><strong>注：^的双重用途</strong><br>^有两种用法。在集合中（用[和]定义），用它来否定该集合，否则，用来指串的开始处。</p>
+<h2 id="6-文本处理函数"><a href="#6-文本处理函数" class="headerlink" title="6. 文本处理函数"></a>6. 文本处理函数</h2><p><img src="https://img-blog.csdnimg.cn/20200502224543982.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>SOUNDEX是一个将任何文本串转换为描述其语音表示的字母数字模式的算法。使用Soundex()函数进行搜索，它匹配所有发音类似于Y.Lie的联系名：<br><img src="https://img-blog.csdnimg.cn/2020050222515799.png" alt="在这里插入图片描述"><br>拼接：将值联结到一起构成单个值。<br>解决办法是把两个列拼接起来。在MySQL的SELECT语句中，可使用Concat()函数来拼接两个列。</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="keyword">Concat</span>(ven_name, <span class="string">'('</span>, vend_country, <span class="string">')'</span>)</span><br></pre></td></tr></table></figure>
+
+<h2 id="7-日期和时间处理函数"><a href="#7-日期和时间处理函数" class="headerlink" title="7. 日期和时间处理函数"></a>7. 日期和时间处理函数</h2><p><img src="https://img-blog.csdnimg.cn/20200502225707163.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20200502231413483.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<h2 id="8-数值处理函数"><a href="#8-数值处理函数" class="headerlink" title="8. 数值处理函数"></a>8. 数值处理函数</h2><p><img src="https://img-blog.csdnimg.cn/20200502231547428.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<h2 id="9-聚集函数"><a href="#9-聚集函数" class="headerlink" title="9. 聚集函数"></a>9. 聚集函数</h2><p><img src="https://img-blog.csdnimg.cn/20200503104310481.png" alt="在这里插入图片描述"><br>其中，在用于文本数据时，如果数据按相应的列排序，则MAX()返回最后一行，MIN()返回第一行。<br>COUNT()函数有两种使用方式。使用COUNT(*)对表中行的数目进行计数，不管表列中包含的是空值（NULL）还是非空值。使用COUNT(column)对特定列中具有值的行进行计数，忽略NULL值。</p>
+<h2 id="10-HAVING和WHERE的区别"><a href="#10-HAVING和WHERE的区别" class="headerlink" title="10. HAVING和WHERE的区别"></a>10. HAVING和WHERE的区别</h2><p>“Where” 是一个约束声明，使用Where来约束来之数据库的数据，Where是在结果返回之前起作用的，且Where中不能使用聚合函数。<br>“Having”是一个过滤声明，是在查询返回结果集以后对查询结果进行的过滤操作，在Having中可以使用聚合函数。<br><img src="https://img-blog.csdnimg.cn/2020050310553535.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<h2 id="11-组合查询UNION"><a href="#11-组合查询UNION" class="headerlink" title="11. 组合查询UNION"></a>11. 组合查询UNION</h2><p>UNION 返回匹配行，不保留重复行<br>UNION ALL 返回匹配行，包括重复行</p>
+<p>UNION中的每个查询必须包含相同的列、表达式或聚集函数（不过各个列不需要以相同的次序列出）。<br>在用UNION组合查询时，只能使用一条ORDER BY子句，它必须出现在最后一条SELECT语句之后。对于结果集，不存在用一种方式排序一部分，而又用另一种方式排序另一部分的情况，因此不允许使用多条ORDER BY子句。</p>
+<h2 id="12-全文本搜索"><a href="#12-全文本搜索" class="headerlink" title="12. 全文本搜索"></a>12. 全文本搜索</h2><p><img src="https://img-blog.csdnimg.cn/2020050311335215.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>查询扩展<br><img src="https://img-blog.csdnimg.cn/20200503113851840.png" alt="在这里插入图片描述"><br>表中的行越多（这些行中的文本就越多），使用查询扩展返回的结果越好。</p>
+<p>布尔文本搜索<br><img src="https://img-blog.csdnimg.cn/20200503114745745.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20200503115115309.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>在布尔方式中，不按等级值降序排序返回的行。</p>
+<h2 id="13-数据插入"><a href="#13-数据插入" class="headerlink" title="13. 数据插入"></a>13. 数据插入</h2><p>插入一行<br><img src="https://img-blog.csdnimg.cn/20200503152023293.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>插入多行<br><img src="https://img-blog.csdnimg.cn/20200503152023113.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>插入检索出的数据<br><img src="https://img-blog.csdnimg.cn/20200503152215262.png" alt="在这里插入图片描述"></p>
+<h2 id="14-更新数据、删除数据"><a href="#14-更新数据、删除数据" class="headerlink" title="14. 更新数据、删除数据"></a>14. 更新数据、删除数据</h2><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="comment">#更新多个列</span></span><br><span class="line"><span class="keyword">UPDATE</span> customers</span><br><span class="line"><span class="keyword">SET</span> cust_name = <span class="string">'The Fudds'</span>,</span><br><span class="line">	cust_email = <span class="string">'elmer@fudd.com'</span></span><br><span class="line"><span class="keyword">WHERE</span> cust_id = <span class="number">10005</span> ;     <span class="comment">#不要省略WHERE子句</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#删除某个列的值</span></span><br><span class="line"><span class="keyword">UPDATE</span> customers</span><br><span class="line"><span class="keyword">SET</span> cust_email = <span class="literal">NULL</span>    <span class="comment">#其中NULL用来去除cust_email列中的值。</span></span><br><span class="line"><span class="keyword">WHERE</span> cust_id = <span class="number">10005</span> ; </span><br><span class="line"></span><br><span class="line"><span class="comment">#删除数据</span></span><br><span class="line"><span class="keyword">DELETE</span> <span class="keyword">FROM</span> customers</span><br><span class="line"><span class="keyword">WHERE</span> cust_id = <span class="number">10005</span> ;</span><br><span class="line"><span class="comment">#DELETE不需要列名或通配符。DELETE删除整行而不是删除列,但DELETE不删除表本身。为了删除指定的列，请使用UPDATE语句。</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="15-主键、索引和外键"><a href="#15-主键、索引和外键" class="headerlink" title="15. 主键、索引和外键"></a>15. 主键、索引和外键</h2><p>主键的作用：</p>
+<ul>
+<li>惟一地标识一行。 </li>
+<li>作为一个可以被外键有效引用的对象。</li>
+</ul>
+<p>索引：索引分为主键索引、唯一索引、普通索引、全文索引、组合索引等</p>
+<ul>
+<li>主键索引（PRIMARY KEY）：<strong>不可以为空</strong>，<strong>可以做外键</strong>，一张表中只能有一个主键索引。</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> <span class="string">`table_name`</span> <span class="keyword">ADD</span> PRIMARY <span class="keyword">KEY</span> ( <span class="string">`column`</span> )</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>唯一索引（UNIQUE）：被索引的数据列不允许包含重复的值，但<strong>允许有空值。</strong></li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> <span class="string">`table_name`</span> <span class="keyword">ADD</span> <span class="keyword">UNIQUE</span> (<span class="string">`column`</span>)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>普通索引（INDEX）：用来加速数据访问速度而建立的索引。多建立在经常出现在查询条件的字段和经常用于排序的字段。被索引的数据列允许包含重复的值。</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> <span class="string">`table_name`</span> <span class="keyword">ADD</span> <span class="keyword">INDEX</span> index_name ( <span class="string">`column`</span> )</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>全文索引（FULLTEXT）：仅可用于 MyISAM 表，针对较大的数据，生成全文索引很耗时好空间。</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> <span class="string">`table_name`</span> <span class="keyword">ADD</span> FULLTEXT ( <span class="string">`column`</span> )</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>组合索引：为了更多的提高mysql效率可建立组合索引，遵循”最左前缀“原则。</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> <span class="string">`table_name`</span> <span class="keyword">ADD</span> <span class="keyword">INDEX</span> index_name ( <span class="string">`column1`</span>, <span class="string">`column2`</span>, <span class="string">`column3`</span> )</span><br></pre></td></tr></table></figure>
+
+
+<p>主键和索引：主键是为了标识数据库记录唯一性，不允许记录重复，且键值不能为空，主也是一个特殊索引。数据表中只允许有一个主键，但是可以有多个索引。</p>
+<p>外键：<br><img src="https://img-blog.csdnimg.cn/20200524190007537.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><p>《MySQL必知必会》Ben Forta 著，刘晓霞 钟鸣 译<br><a href="https://www.liaoxuefeng.com/wiki/1177760294764384/1218728424164736" target="_blank" rel="noopener">SQL教程 廖雪峰。</a></p>
+]]></content>
+      <categories>
+        <category>SQL</category>
+      </categories>
+      <tags>
+        <tag>SQL</tag>
+        <tag>MySQL</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>【Machine Learning】多变量线性回归(Linear Regression with Multiple Variables)</title>
+    <url>/2020/07/07/%5BMachine%20Learning%5D%20%E5%A4%9A%E5%8F%98%E9%87%8F%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92(Linear%20Regression%20with%20Multiple%20Variables)/</url>
+    <content><![CDATA[<p><img src="https://img-blog.csdnimg.cn/20200707131529483.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<a id="more"></a>
+
+<h2 id="3-Linear-Regression-with-Multiple-Variables-多变量线性回归"><a href="#3-Linear-Regression-with-Multiple-Variables-多变量线性回归" class="headerlink" title="3 Linear Regression with Multiple Variables(多变量线性回归)"></a>3 Linear Regression with Multiple Variables(多变量线性回归)</h2><h3 id="3-1-Multiple-Features-多维特征"><a href="#3-1-Multiple-Features-多维特征" class="headerlink" title="3.1 Multiple Features(多维特征)"></a>3.1 Multiple Features(多维特征)</h3><p><img src="https://img-blog.csdnimg.cn/20200707100825934.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20200707100922690.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>注：实际上不一定是线性的，仅本例中使用线性。非线性也是此思想。</p>
+<h3 id="3-2-Gradient-Descent-for-Multiple-Variables-多变量梯度下降"><a href="#3-2-Gradient-Descent-for-Multiple-Variables-多变量梯度下降" class="headerlink" title="3.2 Gradient Descent for Multiple Variables(多变量梯度下降)"></a>3.2 Gradient Descent for Multiple Variables(多变量梯度下降)</h3><p>与单变量线性回归类似，在多变量线性回归中，同样也构建一个代价函数，则这个代价函数是所有建模误差的平方和，即：<br><img src="https://img-blog.csdnimg.cn/20200707102308696.PNG#pic_center" alt="在这里插入图片描述"><br>目标和单变量线性回归问题中一样，是要找出使得代价函数最小的一系列参数。<img src="https://img-blog.csdnimg.cn/20200707101806364.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20200707101739874.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>上图右边显示了多变量线性回归的批量梯度下降算法，其开始随机选择一系列的参数值，计算所有的预测结果后，再给所有的参数一个新的值，如此循环直到收敛。</p>
+<p><strong>python代码：</strong></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">computeCost</span><span class="params">(X, y, theta)</span>:</span></span><br><span class="line">	inner = np.power(((X * theta.T) - y), <span class="number">2</span>)</span><br><span class="line">	<span class="keyword">return</span> np.sum(inner) / (<span class="number">2</span> * len(X))</span><br></pre></td></tr></table></figure>
+
+<h4 id="3-2-1-Gradient-Descent-in-Practice-I-Feature-Scaling-特征缩放"><a href="#3-2-1-Gradient-Descent-in-Practice-I-Feature-Scaling-特征缩放" class="headerlink" title="3.2.1 Gradient Descent in Practice I - Feature Scaling (特征缩放)"></a>3.2.1 Gradient Descent in Practice I - Feature Scaling (特征缩放)</h4><p><strong>在解决多维特征问题时，应该保证这些特征都具有相近的尺度，这将帮助梯度下降算法更快地收敛。</strong></p>
+<p>以房价问题为例，假设有两个特征，房屋的尺寸和房间的数量，尺寸的值为 0-2000 平方英尺，而房间数量的值则是 0-5，以两个参数分别为横纵坐标，绘制代价函数等高线图能，看出图像会显得很扁，梯度下降算法需要非常多次的迭代才能收敛。<br><img src="https://img-blog.csdnimg.cn/20200707104230484.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>解决方法是尝试将所有特征的尺度都尽量缩放到-1 到 1 之间，即==特征归一化==。如图：<br><img src="https://img-blog.csdnimg.cn/20200707104328954.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<blockquote>
+<p>数据的标准化（normalization）是将数据按比例缩放，使之落入一个小的特定区间。在某些比较和评价的指标处理中经常会用到，去除数据的单位限制，将其转化为无量纲的纯数值，便于不同单位或量级的指标能够进行比较和加权，可以大大提高分类器的准确性。<br>其中最典型的就是数据的归一化处理，即将数据统一映射到[0,1]区间上。</p>
+</blockquote>
+<p>归一化公式：<br><img src="https://img-blog.csdnimg.cn/20200707105004270.PNG#pic_center" alt="在这里插入图片描述"></p>
+<h4 id="3-2-2-Gradient-Descent-in-Practice-II-Learning-Rate-学习率"><a href="#3-2-2-Gradient-Descent-in-Practice-II-Learning-Rate-学习率" class="headerlink" title="3.2.2 Gradient Descent in Practice II - Learning Rate (学习率)"></a>3.2.2 Gradient Descent in Practice II - Learning Rate (学习率)</h4><p>梯度下降算法收敛所需要的迭代次数根据模型的不同而不同，无法提前预知，但可以绘制迭代次数和代价函数的图表来观测算法在何时趋于收敛。<br><img src="https://img-blog.csdnimg.cn/20200707105546868.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>图像300~400已经相当平坦了，可推测到达400左右时梯度下降法差不多已经收敛了。</p>
+<p>梯度下降算法的每次迭代受到学习率的影响，如果学习率𝑎过小，则达到收敛所需的迭代次数会非常多；如果学习率𝑎过大，每次迭代可能不会减小代价函数，可能会越过局部最小值导致无法收敛。</p>
+<p>通常可以考虑尝试些学习率：<br>𝛼 =…，0.001，0.003，0.01，0.03，0.1，0.3，1，…</p>
+<h3 id="3-3-Features-and-Polynomial-Regression-特征和多项式回归"><a href="#3-3-Features-and-Polynomial-Regression-特征和多项式回归" class="headerlink" title="3.3 Features and Polynomial Regression(特征和多项式回归)"></a>3.3 Features and Polynomial Regression(特征和多项式回归)</h3><p><img src="https://img-blog.csdnimg.cn/20200707121141207.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>线性回归并不适用于所有数据，有时需要曲线来适应数据，比如，<br>一个二次方模型：<img src="https://img-blog.csdnimg.cn/20200707121921446.PNG#pic_center" alt="在这里插入图片描述"><br>或者三次方模型：<img src="https://img-blog.csdnimg.cn/20200707121933949.PNG#pic_center" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20200707122024153.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>根据函数图形特性，我们还可以使：<br><img src="https://img-blog.csdnimg.cn/20200707122340253.PNG#pic_center" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20200707122358694.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>注：如果采用多项式回归模型，在运行梯度下降算法前，特征缩放非常有必要。</p>
+<h3 id="3-4-Normal-Equation-正规方程"><a href="#3-4-Normal-Equation-正规方程" class="headerlink" title="3.4 Normal Equation(正规方程)"></a>3.4 Normal Equation(正规方程)</h3><p>正规方程是区别于迭代方法的直接计算解法，即直接求导数等于0的点。<br><img src="https://img-blog.csdnimg.cn/20200707123106110.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>假设训练集特征矩阵为 𝑋（包含了 𝑥0 = 1）并且训练集结果为向量 𝑦，则利用正规方程解出向量：<img src="https://img-blog.csdnimg.cn/202007071243148.PNG#pic_center" alt="在这里插入图片描述"><br>例子：<br><img src="https://img-blog.csdnimg.cn/20200707124545251.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>注：对于不可逆的矩阵（通常是因为特征之间不独立，如同时包含英尺为单位的尺寸和米为单位的尺寸两个特征，也有可能是特征数量大于训练集的数量），正规方程方法是不能用的。</p>
+<p><strong>梯度下降与正规方程的比较</strong><br><img src="https://img-blog.csdnimg.cn/20200707125601290.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>注：只要特征变量的数目并不大，标准方程是一个很好的计算参数𝜃的替代方法。具体地说，只要特征变量数量小于一万，通常使用标准方程法，而不使用梯度下降法。</p>
+<p><strong>Normal Equation Noninvertibility(正规方程及不可逆性)</strong><br><img src="https://img-blog.csdnimg.cn/20200707130156670.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<p><strong>python实现正规方程：</strong></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">normalEqn</span><span class="params">(X, y)</span>:</span></span><br><span class="line">	theta = np.linalg.inv(X.T@X)@X.T@y <span class="comment">#X.T@X 等价于 X.T.dot(X)</span></span><br><span class="line">	<span class="keyword">return</span> theta</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://img-blog.csdnimg.cn/20200707130732297.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20200707130731881.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+]]></content>
+      <categories>
+        <category>机器学习</category>
+      </categories>
+      <tags>
+        <tag>Machine Learning</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>爬虫爬取招聘信息并进行数据分析</title>
     <url>/2020/06/18/%E7%88%AC%E8%99%AB%E7%88%AC%E5%8F%96%E6%8B%9B%E8%81%98%E4%BF%A1%E6%81%AF%E5%B9%B6%E8%BF%9B%E8%A1%8C%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90/</url>
     <content><![CDATA[<p><img src="https://img-blog.csdnimg.cn/20200618161152222.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
@@ -436,113 +497,24 @@ dtype: int64"></p>
       </tags>
   </entry>
   <entry>
-    <title>【Machine Learning】正则化(Regularization)</title>
-    <url>/2020/07/08/%5BMachine%20Learning%5D%20%E6%AD%A3%E5%88%99%E5%8C%96(Regularization)/</url>
-    <content><![CDATA[<p><img src="https://img-blog.csdnimg.cn/20200708161032267.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+    <title>运营指标</title>
+    <url>/2020/06/22/%E8%BF%90%E8%90%A5%E6%8C%87%E6%A0%87/</url>
+    <content><![CDATA[<p><img src="https://img-blog.csdnimg.cn/20200622160118760.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
 <a id="more"></a>
 
-<h2 id="5-Regularization-正则化"><a href="#5-Regularization-正则化" class="headerlink" title="5 Regularization(正则化)"></a>5 Regularization(正则化)</h2><h3 id="5-1-The-problem-of-overfitting"><a href="#5-1-The-problem-of-overfitting" class="headerlink" title="5.1 The problem of overfitting"></a>5.1 The problem of overfitting</h3><p><strong>case1：</strong><br><img src="https://img-blog.csdnimg.cn/20200708133431983.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
-<ul>
-<li>第一个模型是一个线性模型，欠拟合，不能很好地适应训练集；</li>
-<li>第三个模型是一个四次方的模型，过于强调拟合原始数据，而丢失了算法的本质：预测新数据。即，若给出一个新的值使之预测，它将表现的很差；</li>
-<li>而中间的模型似乎最合适。</li>
-</ul>
-<p><strong>case2：</strong><br><img src="https://img-blog.csdnimg.cn/20200708134042138.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>同上。</p>
-<p><strong>过拟合的解决方法</strong><br><img src="https://img-blog.csdnimg.cn/20200708134338840.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
-<h3 id="5-2-Cost-Function"><a href="#5-2-Cost-Function" class="headerlink" title="5.2 Cost Function"></a>5.2 Cost Function</h3><p>上面的回归问题中模型是：<br><img src="https://img-blog.csdnimg.cn/20200708135115992.PNG#pic_center" alt="在这里插入图片描述"><br>一般而言，正是那些高次项导致了过拟合的产生，所以如果能让这些高次项的系数接近于 0 的话，就能很好的拟合了，所以可以在一定程度上减小这些参数𝜃 的值，这正是正则化的基本方法。当要减少𝜃3和𝜃4的大小，需要做的便是修改代价函数，在其中𝜃3和𝜃4 设置一点惩罚。在尝试最小化代价时也需要将这个惩罚纳入考虑中，并最终导致选择较小一些的𝜃3和𝜃4。</p>
-<p>修改后的代价函数：<br><img src="https://img-blog.csdnimg.cn/2020070813555675.PNG#pic_center" alt="在这里插入图片描述"><br>通过这样的代价函数选择出的𝜃3和𝜃4 对预测结果的影响就比之前要小许多。假如有非常多的特征，并不知道其中哪些特征需要惩罚，可以将对所有的特征进行惩罚，并且让代价函数最优化的软件来选择这些惩罚的程度。这样的结果是得到了一个较为简单的能防止过拟合问题的假设：<br><img src="https://img-blog.csdnimg.cn/20200708135853580.PNG#pic_center" alt="在这里插入图片描述"><br>其中𝜆又称为==正则化参数（Regularization Parameter）==。 注：根据惯例，我们不对𝜃0 进行惩罚。经过正则化处理的模型（粉色）与原模型（蓝色）的可能对比如下图所示：<br><img src="https://img-blog.csdnimg.cn/2020070814004971.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>如果选择的正则化参数 λ 过大，则会把所有的参数都最小化了，那么𝜃（不包括𝜃0）都会趋近于 0，这样我们所得到的只能是一条平行于𝑥轴的直线，模型变成 ℎ<sub>𝜃</sub>(𝑥) =𝜃<sub>0</sub>，造成欠拟合。</p>
-<h3 id="5-3-Regularizede-linear-regression-正则化线性回归"><a href="#5-3-Regularizede-linear-regression-正则化线性回归" class="headerlink" title="5.3 Regularizede linear regression(正则化线性回归)"></a>5.3 Regularizede linear regression(正则化线性回归)</h3><p>对于线性回归的求解，之前推导了两种学习算法：一种基于梯度下降，一种基于正规方程。</p>
-<p>正则化线性回归的代价函数为：<br><img src="https://img-blog.csdnimg.cn/20200708142309532.PNG#pic_center" alt="在这里插入图片描述"><br>如果要使用梯度下降法令这个代价函数最小化，因为未进行正则化，所以梯度下降算法将分两种情形：<br><img src="https://img-blog.csdnimg.cn/20200708142428802.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>对上面的算法中𝑗 = 1,2, . . . , 𝑛 时的更新式子进行调整可得：<br><img src="https://img-blog.csdnimg.cn/2020070814252032.PNG#pic_center" alt="在这里插入图片描述"><br>可以看出，正则化线性回归的梯度下降算法的变化在于，每次都在原有算法更新规则的基础上令𝜃值减少了一个额外的值。</p>
-<p>注：在梯度下降时，对任意的θ<sub>j</sub>的处理可以分为两部分，J(θ)的偏导数 + 单独针对该θ<sub>j</sub>的正则化项。</p>
-<p>同样也可以利用正规方程来求解正则化线性回归模型，方法如下所示：<br><img src="https://img-blog.csdnimg.cn/20200708155229540.PNG#pic_center" alt="在这里插入图片描述"><br>图中的矩阵尺寸为 (𝑛 + 1) ∗ (𝑛 + 1)。</p>
-<h3 id="5-4-Regularized-Logistic-Regression-正则化的逻辑回归模型"><a href="#5-4-Regularized-Logistic-Regression-正则化的逻辑回归模型" class="headerlink" title="5.4 Regularized Logistic Regression(正则化的逻辑回归模型)"></a>5.4 Regularized Logistic Regression(正则化的逻辑回归模型)</h3><p>针对逻辑回归问题，之前已学习过两种优化算法：首先学习了使用梯度下降法来优化代价函数𝐽(𝜃)，接下来学习了更高级的优化算法，这些高级优化算法需要自己设计代价函数𝐽(𝜃)。<br><img src="https://img-blog.csdnimg.cn/20200708160007681.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>对于逻辑回归，代价函数正则化的表达式：<br><img src="https://img-blog.csdnimg.cn/20200708160155875.PNG#pic_center" alt="在这里插入图片描述"><br>要最小化该代价函数，通过求导，得出梯度下降算法为：<br><img src="https://img-blog.csdnimg.cn/20200708160313567.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>注：看上去同线性回归一样，但是知道 ℎ<sub>𝜃</sub>(𝑥) = 𝑔(𝜃<sup>𝑇</sup>𝑋)，所以与线性回归不同。𝜃<sub>0</sub>不参与其中的任何一个正则化。</p>
-]]></content>
-      <categories>
-        <category>机器学习</category>
-      </categories>
-      <tags>
-        <tag>Machine Learning</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>用户行为分析（非原创）</title>
-    <url>/2020/06/22/%E7%94%A8%E6%88%B7%E8%A1%8C%E4%B8%BA%E5%88%86%E6%9E%90%EF%BC%88%E9%9D%9E%E5%8E%9F%E5%88%9B%EF%BC%89/</url>
-    <content><![CDATA[<p><img src="https://img-blog.csdnimg.cn/20200622184031885.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
-<a id="more"></a>
-
-<h2 id="1-定义"><a href="#1-定义" class="headerlink" title="1. 定义"></a>1. 定义</h2><p>用户行为分析是对用户在产品上产生的行为及行为背后的数据进行分析，通过构建用户行为模型和用户画像，来改变产品决策，实现精细化运营，指导业务增长。</p>
-<p>在产品运营过程中，对用户行为的数据进行收集、存储、跟踪、分析与应用等，可以找到实现用户自增长的病毒因素、群体特征与目标用户。从而深度还原用户使用场景、操作规律、访问路径及行为特点等。</p>
-<ul>
-<li><input disabled="" type="checkbox"> 用户行为<br>用户行为是用户在产品上产生的行为。</li>
-<li><input disabled="" type="checkbox"> 用户行为数据<br>常用的数据采集方式有：平台设置埋点和第三方统计工具。</li>
-<li><input disabled="" type="checkbox"> 用户行为分析指标<br>主要分为三类：黏性指标、活跃指标和产出指标。<br><img src="https://img-blog.csdnimg.cn/20200622180444933.jpeg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></li>
-<li>粘性指标：主要关注用户周期内持续访问的情况，比如新用户数与比例、活跃用户数与比例、用户转化率、用户留存率、用户流失率、用户访问率。</li>
-<li>活跃指标：主要考察的是用户访问的参与度，比如活跃用户、新增用户、回访用户、流失用户、平均停留时长、使用频率等。</li>
-<li>产出指标：主要衡量用户创造的直接价值输出，比如页面浏览数PV、独立访客数UV、点击次数、消费频次、消费金额等。</li>
-</ul>
-<h2 id="2-目的"><a href="#2-目的" class="headerlink" title="2. 目的"></a>2. 目的</h2><ol>
-<li>对产品而言，帮助验证产品的可行性，研究产品决策，清楚地了解用户的行为习惯，并找出产品的缺陷，以便需求的迭代与优化。</li>
-<li>对设计而言，帮助增加体验的友好性，匹配用户情感，细腻地贴合用户的个性服务，并发现交互的不足，以便设计的完善与改进。</li>
-<li>对运营而言，帮助裂变增长的有效性，实现精准营销，全面地挖掘用户的使用场景，并分析运营的问题，以便决策的转变与调整。</li>
-</ol>
-<h2 id="3-如何进行用户行为分析？"><a href="#3-如何进行用户行为分析？" class="headerlink" title="3. 如何进行用户行为分析？"></a>3. 如何进行用户行为分析？</h2><p><img src="https://img-blog.csdnimg.cn/20200622180609507.jpeg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
-<h3 id="3-1-行为事件分析"><a href="#3-1-行为事件分析" class="headerlink" title="3.1 行为事件分析"></a>3.1 行为事件分析</h3><p>行为事件分析方法主要用于深度研究某行为事件，以及对产品的影响和影响程度。针对某一具体行为，全面的描述、对比，针对其异常表象 深度下钻分析各维度、确认导致该行为数据表现的原因。如快手的播放量徒增:</p>
-<ol>
-<li><p>同期对比分析：确认历史上是否有发生过，对比 去年/上个季度/上月/上周/昨日的 数据的相对表现。</p>
-</li>
-<li><p>多事件对比分析：对比浏览量、点赞、评论、分享事件的数据是否存在徒增。通过对比多个事件，确认徒增现象发生的范围。</p>
-</li>
-<li><p>维度下钻分析：</p>
-<ul>
-<li><input disabled="" type="checkbox"> 在快手哪个页面的播放量增加呢？是发现、关注、还是同城？-&gt; 对应页面做了哪些调整？是否增加了引流；</li>
-<li><input disabled="" type="checkbox"> 哪一部分用户群的播放量增加了？交叉分析用户自然属性（平台、性别、年龄、地域、教育学历、机型、消费能力）、行为属性（新增、回流、常活跃用户；直播用户、短视频用户….）、视频属性（视频类型、作者类型….）</li>
-</ul>
-</li>
-</ol>
-<h3 id="3-2-留存分析"><a href="#3-2-留存分析" class="headerlink" title="3.2 留存分析"></a>3.2 留存分析</h3><p>留存是衡量用户是否再次使用产品的指标，也是每一个app赖以生存的指标，能够反映任何一款产品健康度，是产品、运营、推荐效果的整体表现。如果一个app从来没有留存用户，那DAU将永远是新增用户，那么产品将无法运行下去，更别说新用户成本付诸东流。</p>
-<p>贴合业务属性、精细化留存过程 将对留存数据更有价值和指导意义。通过留存分析，能够剖析用户留在产品的原因，从而优化产品核心功能提升留存。</p>
-<p>留存的类型：</p>
-<ul>
-<li><input disabled="" type="checkbox"> 用户留存：用户使用app后，经过一段时间仍旧使用。</li>
-<li><input disabled="" type="checkbox"> 功能留存：用户使用xxx功能后，经过一段时间仍旧使用该功能，且其他功能均有所变化。此时，该功能对用户留存有正向作用。</li>
-</ul>
-<h3 id="3-3-漏斗分析"><a href="#3-3-漏斗分析" class="headerlink" title="3.3 漏斗分析"></a>3.3 漏斗分析</h3><p>漏斗分析实质是转化分析，是通过衡量每一个转化步骤的转化率，通过转化率的异常数据找出有问题的环节并解决，进而实现优化整个流程的完成率。</p>
-<p>1）在产品初期(处于与市场适配的阶段)：</p>
-<ul>
-<li>通过漏斗分析找到用户触达的瓶颈，帮助用户触达产品核心价值，真实反映MVP与市场匹配程度；</li>
-</ul>
-<p>2）在产品中期(处于用户平稳增加的阶段):</p>
-<ul>
-<li>通过漏斗分析优化渠道，找到目标群体用户;</li>
-<li>通过漏斗分析优化用户在各模块的体验(基础的登录模块、产品核心价值模块: 如抖音的播放模块、淘宝的购买模块等)；</li>
-</ul>
-<p>3）在产品后期(处于用户价值产出的阶段):</p>
-<ul>
-<li>通过漏斗分析可以改善用户生命周期(优化用户体验提高用户生命周期，间接拉长用户群体的价值产出的时间长度，减少高价值用户群体的流失)；</li>
-<li>可以通过漏斗分析优化商业化模块，像商品的购买过程（购物车-提交订单的转化漏斗）、广告的曝光点击等，提高生命周期中单位时间产生的价值。</li>
-</ul>
-<h3 id="3-4-路径分析"><a href="#3-4-路径分析" class="headerlink" title="3.4 路径分析"></a>3.4 路径分析</h3><p>路径分析可以将纷杂的app日志按照用户的使用过程，呈现出“明确的”用户现存路径。发现路径问题，进而优化，使用户尽可能短路径体验到产品核心价值。</p>
-<ul>
-<li>通过路径分析，可以了解到像小明这样9点左右播放视频的用户：</li>
-<li>他们是通过push点击而来，这部分用户占比是多少；</li>
-<li>他们匆匆结束播放，再也没有下一步行为，这部分用户占比又有多少。</li>
-</ul>
-<p>针对他们利用碎片化时间播放视屏的场景，尤其是突然退出的场景，是否在下一次打开app时，仍旧打开终端的视频。是否有其他策略可以针对该场景来优化？<br>此外，路径分析不仅仅可以用于行为路径分析，也可以用于用户群体转化分析。例如：新用户中分别转化为 忠实用户、常活跃用户、潜在流失用户、流失用户的分析。</p>
-<h3 id="3-5-福格模型分析"><a href="#3-5-福格模型分析" class="headerlink" title="3.5 福格模型分析"></a>3.5 福格模型分析</h3><p>福格行为模型是用来研究用户行为原因的分析模型。福格行为模型用公式来简化就是B=MAT，即B=MAT。B代表行为，M代表动机，A代表能力，T代表触发。它认为要让一个行为发生，必须同时具备三个元素：动机、能力和触发器。因此可以借助福格行为模型来评估产品的合理性和能否达到预期目标。<br><img src="https://img-blog.csdnimg.cn/20200622180758638.jpeg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>以活动分享为例，投资人完成活动分享的行为，也是必须满足福格行为模型的三个元素。即通过邀请有奖让用户有足够的内驱力，自主性的分享活动给好友，且活动专题页有醒目的按钮和文案提示激励用户完成任务。<br><img src="https://img-blog.csdnimg.cn/20200622180858754.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
-<h3 id="3-6-用户分群分析"><a href="#3-6-用户分群分析" class="headerlink" title="3.6 用户分群分析"></a>3.6 用户分群分析</h3><p><img src="https://img-blog.csdnimg.cn/20200622173746756.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br> 通过用户分群行为表现对比，可以进一步了解不同群体对产品的反馈，有针对性的优化产品。</p>
-<ul>
-<li>发现中、西南地区的低端机型使用app时，奔溃率特别高，开发可以针对该点进行优化、降低奔溃率；</li>
-<li>可以针对不同的用户群体的行为表现 做 定向投放、push等，从而实现精细化运营。</li>
-</ul>
-<p>业内的商业化行为分析产品，基本上将用户画像的生成、标签的过程均合并在用户分群的群体定义中，降低了操作流程。</p>
-<h2 id="4-用户行为分析的完整链路"><a href="#4-用户行为分析的完整链路" class="headerlink" title="4. 用户行为分析的完整链路"></a>4. 用户行为分析的完整链路</h2><p>以小明为case的用户行为每天数以万/亿计的产生，如何对“这类人群”进行“行为分析”？需要行为分析将明细级别的日志聚合后再以较为可读的形式展示出来。<br><img src="https://img-blog.csdnimg.cn/20200622173900460.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br> 为了保障行为数据分析有效，需要可靠的埋点、及时的数据上报、严谨的数据模型、清晰的可视化展示。一套完整的用户行为分析系统，需要覆盖 数据埋点设计、埋点开发、数据上报、数据模型开发、行为数据分析的 所有过程；过程中也需要多方协作完成。如何通过系统、流程等 保障多方协作中高效、便利的完成、产出具有业务价值的数据分析结论呢？后续将介绍 用户行为分析平台的搭建。</p>
-<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p>用户行为分析是什么？怎么做？ <a href="http://www.woshipm.com/user-research/3661625.html" target="_blank" rel="noopener">http://www.woshipm.com/user-research/3661625.html</a><br>用户研究：如何做用户行为分析？ <a href="http://www.woshipm.com/user-research/3236774.html" target="_blank" rel="noopener">http://www.woshipm.com/user-research/3236774.html</a></p>
+<h2 id="商品"><a href="#商品" class="headerlink" title="商品"></a>商品</h2><p><img src="https://img-blog.csdnimg.cn/20200622160714145.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<h2 id="营收"><a href="#营收" class="headerlink" title="营收"></a>营收</h2><p><img src="https://img-blog.csdnimg.cn/20200622161148322.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<h2 id="传播-活动"><a href="#传播-活动" class="headerlink" title="传播/活动"></a>传播/活动</h2><p><img src="https://img-blog.csdnimg.cn/20200622161407440.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<h2 id="营销"><a href="#营销" class="headerlink" title="营销"></a>营销</h2><p><img src="https://img-blog.csdnimg.cn/20200622161650584.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<h2 id="用户获取"><a href="#用户获取" class="headerlink" title="用户获取"></a>用户获取</h2><p><img src="https://img-blog.csdnimg.cn/20200622162035539.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<h2 id="用户活跃"><a href="#用户活跃" class="headerlink" title="用户活跃"></a>用户活跃</h2><p><img src="https://img-blog.csdnimg.cn/20200622162101254.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<h2 id="用户留存"><a href="#用户留存" class="headerlink" title="用户留存"></a>用户留存</h2><p><img src="https://img-blog.csdnimg.cn/20200622162124762.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
 ]]></content>
       <categories>
         <category>产品/运营</category>
       </categories>
       <tags>
-        <tag>用户行为</tag>
+        <tag>运营指标</tag>
       </tags>
   </entry>
   <entry>
@@ -612,24 +584,85 @@ dtype: int64"></p>
       </tags>
   </entry>
   <entry>
-    <title>运营指标</title>
-    <url>/2020/06/22/%E8%BF%90%E8%90%A5%E6%8C%87%E6%A0%87/</url>
-    <content><![CDATA[<p><img src="https://img-blog.csdnimg.cn/20200622160118760.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+    <title>用户行为分析（非原创）</title>
+    <url>/2020/06/22/%E7%94%A8%E6%88%B7%E8%A1%8C%E4%B8%BA%E5%88%86%E6%9E%90%EF%BC%88%E9%9D%9E%E5%8E%9F%E5%88%9B%EF%BC%89/</url>
+    <content><![CDATA[<p><img src="https://img-blog.csdnimg.cn/20200622184031885.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
 <a id="more"></a>
 
-<h2 id="商品"><a href="#商品" class="headerlink" title="商品"></a>商品</h2><p><img src="https://img-blog.csdnimg.cn/20200622160714145.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
-<h2 id="营收"><a href="#营收" class="headerlink" title="营收"></a>营收</h2><p><img src="https://img-blog.csdnimg.cn/20200622161148322.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
-<h2 id="传播-活动"><a href="#传播-活动" class="headerlink" title="传播/活动"></a>传播/活动</h2><p><img src="https://img-blog.csdnimg.cn/20200622161407440.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
-<h2 id="营销"><a href="#营销" class="headerlink" title="营销"></a>营销</h2><p><img src="https://img-blog.csdnimg.cn/20200622161650584.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
-<h2 id="用户获取"><a href="#用户获取" class="headerlink" title="用户获取"></a>用户获取</h2><p><img src="https://img-blog.csdnimg.cn/20200622162035539.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
-<h2 id="用户活跃"><a href="#用户活跃" class="headerlink" title="用户活跃"></a>用户活跃</h2><p><img src="https://img-blog.csdnimg.cn/20200622162101254.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
-<h2 id="用户留存"><a href="#用户留存" class="headerlink" title="用户留存"></a>用户留存</h2><p><img src="https://img-blog.csdnimg.cn/20200622162124762.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<h2 id="1-定义"><a href="#1-定义" class="headerlink" title="1. 定义"></a>1. 定义</h2><p>用户行为分析是对用户在产品上产生的行为及行为背后的数据进行分析，通过构建用户行为模型和用户画像，来改变产品决策，实现精细化运营，指导业务增长。</p>
+<p>在产品运营过程中，对用户行为的数据进行收集、存储、跟踪、分析与应用等，可以找到实现用户自增长的病毒因素、群体特征与目标用户。从而深度还原用户使用场景、操作规律、访问路径及行为特点等。</p>
+<ul>
+<li><input disabled="" type="checkbox"> 用户行为<br>用户行为是用户在产品上产生的行为。</li>
+<li><input disabled="" type="checkbox"> 用户行为数据<br>常用的数据采集方式有：平台设置埋点和第三方统计工具。</li>
+<li><input disabled="" type="checkbox"> 用户行为分析指标<br>主要分为三类：黏性指标、活跃指标和产出指标。<br><img src="https://img-blog.csdnimg.cn/20200622180444933.jpeg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></li>
+<li>粘性指标：主要关注用户周期内持续访问的情况，比如新用户数与比例、活跃用户数与比例、用户转化率、用户留存率、用户流失率、用户访问率。</li>
+<li>活跃指标：主要考察的是用户访问的参与度，比如活跃用户、新增用户、回访用户、流失用户、平均停留时长、使用频率等。</li>
+<li>产出指标：主要衡量用户创造的直接价值输出，比如页面浏览数PV、独立访客数UV、点击次数、消费频次、消费金额等。</li>
+</ul>
+<h2 id="2-目的"><a href="#2-目的" class="headerlink" title="2. 目的"></a>2. 目的</h2><ol>
+<li>对产品而言，帮助验证产品的可行性，研究产品决策，清楚地了解用户的行为习惯，并找出产品的缺陷，以便需求的迭代与优化。</li>
+<li>对设计而言，帮助增加体验的友好性，匹配用户情感，细腻地贴合用户的个性服务，并发现交互的不足，以便设计的完善与改进。</li>
+<li>对运营而言，帮助裂变增长的有效性，实现精准营销，全面地挖掘用户的使用场景，并分析运营的问题，以便决策的转变与调整。</li>
+</ol>
+<p>另外，互联网人口红利的天花板让整个市场都进入存量的竞争阶段，大环境互联网获客成本高，需要提效。</p>
+<h2 id="3-如何进行用户行为分析？"><a href="#3-如何进行用户行为分析？" class="headerlink" title="3. 如何进行用户行为分析？"></a>3. 如何进行用户行为分析？</h2><p><img src="https://img-blog.csdnimg.cn/20200622180609507.jpeg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<h3 id="3-1-行为事件分析"><a href="#3-1-行为事件分析" class="headerlink" title="3.1 行为事件分析"></a>3.1 行为事件分析</h3><p>行为事件分析方法主要用于深度研究某行为事件，以及对产品的影响和影响程度。针对某一具体行为，全面的描述、对比，针对其异常表象 深度下钻分析各维度、确认导致该行为数据表现的原因。如快手的播放量徒增:</p>
+<ol>
+<li><p>同期对比分析：确认历史上是否有发生过，对比 去年/上个季度/上月/上周/昨日的 数据的相对表现。</p>
+</li>
+<li><p>多事件对比分析：对比浏览量、点赞、评论、分享事件的数据是否存在徒增。通过对比多个事件，确认徒增现象发生的范围。</p>
+</li>
+<li><p>维度下钻分析：</p>
+<ul>
+<li><input disabled="" type="checkbox"> 在快手哪个页面的播放量增加呢？是发现、关注、还是同城？-&gt; 对应页面做了哪些调整？是否增加了引流；</li>
+<li><input disabled="" type="checkbox"> 哪一部分用户群的播放量增加了？交叉分析用户自然属性（平台、性别、年龄、地域、教育学历、机型、消费能力）、行为属性（新增、回流、常活跃用户；直播用户、短视频用户….）、视频属性（视频类型、作者类型….）</li>
+</ul>
+</li>
+</ol>
+<h3 id="3-2-留存分析"><a href="#3-2-留存分析" class="headerlink" title="3.2 留存分析"></a>3.2 留存分析</h3><p>留存是衡量用户是否再次使用产品的指标，也是每一个app赖以生存的指标，能够反映任何一款产品健康度，是产品、运营、推荐效果的整体表现。如果一个app从来没有留存用户，那DAU将永远是新增用户，那么产品将无法运行下去，更别说新用户成本付诸东流。</p>
+<p>贴合业务属性、精细化留存过程 将对留存数据更有价值和指导意义。通过留存分析，能够剖析用户留在产品的原因，从而优化产品核心功能提升留存。</p>
+<p>留存的类型：</p>
+<ul>
+<li><input disabled="" type="checkbox"> 用户留存：用户使用app后，经过一段时间仍旧使用。</li>
+<li><input disabled="" type="checkbox"> 功能留存：用户使用xxx功能后，经过一段时间仍旧使用该功能，且其他功能均有所变化。此时，该功能对用户留存有正向作用。</li>
+</ul>
+<h3 id="3-3-漏斗分析"><a href="#3-3-漏斗分析" class="headerlink" title="3.3 漏斗分析"></a>3.3 漏斗分析</h3><p>漏斗分析实质是转化分析，是通过衡量每一个转化步骤的转化率，通过转化率的异常数据找出有问题的环节并解决，进而实现优化整个流程的完成率。</p>
+<p>1）在产品初期(处于与市场适配的阶段)：</p>
+<ul>
+<li>通过漏斗分析找到用户触达的瓶颈，帮助用户触达产品核心价值，真实反映MVP与市场匹配程度；</li>
+</ul>
+<p>2）在产品中期(处于用户平稳增加的阶段):</p>
+<ul>
+<li>通过漏斗分析优化渠道，找到目标群体用户;</li>
+<li>通过漏斗分析优化用户在各模块的体验(基础的登录模块、产品核心价值模块: 如抖音的播放模块、淘宝的购买模块等)；</li>
+</ul>
+<p>3）在产品后期(处于用户价值产出的阶段):</p>
+<ul>
+<li>通过漏斗分析可以改善用户生命周期(优化用户体验提高用户生命周期，间接拉长用户群体的价值产出的时间长度，减少高价值用户群体的流失)；</li>
+<li>可以通过漏斗分析优化商业化模块，像商品的购买过程（购物车-提交订单的转化漏斗）、广告的曝光点击等，提高生命周期中单位时间产生的价值。</li>
+</ul>
+<h3 id="3-4-路径分析"><a href="#3-4-路径分析" class="headerlink" title="3.4 路径分析"></a>3.4 路径分析</h3><p>路径分析可以将纷杂的app日志按照用户的使用过程，呈现出“明确的”用户现存路径。发现路径问题，进而优化，使用户尽可能短路径体验到产品核心价值。</p>
+<ul>
+<li>通过路径分析，可以了解到像小明这样9点左右播放视频的用户：</li>
+<li>他们是通过push点击而来，这部分用户占比是多少；</li>
+<li>他们匆匆结束播放，再也没有下一步行为，这部分用户占比又有多少。</li>
+</ul>
+<p>针对他们利用碎片化时间播放视屏的场景，尤其是突然退出的场景，是否在下一次打开app时，仍旧打开终端的视频。是否有其他策略可以针对该场景来优化？<br>此外，路径分析不仅仅可以用于行为路径分析，也可以用于用户群体转化分析。例如：新用户中分别转化为 忠实用户、常活跃用户、潜在流失用户、流失用户的分析。</p>
+<h3 id="3-5-福格模型分析"><a href="#3-5-福格模型分析" class="headerlink" title="3.5 福格模型分析"></a>3.5 福格模型分析</h3><p>福格行为模型是用来研究用户行为原因的分析模型。福格行为模型用公式来简化就是B=MAT，即B=MAT。B代表行为，M代表动机，A代表能力，T代表触发。它认为要让一个行为发生，必须同时具备三个元素：动机、能力和触发器。因此可以借助福格行为模型来评估产品的合理性和能否达到预期目标。<br><img src="https://img-blog.csdnimg.cn/20200622180758638.jpeg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>以活动分享为例，投资人完成活动分享的行为，也是必须满足福格行为模型的三个元素。即通过邀请有奖让用户有足够的内驱力，自主性的分享活动给好友，且活动专题页有醒目的按钮和文案提示激励用户完成任务。<br><img src="https://img-blog.csdnimg.cn/20200622180858754.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<h3 id="3-6-用户分群分析"><a href="#3-6-用户分群分析" class="headerlink" title="3.6 用户分群分析"></a>3.6 用户分群分析</h3><p><img src="https://img-blog.csdnimg.cn/20200622173746756.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br> 通过用户分群行为表现对比，可以进一步了解不同群体对产品的反馈，有针对性的优化产品。</p>
+<ul>
+<li>发现中、西南地区的低端机型使用app时，奔溃率特别高，开发可以针对该点进行优化、降低奔溃率；</li>
+<li>可以针对不同的用户群体的行为表现 做 定向投放、push等，从而实现精细化运营。</li>
+</ul>
+<p>业内的商业化行为分析产品，基本上将用户画像的生成、标签的过程均合并在用户分群的群体定义中，降低了操作流程。</p>
+<h2 id="4-用户行为分析的完整链路"><a href="#4-用户行为分析的完整链路" class="headerlink" title="4. 用户行为分析的完整链路"></a>4. 用户行为分析的完整链路</h2><p>以小明为case的用户行为每天数以万/亿计的产生，如何对“这类人群”进行“行为分析”？需要行为分析将明细级别的日志聚合后再以较为可读的形式展示出来。<br><img src="https://img-blog.csdnimg.cn/20200622173900460.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br> 为了保障行为数据分析有效，需要可靠的埋点、及时的数据上报、严谨的数据模型、清晰的可视化展示。一套完整的用户行为分析系统，需要覆盖 数据埋点设计、埋点开发、数据上报、数据模型开发、行为数据分析的 所有过程；过程中也需要多方协作完成。如何通过系统、流程等 保障多方协作中高效、便利的完成、产出具有业务价值的数据分析结论呢？后续将介绍 用户行为分析平台的搭建。</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p>用户行为分析是什么？怎么做？ <a href="http://www.woshipm.com/user-research/3661625.html" target="_blank" rel="noopener">http://www.woshipm.com/user-research/3661625.html</a><br>用户研究：如何做用户行为分析？ <a href="http://www.woshipm.com/user-research/3236774.html" target="_blank" rel="noopener">http://www.woshipm.com/user-research/3236774.html</a></p>
 ]]></content>
       <categories>
         <category>产品/运营</category>
       </categories>
       <tags>
-        <tag>运营指标</tag>
+        <tag>用户行为</tag>
       </tags>
   </entry>
 </search>
