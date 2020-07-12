@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Machine Learning," />
+  <meta name="keywords" content="Machine Learning,Neural Networks," />
 
 
 
@@ -80,33 +80,31 @@
 
 
 <meta property="og:type" content="article">
-<meta property="og:title" content="【Machine Learning】单变量线性回归(Linear Regression with One Variable)">
-<meta property="og:url" content="http://yoursite.com/2020/07/06/[Machine%20Learning]%20%E5%8D%95%E5%8F%98%E9%87%8F%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92(Linear%20Regression%20with%20One%20Variable)/index.html">
+<meta property="og:title" content="【Machine Learning】神经网络的学习(Neural Networks_Learning)">
+<meta property="og:url" content="http://yoursite.com/2020/07/12/[Machine%20Learning]%20%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E7%9A%84%E5%AD%A6%E4%B9%A0(Neural%20Networks_%20Learning)/index.html">
 <meta property="og:site_name" content="今天你DEBUG了吗">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200706191025292.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200706132157519.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200706131824876.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/2020070613382955.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200706135220962.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200706135354668.PNG#pic_center">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200706135500768.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200706141519668.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200706141307651.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200706144357901.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/202007061443109.PNG#pic_center">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/2020070614584344.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200706154630872.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200706161527701.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200706161618177.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200706162727647.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200706163111965.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200706163141859.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center">
-<meta property="article:published_time" content="2020-07-06T11:07:27.000Z">
-<meta property="article:modified_time" content="2020-07-06T11:11:04.419Z">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200712143509812.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200711140907505.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200711141004490.PNG#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/2020071114131862.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200711145159753.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200711145443278.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200712131502934.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200712132926516.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200712133115751.PNG#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200712135205765.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200712135416318.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/2020071213542917.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200712140624589.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200712140921217.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200712141514334.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="article:published_time" content="2020-07-12T06:38:26.000Z">
+<meta property="article:modified_time" content="2020-07-12T06:38:30.056Z">
 <meta property="article:author" content="Patrick Yan">
 <meta property="article:tag" content="Machine Learning">
+<meta property="article:tag" content="Neural Networks">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://img-blog.csdnimg.cn/20200706191025292.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center">
+<meta name="twitter:image" content="https://img-blog.csdnimg.cn/20200712143509812.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center">
 
 
 
@@ -136,13 +134,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2020/07/06/[Machine Learning] 单变量线性回归(Linear Regression with One Variable)/"/>
+  <link rel="canonical" href="http://yoursite.com/2020/07/12/[Machine Learning] 神经网络的学习(Neural Networks_ Learning)/"/>
 
 
 
 
 
-  <title>【Machine Learning】单变量线性回归(Linear Regression with One Variable) | 今天你DEBUG了吗</title>
+  <title>【Machine Learning】神经网络的学习(Neural Networks_Learning) | 今天你DEBUG了吗</title>
   
 
 
@@ -313,7 +311,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/07/06/%5BMachine%20Learning%5D%20%E5%8D%95%E5%8F%98%E9%87%8F%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92(Linear%20Regression%20with%20One%20Variable)/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/07/12/%5BMachine%20Learning%5D%20%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E7%9A%84%E5%AD%A6%E4%B9%A0(Neural%20Networks_%20Learning)/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Patrick Yan">
@@ -330,7 +328,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">【Machine Learning】单变量线性回归(Linear Regression with One Variable)</h1>
+          <h1 class="post-title" itemprop="name headline">【Machine Learning】神经网络的学习(Neural Networks_Learning)</h1>
         
 
         <div class="post-meta">
@@ -342,8 +340,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-07-06T19:07:27+08:00">
-                2020-07-06
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-07-12T14:38:26+08:00">
+                2020-07-12
               </time>
             
 
@@ -383,9 +381,9 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2020/07/06/%5BMachine%20Learning%5D%20%E5%8D%95%E5%8F%98%E9%87%8F%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92(Linear%20Regression%20with%20One%20Variable)/#comments" itemprop="discussionUrl">
+                <a href="/2020/07/12/%5BMachine%20Learning%5D%20%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E7%9A%84%E5%AD%A6%E4%B9%A0(Neural%20Networks_%20Learning)/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2020/07/06/[Machine Learning] 单变量线性回归(Linear Regression with One Variable)/" itemprop="commentCount"></span>
+                        data-disqus-identifier="2020/07/12/[Machine Learning] 神经网络的学习(Neural Networks_ Learning)/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -407,7 +405,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  2k
+                  1.9k
                 </span>
               
 
@@ -444,36 +442,55 @@
       
 
       
-        <p><img src="https://img-blog.csdnimg.cn/20200706191025292.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+        <p><img src="https://img-blog.csdnimg.cn/20200712143509812.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
 <a id="more"></a>
 
-<h2 id="2-Linear-Regression-with-One-Variable-单变量线性回归"><a href="#2-Linear-Regression-with-One-Variable-单变量线性回归" class="headerlink" title="2 Linear Regression with One Variable(单变量线性回归)"></a>2 Linear Regression with One Variable(单变量线性回归)</h2><h3 id="2-1-Case-Housing-Prices"><a href="#2-1-Case-Housing-Prices" class="headerlink" title="2.1 Case: Housing Prices"></a>2.1 Case: Housing Prices</h3><p>使用数据集预测住房价格，数据集包含某市的不同房屋尺寸所售出的价格。<br><img src="https://img-blog.csdnimg.cn/20200706132157519.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述">)<img src="https://img-blog.csdnimg.cn/20200706131824876.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>其中，ℎ 代表学习算法的解决方案或函数也称为==假设（hypothesis）==。</p>
-<p>这就是一个监督学习算法的工作方式，在学习算法下，输入训练集里的房屋价格，然后输出一个函数，通常表示为小写 ℎ表示。ℎ 代表 hypothesis(假设)，ℎ表示一个函数，输入是房屋尺寸大小，因此 ℎ 根据输入的 𝑥值来得出 𝑦 值，𝑦 值对应房子的价格。因此，ℎ 是一个从𝑥到 𝑦 的函数映射。</p>
-<p>那么，对于房价预测问题，该如何表达 ℎ？</p>
-<p>一种可能的表达方式为：ℎ𝜃(𝑥) = 𝜃0 + 𝜃1𝑥，因为只含有一个特征/输入变量，因此这样的问题叫作==单变量线性回归问题(Linear Regression with One Variable)==。</p>
-<h3 id="2-2-Cost-Function-代价函数"><a href="#2-2-Cost-Function-代价函数" class="headerlink" title="2.2 Cost Function(代价函数)"></a>2.2 Cost Function(代价函数)</h3><p><img src="https://img-blog.csdnimg.cn/2020070613382955.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>在线性回归中有一个训练集，其预测的函数形式是：ℎ𝜃(𝑥) = 𝜃0 + 𝜃1𝑥。接下来要做的便是为模型选择合适的参数（parameters）𝜃0 和 𝜃1，在房价问题这个例子中便是直线的斜率和在𝑦 轴上的截距。</p>
-<p>选择的参数决定了所得到的直线相对于我们的训练集的准确程度，模型所预测的值与训练集中实际值之间的差距（下图中蓝线所指）就是==建模误差（modeling error）==。</p>
-<p><img src="https://img-blog.csdnimg.cn/20200706135220962.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>目标便是选择出可以使得建模误差的平方和能够最小的模型参数， 即让代价函数：<img src="https://img-blog.csdnimg.cn/20200706135354668.PNG#pic_center" alt="在这里插入图片描述">最小。</p>
-<p>如图一个等高线图，三个坐标分别为𝜃0和𝜃1 和𝐽(𝜃0, 𝜃1)：<br><img src="https://img-blog.csdnimg.cn/20200706135500768.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>则可以看出在三维空间中存在一个使得𝐽(𝜃0, 𝜃1)最小的点。</p>
-<p>在实际问题上，我们会遇到更复杂、更高维度、更多参数的情况，而这些情况是很难画出图的，因此更无法将其可视化，因此我们需要的是编写程序来找出这些最小化代价函数的𝜃0和𝜃1的值。</p>
-<p>==代价函数  (Cost Function)== 也被称作平方误差函数，有时也被称为平方误差代价函数。之所以要求出误差的平方和，是因为对于大多数问题，特别是回归问题，误差平方代价函数都是一个合理的选择。虽然还有其他的代价函数也能很好地发挥作用，但是平方误差代价函数可能是解决回归问题最常用的手段了。<br><img src="https://img-blog.csdnimg.cn/20200706141519668.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述">)<img src="https://img-blog.csdnimg.cn/20200706141307651.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
-<h3 id="2-3-Gradient-Decent-梯度下降"><a href="#2-3-Gradient-Decent-梯度下降" class="headerlink" title="2.3 Gradient Decent(梯度下降)"></a>2.3 Gradient Decent(梯度下降)</h3><p>==梯度下降(Gradient Decent)== 是一个用来求函数最小值的算法，可使用梯度下降算法来求出代价函数𝐽(𝜃0, 𝜃1) 的最小值。</p>
-<p>梯度下降含义是：开始时随机选择一个参数的组合(𝜃0, 𝜃1, . . . . . . , 𝜃𝑛)，计算代价函数，然后寻找下一个能让代价函数值下降最多的参数组合。持续这么做直到到到一个局部最小值（local minimum），因为并没有尝试完所有的参数组合，所以不能确定所得到的局部最小值是否便是全局最小值（global minimum），选择不同的初始参数组合，可能会找到不同的局部最小值。<br><img src="https://img-blog.csdnimg.cn/20200706144357901.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>例如，你站立在这座红色山上，寻找最快下山的方向。在梯度下降算法中，我们要做的就是旋转 360 度，发现最佳的下山方向，然后按照判断迈出一步，再在新的一个点重复上面的步骤，决定从什么方向将会最快下山，并依此类推，直到接近局部最低点的位置。</p>
-<p>==批量梯度下降（batch gradient descent）== 算法的公式为：<br><img src="https://img-blog.csdnimg.cn/202007061443109.PNG#pic_center" alt="在这里插入图片描述"><br>其中𝑎是学习率（learning rate），它决定了沿着能让代价函数下降程度最大的方向向下迈出的步子有多大，在批量梯度下降中，每一次都同时让所有的参数减去学习速率乘以代价函数的导数。</p>
-<p><img src="https://img-blog.csdnimg.cn/2020070614584344.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>在梯度下降算法中，左边是正确实现<strong>同时</strong>更新的方法。</p>
-<p>梯度下降算法如下：<br><img src="https://img-blog.csdnimg.cn/20200706154630872.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>描述：对𝜃赋值，使得𝐽(𝜃)按梯度下降最快方向进行，一直迭代下去，最终得到局部最小值。<br><img src="https://img-blog.csdnimg.cn/20200706161527701.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>图中上方红色切线的斜率是正，也就是说它有正导数，因此可得到的新的𝜃1，𝜃1更新后等于𝜃1减去一个正数乘以𝑎。相反，图中下方红色切线的斜率是负。</p>
-<p><strong>如果𝑎太小或𝑎太大会出现什么情况：</strong></p>
+<h2 id="7-Neural-Networks-Learning-神经网络的学习"><a href="#7-Neural-Networks-Learning-神经网络的学习" class="headerlink" title="7 Neural Networks-Learning(神经网络的学习)"></a>7 Neural Networks-Learning(神经网络的学习)</h2><h3 id="7-1-Cost-Function"><a href="#7-1-Cost-Function" class="headerlink" title="7.1 Cost Function"></a>7.1 Cost Function</h3><p>假设神经网络的训练样本有𝑚个，每个包含一组输入𝑥和一组输出信号𝑦，𝐿表示神经网络层数，𝑆<sub>𝐼</sub>表示每层的 neuron 个数(𝑆<sub>l</sub>表示输出层神经元个数)，𝑆<sub>L</sub>代表最后一层中处理单元的个数。</p>
+<p>将神经网络的分类定义为两种情况：二类分类和多类分类，</p>
 <ul>
-<li>如果𝑎太小了，即我的学习速率太小，结果就是像蜗牛一样一点点地挪动，不断接近最低点，这样就需要很多步才能到达最低点，所以如果𝑎太小的话，可能会很慢，因为它会一点点挪动，它会需要很多步才能到达全局最低点。</li>
-<li>如果𝑎太大，那么梯度下降法可能会越过最低点，甚至可能无法收敛，下一次迭代又移动了一大步，越过一次，又越过一次，一次次越过最低点，直到你发现实际上离最低点越来越远，所以，如果𝑎太大，它会导致无法收敛，甚至发散。</li>
+<li>二类分类：𝑆<sub>L</sub> = 0, 𝑦 = 0 𝑜𝑟 1表示哪一类；</li>
+<li>𝐾类分类：𝑆<sub>L</sub> = 𝑘, 𝑦<sub>i</sub> = 1表示分到第 i 类(𝑘 &gt; 2)；</li>
 </ul>
-<p><strong>如果预先把𝜃1放在一个局部的最低点，下一步梯度下降法会怎样工作？</strong></p>
+<p><img src="https://img-blog.csdnimg.cn/20200711140907505.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>逻辑回归问题中的代价函数为：<br><img src="https://img-blog.csdnimg.cn/20200711141004490.PNG#pic_center" alt="在这里插入图片描述"><br>在逻辑回归中，只有一个输出变量，又称标量（scalar），也只有一个因变量𝑦，但是在神经网络中，可以有很多输出变量，ℎ𝜃(𝑥)是一个维度为𝐾的向量，并且训练集中的因变量也是同样维度的一个向量，因此代价函数会比逻辑回归更加复杂一些，为：<br><img src="https://img-blog.csdnimg.cn/2020071114131862.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>这个看起来复杂很多的代价函数背后的思想还是一样的，希望通过代价函数来观察算法预测的结果与真实情况的误差有多大，唯一不同的是，对于每一行特征，都会给出𝐾个预测，基本上可以利用循环，对每一行特征都预测𝐾个不同结果，然后在利用循环在𝐾个预测中选择可能性最高的一个，将其与𝑦中的实际数据进行比较。</p>
+<p>正则化的那一项只是排除了每一层𝜃0后，每一层的𝜃 矩阵的和。最里层的循环𝑗循环所有的行（由𝑠𝑙 +1 层的激活单元数决定），循环𝑖则循环所有的列，由该层（𝑠𝑙层）的激活单元数所决定。即：ℎ𝜃(𝑥)与真实值之间的距离为每个样本-每个类输出的加和，对参数进行regularization 的 bias 项处理所有参数的平方和。</p>
+<h3 id="7-2-Backpropagation-Algorithm-反向传播算法"><a href="#7-2-Backpropagation-Algorithm-反向传播算法" class="headerlink" title="7.2 Backpropagation Algorithm(反向传播算法)"></a>7.2 Backpropagation Algorithm(反向传播算法)</h3><p>在计算神经网络预测结果的时候采用了一种正向传播方法，从第一层开始正向一层一层进行计算，直到最后一层的ℎ𝜃(𝑥)。</p>
+<p>现在，为了计算代价函数的偏导数 <img src="https://img-blog.csdnimg.cn/20200711145159753.png" alt="在这里插入图片描述">，需要采用一种反向传播算法，也就是首先计算最后一层的误差，然后再一层一层反向求出各层的误差，直到倒数第二层。 以一个例子来说明反向传播算法。</p>
+<p>假设训练集只有一个实例(𝑥(1), 𝑦(1))，神经网络是一个四层的神经网络，其中𝐾 = 4，𝑆𝐿 = 4，𝐿 = 4：</p>
+<p><strong>前向传播算法：</strong><br><img src="https://img-blog.csdnimg.cn/20200711145443278.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br><strong>反向传播算法</strong><br><img src="https://img-blog.csdnimg.cn/20200712131502934.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>从最后一层的误差开始计算，误差是激活单元的预测（a<sub>k</sub><sup>(4)</sup>）与实际值（𝑦<sup>𝑘</sup>）之间的误差，（𝑘 = 1: 𝑘），用𝛿来表示误差，则：𝛿<sup>(4)</sup> = 𝑎<sup>(4)</sup> − y 。</p>
+<p>利用这个误差值来计算前一层的误差：𝛿<sup>(3)</sup> = (𝛩<sup>(3)</sup>)<sup>𝑇</sup>𝛿<sup>(4)</sup>∗ 𝑔′(𝑧<sup>(3)</sup>) 其中 𝑔′(𝑧<sup>(3)</sup>) 是 𝑆 形函数的导数，𝑔′(𝑧<sup>(3)</sup>)  = 𝑎<sup>(3)</sup>∗ (1 − 𝑎<sup>(3)</sup>)。而(𝛩<sup>(3)</sup>)<sup>𝑇</sup>𝛿<sup>(4)</sup>则是权重导致的误差的和。</p>
+<p>下一步是继续计算第二层的误差：𝛿<sup>(2)</sup> = (𝛩<sup>(2)</sup>)<sup>𝑇</sup>𝛿<sup>(3)</sup>∗ 𝑔′(𝑧<sup>(2)</sup>) 。</p>
+<p>因为第一层是输入变量，不存在误差。有了所有的误差的表达式后，便可以计算代价函数的偏导数了，假设𝜆 = 0，即不做任何正则化处理时有： 𝜕/𝜕𝛩<sub>𝑖𝑗</sub><sup>(𝑙)</sup>𝐽(𝛩) = 𝑎<sub>𝑗</sub><sup>(𝑙)</sup>𝛿<sub>𝑖</sub><sup>(𝑙+1)</sup> 。</p>
+<p>上面式子中上下标的含义：</p>
 <ul>
-<li>假设将𝜃1初始化在局部最低点，那么它已经在一个局部的最优处或局部最低点，导数将等于零。这意味着该点已经在局部最优点，它使得𝜃1不再改变，也就是新的𝜃1等于原来的𝜃1，因此，如果参数已经处于局部最低点，那么梯度下降法更新其实什么都没做，它不会改变参数的值。这也解释了为什么即使学习速率𝑎保持不变时，梯度下降也可以收敛到局部最低点。</li>
+<li>𝑙 代表目前所计算的是第几层。</li>
+<li>𝑗 代表目前计算层中的激活单元的下标，也将是下一层的第𝑗个输入变量的下标。</li>
+<li>𝑖 代表下一层中误差单元的下标，是受到权重矩阵中第𝑖行影响的下一层中的误差单元的下标。</li>
 </ul>
-<h4 id="2-3-1-Case-Cost-Function-of-Gradient-Descent"><a href="#2-3-1-Case-Cost-Function-of-Gradient-Descent" class="headerlink" title="2.3.1 Case: Cost Function of Gradient Descent"></a>2.3.1 Case: Cost Function of Gradient Descent</h4><p>例子：<br><img src="https://img-blog.csdnimg.cn/20200706161618177.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>为了找到最小值，首先初始化梯度下降算法，在那个粉红色的点初始化，如果更新一步梯度下降，到了绿色的点。不断更新，越来越接近最低点，导数也越来越接近零。所以随着梯度下降法的运行，移动的幅度会自动变得越来越小，直到最终移动幅度非常小，收敛到局部极小值。</p>
-<p>总结一下，在梯度下降法中，当接近局部最低点时，梯度下降法会自动采取更小的幅度，实际上没有必要再另外减小𝑎。这是因为在局部最低点时导数等于零，当接近局部最低时，导数值会自动变得越来越小。</p>
-<h4 id="2-3-2-Gradient-Descent-For-Linear-Regression-梯度下降的线性回归"><a href="#2-3-2-Gradient-Descent-For-Linear-Regression-梯度下降的线性回归" class="headerlink" title="2.3.2 Gradient Descent For Linear Regression(梯度下降的线性回归)"></a>2.3.2 Gradient Descent For Linear Regression(梯度下降的线性回归)</h4><p>梯度下降算法和线性回归算法比较如图：<br><img src="https://img-blog.csdnimg.cn/20200706162727647.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20200706163111965.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>则算法可改写为：<br><img src="https://img-blog.csdnimg.cn/20200706163141859.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>上面的算法有时也称为==批量梯度下降(“Batch” Gradient Descent，简称：BGD)== ，指的是在梯度下降的每一步中，都会用到所有的训练样本，在计算微分求导项时，需要进行求和运算，所以，在每一个单独的梯度下降中，最终都要计算这样一个东西，这个项需要对所有𝑚个训练样本求和。因此，批量梯度下降法这个名字说明了需要考虑所有这一”批”训练样本，而事实上，也有其他类型的梯度下降法，不是这种”批量”型的，不考虑整个的训练集，而是每次只关注训练集中的一些小的子集。</p>
+<p>如果考虑正则化处理，并且训练集是一个特征矩阵而非向量。在上面的特殊情况中，需要计算每一层的误差单元来计算代价函数的偏导数。在更为一般的情况中，同样需要计算每一层的误差单元，但是需要为整个训练集计算误差单元，此时的误差单元也是一个矩阵，我们用𝛥<sub>𝑖𝑗</sub><sup>(𝑙)</sup>来表示这个误差矩阵。第 𝑙 层的第 𝑖 个激活单元受到第 𝑗个参数影响而导致的误差。</p>
+<p>反向传播算法为：<br><img src="https://img-blog.csdnimg.cn/20200712132926516.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>即首先用正向传播方法计算出每一层的激活单元，利用训练集的结果与神经网络预测的结果求出最后一层的误差，然后利用该误差运用反向传播法计算出直至第二层的所有误差。</p>
+<p>在求出了𝛥<sub>𝑖𝑗</sub><sup>(𝑙)</sup>之后，便可以计算代价函数的偏导数了，计算方法如下：<br><img src="https://img-blog.csdnimg.cn/20200712133115751.PNG#pic_center" alt="在这里插入图片描述"><br>进一步理解：<br><img src="https://img-blog.csdnimg.cn/20200712135205765.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20200712135416318.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/2020071213542917.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<h3 id="7-3-Gradient-Checking-梯度检测"><a href="#7-3-Gradient-Checking-梯度检测" class="headerlink" title="7.3 Gradient Checking(梯度检测)"></a>7.3 Gradient Checking(梯度检测)</h3><p>当对一个较为复杂的模型（例如神经网络）使用梯度下降算法时，可能会存在一些不容易察觉的错误，意味着，虽然代价看上去在不断减小，但最终的结果可能并不是最优解。为了避免这样的问题，我们采取一种叫做==梯度的数值检验（Numerical Gradient Checking）==方法。这种方法的思想是通过估计梯度值来检验计算的导数值是否真的是所要求的。</p>
+<p>对梯度的估计采用的方法是在代价函数上沿着切线的方向选择两个非常近的点然后计算两个点的平均值用以估计梯度。即对于某个特定的 𝜃，计算出在 𝜃-𝜀 处和 𝜃+𝜀 的代价值（𝜀是一个非常小的值，通常选取 0.001），然后求两个代价的平均，用以估计在 𝜃处的代价值。<br><img src="https://img-blog.csdnimg.cn/20200712140624589.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>当𝜃是一个向量时，则需要对偏导数进行检验。因为代价函数的偏导数检验只针对一个参数的改变进行检验。<br><img src="https://img-blog.csdnimg.cn/20200712140921217.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>最后还需要对通过反向传播方法计算出的偏导数进行检验。</p>
+<p>根据上面的算法，计算出的偏导数存储在矩阵 𝐷<sub>𝑖𝑗</sub><sup>(𝑙)</sup> 中。检验时，要将该矩阵展开成为向量，同时也将 𝜃 矩阵展开为向量，针对每一个 𝜃 都计算一个近似的梯度值，将这些值存储于一个近似梯度矩阵中，最终将得出的这个矩阵同𝐷<sub>𝑖𝑗</sub><sup>(𝑙)</sup> 进行比较。</p>
+<p><img src="https://img-blog.csdnimg.cn/20200712141514334.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<h3 id="7-4-Random-Initialization-随机初始化"><a href="#7-4-Random-Initialization-随机初始化" class="headerlink" title="7.4 Random Initialization(随机初始化)"></a>7.4 Random Initialization(随机初始化)</h3><p>任何优化算法都需要一些初始的参数。到目前为止都是初始所有参数为 0，这样的初始方法对于逻辑回归来说是可行的，但是对于神经网络来说是不可行的。如果令所有的初始参数都为 0，这将意味着第二层的所有激活单元都会有相同的值。同理，如果初始所有的参数都为一个非 0 的数，结果也是一样的。</p>
+<p>通常初始参数为正负𝜀之间的随机值，假设要随机初始一个尺寸为 10×11 的参数矩阵，代码如下：<br>Theta1 = np.random.randn(10, 11) * (2*eps) – eps</p>
+<h3 id="7-5-Putting-it-together"><a href="#7-5-Putting-it-together" class="headerlink" title="7.5 Putting it together"></a>7.5 Putting it together</h3><p><strong>神经网络结构：</strong></p>
+<ul>
+<li>第一层——特征数量</li>
+<li>最后一层——类的数量（K分类就是K个）</li>
+<li>隐藏层——每个隐藏层的单元个数相同，且单元的个数越多越好</li>
+<li>需要设计的结构——隐藏层的层数and单元个数</li>
+</ul>
+<p><strong>训练神经网络步骤：</strong></p>
+<ul>
+<li>(a)参数的随机初始化</li>
+<li>(b)利用正向传播方法计算所有的h_θ (x)</li>
+<li>(c)编写计算代价函数 J 的代码</li>
+<li>(d)利用反向传播方法计算所有偏导数</li>
+<li>(e)利用数值检验方法检验这些偏导数</li>
+<li>(f)使用优化算法来最小化代价函数</li>
+</ul>
 
       
     </div>
@@ -493,6 +510,8 @@
           
             <a href="/tags/Machine-Learning/" rel="tag"># Machine Learning</a>
           
+            <a href="/tags/Neural-Networks/" rel="tag"># Neural Networks</a>
+          
         </div>
       
 
@@ -504,8 +523,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2020/07/05/%5BMachine%20Learning%5D%20%E6%A6%82%E8%BF%B0/" rel="next" title="【Machine Learning】概述">
-                <i class="fa fa-chevron-left"></i> 【Machine Learning】概述
+              <a href="/2020/07/11/%5BMachine%20Learning%5D%20%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%EF%BC%9A%E8%A1%A8%E8%BF%B0(Neural%20Networks_%20Representation)/" rel="next" title="【Machine Learning】神经网络-表述(Neural Networks-Representation)">
+                <i class="fa fa-chevron-left"></i> 【Machine Learning】神经网络-表述(Neural Networks-Representation)
               </a>
             
           </div>
@@ -513,10 +532,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2020/07/07/%5BMachine%20Learning%5D%20%E5%A4%9A%E5%8F%98%E9%87%8F%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92(Linear%20Regression%20with%20Multiple%20Variables)/" rel="prev" title="【Machine Learning】多变量线性回归(Linear Regression with Multiple Variables)">
-                【Machine Learning】多变量线性回归(Linear Regression with Multiple Variables) <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -728,7 +743,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-Linear-Regression-with-One-Variable-单变量线性回归"><span class="nav-text">2 Linear Regression with One Variable(单变量线性回归)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-Case-Housing-Prices"><span class="nav-text">2.1 Case: Housing Prices</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-Cost-Function-代价函数"><span class="nav-text">2.2 Cost Function(代价函数)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-Gradient-Decent-梯度下降"><span class="nav-text">2.3 Gradient Decent(梯度下降)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-3-1-Case-Cost-Function-of-Gradient-Descent"><span class="nav-text">2.3.1 Case: Cost Function of Gradient Descent</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-3-2-Gradient-Descent-For-Linear-Regression-梯度下降的线性回归"><span class="nav-text">2.3.2 Gradient Descent For Linear Regression(梯度下降的线性回归)</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#7-Neural-Networks-Learning-神经网络的学习"><span class="nav-text">7 Neural Networks-Learning(神经网络的学习)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#7-1-Cost-Function"><span class="nav-text">7.1 Cost Function</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-2-Backpropagation-Algorithm-反向传播算法"><span class="nav-text">7.2 Backpropagation Algorithm(反向传播算法)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-3-Gradient-Checking-梯度检测"><span class="nav-text">7.3 Gradient Checking(梯度检测)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-4-Random-Initialization-随机初始化"><span class="nav-text">7.4 Random Initialization(随机初始化)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-5-Putting-it-together"><span class="nav-text">7.5 Putting it together</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -907,9 +922,9 @@
     
       <script type="text/javascript">
         var disqus_config = function () {
-          this.page.url = 'http://yoursite.com/2020/07/06/[Machine%20Learning]%20%E5%8D%95%E5%8F%98%E9%87%8F%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92(Linear%20Regression%20with%20One%20Variable)/';
-          this.page.identifier = '2020/07/06/[Machine Learning] 单变量线性回归(Linear Regression with One Variable)/';
-          this.page.title = '【Machine Learning】单变量线性回归(Linear Regression with One Variable)';
+          this.page.url = 'http://yoursite.com/2020/07/12/[Machine%20Learning]%20%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E7%9A%84%E5%AD%A6%E4%B9%A0(Neural%20Networks_%20Learning)/';
+          this.page.identifier = '2020/07/12/[Machine Learning] 神经网络的学习(Neural Networks_ Learning)/';
+          this.page.title = '【Machine Learning】神经网络的学习(Neural Networks_Learning)';
         };
         var d = document, s = d.createElement('script');
         s.src = 'https://.disqus.com/embed.js';
