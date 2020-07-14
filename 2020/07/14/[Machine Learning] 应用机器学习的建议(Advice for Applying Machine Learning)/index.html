@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Machine Learning," />
+  <meta name="keywords" content="Machine Learning,Learning Curves,Bias/Variance," />
 
 
 
@@ -80,38 +80,36 @@
 
 
 <meta property="og:type" content="article">
-<meta property="og:title" content="【Machine Learning】多变量线性回归(Linear Regression with Multiple Variables)">
-<meta property="og:url" content="http://yoursite.com/2020/07/07/[Machine%20Learning]%20%E5%A4%9A%E5%8F%98%E9%87%8F%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92(Linear%20Regression%20with%20Multiple%20Variables)/index.html">
+<meta property="og:title" content="【Machine Learning】应用机器学习的建议(Advice for Applying Machine Learning)">
+<meta property="og:url" content="http://yoursite.com/2020/07/14/[Machine%20Learning]%20%E5%BA%94%E7%94%A8%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%9A%84%E5%BB%BA%E8%AE%AE(Advice%20for%20Applying%20Machine%20Learning)/index.html">
 <meta property="og:site_name" content="今天你DEBUG了吗">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200707131529483.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200707100825934.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200707100922690.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200707102308696.PNG#pic_center">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200707101806364.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200707101739874.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200707104230484.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200707104328954.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200707105004270.PNG#pic_center">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200707105546868.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200707121141207.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200707121921446.PNG#pic_center">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200707121933949.PNG#pic_center">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200707122024153.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200707122340253.PNG#pic_center">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200707122358694.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200707123106110.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/202007071243148.PNG#pic_center">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200707124545251.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200707125601290.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200707130156670.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200707130732297.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200707130731881.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70">
-<meta property="article:published_time" content="2020-07-07T05:10:49.000Z">
-<meta property="article:modified_time" content="2020-07-07T05:15:53.218Z">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200714180442551.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200714153351469.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200714153540170.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200714163139716.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200714163307224.PNG#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200714163458637.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200714163712246.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200714163835857.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/202007141657370.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200714165636740.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200714170214653.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200714170427983.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200714170902750.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200714172426323.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200714172535993.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200714173125794.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/2020071417355684.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200714173709702.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200714180238125.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="article:published_time" content="2020-07-14T10:10:07.000Z">
+<meta property="article:modified_time" content="2020-07-14T10:11:08.168Z">
 <meta property="article:author" content="Patrick Yan">
 <meta property="article:tag" content="Machine Learning">
+<meta property="article:tag" content="Learning Curves">
+<meta property="article:tag" content="Bias&#x2F;Variance">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://img-blog.csdnimg.cn/20200707131529483.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center">
+<meta name="twitter:image" content="https://img-blog.csdnimg.cn/20200714180442551.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center">
 
 
 
@@ -141,13 +139,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2020/07/07/[Machine Learning] 多变量线性回归(Linear Regression with Multiple Variables)/"/>
+  <link rel="canonical" href="http://yoursite.com/2020/07/14/[Machine Learning] 应用机器学习的建议(Advice for Applying Machine Learning)/"/>
 
 
 
 
 
-  <title>【Machine Learning】多变量线性回归(Linear Regression with Multiple Variables) | 今天你DEBUG了吗</title>
+  <title>【Machine Learning】应用机器学习的建议(Advice for Applying Machine Learning) | 今天你DEBUG了吗</title>
   
 
 
@@ -318,7 +316,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/07/07/%5BMachine%20Learning%5D%20%E5%A4%9A%E5%8F%98%E9%87%8F%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92(Linear%20Regression%20with%20Multiple%20Variables)/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/07/14/%5BMachine%20Learning%5D%20%E5%BA%94%E7%94%A8%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%9A%84%E5%BB%BA%E8%AE%AE(Advice%20for%20Applying%20Machine%20Learning)/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Patrick Yan">
@@ -335,7 +333,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">【Machine Learning】多变量线性回归(Linear Regression with Multiple Variables)</h1>
+          <h1 class="post-title" itemprop="name headline">【Machine Learning】应用机器学习的建议(Advice for Applying Machine Learning)</h1>
         
 
         <div class="post-meta">
@@ -347,8 +345,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-07-07T13:10:49+08:00">
-                2020-07-07
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-07-14T18:10:07+08:00">
+                2020-07-14
               </time>
             
 
@@ -388,9 +386,9 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2020/07/07/%5BMachine%20Learning%5D%20%E5%A4%9A%E5%8F%98%E9%87%8F%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92(Linear%20Regression%20with%20Multiple%20Variables)/#comments" itemprop="discussionUrl">
+                <a href="/2020/07/14/%5BMachine%20Learning%5D%20%E5%BA%94%E7%94%A8%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%9A%84%E5%BB%BA%E8%AE%AE(Advice%20for%20Applying%20Machine%20Learning)/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2020/07/07/[Machine Learning] 多变量线性回归(Linear Regression with Multiple Variables)/" itemprop="commentCount"></span>
+                        data-disqus-identifier="2020/07/14/[Machine Learning] 应用机器学习的建议(Advice for Applying Machine Learning)/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -412,7 +410,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  1.1k
+                  2.4k
                 </span>
               
 
@@ -428,7 +426,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  4
+                  8
                 </span>
               
             </div>
@@ -449,31 +447,48 @@
       
 
       
-        <p><img src="https://img-blog.csdnimg.cn/20200707131529483.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+        <p><img src="https://img-blog.csdnimg.cn/20200714180442551.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
 <a id="more"></a>
 
-<h2 id="3-Linear-Regression-with-Multiple-Variables-多变量线性回归"><a href="#3-Linear-Regression-with-Multiple-Variables-多变量线性回归" class="headerlink" title="3 Linear Regression with Multiple Variables(多变量线性回归)"></a>3 Linear Regression with Multiple Variables(多变量线性回归)</h2><h3 id="3-1-Multiple-Features-多维特征"><a href="#3-1-Multiple-Features-多维特征" class="headerlink" title="3.1 Multiple Features(多维特征)"></a>3.1 Multiple Features(多维特征)</h3><p><img src="https://img-blog.csdnimg.cn/20200707100825934.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20200707100922690.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>注：实际上不一定是线性的，仅本例中使用线性。非线性也是此思想。</p>
-<h3 id="3-2-Gradient-Descent-for-Multiple-Variables-多变量梯度下降"><a href="#3-2-Gradient-Descent-for-Multiple-Variables-多变量梯度下降" class="headerlink" title="3.2 Gradient Descent for Multiple Variables(多变量梯度下降)"></a>3.2 Gradient Descent for Multiple Variables(多变量梯度下降)</h3><p>与单变量线性回归类似，在多变量线性回归中，同样也构建一个代价函数，则这个代价函数是所有建模误差的平方和，即：<br><img src="https://img-blog.csdnimg.cn/20200707102308696.PNG#pic_center" alt="在这里插入图片描述"><br>目标和单变量线性回归问题中一样，是要找出使得代价函数最小的一系列参数。<img src="https://img-blog.csdnimg.cn/20200707101806364.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20200707101739874.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>上图右边显示了多变量线性回归的批量梯度下降算法，其开始随机选择一系列的参数值，计算所有的预测结果后，再给所有的参数一个新的值，如此循环直到收敛。</p>
-<p><strong>python代码：</strong></p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">computeCost</span><span class="params">(X, y, theta)</span>:</span></span><br><span class="line">	inner = np.power(((X * theta.T) - y), <span class="number">2</span>)</span><br><span class="line">	<span class="keyword">return</span> np.sum(inner) / (<span class="number">2</span> * len(X))</span><br></pre></td></tr></table></figure>
-
-<h4 id="3-2-1-Gradient-Descent-in-Practice-I-Feature-Scaling-特征缩放"><a href="#3-2-1-Gradient-Descent-in-Practice-I-Feature-Scaling-特征缩放" class="headerlink" title="3.2.1 Gradient Descent in Practice I - Feature Scaling (特征缩放)"></a>3.2.1 Gradient Descent in Practice I - Feature Scaling (特征缩放)</h4><p><strong>在解决多维特征问题时，应该保证这些特征都具有相近的尺度，这将帮助梯度下降算法更快地收敛。</strong></p>
-<p>以房价问题为例，假设有两个特征，房屋的尺寸和房间的数量，尺寸的值为 0-2000 平方英尺，而房间数量的值则是 0-5，以两个参数分别为横纵坐标，绘制代价函数等高线图能，看出图像会显得很扁，梯度下降算法需要非常多次的迭代才能收敛。<br><img src="https://img-blog.csdnimg.cn/20200707104230484.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>解决方法是尝试将所有特征的尺度都尽量缩放到-1 到 1 之间，即==特征归一化==。如图：<br><img src="https://img-blog.csdnimg.cn/20200707104328954.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
-<blockquote>
-<p>数据的标准化（normalization）是将数据按比例缩放，使之落入一个小的特定区间。在某些比较和评价的指标处理中经常会用到，去除数据的单位限制，将其转化为无量纲的纯数值，便于不同单位或量级的指标能够进行比较和加权，可以大大提高分类器的准确性。<br>其中最典型的就是数据的归一化处理，即将数据统一映射到[0,1]区间上。</p>
-</blockquote>
-<p>归一化公式：<br><img src="https://img-blog.csdnimg.cn/20200707105004270.PNG#pic_center" alt="在这里插入图片描述"></p>
-<h4 id="3-2-2-Gradient-Descent-in-Practice-II-Learning-Rate-学习率"><a href="#3-2-2-Gradient-Descent-in-Practice-II-Learning-Rate-学习率" class="headerlink" title="3.2.2 Gradient Descent in Practice II - Learning Rate (学习率)"></a>3.2.2 Gradient Descent in Practice II - Learning Rate (学习率)</h4><p>梯度下降算法收敛所需要的迭代次数根据模型的不同而不同，无法提前预知，但可以绘制迭代次数和代价函数的图表来观测算法在何时趋于收敛。<br><img src="https://img-blog.csdnimg.cn/20200707105546868.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>图像300~400已经相当平坦了，可推测到达400左右时梯度下降法差不多已经收敛了。</p>
-<p>梯度下降算法的每次迭代受到学习率的影响，如果学习率𝑎过小，则达到收敛所需的迭代次数会非常多；如果学习率𝑎过大，每次迭代可能不会减小代价函数，可能会越过局部最小值导致无法收敛。</p>
-<p>通常可以考虑尝试些学习率：<br>𝛼 =…，0.001，0.003，0.01，0.03，0.1，0.3，1，…</p>
-<h3 id="3-3-Features-and-Polynomial-Regression-特征和多项式回归"><a href="#3-3-Features-and-Polynomial-Regression-特征和多项式回归" class="headerlink" title="3.3 Features and Polynomial Regression(特征和多项式回归)"></a>3.3 Features and Polynomial Regression(特征和多项式回归)</h3><p><img src="https://img-blog.csdnimg.cn/20200707121141207.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>线性回归并不适用于所有数据，有时需要曲线来适应数据，比如，<br>一个二次方模型：<img src="https://img-blog.csdnimg.cn/20200707121921446.PNG#pic_center" alt="在这里插入图片描述"><br>或者三次方模型：<img src="https://img-blog.csdnimg.cn/20200707121933949.PNG#pic_center" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20200707122024153.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>根据函数图形特性，我们还可以使：<br><img src="https://img-blog.csdnimg.cn/20200707122340253.PNG#pic_center" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20200707122358694.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>注：如果采用多项式回归模型，在运行梯度下降算法前，特征缩放非常有必要。</p>
-<h3 id="3-4-Normal-Equation-正规方程"><a href="#3-4-Normal-Equation-正规方程" class="headerlink" title="3.4 Normal Equation(正规方程)"></a>3.4 Normal Equation(正规方程)</h3><p>正规方程是区别于迭代方法的直接计算解法，即直接求导数等于0的点。<br><img src="https://img-blog.csdnimg.cn/20200707123106110.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>假设训练集特征矩阵为 𝑋（包含了 𝑥0 = 1）并且训练集结果为向量 𝑦，则利用正规方程解出向量：<img src="https://img-blog.csdnimg.cn/202007071243148.PNG#pic_center" alt="在这里插入图片描述"><br>例子：<br><img src="https://img-blog.csdnimg.cn/20200707124545251.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>注：对于不可逆的矩阵（通常是因为特征之间不独立，如同时包含英尺为单位的尺寸和米为单位的尺寸两个特征，也有可能是特征数量大于训练集的数量），正规方程方法是不能用的。</p>
-<p><strong>梯度下降与正规方程的比较</strong><br><img src="https://img-blog.csdnimg.cn/20200707125601290.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>注：只要特征变量的数目并不大，标准方程是一个很好的计算参数𝜃的替代方法。具体地说，只要特征变量数量小于一万，通常使用标准方程法，而不使用梯度下降法。</p>
-<p><strong>Normal Equation Noninvertibility(正规方程及不可逆性)</strong><br><img src="https://img-blog.csdnimg.cn/20200707130156670.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
-<p><strong>python实现正规方程：</strong></p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">normalEqn</span><span class="params">(X, y)</span>:</span></span><br><span class="line">	theta = np.linalg.inv(X.T@X)@X.T@y <span class="comment">#X.T@X 等价于 X.T.dot(X)</span></span><br><span class="line">	<span class="keyword">return</span> theta</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://img-blog.csdnimg.cn/20200707130732297.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20200707130731881.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<h2 id="8-Advice-for-Applying-Machine-Learning-应用机器学习的建议"><a href="#8-Advice-for-Applying-Machine-Learning-应用机器学习的建议" class="headerlink" title="8 Advice for Applying Machine Learning(应用机器学习的建议)"></a>8 Advice for Applying Machine Learning(应用机器学习的建议)</h2><h3 id="8-1-Introduction"><a href="#8-1-Introduction" class="headerlink" title="8.1 Introduction"></a>8.1 Introduction</h3><p>获得更多的训练实例——通常是有效的，但代价较大，下面的方法也可能有效，可考虑先采用下面的几种方法。<br>1.尝试减少特征的数量<br>2.尝试获得更多的特征<br>3.尝试增加多项式特征<br>4.尝试减少正则化程度𝜆<br>5.尝试增加正则化程度𝜆<br>不应该随机选择上面的某种方法来改进算法，而是运用一些机器学习诊断法来确定上面哪些方法对算法是有效的。</p>
+<p>接下来将介绍怎样评估机器学习算法的性能，然后再开始讨论这些方法，它们也被称为”机器学习诊断法”。“诊断法”的意思是：这是一种测试法，你通过执行这种测试，能够深入了解某种算法到底是否有用。这通常也能够告诉你，要想改进一种算法的效果，什么样的尝试，才是有意义的。这些诊断法的执行和实现，是需要花些时间的，有时候确实需要花很多时间来理解和实现，但这样做的确是把时间用在了刀刃上。</p>
+<h3 id="8-2-Evaluating-a-Hypothesis"><a href="#8-2-Evaluating-a-Hypothesis" class="headerlink" title="8.2 Evaluating a Hypothesis"></a>8.2 Evaluating a Hypothesis</h3><p><img src="https://img-blog.csdnimg.cn/20200714153351469.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>在确定学习算法参数的时候，需要考虑的是选择参量来使训练误差最小化。另外，仅仅是因为这个假设具有很小的训练误差，并不能说明它就一定是一个好的假设函数。例如，可能发生了过拟合问题。</p>
+<p>那么，该如何判断一个假设函数是过拟合的呢？对于这个简单的例子，可以对假设函数ℎ(𝑥)进行画图，然后观察图形趋势，但对于特征变量不止一个的这种一般情况，还有像有很多特征变量的问题，想要通过画出假设函数来进行观察，就会变得很难甚至是不可能实现。因此，需要另一种方法来评估假设函数过拟合。</p>
+<p>为了检验算法是否过拟合，将数据分成训练集和测试集，通常用 70%的数据作为<br>训练集，用剩下 30%的数据作为测试集。很重要的一点是训练集和测试集均要含有各种类型的数据，通常需要对数据进行“洗牌”，然后再分成训练集和测试集。<img src="https://img-blog.csdnimg.cn/20200714153540170.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt=" "><br>测试集评估在通过训练集让模型学习得出其参数后，对测试集运用该模型，有两种方式计算误差：<br>1.对于线性回归模型，利用测试集数据计算代价函数𝐽<br>2.对于逻辑回归模型，除了可以利用测试数据集来计算代价函数外：<br><img src="https://img-blog.csdnimg.cn/20200714163139716.png" alt="在这里插入图片描述"><br>误分类的比率，对于每一个测试集实例，计算：<br><img src="https://img-blog.csdnimg.cn/20200714163307224.PNG#pic_center" alt="在这里插入图片描述"><br>然后对计算结果求平均。</p>
+<h3 id="8-3-Model-Selection-and-Train-Validation-Test-Sets"><a href="#8-3-Model-Selection-and-Train-Validation-Test-Sets" class="headerlink" title="8.3 Model Selection and Train_Validation_Test Sets"></a>8.3 Model Selection and Train_Validation_Test Sets</h3><p><img src="https://img-blog.csdnimg.cn/20200714163458637.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>假设要在 10 个不同次数的二项式模型之间进行选择，显然越高次数的多项式模型越能够适应训练数据集，但是适应训练数据集并不代表着能推广至一般情况，应该选择一个更能适应一般情况的模型。此时需要使用交叉验证集来帮助选择模型。</p>
+<p>即：使用 60%的数据作为训练集，使用 20%的数据作为交叉验证集，使用 20%的数据作为测试集。<br><img src="https://img-blog.csdnimg.cn/20200714163712246.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>模型选择的方法为：</p>
+<ol>
+<li>使用训练集训练出 10 个模型</li>
+<li>用 10 个模型分别对交叉验证集计算得出交叉验证误差（代价函数的值）</li>
+<li>选取代价函数值最小的模型</li>
+<li>用步骤 3 中选出的模型对测试集计算得出推广误差（代价函数的值）</li>
+</ol>
+<p><img src="https://img-blog.csdnimg.cn/20200714163835857.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<h3 id="8-4-Diagnosing-Bias-vs-Variance"><a href="#8-4-Diagnosing-Bias-vs-Variance" class="headerlink" title="8.4 Diagnosing Bias vs. Variance"></a>8.4 Diagnosing Bias vs. Variance</h3><p>当运行一个学习算法时，如果这个算法的表现不理想，那么多半是出现两种情况：要么是偏差比较大，要么是方差比较大。换句话说，出现的情况要么是欠拟合，要么是过拟合问题。那么这两种情况，哪个和偏差有关，哪个和方差有关，或者是不是和两个都有关？搞清楚这一点非常重要，因为能判断出现的情况是这两种情况中的哪一种。其实是一个很有效的指示器，指引着可以改进算法的最有效的方法和途径。<br><img src="https://img-blog.csdnimg.cn/202007141657370.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<p>通常会通过将训练集和交叉验证集的代价函数误差与多项式的次数绘制在同一张图表上来帮助分析：<br><img src="https://img-blog.csdnimg.cn/20200714165636740.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20200714170214653.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>对于训练集，当 𝑑 较小时，模型拟合程度更低，误差较大；随着 𝑑 的增长，拟合程度提高，误差减小。<br>对于交叉验证集，当 𝑑 较小时，模型拟合程度低，误差较大；但是随着 𝑑 的增长，误差呈现先减小后增大的趋势，转折点是我们的模型开始过拟合训练数据集的时候。</p>
+<p>如果交叉验证集误差较大，如何判断是方差还是偏差呢？根据上面的图表，得出:<br><img src="https://img-blog.csdnimg.cn/20200714170427983.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<ul>
+<li>训练集误差和交叉验证集误差近似时：偏差/欠拟合</li>
+<li>交叉验证集误差远大于训练集误差时：方差/过拟合</li>
+</ul>
+<h3 id="8-5-Regularization-and-Bias-Variance"><a href="#8-5-Regularization-and-Bias-Variance" class="headerlink" title="8.5 Regularization and Bias/Variance"></a>8.5 Regularization and Bias/Variance</h3><p>在训练模型的过程中，一般会使用一些正则化方法来防止过拟合。但是可能会正则化的程度太高或太小了，即在选择 λ 的值时也需要思考与刚才选择多项式模型次数类似的问题。<br><img src="https://img-blog.csdnimg.cn/20200714170902750.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>选择一系列的想要测试的 𝜆 值，通常是 0-10 之间的呈现 2 倍关系的值（如：0,0.01,0.02,0.04,0.08,0.15,0.32,0.64,1.28,2.56,5.12,10共 12 个）。同样把数据分为训练集、交叉验证集和测试集。<br><img src="https://img-blog.csdnimg.cn/20200714172426323.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>选择𝜆的方法为：<br>1.使用训练集训练出 12 个不同程度正则化的模型<br>2.用 12 个模型分别对交叉验证集计算的出交叉验证误差<br>3.选择得出交叉验证误差最小的模型<br>4.运用步骤 3 中选出模型对测试集计算得出推广误差，也可以同时将训练集和交叉验证集模型的代价函数误差与 λ 的值绘制在一张图表上：<br><img src="https://img-blog.csdnimg.cn/20200714172535993.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<ul>
+<li>当 𝜆 较小时，训练集误差较小（过拟合）而交叉验证集误差较大</li>
+<li>随着 𝜆 的增加，训练集误差不断增加（欠拟合），而交叉验证集误差则是先减小后增加</li>
+</ul>
+<h3 id="8-6-Learning-Curves"><a href="#8-6-Learning-Curves" class="headerlink" title="8.6 Learning Curves"></a>8.6 Learning Curves</h3><p>学习曲线可用于判断某一个学习算法是否处于偏差、方差问题。学习曲线是学习算法的一个很好的<label style="color:red">合理检验（sanity check）</label>。学习曲线是将训练集误差和交叉验证集误差作为训练集实例数量（𝑚）的函数绘制的图表。</p>
+<p>即，如果有 100 行数据，从 1 行数据开始，逐渐学习更多行的数据。思想是：当训练较少行数据的时候，训练的模型将能够非常完美地适应较少的训练数据，但是训练出来的模型却不能很好地适应交叉验证集数据或测试集数据。<br><img src="https://img-blog.csdnimg.cn/20200714173125794.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>如何利用学习曲线识别高偏差/欠拟合：作为例子，尝试用一条直线来适应下面的数据，可以看出，无论训练集有多么大误差都不会有太大改观：<br><img src="https://img-blog.csdnimg.cn/2020071417355684.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>也就是说在高偏差/欠拟合的情况下，增加数据到训练集不一定能有帮助。</p>
+<p>如何利用学习曲线识别高方差/过拟合：假设使用一个非常高次的多项式模型，并且正则化非常小，可以看出，当交叉验证集误差远大于训练集误差时，往训练集增加更多数据可以提高模型的效果。<br><img src="https://img-blog.csdnimg.cn/20200714173709702.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>也就是说在高方差/过拟合的情况下，增加更多数据到训练集可能可以提高算法效果。</p>
+<h3 id="8-7-Summary"><a href="#8-7-Summary" class="headerlink" title="8.7 Summary"></a>8.7 Summary</h3><ol>
+<li>获得更多的训练实例——解决高方差</li>
+<li>尝试减少特征的数量——解决高方差</li>
+<li>尝试获得更多的特征——解决高偏差</li>
+<li>尝试增加多项式特征——解决高偏差</li>
+<li>尝试减少正则化程度 λ——解决高偏差</li>
+<li>尝试增加正则化程度 λ——解决高方差</li>
+</ol>
+<p><strong>神经网络的方差和偏差：</strong><br><img src="https://img-blog.csdnimg.cn/20200714180238125.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>使用较小的神经网络，类似于参数较少的情况，容易导致高偏差和欠拟合，但计算代价较小使用较大的神经网络，类似于参数较多的情况，容易导致高方差和过拟合，虽然计算代价比较大，但是可以通过正则化手段来调整而更加适应数据。通常选择较大的神经网络并采用正则化处理会比采用较小的神经网络效果要好。</p>
+<p>对于神经网络中的隐藏层的层数的选择，通常从一层开始逐渐增加层数，为了更好地作选择，可以把数据分为训练集、交叉验证集和测试集，针对不同隐藏层层数的神经网络训练神经网络， 然后选择交叉验证集代价最小的神经网络。</p>
 
       
     </div>
@@ -493,6 +508,10 @@
           
             <a href="/tags/Machine-Learning/" rel="tag"># Machine Learning</a>
           
+            <a href="/tags/Learning-Curves/" rel="tag"># Learning Curves</a>
+          
+            <a href="/tags/Bias-Variance/" rel="tag"># Bias/Variance</a>
+          
         </div>
       
 
@@ -504,8 +523,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2020/07/06/%5BMachine%20Learning%5D%20%E5%8D%95%E5%8F%98%E9%87%8F%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92(Linear%20Regression%20with%20One%20Variable)/" rel="next" title="【Machine Learning】单变量线性回归(Linear Regression with One Variable)">
-                <i class="fa fa-chevron-left"></i> 【Machine Learning】单变量线性回归(Linear Regression with One Variable)
+              <a href="/2020/07/14/%E3%80%8A%E5%A2%9E%E9%95%BF%E9%BB%91%E5%AE%A2%E5%AE%9E%E6%88%98%E3%80%8B%EF%BC%88%E7%AC%AC1-3%E7%AB%A0%EF%BC%89/" rel="next" title="《增长黑客实战》（第1-3章）">
+                <i class="fa fa-chevron-left"></i> 《增长黑客实战》（第1-3章）
               </a>
             
           </div>
@@ -513,10 +532,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2020/07/08/%5BMachine%20Learning%5D%20%E9%80%BB%E8%BE%91%E5%9B%9E%E5%BD%92(Logistic%20Regression)/" rel="prev" title="【Machine Learning】逻辑回归(Logistic Regression)">
-                【Machine Learning】逻辑回归(Logistic Regression) <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -728,7 +743,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#3-Linear-Regression-with-Multiple-Variables-多变量线性回归"><span class="nav-text">3 Linear Regression with Multiple Variables(多变量线性回归)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-Multiple-Features-多维特征"><span class="nav-text">3.1 Multiple Features(多维特征)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-Gradient-Descent-for-Multiple-Variables-多变量梯度下降"><span class="nav-text">3.2 Gradient Descent for Multiple Variables(多变量梯度下降)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#3-2-1-Gradient-Descent-in-Practice-I-Feature-Scaling-特征缩放"><span class="nav-text">3.2.1 Gradient Descent in Practice I - Feature Scaling (特征缩放)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-2-2-Gradient-Descent-in-Practice-II-Learning-Rate-学习率"><span class="nav-text">3.2.2 Gradient Descent in Practice II - Learning Rate (学习率)</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3-Features-and-Polynomial-Regression-特征和多项式回归"><span class="nav-text">3.3 Features and Polynomial Regression(特征和多项式回归)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-4-Normal-Equation-正规方程"><span class="nav-text">3.4 Normal Equation(正规方程)</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#8-Advice-for-Applying-Machine-Learning-应用机器学习的建议"><span class="nav-text">8 Advice for Applying Machine Learning(应用机器学习的建议)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#8-1-Introduction"><span class="nav-text">8.1 Introduction</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-2-Evaluating-a-Hypothesis"><span class="nav-text">8.2 Evaluating a Hypothesis</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-3-Model-Selection-and-Train-Validation-Test-Sets"><span class="nav-text">8.3 Model Selection and Train_Validation_Test Sets</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-4-Diagnosing-Bias-vs-Variance"><span class="nav-text">8.4 Diagnosing Bias vs. Variance</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-5-Regularization-and-Bias-Variance"><span class="nav-text">8.5 Regularization and Bias&#x2F;Variance</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-6-Learning-Curves"><span class="nav-text">8.6 Learning Curves</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-7-Summary"><span class="nav-text">8.7 Summary</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -907,9 +922,9 @@
     
       <script type="text/javascript">
         var disqus_config = function () {
-          this.page.url = 'http://yoursite.com/2020/07/07/[Machine%20Learning]%20%E5%A4%9A%E5%8F%98%E9%87%8F%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92(Linear%20Regression%20with%20Multiple%20Variables)/';
-          this.page.identifier = '2020/07/07/[Machine Learning] 多变量线性回归(Linear Regression with Multiple Variables)/';
-          this.page.title = '【Machine Learning】多变量线性回归(Linear Regression with Multiple Variables)';
+          this.page.url = 'http://yoursite.com/2020/07/14/[Machine%20Learning]%20%E5%BA%94%E7%94%A8%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%9A%84%E5%BB%BA%E8%AE%AE(Advice%20for%20Applying%20Machine%20Learning)/';
+          this.page.identifier = '2020/07/14/[Machine Learning] 应用机器学习的建议(Advice for Applying Machine Learning)/';
+          this.page.title = '【Machine Learning】应用机器学习的建议(Advice for Applying Machine Learning)';
         };
         var d = document, s = d.createElement('script');
         s.src = 'https://.disqus.com/embed.js';
