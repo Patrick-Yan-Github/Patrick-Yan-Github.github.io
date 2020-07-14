@@ -1,103 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>【Machine Learning】神经网络的学习(Neural Networks_Learning)</title>
-    <url>/2020/07/12/%5BMachine%20Learning%5D%20%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E7%9A%84%E5%AD%A6%E4%B9%A0(Neural%20Networks_%20Learning)/</url>
-    <content><![CDATA[<p><img src="https://img-blog.csdnimg.cn/20200712143509812.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
-<a id="more"></a>
-
-<h2 id="7-Neural-Networks-Learning-神经网络的学习"><a href="#7-Neural-Networks-Learning-神经网络的学习" class="headerlink" title="7 Neural Networks-Learning(神经网络的学习)"></a>7 Neural Networks-Learning(神经网络的学习)</h2><h3 id="7-1-Cost-Function"><a href="#7-1-Cost-Function" class="headerlink" title="7.1 Cost Function"></a>7.1 Cost Function</h3><p>假设神经网络的训练样本有𝑚个，每个包含一组输入𝑥和一组输出信号𝑦，𝐿表示神经网络层数，𝑆<sub>𝐼</sub>表示每层的 neuron 个数(𝑆<sub>l</sub>表示输出层神经元个数)，𝑆<sub>L</sub>代表最后一层中处理单元的个数。</p>
-<p>将神经网络的分类定义为两种情况：二类分类和多类分类，</p>
-<ul>
-<li>二类分类：𝑆<sub>L</sub> = 0, 𝑦 = 0 𝑜𝑟 1表示哪一类；</li>
-<li>𝐾类分类：𝑆<sub>L</sub> = 𝑘, 𝑦<sub>i</sub> = 1表示分到第 i 类(𝑘 &gt; 2)；</li>
-</ul>
-<p><img src="https://img-blog.csdnimg.cn/20200711140907505.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>逻辑回归问题中的代价函数为：<br><img src="https://img-blog.csdnimg.cn/20200711141004490.PNG#pic_center" alt="在这里插入图片描述"><br>在逻辑回归中，只有一个输出变量，又称标量（scalar），也只有一个因变量𝑦，但是在神经网络中，可以有很多输出变量，ℎ𝜃(𝑥)是一个维度为𝐾的向量，并且训练集中的因变量也是同样维度的一个向量，因此代价函数会比逻辑回归更加复杂一些，为：<br><img src="https://img-blog.csdnimg.cn/2020071114131862.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>这个看起来复杂很多的代价函数背后的思想还是一样的，希望通过代价函数来观察算法预测的结果与真实情况的误差有多大，唯一不同的是，对于每一行特征，都会给出𝐾个预测，基本上可以利用循环，对每一行特征都预测𝐾个不同结果，然后在利用循环在𝐾个预测中选择可能性最高的一个，将其与𝑦中的实际数据进行比较。</p>
-<p>正则化的那一项只是排除了每一层𝜃0后，每一层的𝜃 矩阵的和。最里层的循环𝑗循环所有的行（由𝑠𝑙 +1 层的激活单元数决定），循环𝑖则循环所有的列，由该层（𝑠𝑙层）的激活单元数所决定。即：ℎ𝜃(𝑥)与真实值之间的距离为每个样本-每个类输出的加和，对参数进行regularization 的 bias 项处理所有参数的平方和。</p>
-<h3 id="7-2-Backpropagation-Algorithm-反向传播算法"><a href="#7-2-Backpropagation-Algorithm-反向传播算法" class="headerlink" title="7.2 Backpropagation Algorithm(反向传播算法)"></a>7.2 Backpropagation Algorithm(反向传播算法)</h3><p>在计算神经网络预测结果的时候采用了一种正向传播方法，从第一层开始正向一层一层进行计算，直到最后一层的ℎ𝜃(𝑥)。</p>
-<p>现在，为了计算代价函数的偏导数 <img src="https://img-blog.csdnimg.cn/20200711145159753.png" alt="在这里插入图片描述">，需要采用一种反向传播算法，也就是首先计算最后一层的误差，然后再一层一层反向求出各层的误差，直到倒数第二层。 以一个例子来说明反向传播算法。</p>
-<p>假设训练集只有一个实例(𝑥(1), 𝑦(1))，神经网络是一个四层的神经网络，其中𝐾 = 4，𝑆𝐿 = 4，𝐿 = 4：</p>
-<p><strong>前向传播算法：</strong><br><img src="https://img-blog.csdnimg.cn/20200711145443278.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br><strong>反向传播算法</strong><br><img src="https://img-blog.csdnimg.cn/20200712131502934.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>从最后一层的误差开始计算，误差是激活单元的预测（a<sub>k</sub><sup>(4)</sup>）与实际值（𝑦<sup>𝑘</sup>）之间的误差，（𝑘 = 1: 𝑘），用𝛿来表示误差，则：𝛿<sup>(4)</sup> = 𝑎<sup>(4)</sup> − y 。</p>
-<p>利用这个误差值来计算前一层的误差：𝛿<sup>(3)</sup> = (𝛩<sup>(3)</sup>)<sup>𝑇</sup>𝛿<sup>(4)</sup>∗ 𝑔′(𝑧<sup>(3)</sup>) 其中 𝑔′(𝑧<sup>(3)</sup>) 是 𝑆 形函数的导数，𝑔′(𝑧<sup>(3)</sup>)  = 𝑎<sup>(3)</sup>∗ (1 − 𝑎<sup>(3)</sup>)。而(𝛩<sup>(3)</sup>)<sup>𝑇</sup>𝛿<sup>(4)</sup>则是权重导致的误差的和。</p>
-<p>下一步是继续计算第二层的误差：𝛿<sup>(2)</sup> = (𝛩<sup>(2)</sup>)<sup>𝑇</sup>𝛿<sup>(3)</sup>∗ 𝑔′(𝑧<sup>(2)</sup>) 。</p>
-<p>因为第一层是输入变量，不存在误差。有了所有的误差的表达式后，便可以计算代价函数的偏导数了，假设𝜆 = 0，即不做任何正则化处理时有： 𝜕/𝜕𝛩<sub>𝑖𝑗</sub><sup>(𝑙)</sup>𝐽(𝛩) = 𝑎<sub>𝑗</sub><sup>(𝑙)</sup>𝛿<sub>𝑖</sub><sup>(𝑙+1)</sup> 。</p>
-<p>上面式子中上下标的含义：</p>
-<ul>
-<li>𝑙 代表目前所计算的是第几层。</li>
-<li>𝑗 代表目前计算层中的激活单元的下标，也将是下一层的第𝑗个输入变量的下标。</li>
-<li>𝑖 代表下一层中误差单元的下标，是受到权重矩阵中第𝑖行影响的下一层中的误差单元的下标。</li>
-</ul>
-<p>如果考虑正则化处理，并且训练集是一个特征矩阵而非向量。在上面的特殊情况中，需要计算每一层的误差单元来计算代价函数的偏导数。在更为一般的情况中，同样需要计算每一层的误差单元，但是需要为整个训练集计算误差单元，此时的误差单元也是一个矩阵，我们用𝛥<sub>𝑖𝑗</sub><sup>(𝑙)</sup>来表示这个误差矩阵。第 𝑙 层的第 𝑖 个激活单元受到第 𝑗个参数影响而导致的误差。</p>
-<p>反向传播算法为：<br><img src="https://img-blog.csdnimg.cn/20200712132926516.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>即首先用正向传播方法计算出每一层的激活单元，利用训练集的结果与神经网络预测的结果求出最后一层的误差，然后利用该误差运用反向传播法计算出直至第二层的所有误差。</p>
-<p>在求出了𝛥<sub>𝑖𝑗</sub><sup>(𝑙)</sup>之后，便可以计算代价函数的偏导数了，计算方法如下：<br><img src="https://img-blog.csdnimg.cn/20200712133115751.PNG#pic_center" alt="在这里插入图片描述"><br>进一步理解：<br><img src="https://img-blog.csdnimg.cn/20200712135205765.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20200712135416318.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/2020071213542917.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
-<h3 id="7-3-Gradient-Checking-梯度检测"><a href="#7-3-Gradient-Checking-梯度检测" class="headerlink" title="7.3 Gradient Checking(梯度检测)"></a>7.3 Gradient Checking(梯度检测)</h3><p>当对一个较为复杂的模型（例如神经网络）使用梯度下降算法时，可能会存在一些不容易察觉的错误，意味着，虽然代价看上去在不断减小，但最终的结果可能并不是最优解。为了避免这样的问题，我们采取一种叫做==梯度的数值检验（Numerical Gradient Checking）==方法。这种方法的思想是通过估计梯度值来检验计算的导数值是否真的是所要求的。</p>
-<p>对梯度的估计采用的方法是在代价函数上沿着切线的方向选择两个非常近的点然后计算两个点的平均值用以估计梯度。即对于某个特定的 𝜃，计算出在 𝜃-𝜀 处和 𝜃+𝜀 的代价值（𝜀是一个非常小的值，通常选取 0.001），然后求两个代价的平均，用以估计在 𝜃处的代价值。<br><img src="https://img-blog.csdnimg.cn/20200712140624589.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>当𝜃是一个向量时，则需要对偏导数进行检验。因为代价函数的偏导数检验只针对一个参数的改变进行检验。<br><img src="https://img-blog.csdnimg.cn/20200712140921217.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>最后还需要对通过反向传播方法计算出的偏导数进行检验。</p>
-<p>根据上面的算法，计算出的偏导数存储在矩阵 𝐷<sub>𝑖𝑗</sub><sup>(𝑙)</sup> 中。检验时，要将该矩阵展开成为向量，同时也将 𝜃 矩阵展开为向量，针对每一个 𝜃 都计算一个近似的梯度值，将这些值存储于一个近似梯度矩阵中，最终将得出的这个矩阵同𝐷<sub>𝑖𝑗</sub><sup>(𝑙)</sup> 进行比较。</p>
-<p><img src="https://img-blog.csdnimg.cn/20200712141514334.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
-<h3 id="7-4-Random-Initialization-随机初始化"><a href="#7-4-Random-Initialization-随机初始化" class="headerlink" title="7.4 Random Initialization(随机初始化)"></a>7.4 Random Initialization(随机初始化)</h3><p>任何优化算法都需要一些初始的参数。到目前为止都是初始所有参数为 0，这样的初始方法对于逻辑回归来说是可行的，但是对于神经网络来说是不可行的。如果令所有的初始参数都为 0，这将意味着第二层的所有激活单元都会有相同的值。同理，如果初始所有的参数都为一个非 0 的数，结果也是一样的。</p>
-<p>通常初始参数为正负𝜀之间的随机值，假设要随机初始一个尺寸为 10×11 的参数矩阵，代码如下：<br>Theta1 = np.random.randn(10, 11) * (2*eps) – eps</p>
-<h3 id="7-5-Putting-it-together"><a href="#7-5-Putting-it-together" class="headerlink" title="7.5 Putting it together"></a>7.5 Putting it together</h3><p><strong>神经网络结构：</strong></p>
-<ul>
-<li>第一层——特征数量</li>
-<li>最后一层——类的数量（K分类就是K个）</li>
-<li>隐藏层——每个隐藏层的单元个数相同，且单元的个数越多越好</li>
-<li>需要设计的结构——隐藏层的层数and单元个数</li>
-</ul>
-<p><strong>训练神经网络步骤：</strong></p>
-<ul>
-<li>(a)参数的随机初始化</li>
-<li>(b)利用正向传播方法计算所有的h_θ (x)</li>
-<li>(c)编写计算代价函数 J 的代码</li>
-<li>(d)利用反向传播方法计算所有偏导数</li>
-<li>(e)利用数值检验方法检验这些偏导数</li>
-<li>(f)使用优化算法来最小化代价函数</li>
-</ul>
-]]></content>
-      <categories>
-        <category>机器学习</category>
-      </categories>
-      <tags>
-        <tag>Machine Learning</tag>
-        <tag>Neural Networks</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>【Machine Learning】多变量线性回归(Linear Regression with Multiple Variables)</title>
-    <url>/2020/07/07/%5BMachine%20Learning%5D%20%E5%A4%9A%E5%8F%98%E9%87%8F%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92(Linear%20Regression%20with%20Multiple%20Variables)/</url>
-    <content><![CDATA[<p><img src="https://img-blog.csdnimg.cn/20200707131529483.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
-<a id="more"></a>
-
-<h2 id="3-Linear-Regression-with-Multiple-Variables-多变量线性回归"><a href="#3-Linear-Regression-with-Multiple-Variables-多变量线性回归" class="headerlink" title="3 Linear Regression with Multiple Variables(多变量线性回归)"></a>3 Linear Regression with Multiple Variables(多变量线性回归)</h2><h3 id="3-1-Multiple-Features-多维特征"><a href="#3-1-Multiple-Features-多维特征" class="headerlink" title="3.1 Multiple Features(多维特征)"></a>3.1 Multiple Features(多维特征)</h3><p><img src="https://img-blog.csdnimg.cn/20200707100825934.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20200707100922690.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>注：实际上不一定是线性的，仅本例中使用线性。非线性也是此思想。</p>
-<h3 id="3-2-Gradient-Descent-for-Multiple-Variables-多变量梯度下降"><a href="#3-2-Gradient-Descent-for-Multiple-Variables-多变量梯度下降" class="headerlink" title="3.2 Gradient Descent for Multiple Variables(多变量梯度下降)"></a>3.2 Gradient Descent for Multiple Variables(多变量梯度下降)</h3><p>与单变量线性回归类似，在多变量线性回归中，同样也构建一个代价函数，则这个代价函数是所有建模误差的平方和，即：<br><img src="https://img-blog.csdnimg.cn/20200707102308696.PNG#pic_center" alt="在这里插入图片描述"><br>目标和单变量线性回归问题中一样，是要找出使得代价函数最小的一系列参数。<img src="https://img-blog.csdnimg.cn/20200707101806364.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20200707101739874.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>上图右边显示了多变量线性回归的批量梯度下降算法，其开始随机选择一系列的参数值，计算所有的预测结果后，再给所有的参数一个新的值，如此循环直到收敛。</p>
-<p><strong>python代码：</strong></p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">computeCost</span><span class="params">(X, y, theta)</span>:</span></span><br><span class="line">	inner = np.power(((X * theta.T) - y), <span class="number">2</span>)</span><br><span class="line">	<span class="keyword">return</span> np.sum(inner) / (<span class="number">2</span> * len(X))</span><br></pre></td></tr></table></figure>
-
-<h4 id="3-2-1-Gradient-Descent-in-Practice-I-Feature-Scaling-特征缩放"><a href="#3-2-1-Gradient-Descent-in-Practice-I-Feature-Scaling-特征缩放" class="headerlink" title="3.2.1 Gradient Descent in Practice I - Feature Scaling (特征缩放)"></a>3.2.1 Gradient Descent in Practice I - Feature Scaling (特征缩放)</h4><p><strong>在解决多维特征问题时，应该保证这些特征都具有相近的尺度，这将帮助梯度下降算法更快地收敛。</strong></p>
-<p>以房价问题为例，假设有两个特征，房屋的尺寸和房间的数量，尺寸的值为 0-2000 平方英尺，而房间数量的值则是 0-5，以两个参数分别为横纵坐标，绘制代价函数等高线图能，看出图像会显得很扁，梯度下降算法需要非常多次的迭代才能收敛。<br><img src="https://img-blog.csdnimg.cn/20200707104230484.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>解决方法是尝试将所有特征的尺度都尽量缩放到-1 到 1 之间，即==特征归一化==。如图：<br><img src="https://img-blog.csdnimg.cn/20200707104328954.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
-<blockquote>
-<p>数据的标准化（normalization）是将数据按比例缩放，使之落入一个小的特定区间。在某些比较和评价的指标处理中经常会用到，去除数据的单位限制，将其转化为无量纲的纯数值，便于不同单位或量级的指标能够进行比较和加权，可以大大提高分类器的准确性。<br>其中最典型的就是数据的归一化处理，即将数据统一映射到[0,1]区间上。</p>
-</blockquote>
-<p>归一化公式：<br><img src="https://img-blog.csdnimg.cn/20200707105004270.PNG#pic_center" alt="在这里插入图片描述"></p>
-<h4 id="3-2-2-Gradient-Descent-in-Practice-II-Learning-Rate-学习率"><a href="#3-2-2-Gradient-Descent-in-Practice-II-Learning-Rate-学习率" class="headerlink" title="3.2.2 Gradient Descent in Practice II - Learning Rate (学习率)"></a>3.2.2 Gradient Descent in Practice II - Learning Rate (学习率)</h4><p>梯度下降算法收敛所需要的迭代次数根据模型的不同而不同，无法提前预知，但可以绘制迭代次数和代价函数的图表来观测算法在何时趋于收敛。<br><img src="https://img-blog.csdnimg.cn/20200707105546868.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>图像300~400已经相当平坦了，可推测到达400左右时梯度下降法差不多已经收敛了。</p>
-<p>梯度下降算法的每次迭代受到学习率的影响，如果学习率𝑎过小，则达到收敛所需的迭代次数会非常多；如果学习率𝑎过大，每次迭代可能不会减小代价函数，可能会越过局部最小值导致无法收敛。</p>
-<p>通常可以考虑尝试些学习率：<br>𝛼 =…，0.001，0.003，0.01，0.03，0.1，0.3，1，…</p>
-<h3 id="3-3-Features-and-Polynomial-Regression-特征和多项式回归"><a href="#3-3-Features-and-Polynomial-Regression-特征和多项式回归" class="headerlink" title="3.3 Features and Polynomial Regression(特征和多项式回归)"></a>3.3 Features and Polynomial Regression(特征和多项式回归)</h3><p><img src="https://img-blog.csdnimg.cn/20200707121141207.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>线性回归并不适用于所有数据，有时需要曲线来适应数据，比如，<br>一个二次方模型：<img src="https://img-blog.csdnimg.cn/20200707121921446.PNG#pic_center" alt="在这里插入图片描述"><br>或者三次方模型：<img src="https://img-blog.csdnimg.cn/20200707121933949.PNG#pic_center" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20200707122024153.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>根据函数图形特性，我们还可以使：<br><img src="https://img-blog.csdnimg.cn/20200707122340253.PNG#pic_center" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20200707122358694.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>注：如果采用多项式回归模型，在运行梯度下降算法前，特征缩放非常有必要。</p>
-<h3 id="3-4-Normal-Equation-正规方程"><a href="#3-4-Normal-Equation-正规方程" class="headerlink" title="3.4 Normal Equation(正规方程)"></a>3.4 Normal Equation(正规方程)</h3><p>正规方程是区别于迭代方法的直接计算解法，即直接求导数等于0的点。<br><img src="https://img-blog.csdnimg.cn/20200707123106110.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>假设训练集特征矩阵为 𝑋（包含了 𝑥0 = 1）并且训练集结果为向量 𝑦，则利用正规方程解出向量：<img src="https://img-blog.csdnimg.cn/202007071243148.PNG#pic_center" alt="在这里插入图片描述"><br>例子：<br><img src="https://img-blog.csdnimg.cn/20200707124545251.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>注：对于不可逆的矩阵（通常是因为特征之间不独立，如同时包含英尺为单位的尺寸和米为单位的尺寸两个特征，也有可能是特征数量大于训练集的数量），正规方程方法是不能用的。</p>
-<p><strong>梯度下降与正规方程的比较</strong><br><img src="https://img-blog.csdnimg.cn/20200707125601290.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>注：只要特征变量的数目并不大，标准方程是一个很好的计算参数𝜃的替代方法。具体地说，只要特征变量数量小于一万，通常使用标准方程法，而不使用梯度下降法。</p>
-<p><strong>Normal Equation Noninvertibility(正规方程及不可逆性)</strong><br><img src="https://img-blog.csdnimg.cn/20200707130156670.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
-<p><strong>python实现正规方程：</strong></p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">normalEqn</span><span class="params">(X, y)</span>:</span></span><br><span class="line">	theta = np.linalg.inv(X.T@X)@X.T@y <span class="comment">#X.T@X 等价于 X.T.dot(X)</span></span><br><span class="line">	<span class="keyword">return</span> theta</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://img-blog.csdnimg.cn/20200707130732297.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20200707130731881.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
-]]></content>
-      <categories>
-        <category>机器学习</category>
-      </categories>
-      <tags>
-        <tag>Machine Learning</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>【Machine Learning】单变量线性回归(Linear Regression with One Variable)</title>
     <url>/2020/07/06/%5BMachine%20Learning%5D%20%E5%8D%95%E5%8F%98%E9%87%8F%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92(Linear%20Regression%20with%20One%20Variable)/</url>
     <content><![CDATA[<p><img src="https://img-blog.csdnimg.cn/20200706191025292.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
@@ -139,213 +42,33 @@
       </tags>
   </entry>
   <entry>
-    <title>《增长黑客实战》（第1-3章）</title>
-    <url>/2020/07/14/%E3%80%8A%E5%A2%9E%E9%95%BF%E9%BB%91%E5%AE%A2%E5%AE%9E%E6%88%98%E3%80%8B%EF%BC%88%E7%AC%AC1-3%E7%AB%A0%EF%BC%89/</url>
-    <content><![CDATA[<p><img src="https://img-blog.csdnimg.cn/2020071414384626.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+    <title>【Machine Learning】多变量线性回归(Linear Regression with Multiple Variables)</title>
+    <url>/2020/07/07/%5BMachine%20Learning%5D%20%E5%A4%9A%E5%8F%98%E9%87%8F%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92(Linear%20Regression%20with%20Multiple%20Variables)/</url>
+    <content><![CDATA[<p><img src="https://img-blog.csdnimg.cn/20200707131529483.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
 <a id="more"></a>
 
-<h2 id="1-检验商业计划"><a href="#1-检验商业计划" class="headerlink" title="1 检验商业计划"></a>1 检验商业计划</h2><h3 id="1-1-伪需求"><a href="#1-1-伪需求" class="headerlink" title="1.1 伪需求"></a>1.1 伪需求</h3><p>对于初创公司能否存活的关键：如何快速地迭代、如何在现金流耗尽之前验证商业模式。常见的两种失败：</p>
-<ul>
-<li>市场占有失败</li>
-<li>产品研发失败</li>
-</ul>
-<p>其中，前者的比例远远高于后者。</p>
-<p>失败的项目中有超过七成错在满足的是伪需求。伪需求产品的诞生，主要可归结为五种原因。</p>
-<ul>
-<li>1.创始人的个人梦想情怀<br>“弱小和无知不是生存的障碍，傲慢才是”</li>
-<li>2.寻求技术的商业化路径时结合生硬<br>“手里拿着锤子，看什么都是钉子”</li>
-<li>3.误将自身需求放大为整个市场需求</li>
-<li>4.以感性体验代替理性思考</li>
-<li>5.盲目抄袭市场热点，缺乏对商业本质的深度认识</li>
-</ul>
-<h3 id="1-2-快速验证商业计划"><a href="#1-2-快速验证商业计划" class="headerlink" title="1.2 快速验证商业计划"></a>1.2 快速验证商业计划</h3><p>商业计划书（BP，business plan）==P/MF，Product/Market Fit==，产品与市场相契合。用户级产品和企业级SaaS产品的业界参考标准如下。</p>
-<p><strong>用户级产品标准</strong></p>
-<ul>
-<li>每周使用天数超过3天</li>
-<li>初始日新增用户DAU超过100</li>
-<li>30%新用户次日留存率</li>
-<li>达到10万用户量</li>
-</ul>
-<p><strong>SaaS产品标准</strong></p>
-<ul>
-<li>5%付费转化率</li>
-<li>LTV/CAC 大于 3，即用户生命周期价值/获取成本 大于3</li>
-<li>月流失率 小于 2%</li>
-<li>月销售流水达到10万元</li>
-</ul>
-<p><strong>快速寻找到P/MF的方法</strong></p>
-<ul>
-<li>精益画布</li>
-<li>最小化可行产品（MVP）</li>
-<li>设计冲刺（Sprint）</li>
-</ul>
-<h3 id="1-3-产品价值和建立付费增长框架"><a href="#1-3-产品价值和建立付费增长框架" class="headerlink" title="1.3 产品价值和建立付费增长框架"></a>1.3 产品价值和建立付费增长框架</h3><p>百度贴吧之父俞军提出过一个产品价值公式：<br>产品价值 = （新体验-旧体验）-换用成本</p>
-<p>建立系统性的付费增长（Paid Growth）框架，每多花一元钱都能明确地讲出这一元的付出究竟是降低了整体获客成本、圈占到更大市场份额，抑或是让竞争对手不得不为此多花费两天的额外成本。</p>
-<p><strong>互联网产品增值的“不可能三角”</strong></p>
-<ul>
-<li>新增用户规模</li>
-<li>用户留存率</li>
-<li>营收变现</li>
-</ul>
-<ol>
-<li>追求新增、留存，牺牲营收<br>—— “烧钱补贴”</li>
-<li>追求留存、营收，暂缓新增<br>—— 在同质化竞争之下，产品只能从加强专业性、提升用户体验等角度寻求溢价。</li>
-<li>追求新增、营收，放弃留存<br>—— 如同设赌场一样，本着捞一笔是一笔的态度，只要有足够的用户流量支撑，最终都能收割韭菜，保证赚钱。</li>
-</ol>
-<p><strong>如何付费购买增长，保证产品获取长久稳健的流量？</strong></p>
-<ul>
-<li>购买用户数量<br>—— 适用于完全竞争市场，采用该方式的前提是CAC（用户获取成本）必须小于LTV（用户生命周期总价值）。即，花5美元买来的用户，最后会让你赚10美元。</li>
-<li>购买增长速度<br>—— 牺牲短期营收，快速跑马圈地。目的是垄断市场。垄断利润给了企业规划长远未来的资本，但前提可能是牺牲短期营收，CAC大于LTV。</li>
-<li>购买流动性<br>—— 促成更多的交易。如果项目是建立一个双边市场，那么相比供求双方的数量，更直接与估值挂钩的是流动性。只有产生流动性才算得出客单价、复购率、生命周期中价值等数据。 </li>
-</ul>
-<h3 id="1-4-增长的三个阶段：选择最恰当时机和目标"><a href="#1-4-增长的三个阶段：选择最恰当时机和目标" class="headerlink" title="1.4 增长的三个阶段：选择最恰当时机和目标"></a>1.4 增长的三个阶段：选择最恰当时机和目标</h3><p><img src="https://img-blog.csdnimg.cn/20200714133027404.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>|  |种子期|成型期|增长期|<br>|–|–|–|–|<br>|目标| 验证产品，达到P/FM状态|理解用户的使用行为如何让各项指标产生波动，比如DAU波动的原因及改进方法|增长、增长、高速增长|<br>|指标|紧盯留存率|开始关注每周或每月的用户增长，并设法降低CPA （Cost Per Action）、提高LTV|增长率是主要目标，但仍需留意投资回报期，也就是多久能把之前亏损的钱赚回来|<br>|用户规模|在保证平稳持续的前提下，缓慢导入一些种子用户，用于进行各种试验，最终服务于达成P/FM的目的|允许更多的真实用户加入使用，但仍要注意留存率|已找到性价比在接受范围的推广渠道，就开闸泄洪让用户鱼贯而入吧|<br>|推广渠道|在多种不同类型的推广渠道上小规模地测试投入产出比，找到值得重点投入的主力渠道|一边尝试新的渠道，一边在已验证过的渠道中选择投入产出比最高的一个继续加码投入|花费80%的精力在主要推广渠道上|<br>|产品优化|在产品方向令人满意前，着眼于大的优化点，比如更换目标人群、改善行为路径、推翻核心流程|既着眼于大的优化点，也开始着手解决小问题|打磨细节|<br>|团队成员|不需要专门的增长黑客角色，但至少保证团队里有一个人在工作中将80%的时间用于思考如何获取增长|开始尝试建立专门的增长团队，或选拨有经验的产品经理专职负责聚焦增长|增长团队扩增|</p>
-<h3 id="1-5-对产品增进认知"><a href="#1-5-对产品增进认知" class="headerlink" title="1.5 对产品增进认知"></a>1.5 对产品增进认知</h3><p>产品：<br>    * 用户为什么使用产品？他们期待的核心价值是什么？<br>    * 用户在产品中一步步的使用路径是怎样的？<br>    * 哪些特性或功能，更容易让新增用户转化成长期活跃的忠诚用户？<br>    * 是什么问题直接导致了一部分用户的离开？</p>
-<p>用户：<br>    * 他们年龄多大，住在哪里，大多数从事什么职业？（建立你的用户画像。）<br>    * 他们如何描述我们试图解决的问题，以及看待我们提供的解决方案？<br>    * 在实际使用过程中，他们有哪些疑虑或恐慌？<br>    * 他们会将我们的产品与哪些品牌或事物关联在一起？</p>
-<p>推广渠道：<br>    * 我们现行的推广渠道是如何运作的？<br>    * 哪些渠道的性价比最高，哪些渠道的用户质量最高，哪些渠道更便宜？<br>    * 如何让我们的网页在搜索引擎里取得更高的排名？<br>    * 怎样群发广告邮件能较好地避免被系统屏蔽或引发用户反感？</p>
-<p>认知过程：<br>    * 我们是否以系统化的思维，正确地收集并分析了所有试验数据？<br>    * 我们挑选试验的标准，是基于手头的资源限制，还是预期产生的影响？<br>    * 我们是否在每一次的试验之前，清晰地提出了某种假设，并有意识地去验证它？<br>    * 对我们用户新增渠道影响最深远的一次近期变化是什么？我们花了多久发现并做出调整？</p>
-<p>获得试验结论：<br>    * 我们是否有及时记录试验结论并交流分享的机制，还是它们只停留在参与者各自脑袋里？<br>    * 认知结论是否以一种便于分享的形式，对团队内的所有成员开放？<br>    * 我们是否坦然地交流了所有的认知结论，包括那些让人不快的负面结论？（记得 交流时邀请黑帽思考者参与。）<br>    * 是否有人刻意绕过某些障碍或掩盖错误，对影响认知结论的因素避而不谈？</p>
-<h2 id="2-组建增长团队"><a href="#2-组建增长团队" class="headerlink" title="2 组建增长团队"></a>2 组建增长团队</h2><p><strong>增长黑客的工作</strong><br>    * 关注整个用户生命周期，而不仅仅是获客阶段<br>    * 通过数据驱动的方法，不断试验迭代<br>    * 将增长进制产品化，把增长做到产品里面去</p>
-<p><strong>团队成员角色</strong><br>增长负责人、增长产品经理、增长工程师、设计师/交互设计师、增长营销经理、数据分析师等。</p>
-<p><strong>增长团队日常工作</strong><br>主要围绕制定策略、实施方案、招聘人才、打造文化四项内容展开。</p>
-<ul>
-<li>制定策略<br>——  制定策略就是在采取下一步具体行动之前，对整体框架和路线图进行梳理，找出影响增长的方法、建立增长模型。<br>举个例子，你可以将增长策略分解为以下这些基本问题： 1）我应当如何提升下载/注册转化率？ 2）我能在用户初次使用的前N天内做些什么来激发活跃度？ 3）影响用户参与度和留存率的手段都有哪些？ 4）如何召回即将或已经流失的用户，让他们重新对产品发生兴趣？<br>接着，寻求解决上述问题的新渠道，或是对既有渠道进行优化改进，例如尝试病毒邀请机制、购买搜索引擎关键词、导入通讯录联系人、优化注册确认邮件送达率等。</li>
-<li>实施方案<br>——  增长策略落实到执行阶段，就产生了待办列表上的一堆具体的计划任务。要做的是将这些点子，通过技术手段实现出来，并且不断打磨优化，提升方案的最终转化率。<br>值得注意的潜在细节包括但不限于： • 用按钮取代文字链接 • 测试按钮的位置、尺寸、用语和配色 • 提升页面和服务器的响应速度，降低延迟 • 优化网页标题、副标题、关键词、描述 • 应用适当的配图尺寸和文件格式 • 在页面加入客户证言来加强可信度 • 加入直观的宣传视频降低使用门槛 • 优化付费关键词对应的着陆页 • 简化注册表单，去除或延后非必要字段 • 用第三方账号授权登录代替注册独立账号 • 给用户施加社交压力，如写上“你的N个朋友正在使用” • 测试电子邮件的标题、内容、发送者地址、发送频率</li>
-</ul>
-<h2 id="3-提升协作效率"><a href="#3-提升协作效率" class="headerlink" title="3 提升协作效率"></a>3 提升协作效率</h2><h3 id="3-1-AARRR流量漏斗模型"><a href="#3-1-AARRR流量漏斗模型" class="headerlink" title="3.1 AARRR流量漏斗模型"></a>3.1 AARRR流量漏斗模型</h3><p><img src="https://img-blog.csdnimg.cn/20200714134346384.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
-<p><strong>Acquisition（获取用户）</strong></p>
-<p>互联网产品获取用户流量的常见手段繁多。<br>诸如： • 在目标人群集中的网站平台购买广告位 • 搜索引擎优化（SEO）及搜索引擎营销（SEM） • 内容营销、社群营销、病毒营销 • 撰写软文或公关稿 • 预装、刷机 当你成功吸引到网站的新房客，或是让应用被下载安装一次，AARRR流量漏斗就此启动运行。</p>
-<p><strong>Activation（激发活跃）</strong></p>
-<p>互联网产品可以通过交互界面和机制策略的设计，激发用户使用的活跃度，让他们尽快完成某些“指定动作”，从而产生商业价值。<br>例如： • 简化填写步骤，促使用户尽快填写并提交调查表 • 提供注册奖励，新用户绑定手机或信用卡即赠送5元代金券 • 加强被动引导，用排行榜、热门搜索等帮用户发现更多内容 • 预测购物偏好，将用户可能感兴趣的商品直接推荐到购物车 • 设置积分等级，用户发布一条微博或上传一张照片就能增加积分</p>
-<p><strong>Retention（提高留存）</strong></p>
-<p>留住一个老用户的成本要远远低于获取一个新用户的成本。为了再次赢回他们的注意力，提高留存率。<br>可以采取： • 增加高频刚需的功能，例如网盘自动为用户上传备份手机相册照片 • 优化产品性能，如判断用户的网络环境下载对应大小的数据包 • 定期发送产品升级优化的通知邮件，维持品牌曝光 • 用好友的私信提醒、陌生人添加好友的邀请等社交关系来召回 • 根据用户生命周期模型，在预测到用户可能流失时主动发送优惠折扣券</p>
-<p><strong>Revenue（增加收入）</strong></p>
-<p>以免费大行其道的互联网行业，除了直接向用户收费以外，还可以通过广告展示、业务分成、技术支持等方式向其他利益方收取费用。<br>常见的增加收入策略有： • 让电商顾客买更多东西，如捆绑推荐关联商品 • 让免费用户为增值服务买单，如层出不穷的QQ秀及网络游戏里的皮肤套装 • 为犹豫不决的潜在用户提供一个月免费试用，到期若不主动取消则自动续订 • 让已经付费者升级付费套餐，如视频网站的白银会员升级到黄金会员后，每月可享受更多独播大片 • 涨价，如付费社群可采用阶梯性定价，让晚加入者支付更高成本</p>
-<p><strong>Referral（传播推荐）</strong></p>
-<p>有关传播推荐的典型案例如下： • 以Dropbox为代表的云存储产品，若邀请到一名好友注册，双方就都能获赠额外250MB网络免费空间 • 互联网金融产品，邀请好友注册并绑定信用卡就能获赠10元礼金 • 打车应用订单完成后，向用户提供代金红包并鼓励分享给好友 • 图片社交产品，只有先分享到朋友圈才能解锁某款独特的滤镜或贴纸 • 在微信里开展的母婴电商、时尚潮品销售，可通过加盟代理和三级分销的方式获得订单优惠和返利</p>
-<p>从获取用户到传播推荐，整个AARRR流量漏斗构成了一道产品使用周期的闭环。增长团队正是通过不断优化这五个关键步骤，减少每个环节中不必要的损耗，提高转化效率，从而不断扩大用户群体的数量和质量，为增长保驾护航。</p>
-<h3 id="3-2-如何套用流量漏斗模型，提高转化率"><a href="#3-2-如何套用流量漏斗模型，提高转化率" class="headerlink" title="3.2 如何套用流量漏斗模型，提高转化率"></a>3.2 如何套用流量漏斗模型，提高转化率</h3><p>案例：信用卡优惠应用如何提升转化率</p>
-<p>我的一客户朋友开发了一款展示信用卡优惠的手机应用。用户手动输入卡号或拍摄扫描，将信用卡绑定到个人账号后，就能定期收到这张卡的专属优惠信息，例如周二刷卡冰淇淋半价、周六电影票八折兑换等。</p>
-<p>这款产品在早期推广时陷入了困境。用户并没有如预想的那样蜂拥而至，借助有限的免费推广渠道发布的营销广告和软文阅读曝光量寥寥。即使是注册用户，也在匆匆扫了几眼过后，就急不可耐地卸载了。这究竟是怎么一回事呢？</p>
-<p>套用AARRR流量漏斗模型，分析了这款应用的流量转化路径。<br>• 获取用户：利用微信公众号做内容营销聚拢粉丝，提醒粉丝下载应用<br>• 激发活跃：引导用户绑定信用卡信息，作为推送内容的基础<br>• 提高留存：通过推送通知（Push Notification）等形式定期推送商家优惠券<br>• 增加收入：根据用户广告内容的点击和转化，向合作商家收取分成<br>• 传播推荐：邀请用户将有价值的内容分享出去</p>
-<p>厘清上述转化脉络后，我们就可以针对每个环节加以优化。</p>
-<p>• 在微信公众号里，原先每日推送的文章聚焦在信用卡使用知识上，受众狭窄，传播受限。既然我们的目标是以此聚集潜在用户，就不必苛求人群精准，而应当扩大基数，发布内容从“垂直人群的强需求”向“宽泛人群的普遍需求”转变，为下一步转化提供充足的“分母”。所以，调整后的策略是：增加优惠活动、美食旅行、品质生活等泛目标人群中喜闻乐见且有传播力的内容，提高攒粉速率。</p>
-<p>• 提醒粉丝下载安装阶段，用小恩小惠增加说服的筹码：注册即送 10 元专享代金券，或是指定餐厅优惠体验资格（注意要与前面通过公众号文章吸引来的目标人群兴趣点吻合）。</p>
-<p>• 不要在用户首次启动时，就立即催促他绑定信用卡，此时大部分人会有抵触心理。正确的做法是先让他自由地浏览，体验到产品的价值感，然后再试图诱导转化。例如在呈现的高质量优惠信息详情底部设置“立即领取”按钮，未绑卡用户一旦点击，就提醒他需要先绑卡才可享用。诉诸利益，而非恳请或强迫。</p>
-<p>• 用户绑卡后，更聪明地向其推送优惠信息。比如，工作日侧重推送金融证券、商旅服务、正餐餐厅，周末则提供娱乐休闲聚会相关资讯。如果结合用户画像，效果更佳。</p>
-<p>• 在尝到甜头时，才提醒分享，例如在成功兑换优惠之时提醒。</p>
-<h3 id="3-3-从增长模型中挖掘机会"><a href="#3-3-从增长模型中挖掘机会" class="headerlink" title="3.3 从增长模型中挖掘机会"></a>3.3 从增长模型中挖掘机会</h3><p>创建增长模型的三个核心原则<br>    * 覆盖全面<br>    * 逻辑精简<br>    * 全员贯彻</p>
-<p>增长模型应当形如：<br><img src="https://img-blog.csdnimg.cn/20200714135257832.PNG#pic_center" alt="在这里插入图片描述"><br>以美国最大的电商网站亚马逊为例，它的增长模型是：<br><img src="https://img-blog.csdnimg.cn/20200714135315661.PNG#pic_center" alt="在这里插入图片描述"><br>A=垂直品类拓展（Vertical Expansion）<br>B=单个垂直品类商品库存（Product Inventory Per Vertical）<br>C=单个商品页面浏览量（Traffic Per Product Page）<br>D=购买转化率（Coversion to Purchase）<br>E=客单价（Average Purchase Value）<br>F=重复购买行为（Repeat Purchase Behavior）</p>
-<p>据此归纳出的亚马逊增长模型，可指导管理层关注三个增长方向：<br>    * 组织市场研究团队，探索新的商品品类和服务领域。<br>    * 调配采购团队，加强商品采购和货物流通。<br>    * 建立线上优化团队，运用SEO、付费广告、A/B测试等途径优化页面浏览到下单购买的整个流程。</p>
-<p>增长模型左边的增长目标以具体的数字指标体现，是你的核心指标，又被称作“North Star Metric”（北极星指标），或“OMTM”（One Metric That Matters，即唯一重要的指标）。</p>
-<p>设定核心指标时，必须避免 ==“虚荣指标”（Vanity Metric）==，也就是让团队误以为自己好像在进步，但实际上却没有取得什么进展的浮夸指标。如：点击量、页面浏览量（PV）、访问量、独立访客数、粉丝/好友/赞的数量、网站提留时间/浏览页数、收集到的用户邮件地址数量、下载量。</p>
-<p>以下是一组不同公司核心指标的范例：<br>• 亚马逊，做的是电商购物的生意，核心指标是“商品销量额”。<br>• Medium，一家作者与读者交换故事想法的在线创作社区，核心指标是“总阅读时长”。<br>• Quora，允许专家以问答形式将知识技能分享给全世界，核心指标是“有多少问题被回答”。<br>• Airbnb，作为双边市场服务，作用是连接房东和住客，核心指标是“有多高比例的整晚房间被租赁出去”。<br>• Uber，同样是一家双边市场服务，赋予司机和乘客随时匹配的权利，Uber 的核心指标并非“有多少辆车成功搭载乘客”，而是“乘客从叫车到上车之间的平均候车时长”——这更能体现某一地区驾乘双方的用户密度、匹配算法的智能性。</p>
-<p>核心指标通常是复合因素作用下的衡量标准。为了提升核心指标，你必须将它分解成若干个彼此关联且共同产生影响的关键指标（可能包含二级指标、三级指标甚至更多），然后分别去优化各自的影响因素，从而自下而上地影响核心指标。如：<br><img src="https://img-blog.csdnimg.cn/20200714135545864.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>例： 早在2007年4月前，Google的广告展示中使用了大面积的矩形区域作为背景，只要用户点击整个矩形区域，就视作产生广告点击，广告主需为此付费。看起来，更大的点击面积的确让人点击时移动鼠标更省眼力，促进点击率剧增，Google能因此获得更多收入。 但出乎意料的是，Google创始人自断一指，突然宣布将广告可点击区域限制在标题和链接区域，这对营收产生了负面影响。广告点击模式改变后数月间，Google的股票价格从2007年11月的740多美元，一路倾泻到了2008年年中的350多美元，引发了资本市场和科技评论圈的轩然大波。自此，很多媒体和出版商的点击转化率和收入都大幅下降。</p>
-<p>果不其然，坚持带来了最终的胜利。Google的收入随后开始快速增长，估价也水涨船高，之前的变动被证明是有远见的，Google广告系统的收入日渐提升，成为Google公司的支柱性收入之一。</p>
-<p>这里的奥妙可以用下面的增长模型解释：<br><img src="https://img-blog.csdnimg.cn/20200714135707102.PNG#pic_center" alt="在这里插入图片描述"><br>其中，每个指标对应的含义分别是：<br>• CPM：每千次展示给Google带来的收入。CPM越高代表Google赚钱越多。<br>• Coverage：广告覆盖率。广告覆盖率=出现广告的页面/所有页面。使用Google搜索时，浏览了10个页面，其中5个页面出现广告，则Coverage为50%。Google的Coverage大约是1/3。<br>• Depth：平均每页广告数。页面上广告数越多，整体展示量越高，但同时每个广告的点击率也可能更低。Google的Depth是每个页面1-3条广告。<br>• CTR：点击转化率。上面已经提到过。<br>• CPC：单次点击费用。上面也已提到过。 </p>
-<p>绝大多数广告平台倾向于提升Coverage和Depth，因为CTR取决于用户，CPC则取决于广告主。为了确保用户体验，Google严格遵守广告少而精的策略，决定放弃Coverage和Depth，着力于CTR和CPC。 塞翁失马，焉知非福。虽然刚开始限制点击区域的改动，短期内降低了CTR，但正是由于成功减少了大量的意外点击，随着用户真实点击百分比的提高，广告主看到了每个点击更真实的价值，满意度也随之提高。广告主更愿意去买点击广告，触发了更高的单次点击费用。加之 Google 采用机器学习等技术帮助广告主增强展示的精准性，因此整体收入不降反升。</p>
-<h3 id="3-3-建立团队内部协作流程"><a href="#3-3-建立团队内部协作流程" class="headerlink" title="3.3 建立团队内部协作流程"></a>3.3 建立团队内部协作流程</h3><p>打造自增长产品的创意始于增长模型， 这套流程主要由以下五个核心环节组成：==头脑风暴&gt;确定优先级&gt;小规模测试&gt;动手研发&gt;持续优化==</p>
-<p><strong>第一步：头脑风暴，提出假设</strong><br>增长团队协作流程的原点，就是提出假设。假设是有根据的猜测，这些猜测在日后 能被证实或证伪，最终服务于产品迭代。<br>可证伪的假设=[具体并且可重复的动作]可以导致[预期中可评估的目标或结果]</p>
-<p>头脑风暴是激发团队提出假设的常规方式。请试着怀揣开放心态，让所有人都参与进来，鼓励每个人都提出自己的意见。如 • 改变按钮文字 • 尝试不同平台 • 修改定价策略 • 将某个流程前置或后置 • 针对不同人群投放广告 • 发起一场营销活动 • 推翻重构产品界面头脑风暴的前提是：确立了明确的指标，并对产品增长模型有清晰认识。否则，很容易陷入一群人在会议室天马行空、乱枪打鸟的窘境，那绝对是你不愿看到的。</p>
-<p>头脑风暴的基本原则是： • 推迟判断 • 鼓励大胆的创意 • 基于他人的创意延伸 • 不要偏题 • 一次只有一个人说话 • 借助视觉语言 • 追求数量</p>
-<p>提出头脑风暴创意的方式： • 观察法：用户是如何使用的？竞争对手都做了些什么（从竞争对手那里偷师，先模仿再超越，切忌为了不同而不同）？行业内有什么新知创想？你的数据给了你哪些启发？ • 关联法：将产品流程与生活中的事物建立连接。例如，现实中的实体店铺经营有哪些值得借鉴的经验，可以用到我们的电商服务中？ • 社群法：创建或加入增长黑客们的圈子，在交流碰撞中迸发更多创意火花。 • 提问法：不妨自己设问，为什么会这样？如果我们XX，会怎样？还有哪些因素与XX有关？</p>
-<p>一张好的备选创意列表（Backlog），应当包含如下项目： • 名称：为头脑风暴提出的创意取个名字。 •状态：创意尚处在想法阶段，还是正在设计试验中，或者试验已经设计完成。 • 分类：帮助团队成员明确这一试验服务的产品阶段。 • 指标：用哪项（些）指标判断试验是否成功。 • 预期结果：无论是拍脑袋还是基于以往数据经验，都要对试验结果有一定的预 期，通过将实际结果与预期结果的比较，增强对产品和市场的理解。 • 评估工时：涉及试验的各部门需要耗费的人员和天数。<br><img src="https://img-blog.csdnimg.cn/20200714140014179.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
-<p><strong>第二步：确定优先级</strong><br>当资源有限时，面对长长的备选创意列表，分析每个创意值不值得优先做、花多少精力去做时，可以从以下三个维度评估：<br>• 收益值，即在当下或长期将为增长带来多大贡献。<br>• 消耗量，即需要花费的资源数量，包括资金、人力、时间、心智。<br>• 半衰期，即这项收益随时间衰减的速度，半衰期越长，影响维持越久。</p>
-<p>如果我们从这三个维度划分不同的增长策略，由此便可得到由其组合成的八类策略：<br>• 高收益值、低消耗量、长半衰期策略：Hotmail 的签名档病毒推广、Dropbox邀请好友送空间。<br>• 高收益值、低消耗量、短半衰期策略：Airbnb借Craiglist邮件系统群发广告（很快被封）。<br>• 高收益值、高消耗量、长半衰期策略：Facebook 每天同时进行的数百项 A/B测试。<br>• 高收益值、高消耗量、短半衰期策略：绞尽脑汁做出红极一时的爆款病毒推广方案。<br>• 低收益值、高消耗量、长半衰期策略：彻底重构产品，优化整体架构。<br>• 低收益值、低消耗量、长半衰期策略：发布软文，使用有趣的产品文案。<br>• 低收益值、高消耗量、短半衰期策略：挨个手动发广告私信骚扰陌生网民。<br>• 低收益值、低消耗量、短半衰期策略：发布一条微博（假定你不是百万粉丝大V）。</p>
-<p>据此对你收集到的方案做出筛选，更加着眼于高收益、低消耗、长半衰期的策略，而不是纠结于无关痛痒的细节，比如争论页面使用圆角还是直角、更换测试不同深度的40种蓝色，这对于初创公司来说完全没有任何意义。</p>
-<p>另一种便于量化的优先级评估方式，是我们在咨询工作中总结出的 ==T.W.I.C.E 原则==。具体说来，它包括以下五项评定指标：</p>
-<p>1.流量Traffic（1分最低，5分最优）<br>多少人能看到这项变化？你的改动是深埋在设置选项中，还是挂在网站首页？一项改动所触及的用户量是它能否产生作用的前提条件。<br>2.口碑Word of Mouth（1分最低，5分最优）<br>你的创意是否能促成显著的口碑传播效应？正面口碑，还是负面口碑？大多数改动在用户眼中无关痛痒，他们只是默默地接受；有些改动则让人眼前一亮，具备利于营销的话题点；还有些则可能引发特定人群的抵触情绪，你必须准备好危机公关预案。<br>3.影响力Impact（1分最低，5分最优）<br>你对于方案能产生多少影响力的预期如何？如果你的注册转化率只有10%，那么将它改善到20%就已经是100%的提升。如果80%的用户顺利走完注册转化漏斗，那么将这一数字改善为90%也不过是12.5%的提升。<br>4.自信心Confidence（1分最低，5分最优）<br>你的想法是通过借鉴别人既有的成功案例而升华归纳产生或者从信源靠谱的实践者那里汲取灵感，还是仅限于上班路上的灵光一现，缺乏数据支持和参考坐标？<br>5.实现难易度Ease（1分最低，5分最优）<br>新方案是否能在几个小时内就完成MVP并被测试？抑或需要数天乃至数周的努力？尽可能优先考虑最简单易行的解决方案，而不是邀功式地追求工作量和加班时长。</p>
-<p>优先考虑最简单易行的解决方案。 需要为上述五项评估指标分别打分，最终筛选出得分最高的备选创意，列为最优之选。</p>
-<p><strong>第三步：不断测试</strong><br>真正可持续的增长是通过小规模测试的不断迭代，验证试验假设，并将成功结果不断累加的过程。</p>
-<p>• 首先，你要确认某个标准，用这个标准来判定每次改动或迭代是否成功。标准本身既可以是量化指标（比如有多少人点击注册按钮、有多少乘客叫车），也可以是定性指标（比如易用性），又或者是两者兼有。<br>• 一旦大家对成功的定义有了共识，那么接下来就是不断尝试各种方法，提出不同的假设，围绕假设去做试验。<br>• 当试验完成后，展开一次数据调研。如果达到了理想的预期目标，则之前的假设成立，可以全方位启用这项设计，然后马不停蹄地继续寻找下一个增长点；如果没有达到理想状态，则必须从难以立足的伪命题上吸取经验，反思总结，然后在解决 方案上迭代更新。</p>
-<p><strong>第四步：动手研发</strong><br>在小规模测试有所成效的前提下，动手将你的增长创意开发成实际功能。</p>
-<p>需遵循以下三个原则：</p>
-<ul>
-<li>不要重复发明轮子<br>——  在如今这个 SaaS 横行、随手可用的时代，大多数初创公司不会有技术风险。过度关注技术是一种浪费。你应该将注意力更多放在研发过程的科学性、结论导出的准确性和对指标的影响上。如果市场上有现成的工具，那么就尽量挪为己用。</li>
-<li>内容动态化<br>——  增长黑客们总在思考如何用最少的代价来实现一件事情。如果研发阶段采取的方案缺乏灵活性，将可能造成后续维护时成本过高——最直接的体现，就是必须等待下一个版本的发布上线，才能修复问题或测试一个全新的创意，这有可能延误宝贵时机。为此，必须考虑在实现阶段尽可能将业务模块动态化。</li>
-<li>让机器替你自动化执行<br>——  交给机器自动执行，从而将宝贵的智力资源节省出来，投入到创造新的增长策略中。如将手动发送邮件变成自动回复、让人工处理数据变为脚本抓取。</li>
-</ul>
-<p><strong>第五步：持续优化</strong><br>善于学习的团队能够从过往成功经验中总结出经验，提高下一次临门一脚的胜算。为此你应当将每次试验过程和数据记录下来，并且公开与全体成员分享。</p>
-]]></content>
-      <categories>
-        <category>产品/运营</category>
-      </categories>
-      <tags>
-        <tag>用户增长</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>【Machine Learning】正则化(Regularization)</title>
-    <url>/2020/07/08/%5BMachine%20Learning%5D%20%E6%AD%A3%E5%88%99%E5%8C%96(Regularization)/</url>
-    <content><![CDATA[<p><img src="https://img-blog.csdnimg.cn/20200708161032267.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
-<a id="more"></a>
+<h2 id="3-Linear-Regression-with-Multiple-Variables-多变量线性回归"><a href="#3-Linear-Regression-with-Multiple-Variables-多变量线性回归" class="headerlink" title="3 Linear Regression with Multiple Variables(多变量线性回归)"></a>3 Linear Regression with Multiple Variables(多变量线性回归)</h2><h3 id="3-1-Multiple-Features-多维特征"><a href="#3-1-Multiple-Features-多维特征" class="headerlink" title="3.1 Multiple Features(多维特征)"></a>3.1 Multiple Features(多维特征)</h3><p><img src="https://img-blog.csdnimg.cn/20200707100825934.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20200707100922690.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>注：实际上不一定是线性的，仅本例中使用线性。非线性也是此思想。</p>
+<h3 id="3-2-Gradient-Descent-for-Multiple-Variables-多变量梯度下降"><a href="#3-2-Gradient-Descent-for-Multiple-Variables-多变量梯度下降" class="headerlink" title="3.2 Gradient Descent for Multiple Variables(多变量梯度下降)"></a>3.2 Gradient Descent for Multiple Variables(多变量梯度下降)</h3><p>与单变量线性回归类似，在多变量线性回归中，同样也构建一个代价函数，则这个代价函数是所有建模误差的平方和，即：<br><img src="https://img-blog.csdnimg.cn/20200707102308696.PNG#pic_center" alt="在这里插入图片描述"><br>目标和单变量线性回归问题中一样，是要找出使得代价函数最小的一系列参数。<img src="https://img-blog.csdnimg.cn/20200707101806364.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20200707101739874.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>上图右边显示了多变量线性回归的批量梯度下降算法，其开始随机选择一系列的参数值，计算所有的预测结果后，再给所有的参数一个新的值，如此循环直到收敛。</p>
+<p><strong>python代码：</strong></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">computeCost</span><span class="params">(X, y, theta)</span>:</span></span><br><span class="line">	inner = np.power(((X * theta.T) - y), <span class="number">2</span>)</span><br><span class="line">	<span class="keyword">return</span> np.sum(inner) / (<span class="number">2</span> * len(X))</span><br></pre></td></tr></table></figure>
 
-<h2 id="5-Regularization-正则化"><a href="#5-Regularization-正则化" class="headerlink" title="5 Regularization(正则化)"></a>5 Regularization(正则化)</h2><h3 id="5-1-The-problem-of-overfitting"><a href="#5-1-The-problem-of-overfitting" class="headerlink" title="5.1 The problem of overfitting"></a>5.1 The problem of overfitting</h3><p><strong>case1：</strong><br><img src="https://img-blog.csdnimg.cn/20200708133431983.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
-<ul>
-<li>第一个模型是一个线性模型，欠拟合，不能很好地适应训练集；</li>
-<li>第三个模型是一个四次方的模型，过于强调拟合原始数据，而丢失了算法的本质：预测新数据。即，若给出一个新的值使之预测，它将表现的很差；</li>
-<li>而中间的模型似乎最合适。</li>
-</ul>
-<p><strong>case2：</strong><br><img src="https://img-blog.csdnimg.cn/20200708134042138.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>同上。</p>
-<p><strong>过拟合的解决方法</strong><br><img src="https://img-blog.csdnimg.cn/20200708134338840.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
-<h3 id="5-2-Cost-Function"><a href="#5-2-Cost-Function" class="headerlink" title="5.2 Cost Function"></a>5.2 Cost Function</h3><p>上面的回归问题中模型是：<br><img src="https://img-blog.csdnimg.cn/20200708135115992.PNG#pic_center" alt="在这里插入图片描述"><br>一般而言，正是那些高次项导致了过拟合的产生，所以如果能让这些高次项的系数接近于 0 的话，就能很好的拟合了，所以可以在一定程度上减小这些参数𝜃 的值，这正是正则化的基本方法。当要减少𝜃3和𝜃4的大小，需要做的便是修改代价函数，在其中𝜃3和𝜃4 设置一点惩罚。在尝试最小化代价时也需要将这个惩罚纳入考虑中，并最终导致选择较小一些的𝜃3和𝜃4。</p>
-<p>修改后的代价函数：<br><img src="https://img-blog.csdnimg.cn/2020070813555675.PNG#pic_center" alt="在这里插入图片描述"><br>通过这样的代价函数选择出的𝜃3和𝜃4 对预测结果的影响就比之前要小许多。假如有非常多的特征，并不知道其中哪些特征需要惩罚，可以将对所有的特征进行惩罚，并且让代价函数最优化的软件来选择这些惩罚的程度。这样的结果是得到了一个较为简单的能防止过拟合问题的假设：<br><img src="https://img-blog.csdnimg.cn/20200708135853580.PNG#pic_center" alt="在这里插入图片描述"><br>其中𝜆又称为==正则化参数（Regularization Parameter）==。 注：根据惯例，我们不对𝜃0 进行惩罚。经过正则化处理的模型（粉色）与原模型（蓝色）的可能对比如下图所示：<br><img src="https://img-blog.csdnimg.cn/2020070814004971.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>如果选择的正则化参数 λ 过大，则会把所有的参数都最小化了，那么𝜃（不包括𝜃0）都会趋近于 0，这样我们所得到的只能是一条平行于𝑥轴的直线，模型变成 ℎ<sub>𝜃</sub>(𝑥) =𝜃<sub>0</sub>，造成欠拟合。</p>
-<h3 id="5-3-Regularizede-linear-regression-正则化线性回归"><a href="#5-3-Regularizede-linear-regression-正则化线性回归" class="headerlink" title="5.3 Regularizede linear regression(正则化线性回归)"></a>5.3 Regularizede linear regression(正则化线性回归)</h3><p>对于线性回归的求解，之前推导了两种学习算法：一种基于梯度下降，一种基于正规方程。</p>
-<p>正则化线性回归的代价函数为：<br><img src="https://img-blog.csdnimg.cn/20200708142309532.PNG#pic_center" alt="在这里插入图片描述"><br>如果要使用梯度下降法令这个代价函数最小化，因为未进行正则化，所以梯度下降算法将分两种情形：<br><img src="https://img-blog.csdnimg.cn/20200708142428802.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>对上面的算法中𝑗 = 1,2, . . . , 𝑛 时的更新式子进行调整可得：<br><img src="https://img-blog.csdnimg.cn/2020070814252032.PNG#pic_center" alt="在这里插入图片描述"><br>可以看出，正则化线性回归的梯度下降算法的变化在于，每次都在原有算法更新规则的基础上令𝜃值减少了一个额外的值。</p>
-<p>注：在梯度下降时，对任意的θ<sub>j</sub>的处理可以分为两部分，J(θ)的偏导数 + 单独针对该θ<sub>j</sub>的正则化项。</p>
-<p>同样也可以利用正规方程来求解正则化线性回归模型，方法如下所示：<br><img src="https://img-blog.csdnimg.cn/20200708155229540.PNG#pic_center" alt="在这里插入图片描述"><br>图中的矩阵尺寸为 (𝑛 + 1) ∗ (𝑛 + 1)。</p>
-<h3 id="5-4-Regularized-Logistic-Regression-正则化的逻辑回归模型"><a href="#5-4-Regularized-Logistic-Regression-正则化的逻辑回归模型" class="headerlink" title="5.4 Regularized Logistic Regression(正则化的逻辑回归模型)"></a>5.4 Regularized Logistic Regression(正则化的逻辑回归模型)</h3><p>针对逻辑回归问题，之前已学习过两种优化算法：首先学习了使用梯度下降法来优化代价函数𝐽(𝜃)，接下来学习了更高级的优化算法，这些高级优化算法需要自己设计代价函数𝐽(𝜃)。<br><img src="https://img-blog.csdnimg.cn/20200708160007681.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>对于逻辑回归，代价函数正则化的表达式：<br><img src="https://img-blog.csdnimg.cn/20200708160155875.PNG#pic_center" alt="在这里插入图片描述"><br>要最小化该代价函数，通过求导，得出梯度下降算法为：<br><img src="https://img-blog.csdnimg.cn/20200708160313567.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>注：看上去同线性回归一样，但是知道 ℎ<sub>𝜃</sub>(𝑥) = 𝑔(𝜃<sup>𝑇</sup>𝑋)，所以与线性回归不同。𝜃<sub>0</sub>不参与其中的任何一个正则化。</p>
-]]></content>
-      <categories>
-        <category>机器学习</category>
-      </categories>
-      <tags>
-        <tag>Machine Learning</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>【Machine Learning】逻辑回归(Logistic Regression)</title>
-    <url>/2020/07/08/%5BMachine%20Learning%5D%20%E9%80%BB%E8%BE%91%E5%9B%9E%E5%BD%92(Logistic%20Regression)/</url>
-    <content><![CDATA[<p><img src="https://img-blog.csdnimg.cn/20200708114415292.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
-<a id="more"></a>
-
-<h2 id="4-Logistic-Regression-逻辑回归"><a href="#4-Logistic-Regression-逻辑回归" class="headerlink" title="4 Logistic Regression(逻辑回归)"></a>4 Logistic Regression(逻辑回归)</h2><h3 id="4-1-Classification"><a href="#4-1-Classification" class="headerlink" title="4.1 Classification"></a>4.1 Classification</h3><p>在分类问题中，需要预测的变量 𝑦 是离散的值，这种学习算法称为逻辑回归 (Logistic Regression) 的算法，这也是目前最流行的一种学习算法。</p>
-<p>分类问题的例子有：判断一封电子邮件是否是垃圾邮件；判断一次金融交易是否是欺诈；区别一个肿瘤是恶性的还是良性的。</p>
-<p><strong>以二元的分类问题为例</strong><br>将因变量(dependent variable)可能属于的两个类分别称为负向类（negative class）和正向类（positive class），则因变量y∈0,1，其中 0 表示负向类，1 表示正向类。<br><img src="https://img-blog.csdnimg.cn/20200707142758328.PNG#pic_center" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20200707142910758.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/2020070714301992.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br><strong>使用线性回归算法解决分类问题</strong></p>
-<ul>
-<li><p>对于分类， 𝑦 取值为 0 或者 1。</p>
-</li>
-<li><p>对于线性回归，那么假设函数的输出值可能远大于 1，或者远小于 0，即使所有训练样本的标签 𝑦 都等于 0 或1。尽管标签应该取值 0 或者 1，但是算法得到的值可能远大于 1 或者远小于 0的话。</p>
-</li>
-<li><p>所以需要研究一种新的算法——==逻辑回归算法==，这个算法的性质是：它的输出值永远在 0 到 1 之间。逻辑回归算法是分类算法，它是作为分类算法使用。</p>
-<h3 id="4-2-Hypothesis-Representation-假设陈述"><a href="#4-2-Hypothesis-Representation-假设陈述" class="headerlink" title="4.2 Hypothesis Representation(假设陈述)"></a>4.2 Hypothesis Representation(假设陈述)</h3><p><img src="https://img-blog.csdnimg.cn/20200707144925873.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>sigmoid函数也叫做logistic函数，用于隐层神经元输出，取值范围为（0,1），它可以将一个实数映射到（0,1）的区间，可用作二分类。</p>
-<h3 id="4-3-Decision-Boundary-决策边界"><a href="#4-3-Decision-Boundary-决策边界" class="headerlink" title="4.3 Decision Boundary(决策边界)"></a>4.3 Decision Boundary(决策边界)</h3><p>==决策边界(decision boundary)==的概念能更好地理解逻辑回归的假设函数在计算什么。</p>
+<h4 id="3-2-1-Gradient-Descent-in-Practice-I-Feature-Scaling-特征缩放"><a href="#3-2-1-Gradient-Descent-in-Practice-I-Feature-Scaling-特征缩放" class="headerlink" title="3.2.1 Gradient Descent in Practice I - Feature Scaling (特征缩放)"></a>3.2.1 Gradient Descent in Practice I - Feature Scaling (特征缩放)</h4><p><strong>在解决多维特征问题时，应该保证这些特征都具有相近的尺度，这将帮助梯度下降算法更快地收敛。</strong></p>
+<p>以房价问题为例，假设有两个特征，房屋的尺寸和房间的数量，尺寸的值为 0-2000 平方英尺，而房间数量的值则是 0-5，以两个参数分别为横纵坐标，绘制代价函数等高线图能，看出图像会显得很扁，梯度下降算法需要非常多次的迭代才能收敛。<br><img src="https://img-blog.csdnimg.cn/20200707104230484.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>解决方法是尝试将所有特征的尺度都尽量缩放到-1 到 1 之间，即==特征归一化==。如图：<br><img src="https://img-blog.csdnimg.cn/20200707104328954.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
 <blockquote>
-<p>在具有两个类的统计分类问题中，决策边界或决策表面是超曲面，其将基础向量空间划分为两个集合，一个集合。 分类器将决策边界一侧的所有点分类为属于一个类，而将另一侧的所有点分类为属于另一个类。<br>决策界限并不总是明确的。 也就是说，从特征空间中的一个类到另一个类的过渡不是不连续的，而是渐进的。</p>
+<p>数据的标准化（normalization）是将数据按比例缩放，使之落入一个小的特定区间。在某些比较和评价的指标处理中经常会用到，去除数据的单位限制，将其转化为无量纲的纯数值，便于不同单位或量级的指标能够进行比较和加权，可以大大提高分类器的准确性。<br>其中最典型的就是数据的归一化处理，即将数据统一映射到[0,1]区间上。</p>
 </blockquote>
-<p><img src="https://img-blog.csdnimg.cn/20200707151748236.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20200707152202723.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br><strong>case1 线性决策边界:</strong><br><img src="https://img-blog.csdnimg.cn/20200707152629993.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>参数𝜃 是向量[-3 1 1]，则当−3 + 𝑥1 + 𝑥2 ≥ 0，即𝑥1 + 𝑥2 ≥ 3时，模型将预测 𝑦 =1。 我们可以绘制直线𝑥1 + 𝑥2 = 3，这条线便是我们模型的分界线，将预测为 1 的区域和预测为 0的区域分隔开。</p>
-</li>
-</ul>
-<p><strong>case2 非线性决策边界：</strong><br><img src="https://img-blog.csdnimg.cn/20200707153019116.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>𝑦 = 0 的区域和 𝑦 = 1 的区域需要曲线才能分隔，二次方特征：ℎ𝜃(𝑥) = 𝑔(𝜃0 + 𝜃1𝑥1 + 𝜃2𝑥2 + 𝜃3𝑥12 + 𝜃4𝑥22)，其参数𝜃 是向量[-1 0 0 1 1]，则得到的决策边界恰好是圆点在原点且半径为 1 的圆形。</p>
-<h3 id="4-4-Cost-Function-代价函数"><a href="#4-4-Cost-Function-代价函数" class="headerlink" title="4.4 Cost Function(代价函数)"></a>4.4 Cost Function(代价函数)</h3><p>监督学习问题中的逻辑回归模型的拟合问题，即是要定义用来拟合参数的优化目标/代价函数。<br><img src="https://img-blog.csdnimg.cn/20200707155159582.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>对于线性回归模型，定义的代价函数是所有模型误差的平方和。理论上来说，逻辑回归模型可以沿用这个定义，但是问题在于，当将<img src="https://img-blog.csdnimg.cn/20200707155737548.PNG#pic_center" alt="在这里插入图片描述"><br>代入到这样定义的代价函数中时，得到的代价函数将是一个非凸函数（non-convexfunction）。这意味着我们的代价函数有许多局部最小值，这将影响梯度下降算法寻找全局最小值。<br><img src="https://img-blog.csdnimg.cn/202007071559442.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
-<p><img src="https://img-blog.csdnimg.cn/20200707160127498.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>这样构建的𝐶𝑜𝑠𝑡(ℎ𝜃(𝑥), 𝑦)函数的特点是：当实际的 𝑦 = 1 且ℎ𝜃(𝑥)也为 1 时误差为 0，当 𝑦 = 1 但ℎ𝜃(𝑥)不为 1 时误差随着ℎ𝜃(𝑥)变小而变大；当实际的 𝑦 = 0 且ℎ𝜃(𝑥)也为 0 时代价为 0，当𝑦 = 0 但ℎ𝜃(𝑥)不为 0 时误差随着 ℎ𝜃(𝑥)的变大而变大。<br><img src="https://img-blog.csdnimg.cn/20200707162318105.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br><strong>python代码实现：</strong></p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">cost</span><span class="params">(theta, X, y)</span>:</span></span><br><span class="line">	 theta = np.matrix(theta)</span><br><span class="line">	 X = np.matrix(X)</span><br><span class="line">	 y = np.matrix(y)</span><br><span class="line">	 first = np.multiply(-y, np.log(sigmoid(X* theta.T)))</span><br><span class="line">	 second = np.multiply((<span class="number">1</span> - y), np.log(<span class="number">1</span> - sigmoid(X* theta.T)))</span><br><span class="line">	 <span class="keyword">return</span> np.sum(first - second) / (len(X))</span><br></pre></td></tr></table></figure>
+<p>归一化公式：<br><img src="https://img-blog.csdnimg.cn/20200707105004270.PNG#pic_center" alt="在这里插入图片描述"></p>
+<h4 id="3-2-2-Gradient-Descent-in-Practice-II-Learning-Rate-学习率"><a href="#3-2-2-Gradient-Descent-in-Practice-II-Learning-Rate-学习率" class="headerlink" title="3.2.2 Gradient Descent in Practice II - Learning Rate (学习率)"></a>3.2.2 Gradient Descent in Practice II - Learning Rate (学习率)</h4><p>梯度下降算法收敛所需要的迭代次数根据模型的不同而不同，无法提前预知，但可以绘制迭代次数和代价函数的图表来观测算法在何时趋于收敛。<br><img src="https://img-blog.csdnimg.cn/20200707105546868.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>图像300~400已经相当平坦了，可推测到达400左右时梯度下降法差不多已经收敛了。</p>
+<p>梯度下降算法的每次迭代受到学习率的影响，如果学习率𝑎过小，则达到收敛所需的迭代次数会非常多；如果学习率𝑎过大，每次迭代可能不会减小代价函数，可能会越过局部最小值导致无法收敛。</p>
+<p>通常可以考虑尝试些学习率：<br>𝛼 =…，0.001，0.003，0.01，0.03，0.1，0.3，1，…</p>
+<h3 id="3-3-Features-and-Polynomial-Regression-特征和多项式回归"><a href="#3-3-Features-and-Polynomial-Regression-特征和多项式回归" class="headerlink" title="3.3 Features and Polynomial Regression(特征和多项式回归)"></a>3.3 Features and Polynomial Regression(特征和多项式回归)</h3><p><img src="https://img-blog.csdnimg.cn/20200707121141207.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>线性回归并不适用于所有数据，有时需要曲线来适应数据，比如，<br>一个二次方模型：<img src="https://img-blog.csdnimg.cn/20200707121921446.PNG#pic_center" alt="在这里插入图片描述"><br>或者三次方模型：<img src="https://img-blog.csdnimg.cn/20200707121933949.PNG#pic_center" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20200707122024153.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>根据函数图形特性，我们还可以使：<br><img src="https://img-blog.csdnimg.cn/20200707122340253.PNG#pic_center" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20200707122358694.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>注：如果采用多项式回归模型，在运行梯度下降算法前，特征缩放非常有必要。</p>
+<h3 id="3-4-Normal-Equation-正规方程"><a href="#3-4-Normal-Equation-正规方程" class="headerlink" title="3.4 Normal Equation(正规方程)"></a>3.4 Normal Equation(正规方程)</h3><p>正规方程是区别于迭代方法的直接计算解法，即直接求导数等于0的点。<br><img src="https://img-blog.csdnimg.cn/20200707123106110.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>假设训练集特征矩阵为 𝑋（包含了 𝑥0 = 1）并且训练集结果为向量 𝑦，则利用正规方程解出向量：<img src="https://img-blog.csdnimg.cn/202007071243148.PNG#pic_center" alt="在这里插入图片描述"><br>例子：<br><img src="https://img-blog.csdnimg.cn/20200707124545251.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>注：对于不可逆的矩阵（通常是因为特征之间不独立，如同时包含英尺为单位的尺寸和米为单位的尺寸两个特征，也有可能是特征数量大于训练集的数量），正规方程方法是不能用的。</p>
+<p><strong>梯度下降与正规方程的比较</strong><br><img src="https://img-blog.csdnimg.cn/20200707125601290.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>注：只要特征变量的数目并不大，标准方程是一个很好的计算参数𝜃的替代方法。具体地说，只要特征变量数量小于一万，通常使用标准方程法，而不使用梯度下降法。</p>
+<p><strong>Normal Equation Noninvertibility(正规方程及不可逆性)</strong><br><img src="https://img-blog.csdnimg.cn/20200707130156670.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<p><strong>python实现正规方程：</strong></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">normalEqn</span><span class="params">(X, y)</span>:</span></span><br><span class="line">	theta = np.linalg.inv(X.T@X)@X.T@y <span class="comment">#X.T@X 等价于 X.T.dot(X)</span></span><br><span class="line">	<span class="keyword">return</span> theta</span><br></pre></td></tr></table></figure>
 
-<p>在得到这样一个代价函数以后，我们便可以用梯度下降算法来求得能使代价函数最小的参数了。算法为：<br><img src="https://img-blog.csdnimg.cn/20200707162938538.PNG#pic_center" alt="在这里插入图片描述"><br>求导后，得：<br><img src="https://img-blog.csdnimg.cn/20200707163047181.PNG#pic_center" alt="在这里插入图片描述"><br>推导过程：<br><img src="https://img-blog.csdnimg.cn/20200707163827673.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>注：虽然得到的梯度下降算法表面上看上去与线性回归的梯度下降算法一样，但是这里的ℎ<sub>𝜃</sub>(𝑥) = 𝑔(𝜃<sup>T</sup>𝑋)与线性回归中不同，所以实际上是不一样的。另外，在运行梯度下降算法之前，进行特征缩放依旧是非常必要的。</p>
-<p><strong>线性回归和逻辑回归是同一个算法吗？</strong><br>线性回归的假设函数：<img src="https://img-blog.csdnimg.cn/20200707192633258.PNG#pic_center" alt="在这里插入图片描述"><br>逻辑函数假设函数：<img src="https://img-blog.csdnimg.cn/20200707192654840.PNG#pic_center" alt="在这里插入图片描述"><br>因此，即使更新参数的规则看起来基本相同，但由于假设的定义发生了变化，所以逻辑函数的梯度下降，跟线性回归的梯度下降实际上是两个完全不同的东西。</p>
-<p>当使用线性回归的梯度下降法时，监控梯度下降法以确保其收敛，同样的方法用在逻辑回归中，来监测梯度下降，以确保它正常收敛。</p>
-<p>当使用梯度下降法来实现逻辑回归时，有不同的参数𝜃，就是𝜃0 𝜃1 𝜃2 一直到𝜃𝑛，需要用表达式来更新这些参数。我们还可以使用 for 循环来更新这些参数值，用 for i=1 to n，或者 for i=1 to n+1。当然，不用 for 循环也是可以的，理想情况下，更提倡使用向量化的实现，可以把所有这些 n 个参数同时更新。</p>
-<p>另外，线性回归的特征缩放的方法也适用于逻辑回归。如果特征范围差距很大的话，那么应用特征缩放的方法，同样也可以让逻辑回归中，梯度下降收敛更快。</p>
-<h3 id="4-5-Advanced-Optimization-高级优化"><a href="#4-5-Advanced-Optimization-高级优化" class="headerlink" title="4.5 Advanced Optimization(高级优化)"></a>4.5 Advanced Optimization(高级优化)</h3><p>高级优化的思路是通过梯度下降，进行逻辑回归的速度大大提高，而这也将使算法更加适合解决大型的机器学习问题，比如，我们有数目庞大的特征量。 另外，想要使代价函数𝐽(𝜃)最小化，那么需要做的是编写代码，当输入参数 𝜃 时，程序会计算出两样东西：𝐽(𝜃) 以及𝐽 等于 0、1 直到 𝑛 时的偏导数项。<br><img src="https://img-blog.csdnimg.cn/20200707194238293.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>假设已经完成了可以实现这两件事的代码，那么梯度下降所做的就是反复执行这些更新。</p>
-<p>另一种考虑梯度下降的思路是：需要写出代码来计算𝐽(𝜃) 和这些偏导数，然后把这些插入到梯度下降中，然后它就可以最小化这个函数。</p>
-<p>对于梯度下降来说，从技术上讲，实际并不需要编写代码来计算代价函数𝐽(𝜃)。只需要编写代码来计算导数项，但是，如果希望代码还要能够监控这些𝐽(𝜃) 的收敛性，那么就需要编写代码来计算代价函数𝐽(𝜃)和偏导数项 𝜕/𝜕𝜃<sub>𝑗</sub> 𝐽(𝜃)。所以，在写完能够计算这两者的代码之后，就可以使用梯度下降。</p>
-<p>然而梯度下降并不是唯一可使用的算法，还有其他一些算法，更高级、更复杂。如果能用这些方法来计算代价函数𝐽(𝜃)和偏导数项𝜕/𝜕𝜃<sub>𝑗</sub> 𝐽(𝜃)两个项的话，那么这些算法就是为优化代价函数的不同方法，<strong>Conjugate gradient(共轭梯度法)</strong> 、<strong>BFGS (变尺度法)</strong> 和 <strong>L-BFGS (限制变尺度法)</strong> 就是其中一些更高级的优化算法，它们需要有一种方法来计算𝐽(𝜃)，以及需要一种方法计算导数项，然后使用比梯度下降更复杂的算法来最小化代价函数。</p>
-<p><strong>三种算法的优缺点</strong></p>
-<ul>
-<li>优点是：一、<strong>通常不需要手动选择学习率𝛼</strong>，对于这些算法的一种思路是，给出计算导数项和代价函数的方法，可以认为算法有一个智能的内部循环，称为==线性搜索(line search)算法==，它可以自动尝试不同的学习速率 𝛼，并自动选择一个好的学习速率𝑎，因此它甚至可以为每次迭代选择不同的学习速率，那么就不需要手动选择。二、这些算法实际上不仅仅是选择一个好的学习率，它们最终<strong>收敛的速度一般快于梯度下降</strong>。</li>
-<li>缺点是：它们比梯度下降法复杂多了。</li>
-</ul>
-<h3 id="4-6-Multiclass-Classification-One-vs-all-多类别分类：一对多"><a href="#4-6-Multiclass-Classification-One-vs-all-多类别分类：一对多" class="headerlink" title="4.6 Multiclass Classification: One-vs-all(多类别分类：一对多)"></a>4.6 Multiclass Classification: One-vs-all(多类别分类：一对多)</h3><p><img src="https://img-blog.csdnimg.cn/20200708111918112.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>对于二元分类可以使用逻辑回归，对于直线可以将数据集一分为二为正类和负类，对于一对多的分类思想可以将其用在多类分类问题上，有时这个方法也被称为 ==”一对余”方法== 。</p>
-<p>将多个类中的一个类标记为正向类（𝑦 = 1），然后将其他所有类都标记为负向类，这个模型记作ℎ𝜃(1)(𝑥)。接着，类似地选择另一个类标记为正向类（𝑦 = 2），再将其它类都标记为负向类，将这个模型记作 ℎ𝜃(2)(𝑥),依此类推，得到一系列的模型简记为： ℎ𝜃(𝑖)(𝑥) = 𝑝(𝑦 = 𝑖|𝑥; 𝜃)其中：𝑖 = (1,2,3. . . . 𝑘)。 最后，在预测时，将所有的分类机都运行一遍，然后对每一个输入变量，都选择最高可能性的输出变量。<br><img src="https://img-blog.csdnimg.cn/20200708112953805.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<p><img src="https://img-blog.csdnimg.cn/20200707130732297.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20200707130731881.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
 ]]></content>
       <categories>
         <category>机器学习</category>
@@ -421,6 +144,96 @@
       </tags>
   </entry>
   <entry>
+    <title>【Machine Learning】正则化(Regularization)</title>
+    <url>/2020/07/08/%5BMachine%20Learning%5D%20%E6%AD%A3%E5%88%99%E5%8C%96(Regularization)/</url>
+    <content><![CDATA[<p><img src="https://img-blog.csdnimg.cn/20200708161032267.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<a id="more"></a>
+
+<h2 id="5-Regularization-正则化"><a href="#5-Regularization-正则化" class="headerlink" title="5 Regularization(正则化)"></a>5 Regularization(正则化)</h2><h3 id="5-1-The-problem-of-overfitting"><a href="#5-1-The-problem-of-overfitting" class="headerlink" title="5.1 The problem of overfitting"></a>5.1 The problem of overfitting</h3><p><strong>case1：</strong><br><img src="https://img-blog.csdnimg.cn/20200708133431983.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<ul>
+<li>第一个模型是一个线性模型，欠拟合，不能很好地适应训练集；</li>
+<li>第三个模型是一个四次方的模型，过于强调拟合原始数据，而丢失了算法的本质：预测新数据。即，若给出一个新的值使之预测，它将表现的很差；</li>
+<li>而中间的模型似乎最合适。</li>
+</ul>
+<p><strong>case2：</strong><br><img src="https://img-blog.csdnimg.cn/20200708134042138.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>同上。</p>
+<p><strong>过拟合的解决方法</strong><br><img src="https://img-blog.csdnimg.cn/20200708134338840.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<h3 id="5-2-Cost-Function"><a href="#5-2-Cost-Function" class="headerlink" title="5.2 Cost Function"></a>5.2 Cost Function</h3><p>上面的回归问题中模型是：<br><img src="https://img-blog.csdnimg.cn/20200708135115992.PNG#pic_center" alt="在这里插入图片描述"><br>一般而言，正是那些高次项导致了过拟合的产生，所以如果能让这些高次项的系数接近于 0 的话，就能很好的拟合了，所以可以在一定程度上减小这些参数𝜃 的值，这正是正则化的基本方法。当要减少𝜃3和𝜃4的大小，需要做的便是修改代价函数，在其中𝜃3和𝜃4 设置一点惩罚。在尝试最小化代价时也需要将这个惩罚纳入考虑中，并最终导致选择较小一些的𝜃3和𝜃4。</p>
+<p>修改后的代价函数：<br><img src="https://img-blog.csdnimg.cn/2020070813555675.PNG#pic_center" alt="在这里插入图片描述"><br>通过这样的代价函数选择出的𝜃3和𝜃4 对预测结果的影响就比之前要小许多。假如有非常多的特征，并不知道其中哪些特征需要惩罚，可以将对所有的特征进行惩罚，并且让代价函数最优化的软件来选择这些惩罚的程度。这样的结果是得到了一个较为简单的能防止过拟合问题的假设：<br><img src="https://img-blog.csdnimg.cn/20200708135853580.PNG#pic_center" alt="在这里插入图片描述"><br>其中𝜆又称为==正则化参数（Regularization Parameter）==。 注：根据惯例，我们不对𝜃0 进行惩罚。经过正则化处理的模型（粉色）与原模型（蓝色）的可能对比如下图所示：<br><img src="https://img-blog.csdnimg.cn/2020070814004971.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>如果选择的正则化参数 λ 过大，则会把所有的参数都最小化了，那么𝜃（不包括𝜃0）都会趋近于 0，这样我们所得到的只能是一条平行于𝑥轴的直线，模型变成 ℎ<sub>𝜃</sub>(𝑥) =𝜃<sub>0</sub>，造成欠拟合。</p>
+<h3 id="5-3-Regularizede-linear-regression-正则化线性回归"><a href="#5-3-Regularizede-linear-regression-正则化线性回归" class="headerlink" title="5.3 Regularizede linear regression(正则化线性回归)"></a>5.3 Regularizede linear regression(正则化线性回归)</h3><p>对于线性回归的求解，之前推导了两种学习算法：一种基于梯度下降，一种基于正规方程。</p>
+<p>正则化线性回归的代价函数为：<br><img src="https://img-blog.csdnimg.cn/20200708142309532.PNG#pic_center" alt="在这里插入图片描述"><br>如果要使用梯度下降法令这个代价函数最小化，因为未进行正则化，所以梯度下降算法将分两种情形：<br><img src="https://img-blog.csdnimg.cn/20200708142428802.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>对上面的算法中𝑗 = 1,2, . . . , 𝑛 时的更新式子进行调整可得：<br><img src="https://img-blog.csdnimg.cn/2020070814252032.PNG#pic_center" alt="在这里插入图片描述"><br>可以看出，正则化线性回归的梯度下降算法的变化在于，每次都在原有算法更新规则的基础上令𝜃值减少了一个额外的值。</p>
+<p>注：在梯度下降时，对任意的θ<sub>j</sub>的处理可以分为两部分，J(θ)的偏导数 + 单独针对该θ<sub>j</sub>的正则化项。</p>
+<p>同样也可以利用正规方程来求解正则化线性回归模型，方法如下所示：<br><img src="https://img-blog.csdnimg.cn/20200708155229540.PNG#pic_center" alt="在这里插入图片描述"><br>图中的矩阵尺寸为 (𝑛 + 1) ∗ (𝑛 + 1)。</p>
+<h3 id="5-4-Regularized-Logistic-Regression-正则化的逻辑回归模型"><a href="#5-4-Regularized-Logistic-Regression-正则化的逻辑回归模型" class="headerlink" title="5.4 Regularized Logistic Regression(正则化的逻辑回归模型)"></a>5.4 Regularized Logistic Regression(正则化的逻辑回归模型)</h3><p>针对逻辑回归问题，之前已学习过两种优化算法：首先学习了使用梯度下降法来优化代价函数𝐽(𝜃)，接下来学习了更高级的优化算法，这些高级优化算法需要自己设计代价函数𝐽(𝜃)。<br><img src="https://img-blog.csdnimg.cn/20200708160007681.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>对于逻辑回归，代价函数正则化的表达式：<br><img src="https://img-blog.csdnimg.cn/20200708160155875.PNG#pic_center" alt="在这里插入图片描述"><br>要最小化该代价函数，通过求导，得出梯度下降算法为：<br><img src="https://img-blog.csdnimg.cn/20200708160313567.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>注：看上去同线性回归一样，但是知道 ℎ<sub>𝜃</sub>(𝑥) = 𝑔(𝜃<sup>𝑇</sup>𝑋)，所以与线性回归不同。𝜃<sub>0</sub>不参与其中的任何一个正则化。</p>
+]]></content>
+      <categories>
+        <category>机器学习</category>
+      </categories>
+      <tags>
+        <tag>Machine Learning</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>【Machine Learning】神经网络的学习(Neural Networks_Learning)</title>
+    <url>/2020/07/12/%5BMachine%20Learning%5D%20%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E7%9A%84%E5%AD%A6%E4%B9%A0(Neural%20Networks_%20Learning)/</url>
+    <content><![CDATA[<p><img src="https://img-blog.csdnimg.cn/20200712143509812.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<a id="more"></a>
+
+<h2 id="7-Neural-Networks-Learning-神经网络的学习"><a href="#7-Neural-Networks-Learning-神经网络的学习" class="headerlink" title="7 Neural Networks-Learning(神经网络的学习)"></a>7 Neural Networks-Learning(神经网络的学习)</h2><h3 id="7-1-Cost-Function"><a href="#7-1-Cost-Function" class="headerlink" title="7.1 Cost Function"></a>7.1 Cost Function</h3><p>假设神经网络的训练样本有𝑚个，每个包含一组输入𝑥和一组输出信号𝑦，𝐿表示神经网络层数，𝑆<sub>𝐼</sub>表示每层的 neuron 个数(𝑆<sub>l</sub>表示输出层神经元个数)，𝑆<sub>L</sub>代表最后一层中处理单元的个数。</p>
+<p>将神经网络的分类定义为两种情况：二类分类和多类分类，</p>
+<ul>
+<li>二类分类：𝑆<sub>L</sub> = 0, 𝑦 = 0 𝑜𝑟 1表示哪一类；</li>
+<li>𝐾类分类：𝑆<sub>L</sub> = 𝑘, 𝑦<sub>i</sub> = 1表示分到第 i 类(𝑘 &gt; 2)；</li>
+</ul>
+<p><img src="https://img-blog.csdnimg.cn/20200711140907505.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>逻辑回归问题中的代价函数为：<br><img src="https://img-blog.csdnimg.cn/20200711141004490.PNG#pic_center" alt="在这里插入图片描述"><br>在逻辑回归中，只有一个输出变量，又称标量（scalar），也只有一个因变量𝑦，但是在神经网络中，可以有很多输出变量，ℎ𝜃(𝑥)是一个维度为𝐾的向量，并且训练集中的因变量也是同样维度的一个向量，因此代价函数会比逻辑回归更加复杂一些，为：<br><img src="https://img-blog.csdnimg.cn/2020071114131862.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>这个看起来复杂很多的代价函数背后的思想还是一样的，希望通过代价函数来观察算法预测的结果与真实情况的误差有多大，唯一不同的是，对于每一行特征，都会给出𝐾个预测，基本上可以利用循环，对每一行特征都预测𝐾个不同结果，然后在利用循环在𝐾个预测中选择可能性最高的一个，将其与𝑦中的实际数据进行比较。</p>
+<p>正则化的那一项只是排除了每一层𝜃0后，每一层的𝜃 矩阵的和。最里层的循环𝑗循环所有的行（由𝑠𝑙 +1 层的激活单元数决定），循环𝑖则循环所有的列，由该层（𝑠𝑙层）的激活单元数所决定。即：ℎ𝜃(𝑥)与真实值之间的距离为每个样本-每个类输出的加和，对参数进行regularization 的 bias 项处理所有参数的平方和。</p>
+<h3 id="7-2-Backpropagation-Algorithm-反向传播算法"><a href="#7-2-Backpropagation-Algorithm-反向传播算法" class="headerlink" title="7.2 Backpropagation Algorithm(反向传播算法)"></a>7.2 Backpropagation Algorithm(反向传播算法)</h3><p>在计算神经网络预测结果的时候采用了一种正向传播方法，从第一层开始正向一层一层进行计算，直到最后一层的ℎ𝜃(𝑥)。</p>
+<p>现在，为了计算代价函数的偏导数 <img src="https://img-blog.csdnimg.cn/20200711145159753.png" alt="在这里插入图片描述">，需要采用一种反向传播算法，也就是首先计算最后一层的误差，然后再一层一层反向求出各层的误差，直到倒数第二层。 以一个例子来说明反向传播算法。</p>
+<p>假设训练集只有一个实例(𝑥(1), 𝑦(1))，神经网络是一个四层的神经网络，其中𝐾 = 4，𝑆𝐿 = 4，𝐿 = 4：</p>
+<p><strong>前向传播算法：</strong><br><img src="https://img-blog.csdnimg.cn/20200711145443278.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br><strong>反向传播算法</strong><br><img src="https://img-blog.csdnimg.cn/20200712131502934.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>从最后一层的误差开始计算，误差是激活单元的预测（a<sub>k</sub><sup>(4)</sup>）与实际值（𝑦<sup>𝑘</sup>）之间的误差，（𝑘 = 1: 𝑘），用𝛿来表示误差，则：𝛿<sup>(4)</sup> = 𝑎<sup>(4)</sup> − y 。</p>
+<p>利用这个误差值来计算前一层的误差：𝛿<sup>(3)</sup> = (𝛩<sup>(3)</sup>)<sup>𝑇</sup>𝛿<sup>(4)</sup>∗ 𝑔′(𝑧<sup>(3)</sup>) 其中 𝑔′(𝑧<sup>(3)</sup>) 是 𝑆 形函数的导数，𝑔′(𝑧<sup>(3)</sup>)  = 𝑎<sup>(3)</sup>∗ (1 − 𝑎<sup>(3)</sup>)。而(𝛩<sup>(3)</sup>)<sup>𝑇</sup>𝛿<sup>(4)</sup>则是权重导致的误差的和。</p>
+<p>下一步是继续计算第二层的误差：𝛿<sup>(2)</sup> = (𝛩<sup>(2)</sup>)<sup>𝑇</sup>𝛿<sup>(3)</sup>∗ 𝑔′(𝑧<sup>(2)</sup>) 。</p>
+<p>因为第一层是输入变量，不存在误差。有了所有的误差的表达式后，便可以计算代价函数的偏导数了，假设𝜆 = 0，即不做任何正则化处理时有： 𝜕/𝜕𝛩<sub>𝑖𝑗</sub><sup>(𝑙)</sup>𝐽(𝛩) = 𝑎<sub>𝑗</sub><sup>(𝑙)</sup>𝛿<sub>𝑖</sub><sup>(𝑙+1)</sup> 。</p>
+<p>上面式子中上下标的含义：</p>
+<ul>
+<li>𝑙 代表目前所计算的是第几层。</li>
+<li>𝑗 代表目前计算层中的激活单元的下标，也将是下一层的第𝑗个输入变量的下标。</li>
+<li>𝑖 代表下一层中误差单元的下标，是受到权重矩阵中第𝑖行影响的下一层中的误差单元的下标。</li>
+</ul>
+<p>如果考虑正则化处理，并且训练集是一个特征矩阵而非向量。在上面的特殊情况中，需要计算每一层的误差单元来计算代价函数的偏导数。在更为一般的情况中，同样需要计算每一层的误差单元，但是需要为整个训练集计算误差单元，此时的误差单元也是一个矩阵，我们用𝛥<sub>𝑖𝑗</sub><sup>(𝑙)</sup>来表示这个误差矩阵。第 𝑙 层的第 𝑖 个激活单元受到第 𝑗个参数影响而导致的误差。</p>
+<p>反向传播算法为：<br><img src="https://img-blog.csdnimg.cn/20200712132926516.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>即首先用正向传播方法计算出每一层的激活单元，利用训练集的结果与神经网络预测的结果求出最后一层的误差，然后利用该误差运用反向传播法计算出直至第二层的所有误差。</p>
+<p>在求出了𝛥<sub>𝑖𝑗</sub><sup>(𝑙)</sup>之后，便可以计算代价函数的偏导数了，计算方法如下：<br><img src="https://img-blog.csdnimg.cn/20200712133115751.PNG#pic_center" alt="在这里插入图片描述"><br>进一步理解：<br><img src="https://img-blog.csdnimg.cn/20200712135205765.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20200712135416318.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/2020071213542917.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<h3 id="7-3-Gradient-Checking-梯度检测"><a href="#7-3-Gradient-Checking-梯度检测" class="headerlink" title="7.3 Gradient Checking(梯度检测)"></a>7.3 Gradient Checking(梯度检测)</h3><p>当对一个较为复杂的模型（例如神经网络）使用梯度下降算法时，可能会存在一些不容易察觉的错误，意味着，虽然代价看上去在不断减小，但最终的结果可能并不是最优解。为了避免这样的问题，我们采取一种叫做==梯度的数值检验（Numerical Gradient Checking）==方法。这种方法的思想是通过估计梯度值来检验计算的导数值是否真的是所要求的。</p>
+<p>对梯度的估计采用的方法是在代价函数上沿着切线的方向选择两个非常近的点然后计算两个点的平均值用以估计梯度。即对于某个特定的 𝜃，计算出在 𝜃-𝜀 处和 𝜃+𝜀 的代价值（𝜀是一个非常小的值，通常选取 0.001），然后求两个代价的平均，用以估计在 𝜃处的代价值。<br><img src="https://img-blog.csdnimg.cn/20200712140624589.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>当𝜃是一个向量时，则需要对偏导数进行检验。因为代价函数的偏导数检验只针对一个参数的改变进行检验。<br><img src="https://img-blog.csdnimg.cn/20200712140921217.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>最后还需要对通过反向传播方法计算出的偏导数进行检验。</p>
+<p>根据上面的算法，计算出的偏导数存储在矩阵 𝐷<sub>𝑖𝑗</sub><sup>(𝑙)</sup> 中。检验时，要将该矩阵展开成为向量，同时也将 𝜃 矩阵展开为向量，针对每一个 𝜃 都计算一个近似的梯度值，将这些值存储于一个近似梯度矩阵中，最终将得出的这个矩阵同𝐷<sub>𝑖𝑗</sub><sup>(𝑙)</sup> 进行比较。</p>
+<p><img src="https://img-blog.csdnimg.cn/20200712141514334.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<h3 id="7-4-Random-Initialization-随机初始化"><a href="#7-4-Random-Initialization-随机初始化" class="headerlink" title="7.4 Random Initialization(随机初始化)"></a>7.4 Random Initialization(随机初始化)</h3><p>任何优化算法都需要一些初始的参数。到目前为止都是初始所有参数为 0，这样的初始方法对于逻辑回归来说是可行的，但是对于神经网络来说是不可行的。如果令所有的初始参数都为 0，这将意味着第二层的所有激活单元都会有相同的值。同理，如果初始所有的参数都为一个非 0 的数，结果也是一样的。</p>
+<p>通常初始参数为正负𝜀之间的随机值，假设要随机初始一个尺寸为 10×11 的参数矩阵，代码如下：<br>Theta1 = np.random.randn(10, 11) * (2*eps) – eps</p>
+<h3 id="7-5-Putting-it-together"><a href="#7-5-Putting-it-together" class="headerlink" title="7.5 Putting it together"></a>7.5 Putting it together</h3><p><strong>神经网络结构：</strong></p>
+<ul>
+<li>第一层——特征数量</li>
+<li>最后一层——类的数量（K分类就是K个）</li>
+<li>隐藏层——每个隐藏层的单元个数相同，且单元的个数越多越好</li>
+<li>需要设计的结构——隐藏层的层数and单元个数</li>
+</ul>
+<p><strong>训练神经网络步骤：</strong></p>
+<ul>
+<li>(a)参数的随机初始化</li>
+<li>(b)利用正向传播方法计算所有的h_θ (x)</li>
+<li>(c)编写计算代价函数 J 的代码</li>
+<li>(d)利用反向传播方法计算所有偏导数</li>
+<li>(e)利用数值检验方法检验这些偏导数</li>
+<li>(f)使用优化算法来最小化代价函数</li>
+</ul>
+]]></content>
+      <categories>
+        <category>机器学习</category>
+      </categories>
+      <tags>
+        <tag>Machine Learning</tag>
+        <tag>Neural Networks</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>【Machine Learning】神经网络-表述(Neural Networks-Representation)</title>
     <url>/2020/07/11/%5BMachine%20Learning%5D%20%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%EF%BC%9A%E8%A1%A8%E8%BF%B0(Neural%20Networks_%20Representation)/</url>
     <content><![CDATA[<p><img src="https://img-blog.csdnimg.cn/20200711130358651.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
@@ -451,6 +264,239 @@
       <tags>
         <tag>Machine Learning</tag>
         <tag>Neural Networks</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>【Machine Learning】逻辑回归(Logistic Regression)</title>
+    <url>/2020/07/08/%5BMachine%20Learning%5D%20%E9%80%BB%E8%BE%91%E5%9B%9E%E5%BD%92(Logistic%20Regression)/</url>
+    <content><![CDATA[<p><img src="https://img-blog.csdnimg.cn/20200708114415292.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<a id="more"></a>
+
+<h2 id="4-Logistic-Regression-逻辑回归"><a href="#4-Logistic-Regression-逻辑回归" class="headerlink" title="4 Logistic Regression(逻辑回归)"></a>4 Logistic Regression(逻辑回归)</h2><h3 id="4-1-Classification"><a href="#4-1-Classification" class="headerlink" title="4.1 Classification"></a>4.1 Classification</h3><p>在分类问题中，需要预测的变量 𝑦 是离散的值，这种学习算法称为逻辑回归 (Logistic Regression) 的算法，这也是目前最流行的一种学习算法。</p>
+<p>分类问题的例子有：判断一封电子邮件是否是垃圾邮件；判断一次金融交易是否是欺诈；区别一个肿瘤是恶性的还是良性的。</p>
+<p><strong>以二元的分类问题为例</strong><br>将因变量(dependent variable)可能属于的两个类分别称为负向类（negative class）和正向类（positive class），则因变量y∈0,1，其中 0 表示负向类，1 表示正向类。<br><img src="https://img-blog.csdnimg.cn/20200707142758328.PNG#pic_center" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20200707142910758.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/2020070714301992.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br><strong>使用线性回归算法解决分类问题</strong></p>
+<ul>
+<li><p>对于分类， 𝑦 取值为 0 或者 1。</p>
+</li>
+<li><p>对于线性回归，那么假设函数的输出值可能远大于 1，或者远小于 0，即使所有训练样本的标签 𝑦 都等于 0 或1。尽管标签应该取值 0 或者 1，但是算法得到的值可能远大于 1 或者远小于 0的话。</p>
+</li>
+<li><p>所以需要研究一种新的算法——==逻辑回归算法==，这个算法的性质是：它的输出值永远在 0 到 1 之间。逻辑回归算法是分类算法，它是作为分类算法使用。</p>
+<h3 id="4-2-Hypothesis-Representation-假设陈述"><a href="#4-2-Hypothesis-Representation-假设陈述" class="headerlink" title="4.2 Hypothesis Representation(假设陈述)"></a>4.2 Hypothesis Representation(假设陈述)</h3><p><img src="https://img-blog.csdnimg.cn/20200707144925873.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>sigmoid函数也叫做logistic函数，用于隐层神经元输出，取值范围为（0,1），它可以将一个实数映射到（0,1）的区间，可用作二分类。</p>
+<h3 id="4-3-Decision-Boundary-决策边界"><a href="#4-3-Decision-Boundary-决策边界" class="headerlink" title="4.3 Decision Boundary(决策边界)"></a>4.3 Decision Boundary(决策边界)</h3><p>==决策边界(decision boundary)==的概念能更好地理解逻辑回归的假设函数在计算什么。</p>
+<blockquote>
+<p>在具有两个类的统计分类问题中，决策边界或决策表面是超曲面，其将基础向量空间划分为两个集合，一个集合。 分类器将决策边界一侧的所有点分类为属于一个类，而将另一侧的所有点分类为属于另一个类。<br>决策界限并不总是明确的。 也就是说，从特征空间中的一个类到另一个类的过渡不是不连续的，而是渐进的。</p>
+</blockquote>
+<p><img src="https://img-blog.csdnimg.cn/20200707151748236.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20200707152202723.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br><strong>case1 线性决策边界:</strong><br><img src="https://img-blog.csdnimg.cn/20200707152629993.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>参数𝜃 是向量[-3 1 1]，则当−3 + 𝑥1 + 𝑥2 ≥ 0，即𝑥1 + 𝑥2 ≥ 3时，模型将预测 𝑦 =1。 我们可以绘制直线𝑥1 + 𝑥2 = 3，这条线便是我们模型的分界线，将预测为 1 的区域和预测为 0的区域分隔开。</p>
+</li>
+</ul>
+<p><strong>case2 非线性决策边界：</strong><br><img src="https://img-blog.csdnimg.cn/20200707153019116.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>𝑦 = 0 的区域和 𝑦 = 1 的区域需要曲线才能分隔，二次方特征：ℎ𝜃(𝑥) = 𝑔(𝜃0 + 𝜃1𝑥1 + 𝜃2𝑥2 + 𝜃3𝑥12 + 𝜃4𝑥22)，其参数𝜃 是向量[-1 0 0 1 1]，则得到的决策边界恰好是圆点在原点且半径为 1 的圆形。</p>
+<h3 id="4-4-Cost-Function-代价函数"><a href="#4-4-Cost-Function-代价函数" class="headerlink" title="4.4 Cost Function(代价函数)"></a>4.4 Cost Function(代价函数)</h3><p>监督学习问题中的逻辑回归模型的拟合问题，即是要定义用来拟合参数的优化目标/代价函数。<br><img src="https://img-blog.csdnimg.cn/20200707155159582.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>对于线性回归模型，定义的代价函数是所有模型误差的平方和。理论上来说，逻辑回归模型可以沿用这个定义，但是问题在于，当将<img src="https://img-blog.csdnimg.cn/20200707155737548.PNG#pic_center" alt="在这里插入图片描述"><br>代入到这样定义的代价函数中时，得到的代价函数将是一个非凸函数（non-convexfunction）。这意味着我们的代价函数有许多局部最小值，这将影响梯度下降算法寻找全局最小值。<br><img src="https://img-blog.csdnimg.cn/202007071559442.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<p><img src="https://img-blog.csdnimg.cn/20200707160127498.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>这样构建的𝐶𝑜𝑠𝑡(ℎ𝜃(𝑥), 𝑦)函数的特点是：当实际的 𝑦 = 1 且ℎ𝜃(𝑥)也为 1 时误差为 0，当 𝑦 = 1 但ℎ𝜃(𝑥)不为 1 时误差随着ℎ𝜃(𝑥)变小而变大；当实际的 𝑦 = 0 且ℎ𝜃(𝑥)也为 0 时代价为 0，当𝑦 = 0 但ℎ𝜃(𝑥)不为 0 时误差随着 ℎ𝜃(𝑥)的变大而变大。<br><img src="https://img-blog.csdnimg.cn/20200707162318105.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br><strong>python代码实现：</strong></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">cost</span><span class="params">(theta, X, y)</span>:</span></span><br><span class="line">	 theta = np.matrix(theta)</span><br><span class="line">	 X = np.matrix(X)</span><br><span class="line">	 y = np.matrix(y)</span><br><span class="line">	 first = np.multiply(-y, np.log(sigmoid(X* theta.T)))</span><br><span class="line">	 second = np.multiply((<span class="number">1</span> - y), np.log(<span class="number">1</span> - sigmoid(X* theta.T)))</span><br><span class="line">	 <span class="keyword">return</span> np.sum(first - second) / (len(X))</span><br></pre></td></tr></table></figure>
+
+<p>在得到这样一个代价函数以后，我们便可以用梯度下降算法来求得能使代价函数最小的参数了。算法为：<br><img src="https://img-blog.csdnimg.cn/20200707162938538.PNG#pic_center" alt="在这里插入图片描述"><br>求导后，得：<br><img src="https://img-blog.csdnimg.cn/20200707163047181.PNG#pic_center" alt="在这里插入图片描述"><br>推导过程：<br><img src="https://img-blog.csdnimg.cn/20200707163827673.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>注：虽然得到的梯度下降算法表面上看上去与线性回归的梯度下降算法一样，但是这里的ℎ<sub>𝜃</sub>(𝑥) = 𝑔(𝜃<sup>T</sup>𝑋)与线性回归中不同，所以实际上是不一样的。另外，在运行梯度下降算法之前，进行特征缩放依旧是非常必要的。</p>
+<p><strong>线性回归和逻辑回归是同一个算法吗？</strong><br>线性回归的假设函数：<img src="https://img-blog.csdnimg.cn/20200707192633258.PNG#pic_center" alt="在这里插入图片描述"><br>逻辑函数假设函数：<img src="https://img-blog.csdnimg.cn/20200707192654840.PNG#pic_center" alt="在这里插入图片描述"><br>因此，即使更新参数的规则看起来基本相同，但由于假设的定义发生了变化，所以逻辑函数的梯度下降，跟线性回归的梯度下降实际上是两个完全不同的东西。</p>
+<p>当使用线性回归的梯度下降法时，监控梯度下降法以确保其收敛，同样的方法用在逻辑回归中，来监测梯度下降，以确保它正常收敛。</p>
+<p>当使用梯度下降法来实现逻辑回归时，有不同的参数𝜃，就是𝜃0 𝜃1 𝜃2 一直到𝜃𝑛，需要用表达式来更新这些参数。我们还可以使用 for 循环来更新这些参数值，用 for i=1 to n，或者 for i=1 to n+1。当然，不用 for 循环也是可以的，理想情况下，更提倡使用向量化的实现，可以把所有这些 n 个参数同时更新。</p>
+<p>另外，线性回归的特征缩放的方法也适用于逻辑回归。如果特征范围差距很大的话，那么应用特征缩放的方法，同样也可以让逻辑回归中，梯度下降收敛更快。</p>
+<h3 id="4-5-Advanced-Optimization-高级优化"><a href="#4-5-Advanced-Optimization-高级优化" class="headerlink" title="4.5 Advanced Optimization(高级优化)"></a>4.5 Advanced Optimization(高级优化)</h3><p>高级优化的思路是通过梯度下降，进行逻辑回归的速度大大提高，而这也将使算法更加适合解决大型的机器学习问题，比如，我们有数目庞大的特征量。 另外，想要使代价函数𝐽(𝜃)最小化，那么需要做的是编写代码，当输入参数 𝜃 时，程序会计算出两样东西：𝐽(𝜃) 以及𝐽 等于 0、1 直到 𝑛 时的偏导数项。<br><img src="https://img-blog.csdnimg.cn/20200707194238293.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>假设已经完成了可以实现这两件事的代码，那么梯度下降所做的就是反复执行这些更新。</p>
+<p>另一种考虑梯度下降的思路是：需要写出代码来计算𝐽(𝜃) 和这些偏导数，然后把这些插入到梯度下降中，然后它就可以最小化这个函数。</p>
+<p>对于梯度下降来说，从技术上讲，实际并不需要编写代码来计算代价函数𝐽(𝜃)。只需要编写代码来计算导数项，但是，如果希望代码还要能够监控这些𝐽(𝜃) 的收敛性，那么就需要编写代码来计算代价函数𝐽(𝜃)和偏导数项 𝜕/𝜕𝜃<sub>𝑗</sub> 𝐽(𝜃)。所以，在写完能够计算这两者的代码之后，就可以使用梯度下降。</p>
+<p>然而梯度下降并不是唯一可使用的算法，还有其他一些算法，更高级、更复杂。如果能用这些方法来计算代价函数𝐽(𝜃)和偏导数项𝜕/𝜕𝜃<sub>𝑗</sub> 𝐽(𝜃)两个项的话，那么这些算法就是为优化代价函数的不同方法，<strong>Conjugate gradient(共轭梯度法)</strong> 、<strong>BFGS (变尺度法)</strong> 和 <strong>L-BFGS (限制变尺度法)</strong> 就是其中一些更高级的优化算法，它们需要有一种方法来计算𝐽(𝜃)，以及需要一种方法计算导数项，然后使用比梯度下降更复杂的算法来最小化代价函数。</p>
+<p><strong>三种算法的优缺点</strong></p>
+<ul>
+<li>优点是：一、<strong>通常不需要手动选择学习率𝛼</strong>，对于这些算法的一种思路是，给出计算导数项和代价函数的方法，可以认为算法有一个智能的内部循环，称为==线性搜索(line search)算法==，它可以自动尝试不同的学习速率 𝛼，并自动选择一个好的学习速率𝑎，因此它甚至可以为每次迭代选择不同的学习速率，那么就不需要手动选择。二、这些算法实际上不仅仅是选择一个好的学习率，它们最终<strong>收敛的速度一般快于梯度下降</strong>。</li>
+<li>缺点是：它们比梯度下降法复杂多了。</li>
+</ul>
+<h3 id="4-6-Multiclass-Classification-One-vs-all-多类别分类：一对多"><a href="#4-6-Multiclass-Classification-One-vs-all-多类别分类：一对多" class="headerlink" title="4.6 Multiclass Classification: One-vs-all(多类别分类：一对多)"></a>4.6 Multiclass Classification: One-vs-all(多类别分类：一对多)</h3><p><img src="https://img-blog.csdnimg.cn/20200708111918112.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>对于二元分类可以使用逻辑回归，对于直线可以将数据集一分为二为正类和负类，对于一对多的分类思想可以将其用在多类分类问题上，有时这个方法也被称为 ==”一对余”方法== 。</p>
+<p>将多个类中的一个类标记为正向类（𝑦 = 1），然后将其他所有类都标记为负向类，这个模型记作ℎ𝜃(1)(𝑥)。接着，类似地选择另一个类标记为正向类（𝑦 = 2），再将其它类都标记为负向类，将这个模型记作 ℎ𝜃(2)(𝑥),依此类推，得到一系列的模型简记为： ℎ𝜃(𝑖)(𝑥) = 𝑝(𝑦 = 𝑖|𝑥; 𝜃)其中：𝑖 = (1,2,3. . . . 𝑘)。 最后，在预测时，将所有的分类机都运行一遍，然后对每一个输入变量，都选择最高可能性的输出变量。<br><img src="https://img-blog.csdnimg.cn/20200708112953805.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+]]></content>
+      <categories>
+        <category>机器学习</category>
+      </categories>
+      <tags>
+        <tag>Machine Learning</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>《增长黑客实战》（第1-3章）</title>
+    <url>/2020/07/14/%E3%80%8A%E5%A2%9E%E9%95%BF%E9%BB%91%E5%AE%A2%E5%AE%9E%E6%88%98%E3%80%8B%EF%BC%88%E7%AC%AC1-3%E7%AB%A0%EF%BC%89/</url>
+    <content><![CDATA[<p><img src="https://img-blog.csdnimg.cn/2020071414384626.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<a id="more"></a>
+
+<h2 id="1-检验商业计划"><a href="#1-检验商业计划" class="headerlink" title="1 检验商业计划"></a>1 检验商业计划</h2><h3 id="1-1-伪需求"><a href="#1-1-伪需求" class="headerlink" title="1.1 伪需求"></a>1.1 伪需求</h3><p>对于初创公司能否存活的关键：如何快速地迭代、如何在现金流耗尽之前验证商业模式。常见的两种失败：</p>
+<ul>
+<li>市场占有失败</li>
+<li>产品研发失败</li>
+</ul>
+<p>其中，前者的比例远远高于后者。</p>
+<p>失败的项目中有超过七成错在满足的是伪需求。伪需求产品的诞生，主要可归结为五种原因。</p>
+<ul>
+<li>1.创始人的个人梦想情怀<br>“弱小和无知不是生存的障碍，傲慢才是”</li>
+<li>2.寻求技术的商业化路径时结合生硬<br>“手里拿着锤子，看什么都是钉子”</li>
+<li>3.误将自身需求放大为整个市场需求</li>
+<li>4.以感性体验代替理性思考</li>
+<li>5.盲目抄袭市场热点，缺乏对商业本质的深度认识</li>
+</ul>
+<h3 id="1-2-快速验证商业计划"><a href="#1-2-快速验证商业计划" class="headerlink" title="1.2 快速验证商业计划"></a>1.2 快速验证商业计划</h3><p>商业计划书（BP，business plan）<label style="color:red">P/MF，Product/Market Fit</label>，产品与市场相契合。用户级产品和企业级SaaS产品的业界参考标准如下。</p>
+<p><strong>用户级产品标准</strong></p>
+<ul>
+<li>每周使用天数超过3天</li>
+<li>初始日新增用户DAU超过100</li>
+<li>30%新用户次日留存率</li>
+<li>达到10万用户量</li>
+</ul>
+<p><strong>SaaS产品标准</strong></p>
+<ul>
+<li>5%付费转化率</li>
+<li>LTV/CAC 大于 3，即用户生命周期价值/获取成本 大于3</li>
+<li>月流失率 小于 2%</li>
+<li>月销售流水达到10万元</li>
+</ul>
+<p><strong>快速寻找到P/MF的方法</strong></p>
+<ul>
+<li>精益画布</li>
+<li>最小化可行产品（MVP）</li>
+<li>设计冲刺（Sprint）</li>
+</ul>
+<h3 id="1-3-产品价值和建立付费增长框架"><a href="#1-3-产品价值和建立付费增长框架" class="headerlink" title="1.3 产品价值和建立付费增长框架"></a>1.3 产品价值和建立付费增长框架</h3><p>百度贴吧之父俞军提出过一个产品价值公式：<br>产品价值 = （新体验-旧体验）-换用成本</p>
+<p>建立系统性的付费增长（Paid Growth）框架，每多花一元钱都能明确地讲出这一元的付出究竟是降低了整体获客成本、圈占到更大市场份额，抑或是让竞争对手不得不为此多花费两天的额外成本。</p>
+<p><strong>互联网产品增值的“不可能三角”</strong></p>
+<ul>
+<li>新增用户规模</li>
+<li>用户留存率</li>
+<li>营收变现</li>
+</ul>
+<ol>
+<li>追求新增、留存，牺牲营收<br>—— “烧钱补贴”</li>
+<li>追求留存、营收，暂缓新增<br>—— 在同质化竞争之下，产品只能从加强专业性、提升用户体验等角度寻求溢价。</li>
+<li>追求新增、营收，放弃留存<br>—— 如同设赌场一样，本着捞一笔是一笔的态度，只要有足够的用户流量支撑，最终都能收割韭菜，保证赚钱。</li>
+</ol>
+<p><strong>如何付费购买增长，保证产品获取长久稳健的流量？</strong></p>
+<ul>
+<li>购买用户数量<br>—— 适用于完全竞争市场，采用该方式的前提是CAC（用户获取成本）必须小于LTV（用户生命周期总价值）。即，花5美元买来的用户，最后会让你赚10美元。</li>
+<li>购买增长速度<br>—— 牺牲短期营收，快速跑马圈地。目的是垄断市场。垄断利润给了企业规划长远未来的资本，但前提可能是牺牲短期营收，CAC大于LTV。</li>
+<li>购买流动性<br>—— 促成更多的交易。如果项目是建立一个双边市场，那么相比供求双方的数量，更直接与估值挂钩的是流动性。只有产生流动性才算得出客单价、复购率、生命周期中价值等数据。 </li>
+</ul>
+<h3 id="1-4-增长的三个阶段：选择最恰当时机和目标"><a href="#1-4-增长的三个阶段：选择最恰当时机和目标" class="headerlink" title="1.4 增长的三个阶段：选择最恰当时机和目标"></a>1.4 增长的三个阶段：选择最恰当时机和目标</h3><p><img src="https://img-blog.csdnimg.cn/20200714133027404.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>种子期</th>
+<th>成型期</th>
+<th>增长期</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>目标</td>
+<td>验证产品，达到P/FM状态</td>
+<td>理解用户的使用行为如何让各项指标产生波动，比如DAU波动的原因及改进方法</td>
+<td>增长、增长、高速增长</td>
+</tr>
+<tr>
+<td>指标</td>
+<td>紧盯留存率</td>
+<td>开始关注每周或每月的用户增长，并设法降低CPA （Cost Per Action）、提高LTV</td>
+<td>增长率是主要目标，但仍需留意投资回报期，也就是多久能把之前亏损的钱赚回来</td>
+</tr>
+<tr>
+<td>用户规模</td>
+<td>在保证平稳持续的前提下，缓慢导入一些种子用户，用于进行各种试验，最终服务于达成P/FM的目的</td>
+<td>允许更多的真实用户加入使用，但仍要注意留存率</td>
+<td>已找到性价比在接受范围的推广渠道，就开闸泄洪让用户鱼贯而入吧</td>
+</tr>
+<tr>
+<td>推广渠道</td>
+<td>在多种不同类型的推广渠道上小规模地测试投入产出比，找到值得重点投入的主力渠道</td>
+<td>一边尝试新的渠道，一边在已验证过的渠道中选择投入产出比最高的一个继续加码投入</td>
+<td>花费80%的精力在主要推广渠道上</td>
+</tr>
+<tr>
+<td>产品优化</td>
+<td>在产品方向令人满意前，着眼于大的优化点，比如更换目标人群、改善行为路径、推翻核心流程</td>
+<td>既着眼于大的优化点，也开始着手解决小问题</td>
+<td>打磨细节</td>
+</tr>
+<tr>
+<td>团队成员</td>
+<td>不需要专门的增长黑客角色，但至少保证团队里有一个人在工作中将80%的时间用于思考如何获取增长</td>
+<td>开始尝试建立专门的增长团队，或选拨有经验的产品经理专职负责聚焦增长</td>
+<td>增长团队扩增</td>
+</tr>
+</tbody></table>
+<h3 id="1-5-对产品增进认知"><a href="#1-5-对产品增进认知" class="headerlink" title="1.5 对产品增进认知"></a>1.5 对产品增进认知</h3><p>产品：<br>    * 用户为什么使用产品？他们期待的核心价值是什么？<br>    * 用户在产品中一步步的使用路径是怎样的？<br>    * 哪些特性或功能，更容易让新增用户转化成长期活跃的忠诚用户？<br>    * 是什么问题直接导致了一部分用户的离开？</p>
+<p>用户：<br>    * 他们年龄多大，住在哪里，大多数从事什么职业？（建立你的用户画像。）<br>    * 他们如何描述我们试图解决的问题，以及看待我们提供的解决方案？<br>    * 在实际使用过程中，他们有哪些疑虑或恐慌？<br>    * 他们会将我们的产品与哪些品牌或事物关联在一起？</p>
+<p>推广渠道：<br>    * 我们现行的推广渠道是如何运作的？<br>    * 哪些渠道的性价比最高，哪些渠道的用户质量最高，哪些渠道更便宜？<br>    * 如何让我们的网页在搜索引擎里取得更高的排名？<br>    * 怎样群发广告邮件能较好地避免被系统屏蔽或引发用户反感？</p>
+<p>认知过程：<br>    * 我们是否以系统化的思维，正确地收集并分析了所有试验数据？<br>    * 我们挑选试验的标准，是基于手头的资源限制，还是预期产生的影响？<br>    * 我们是否在每一次的试验之前，清晰地提出了某种假设，并有意识地去验证它？<br>    * 对我们用户新增渠道影响最深远的一次近期变化是什么？我们花了多久发现并做出调整？</p>
+<p>获得试验结论：<br>    * 我们是否有及时记录试验结论并交流分享的机制，还是它们只停留在参与者各自脑袋里？<br>    * 认知结论是否以一种便于分享的形式，对团队内的所有成员开放？<br>    * 我们是否坦然地交流了所有的认知结论，包括那些让人不快的负面结论？（记得 交流时邀请黑帽思考者参与。）<br>    * 是否有人刻意绕过某些障碍或掩盖错误，对影响认知结论的因素避而不谈？</p>
+<h2 id="2-组建增长团队"><a href="#2-组建增长团队" class="headerlink" title="2 组建增长团队"></a>2 组建增长团队</h2><p><strong>增长黑客的工作</strong><br>    * 关注整个用户生命周期，而不仅仅是获客阶段<br>    * 通过数据驱动的方法，不断试验迭代<br>    * 将增长进制产品化，把增长做到产品里面去</p>
+<p><strong>团队成员角色</strong><br>增长负责人、增长产品经理、增长工程师、设计师/交互设计师、增长营销经理、数据分析师等。</p>
+<p><strong>增长团队日常工作</strong><br>主要围绕制定策略、实施方案、招聘人才、打造文化四项内容展开。</p>
+<ul>
+<li>制定策略<br>——  制定策略就是在采取下一步具体行动之前，对整体框架和路线图进行梳理，找出影响增长的方法、建立增长模型。<br>举个例子，你可以将增长策略分解为以下这些基本问题： 1）我应当如何提升下载/注册转化率？ 2）我能在用户初次使用的前N天内做些什么来激发活跃度？ 3）影响用户参与度和留存率的手段都有哪些？ 4）如何召回即将或已经流失的用户，让他们重新对产品发生兴趣？<br>接着，寻求解决上述问题的新渠道，或是对既有渠道进行优化改进，例如尝试病毒邀请机制、购买搜索引擎关键词、导入通讯录联系人、优化注册确认邮件送达率等。</li>
+<li>实施方案<br>——  增长策略落实到执行阶段，就产生了待办列表上的一堆具体的计划任务。要做的是将这些点子，通过技术手段实现出来，并且不断打磨优化，提升方案的最终转化率。<br>值得注意的潜在细节包括但不限于： • 用按钮取代文字链接 • 测试按钮的位置、尺寸、用语和配色 • 提升页面和服务器的响应速度，降低延迟 • 优化网页标题、副标题、关键词、描述 • 应用适当的配图尺寸和文件格式 • 在页面加入客户证言来加强可信度 • 加入直观的宣传视频降低使用门槛 • 优化付费关键词对应的着陆页 • 简化注册表单，去除或延后非必要字段 • 用第三方账号授权登录代替注册独立账号 • 给用户施加社交压力，如写上“你的N个朋友正在使用” • 测试电子邮件的标题、内容、发送者地址、发送频率</li>
+</ul>
+<h2 id="3-提升协作效率"><a href="#3-提升协作效率" class="headerlink" title="3 提升协作效率"></a>3 提升协作效率</h2><h3 id="3-1-AARRR流量漏斗模型"><a href="#3-1-AARRR流量漏斗模型" class="headerlink" title="3.1 AARRR流量漏斗模型"></a>3.1 AARRR流量漏斗模型</h3><p><img src="https://img-blog.csdnimg.cn/20200714134346384.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<p><strong>Acquisition（获取用户）</strong></p>
+<p>互联网产品获取用户流量的常见手段繁多。<br>诸如： • 在目标人群集中的网站平台购买广告位 • 搜索引擎优化（SEO）及搜索引擎营销（SEM） • 内容营销、社群营销、病毒营销 • 撰写软文或公关稿 • 预装、刷机 当你成功吸引到网站的新房客，或是让应用被下载安装一次，AARRR流量漏斗就此启动运行。</p>
+<p><strong>Activation（激发活跃）</strong></p>
+<p>互联网产品可以通过交互界面和机制策略的设计，激发用户使用的活跃度，让他们尽快完成某些“指定动作”，从而产生商业价值。<br>例如： • 简化填写步骤，促使用户尽快填写并提交调查表 • 提供注册奖励，新用户绑定手机或信用卡即赠送5元代金券 • 加强被动引导，用排行榜、热门搜索等帮用户发现更多内容 • 预测购物偏好，将用户可能感兴趣的商品直接推荐到购物车 • 设置积分等级，用户发布一条微博或上传一张照片就能增加积分</p>
+<p><strong>Retention（提高留存）</strong></p>
+<p>留住一个老用户的成本要远远低于获取一个新用户的成本。为了再次赢回他们的注意力，提高留存率。<br>可以采取： • 增加高频刚需的功能，例如网盘自动为用户上传备份手机相册照片 • 优化产品性能，如判断用户的网络环境下载对应大小的数据包 • 定期发送产品升级优化的通知邮件，维持品牌曝光 • 用好友的私信提醒、陌生人添加好友的邀请等社交关系来召回 • 根据用户生命周期模型，在预测到用户可能流失时主动发送优惠折扣券</p>
+<p><strong>Revenue（增加收入）</strong></p>
+<p>以免费大行其道的互联网行业，除了直接向用户收费以外，还可以通过广告展示、业务分成、技术支持等方式向其他利益方收取费用。<br>常见的增加收入策略有： • 让电商顾客买更多东西，如捆绑推荐关联商品 • 让免费用户为增值服务买单，如层出不穷的QQ秀及网络游戏里的皮肤套装 • 为犹豫不决的潜在用户提供一个月免费试用，到期若不主动取消则自动续订 • 让已经付费者升级付费套餐，如视频网站的白银会员升级到黄金会员后，每月可享受更多独播大片 • 涨价，如付费社群可采用阶梯性定价，让晚加入者支付更高成本</p>
+<p><strong>Referral（传播推荐）</strong></p>
+<p>有关传播推荐的典型案例如下： • 以Dropbox为代表的云存储产品，若邀请到一名好友注册，双方就都能获赠额外250MB网络免费空间 • 互联网金融产品，邀请好友注册并绑定信用卡就能获赠10元礼金 • 打车应用订单完成后，向用户提供代金红包并鼓励分享给好友 • 图片社交产品，只有先分享到朋友圈才能解锁某款独特的滤镜或贴纸 • 在微信里开展的母婴电商、时尚潮品销售，可通过加盟代理和三级分销的方式获得订单优惠和返利</p>
+<p>从获取用户到传播推荐，整个AARRR流量漏斗构成了一道产品使用周期的闭环。增长团队正是通过不断优化这五个关键步骤，减少每个环节中不必要的损耗，提高转化效率，从而不断扩大用户群体的数量和质量，为增长保驾护航。</p>
+<h3 id="3-2-如何套用流量漏斗模型，提高转化率"><a href="#3-2-如何套用流量漏斗模型，提高转化率" class="headerlink" title="3.2 如何套用流量漏斗模型，提高转化率"></a>3.2 如何套用流量漏斗模型，提高转化率</h3><p>案例：信用卡优惠应用如何提升转化率</p>
+<p>我的一客户朋友开发了一款展示信用卡优惠的手机应用。用户手动输入卡号或拍摄扫描，将信用卡绑定到个人账号后，就能定期收到这张卡的专属优惠信息，例如周二刷卡冰淇淋半价、周六电影票八折兑换等。</p>
+<p>这款产品在早期推广时陷入了困境。用户并没有如预想的那样蜂拥而至，借助有限的免费推广渠道发布的营销广告和软文阅读曝光量寥寥。即使是注册用户，也在匆匆扫了几眼过后，就急不可耐地卸载了。这究竟是怎么一回事呢？</p>
+<p>套用AARRR流量漏斗模型，分析了这款应用的流量转化路径。<br>• 获取用户：利用微信公众号做内容营销聚拢粉丝，提醒粉丝下载应用<br>• 激发活跃：引导用户绑定信用卡信息，作为推送内容的基础<br>• 提高留存：通过推送通知（Push Notification）等形式定期推送商家优惠券<br>• 增加收入：根据用户广告内容的点击和转化，向合作商家收取分成<br>• 传播推荐：邀请用户将有价值的内容分享出去</p>
+<p>厘清上述转化脉络后，我们就可以针对每个环节加以优化。</p>
+<p>• 在微信公众号里，原先每日推送的文章聚焦在信用卡使用知识上，受众狭窄，传播受限。既然我们的目标是以此聚集潜在用户，就不必苛求人群精准，而应当扩大基数，发布内容从“垂直人群的强需求”向“宽泛人群的普遍需求”转变，为下一步转化提供充足的“分母”。所以，调整后的策略是：增加优惠活动、美食旅行、品质生活等泛目标人群中喜闻乐见且有传播力的内容，提高攒粉速率。</p>
+<p>• 提醒粉丝下载安装阶段，用小恩小惠增加说服的筹码：注册即送 10 元专享代金券，或是指定餐厅优惠体验资格（注意要与前面通过公众号文章吸引来的目标人群兴趣点吻合）。</p>
+<p>• 不要在用户首次启动时，就立即催促他绑定信用卡，此时大部分人会有抵触心理。正确的做法是先让他自由地浏览，体验到产品的价值感，然后再试图诱导转化。例如在呈现的高质量优惠信息详情底部设置“立即领取”按钮，未绑卡用户一旦点击，就提醒他需要先绑卡才可享用。诉诸利益，而非恳请或强迫。</p>
+<p>• 用户绑卡后，更聪明地向其推送优惠信息。比如，工作日侧重推送金融证券、商旅服务、正餐餐厅，周末则提供娱乐休闲聚会相关资讯。如果结合用户画像，效果更佳。</p>
+<p>• 在尝到甜头时，才提醒分享，例如在成功兑换优惠之时提醒。</p>
+<h3 id="3-3-从增长模型中挖掘机会"><a href="#3-3-从增长模型中挖掘机会" class="headerlink" title="3.3 从增长模型中挖掘机会"></a>3.3 从增长模型中挖掘机会</h3><p>创建增长模型的三个核心原则<br>    * 覆盖全面<br>    * 逻辑精简<br>    * 全员贯彻</p>
+<p>增长模型应当形如：<br><img src="https://img-blog.csdnimg.cn/20200714135257832.PNG#pic_center" alt="在这里插入图片描述"><br>以美国最大的电商网站亚马逊为例，它的增长模型是：<br><img src="https://img-blog.csdnimg.cn/20200714135315661.PNG#pic_center" alt="在这里插入图片描述"><br>A=垂直品类拓展（Vertical Expansion）<br>B=单个垂直品类商品库存（Product Inventory Per Vertical）<br>C=单个商品页面浏览量（Traffic Per Product Page）<br>D=购买转化率（Coversion to Purchase）<br>E=客单价（Average Purchase Value）<br>F=重复购买行为（Repeat Purchase Behavior）</p>
+<p>据此归纳出的亚马逊增长模型，可指导管理层关注三个增长方向：<br>    * 组织市场研究团队，探索新的商品品类和服务领域。<br>    * 调配采购团队，加强商品采购和货物流通。<br>    * 建立线上优化团队，运用SEO、付费广告、A/B测试等途径优化页面浏览到下单购买的整个流程。</p>
+<p>增长模型左边的增长目标以具体的数字指标体现，是你的核心指标，又被称作“North Star Metric”（北极星指标），或“OMTM”（One Metric That Matters，即唯一重要的指标）。</p>
+<p>设定核心指标时，必须避免 <label style="color:red">“虚荣指标”（Vanity Metric）</label>，也就是让团队误以为自己好像在进步，但实际上却没有取得什么进展的浮夸指标。如：点击量、页面浏览量（PV）、访问量、独立访客数、粉丝/好友/赞的数量、网站提留时间/浏览页数、收集到的用户邮件地址数量、下载量。</p>
+<p>以下是一组不同公司核心指标的范例：<br>• 亚马逊，做的是电商购物的生意，核心指标是“商品销量额”。<br>• Medium，一家作者与读者交换故事想法的在线创作社区，核心指标是“总阅读时长”。<br>• Quora，允许专家以问答形式将知识技能分享给全世界，核心指标是“有多少问题被回答”。<br>• Airbnb，作为双边市场服务，作用是连接房东和住客，核心指标是“有多高比例的整晚房间被租赁出去”。<br>• Uber，同样是一家双边市场服务，赋予司机和乘客随时匹配的权利，Uber 的核心指标并非“有多少辆车成功搭载乘客”，而是“乘客从叫车到上车之间的平均候车时长”——这更能体现某一地区驾乘双方的用户密度、匹配算法的智能性。</p>
+<p>核心指标通常是复合因素作用下的衡量标准。为了提升核心指标，你必须将它分解成若干个彼此关联且共同产生影响的关键指标（可能包含二级指标、三级指标甚至更多），然后分别去优化各自的影响因素，从而自下而上地影响核心指标。如：<br><img src="https://img-blog.csdnimg.cn/20200714135545864.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>例： 早在2007年4月前，Google的广告展示中使用了大面积的矩形区域作为背景，只要用户点击整个矩形区域，就视作产生广告点击，广告主需为此付费。看起来，更大的点击面积的确让人点击时移动鼠标更省眼力，促进点击率剧增，Google能因此获得更多收入。 但出乎意料的是，Google创始人自断一指，突然宣布将广告可点击区域限制在标题和链接区域，这对营收产生了负面影响。广告点击模式改变后数月间，Google的股票价格从2007年11月的740多美元，一路倾泻到了2008年年中的350多美元，引发了资本市场和科技评论圈的轩然大波。自此，很多媒体和出版商的点击转化率和收入都大幅下降。</p>
+<p>果不其然，坚持带来了最终的胜利。Google的收入随后开始快速增长，估价也水涨船高，之前的变动被证明是有远见的，Google广告系统的收入日渐提升，成为Google公司的支柱性收入之一。</p>
+<p>这里的奥妙可以用下面的增长模型解释：<br><img src="https://img-blog.csdnimg.cn/20200714135707102.PNG#pic_center" alt="在这里插入图片描述"><br>其中，每个指标对应的含义分别是：<br>• CPM：每千次展示给Google带来的收入。CPM越高代表Google赚钱越多。<br>• Coverage：广告覆盖率。广告覆盖率=出现广告的页面/所有页面。使用Google搜索时，浏览了10个页面，其中5个页面出现广告，则Coverage为50%。Google的Coverage大约是1/3。<br>• Depth：平均每页广告数。页面上广告数越多，整体展示量越高，但同时每个广告的点击率也可能更低。Google的Depth是每个页面1-3条广告。<br>• CTR：点击转化率。上面已经提到过。<br>• CPC：单次点击费用。上面也已提到过。 </p>
+<p>绝大多数广告平台倾向于提升Coverage和Depth，因为CTR取决于用户，CPC则取决于广告主。为了确保用户体验，Google严格遵守广告少而精的策略，决定放弃Coverage和Depth，着力于CTR和CPC。 塞翁失马，焉知非福。虽然刚开始限制点击区域的改动，短期内降低了CTR，但正是由于成功减少了大量的意外点击，随着用户真实点击百分比的提高，广告主看到了每个点击更真实的价值，满意度也随之提高。广告主更愿意去买点击广告，触发了更高的单次点击费用。加之 Google 采用机器学习等技术帮助广告主增强展示的精准性，因此整体收入不降反升。</p>
+<h3 id="3-3-建立团队内部协作流程"><a href="#3-3-建立团队内部协作流程" class="headerlink" title="3.3 建立团队内部协作流程"></a>3.3 建立团队内部协作流程</h3><p>打造自增长产品的创意始于增长模型， 这套流程主要由以下五个核心环节组成：<label style="color:red">头脑风暴&gt;确定优先级&gt;小规模测试&gt;动手研发&gt;持续优化</label></p>
+<p><strong>第一步：头脑风暴，提出假设</strong><br>增长团队协作流程的原点，就是提出假设。假设是有根据的猜测，这些猜测在日后 能被证实或证伪，最终服务于产品迭代。<br>可证伪的假设=[具体并且可重复的动作]可以导致[预期中可评估的目标或结果]</p>
+<p>头脑风暴是激发团队提出假设的常规方式。请试着怀揣开放心态，让所有人都参与进来，鼓励每个人都提出自己的意见。如 • 改变按钮文字 • 尝试不同平台 • 修改定价策略 • 将某个流程前置或后置 • 针对不同人群投放广告 • 发起一场营销活动 • 推翻重构产品界面头脑风暴的前提是：确立了明确的指标，并对产品增长模型有清晰认识。否则，很容易陷入一群人在会议室天马行空、乱枪打鸟的窘境，那绝对是你不愿看到的。</p>
+<p>头脑风暴的基本原则是： • 推迟判断 • 鼓励大胆的创意 • 基于他人的创意延伸 • 不要偏题 • 一次只有一个人说话 • 借助视觉语言 • 追求数量</p>
+<p>提出头脑风暴创意的方式： • 观察法：用户是如何使用的？竞争对手都做了些什么（从竞争对手那里偷师，先模仿再超越，切忌为了不同而不同）？行业内有什么新知创想？你的数据给了你哪些启发？ • 关联法：将产品流程与生活中的事物建立连接。例如，现实中的实体店铺经营有哪些值得借鉴的经验，可以用到我们的电商服务中？ • 社群法：创建或加入增长黑客们的圈子，在交流碰撞中迸发更多创意火花。 • 提问法：不妨自己设问，为什么会这样？如果我们XX，会怎样？还有哪些因素与XX有关？</p>
+<p>一张好的备选创意列表（Backlog），应当包含如下项目： • 名称：为头脑风暴提出的创意取个名字。 •状态：创意尚处在想法阶段，还是正在设计试验中，或者试验已经设计完成。 • 分类：帮助团队成员明确这一试验服务的产品阶段。 • 指标：用哪项（些）指标判断试验是否成功。 • 预期结果：无论是拍脑袋还是基于以往数据经验，都要对试验结果有一定的预 期，通过将实际结果与预期结果的比较，增强对产品和市场的理解。 • 评估工时：涉及试验的各部门需要耗费的人员和天数。<br><img src="https://img-blog.csdnimg.cn/20200714140014179.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<p><strong>第二步：确定优先级</strong><br>当资源有限时，面对长长的备选创意列表，分析每个创意值不值得优先做、花多少精力去做时，可以从以下三个维度评估：<br>• 收益值，即在当下或长期将为增长带来多大贡献。<br>• 消耗量，即需要花费的资源数量，包括资金、人力、时间、心智。<br>• 半衰期，即这项收益随时间衰减的速度，半衰期越长，影响维持越久。</p>
+<p>如果我们从这三个维度划分不同的增长策略，由此便可得到由其组合成的八类策略：<br>• 高收益值、低消耗量、长半衰期策略：Hotmail 的签名档病毒推广、Dropbox邀请好友送空间。<br>• 高收益值、低消耗量、短半衰期策略：Airbnb借Craiglist邮件系统群发广告（很快被封）。<br>• 高收益值、高消耗量、长半衰期策略：Facebook 每天同时进行的数百项 A/B测试。<br>• 高收益值、高消耗量、短半衰期策略：绞尽脑汁做出红极一时的爆款病毒推广方案。<br>• 低收益值、高消耗量、长半衰期策略：彻底重构产品，优化整体架构。<br>• 低收益值、低消耗量、长半衰期策略：发布软文，使用有趣的产品文案。<br>• 低收益值、高消耗量、短半衰期策略：挨个手动发广告私信骚扰陌生网民。<br>• 低收益值、低消耗量、短半衰期策略：发布一条微博（假定你不是百万粉丝大V）。</p>
+<p>据此对你收集到的方案做出筛选，更加着眼于高收益、低消耗、长半衰期的策略，而不是纠结于无关痛痒的细节，比如争论页面使用圆角还是直角、更换测试不同深度的40种蓝色，这对于初创公司来说完全没有任何意义。</p>
+<p>另一种便于量化的优先级评估方式，是我们在咨询工作中总结出的 <label style="color:red">T.W.I.C.E 原则</label>。具体说来，它包括以下五项评定指标：</p>
+<p>1.流量Traffic（1分最低，5分最优）<br>多少人能看到这项变化？你的改动是深埋在设置选项中，还是挂在网站首页？一项改动所触及的用户量是它能否产生作用的前提条件。<br>2.口碑Word of Mouth（1分最低，5分最优）<br>你的创意是否能促成显著的口碑传播效应？正面口碑，还是负面口碑？大多数改动在用户眼中无关痛痒，他们只是默默地接受；有些改动则让人眼前一亮，具备利于营销的话题点；还有些则可能引发特定人群的抵触情绪，你必须准备好危机公关预案。<br>3.影响力Impact（1分最低，5分最优）<br>你对于方案能产生多少影响力的预期如何？如果你的注册转化率只有10%，那么将它改善到20%就已经是100%的提升。如果80%的用户顺利走完注册转化漏斗，那么将这一数字改善为90%也不过是12.5%的提升。<br>4.自信心Confidence（1分最低，5分最优）<br>你的想法是通过借鉴别人既有的成功案例而升华归纳产生或者从信源靠谱的实践者那里汲取灵感，还是仅限于上班路上的灵光一现，缺乏数据支持和参考坐标？<br>5.实现难易度Ease（1分最低，5分最优）<br>新方案是否能在几个小时内就完成MVP并被测试？抑或需要数天乃至数周的努力？尽可能优先考虑最简单易行的解决方案，而不是邀功式地追求工作量和加班时长。</p>
+<p>优先考虑最简单易行的解决方案。 需要为上述五项评估指标分别打分，最终筛选出得分最高的备选创意，列为最优之选。</p>
+<p><strong>第三步：不断测试</strong><br>真正可持续的增长是通过小规模测试的不断迭代，验证试验假设，并将成功结果不断累加的过程。</p>
+<p>• 首先，你要确认某个标准，用这个标准来判定每次改动或迭代是否成功。标准本身既可以是量化指标（比如有多少人点击注册按钮、有多少乘客叫车），也可以是定性指标（比如易用性），又或者是两者兼有。<br>• 一旦大家对成功的定义有了共识，那么接下来就是不断尝试各种方法，提出不同的假设，围绕假设去做试验。<br>• 当试验完成后，展开一次数据调研。如果达到了理想的预期目标，则之前的假设成立，可以全方位启用这项设计，然后马不停蹄地继续寻找下一个增长点；如果没有达到理想状态，则必须从难以立足的伪命题上吸取经验，反思总结，然后在解决 方案上迭代更新。</p>
+<p><strong>第四步：动手研发</strong><br>在小规模测试有所成效的前提下，动手将你的增长创意开发成实际功能。</p>
+<p>需遵循以下三个原则：</p>
+<ul>
+<li>不要重复发明轮子<br>——  在如今这个 SaaS 横行、随手可用的时代，大多数初创公司不会有技术风险。过度关注技术是一种浪费。你应该将注意力更多放在研发过程的科学性、结论导出的准确性和对指标的影响上。如果市场上有现成的工具，那么就尽量挪为己用。</li>
+<li>内容动态化<br>——  增长黑客们总在思考如何用最少的代价来实现一件事情。如果研发阶段采取的方案缺乏灵活性，将可能造成后续维护时成本过高——最直接的体现，就是必须等待下一个版本的发布上线，才能修复问题或测试一个全新的创意，这有可能延误宝贵时机。为此，必须考虑在实现阶段尽可能将业务模块动态化。</li>
+<li>让机器替你自动化执行<br>——  交给机器自动执行，从而将宝贵的智力资源节省出来，投入到创造新的增长策略中。如将手动发送邮件变成自动回复、让人工处理数据变为脚本抓取。</li>
+</ul>
+<p><strong>第五步：持续优化</strong><br>善于学习的团队能够从过往成功经验中总结出经验，提高下一次临门一脚的胜算。为此你应当将每次试验过程和数据记录下来，并且公开与全体成员分享。</p>
+]]></content>
+      <categories>
+        <category>产品/运营</category>
+      </categories>
+      <tags>
+        <tag>用户增长</tag>
       </tags>
   </entry>
   <entry>
@@ -652,42 +698,6 @@ dtype: int64"></p>
       </tags>
   </entry>
   <entry>
-    <title>爬虫爬取招聘信息并进行数据分析</title>
-    <url>/2020/06/18/%E7%88%AC%E8%99%AB%E7%88%AC%E5%8F%96%E6%8B%9B%E8%81%98%E4%BF%A1%E6%81%AF%E5%B9%B6%E8%BF%9B%E8%A1%8C%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90/</url>
-    <content><![CDATA[<p><img src="https://img-blog.csdnimg.cn/20200618161152222.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
-<a id="more"></a>
-
-<h1 id="一、结果放在最前面"><a href="#一、结果放在最前面" class="headerlink" title="一、结果放在最前面"></a>一、结果放在最前面</h1><p><img src="https://img-blog.csdnimg.cn/20200531144422829.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70" alt="请忽略"><br>（请忽略截图右边的蓝色正方形）<br>使用爬虫爬取智联招聘上关于“数据分析师”岗位的信息，并应用flask和echarts技术实现数据分析结果。</p>
-<h1 id="二、爬虫"><a href="#二、爬虫" class="headerlink" title="二、爬虫"></a>二、爬虫</h1><p>主函数(main)：实现网页解析以及数据存储。</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">main</span><span class="params">()</span>:</span></span><br><span class="line">    kw = input(<span class="string">"请输入你要搜索的岗位关键字："</span>).strip()</span><br><span class="line">    keyword = urllib.parse.quote(urllib.parse.quote(kw))   <span class="comment">#二次编码</span></span><br><span class="line">    <span class="comment"># ka = input("请输入你要搜索的地区：").strip()</span></span><br><span class="line">    <span class="comment"># karea = getArea(ka)</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>, <span class="number">165</span>):</span><br><span class="line">        print(<span class="string">'正在爬取第&#123;&#125;页信息'</span>.format(i))</span><br><span class="line">        baseurl = <span class="string">"https://search.51job.com/list/"</span>+ str(<span class="number">000000</span>) +<span class="string">",000000,0000,00,9,99,"</span>+ keyword +<span class="string">",2,"</span>+ str(i) +<span class="string">".html"</span>    <span class="comment">#全国+keyword</span></span><br><span class="line">        html = askURL(baseurl)</span><br><span class="line">        bs = BeautifulSoup(html,<span class="string">"html.parser"</span>)</span><br><span class="line"></span><br><span class="line">        datalist = getData(bs)</span><br><span class="line">        dbpath = <span class="string">"./51job.db"</span></span><br><span class="line">        saveDB(datalist, dbpath)</span><br></pre></td></tr></table></figure>
-<p>网页解析(askURL)：调用request和BeautifulSoup实现网页解析。</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">askURL</span><span class="params">(url)</span>:</span></span><br><span class="line">    head = &#123;</span><br><span class="line">        <span class="string">"User-Agent"</span>: <span class="string">"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36"</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    request = urllib.request.Request(url,headers=head)</span><br><span class="line">    html = <span class="string">""</span></span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        response = urllib.request.urlopen(request)</span><br><span class="line">        html = response.read().decode(<span class="string">'gbk'</span>, <span class="string">'ignore'</span>)</span><br><span class="line">        <span class="comment"># print(html)</span></span><br><span class="line">    <span class="keyword">except</span> urllib.error.URLError <span class="keyword">as</span> e:</span><br><span class="line">        <span class="keyword">if</span> hasattr(e, <span class="string">"code"</span>):</span><br><span class="line">            print(e.code)</span><br><span class="line">        <span class="keyword">if</span> hasattr(e,<span class="string">"reason"</span>):</span><br><span class="line">            print(e.reason)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> html</span><br></pre></td></tr></table></figure>
-<p>数据爬取(getData)：获取招聘信息，公司链接、招聘岗位链接、公司名称、岗位名称、地区、薪水；调用getCOM获取公司链接内的信息，调用getREC获取招聘岗位信息，并合并返回给main()。</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">getData</span><span class="params">(bs)</span>:</span></span><br><span class="line">    datalist = []</span><br><span class="line">    <span class="keyword">for</span> item <span class="keyword">in</span> bs.select(<span class="string">".dw_table &gt; div.el"</span>):</span><br><span class="line">        data = &#123;&#125;</span><br><span class="line">        item = str(item)</span><br><span class="line"></span><br><span class="line">        link = re.findall(findLink, item)</span><br><span class="line">        data[<span class="string">'link'</span>] = <span class="string">''</span>.join(link)</span><br><span class="line"></span><br><span class="line">        title = re.findall(findTitle, item)</span><br><span class="line">        data[<span class="string">'title'</span>] = <span class="string">''</span>.join(title)</span><br><span class="line"></span><br><span class="line">        area = re.findall(findArea, item)</span><br><span class="line">        data[<span class="string">'area'</span>] = <span class="string">''</span>.join(area)</span><br><span class="line"></span><br><span class="line">        com = re.findall(findCom, item)</span><br><span class="line">        data[<span class="string">'com'</span>] = <span class="string">''</span>.join(com)</span><br><span class="line"></span><br><span class="line">        comlink = re.findall(findComLink, item)</span><br><span class="line">        data[<span class="string">'comlink'</span>] = <span class="string">''</span>.join(comlink)</span><br><span class="line"></span><br><span class="line">        salary = re.findall(findSalary, item)</span><br><span class="line">        data[<span class="string">'salary'</span>] = <span class="string">''</span>.join(salary)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        strhtml = <span class="string">'https://jobs.51job.com/'</span></span><br><span class="line">        <span class="keyword">if</span> data[<span class="string">"link"</span>].startswith(strhtml) <span class="keyword">and</span> data[<span class="string">'comlink'</span>].startswith(strhtml):</span><br><span class="line"></span><br><span class="line">            com_link = data[<span class="string">'comlink'</span>]</span><br><span class="line">            com_data = getCOM(com_link)</span><br><span class="line">            data = dict(data.items(), **com_data)</span><br><span class="line"></span><br><span class="line">            rec_link = data[<span class="string">'link'</span>]</span><br><span class="line">            recruit_data = getREC(rec_link)</span><br><span class="line">            data = dict(data.items(), **recruit_data)</span><br><span class="line">            datalist.append(data)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> datalist</span><br></pre></td></tr></table></figure>
-<p>爬取公司信息(getCOM)：获取公司链接内的信息，公司性质、公司规模、公司行业</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">getCOM</span><span class="params">(com_link)</span>:</span></span><br><span class="line">    com_html = askURL(com_link)</span><br><span class="line">    bs = BeautifulSoup(com_html, <span class="string">"html.parser"</span>)</span><br><span class="line">    <span class="comment"># 公司信息</span></span><br><span class="line">    CP_TYPE = [<span class="string">'民营公司'</span>, <span class="string">'上市公司'</span>, <span class="string">'事业单位'</span>, <span class="string">'国企'</span>, <span class="string">'外资（欧美）'</span>, <span class="string">'外资（非欧美）'</span>,</span><br><span class="line">               <span class="string">'创业公司'</span>, <span class="string">'政府机关'</span>, <span class="string">'合资'</span>, <span class="string">'外资'</span>, <span class="string">'合资'</span>, <span class="string">'外企代表处'</span>, <span class="string">'非营利组织'</span>]</span><br><span class="line">    CP_SCALE = [<span class="string">'少于50人'</span>, <span class="string">'50-150人'</span>, <span class="string">'150-500人'</span>, <span class="string">'500-1000人'</span>,</span><br><span class="line">                <span class="string">'1000-5000人'</span>, <span class="string">'5000-10000人'</span>, <span class="string">'10000人以上'</span>]</span><br><span class="line"></span><br><span class="line">    cp_info = bs.select(<span class="string">'.in &gt; p.ltype'</span>)[<span class="number">0</span>].text.split(<span class="string">'\xa0\xa0|\xa0\xa0'</span>)</span><br><span class="line">    com_data = &#123;&#125;</span><br><span class="line">    com_data[<span class="string">'cp_type'</span>] = com_data[<span class="string">'cp_scale'</span>] = com_data[<span class="string">'industry'</span>] = <span class="string">''</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> CP_TYPE:</span><br><span class="line">        <span class="keyword">if</span> i <span class="keyword">in</span> cp_info:</span><br><span class="line">            com_data[<span class="string">'cp_type'</span>] = i</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> CP_SCALE:</span><br><span class="line">        <span class="keyword">if</span> i <span class="keyword">in</span> cp_info:</span><br><span class="line">            com_data[<span class="string">'cp_scale'</span>] = i</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> cp_info:</span><br><span class="line">        <span class="keyword">if</span> i <span class="keyword">not</span> <span class="keyword">in</span> CP_TYPE <span class="keyword">and</span> i <span class="keyword">not</span> <span class="keyword">in</span> CP_SCALE:</span><br><span class="line">            com_data[<span class="string">'industry'</span>] = i</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> com_data</span><br></pre></td></tr></table></figure>
-<p>爬取招聘信息(getREC)：获取招聘岗位链接内的信息，经验、学历、招聘人数、发布日期、工作描述</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">getREC</span><span class="params">(rec_link)</span>:</span></span><br><span class="line">    jobHtml = askURL(rec_link)  <span class="comment">#获取详情页</span></span><br><span class="line">    bs = BeautifulSoup(jobHtml,<span class="string">"html.parser"</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 经验、学历、招聘人数、发布日期</span></span><br><span class="line">    text = bs.select(<span class="string">".ltype"</span>)</span><br><span class="line">    job = &#123;&#125;</span><br><span class="line">    <span class="keyword">if</span> len(text) != <span class="number">0</span>:</span><br><span class="line">        info = text[<span class="number">0</span>].text.split(<span class="string">'\xa0\xa0|\xa0\xa0'</span>)</span><br><span class="line">        EDU = [<span class="string">'博士'</span>, <span class="string">'硕士'</span>, <span class="string">'本科'</span>, <span class="string">'大专'</span>,</span><br><span class="line">               <span class="string">'中专'</span>, <span class="string">'中技'</span>, <span class="string">'高中'</span>, <span class="string">'初中及以下'</span>]</span><br><span class="line"></span><br><span class="line">        job[<span class="string">'exp'</span>] = job[<span class="string">'edu'</span>] = job[<span class="string">'other'</span>] = job[<span class="string">'demand'</span>] = job[<span class="string">'pubdate'</span>] = <span class="string">" "</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> info:</span><br><span class="line">            <span class="keyword">if</span> <span class="string">'经验'</span> <span class="keyword">in</span> i:</span><br><span class="line">                job[<span class="string">'exp'</span>] = i</span><br><span class="line">            <span class="keyword">elif</span> i <span class="keyword">in</span> EDU:</span><br><span class="line">                job[<span class="string">'edu'</span>] = i</span><br><span class="line">            <span class="keyword">elif</span> <span class="string">'招'</span> <span class="keyword">in</span> i:</span><br><span class="line">                job[<span class="string">'demand'</span>] = i</span><br><span class="line">            <span class="keyword">elif</span> <span class="string">'发布'</span> <span class="keyword">in</span> i:</span><br><span class="line">                job[<span class="string">'pubdate'</span>] = i</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                job[<span class="string">'other'</span>] = i</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        job[<span class="string">'exp'</span>] = job[<span class="string">'edu'</span>] = job[<span class="string">'other'</span>] = job[<span class="string">'demand'</span>] = job[<span class="string">'pubdate'</span>] = <span class="string">" "</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    job[<span class="string">'msg'</span>] = <span class="string">" "</span></span><br><span class="line">    jobMsgList = bs.select(<span class="string">".job_msg &gt; p"</span>)  <span class="comment">#工作描述</span></span><br><span class="line">    jobMsgStr = <span class="string">""</span></span><br><span class="line">    <span class="keyword">for</span> str <span class="keyword">in</span> jobMsgList:</span><br><span class="line">        jobMsgStr = jobMsgStr + str.text</span><br><span class="line">    job[<span class="string">"msg"</span>] = jobMsgStr</span><br><span class="line"></span><br><span class="line">    <span class="comment"># jobList.append(job)</span></span><br><span class="line">    <span class="keyword">return</span> job</span><br></pre></td></tr></table></figure>
-
-<p>数据存储(saveData)：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">saveDB</span><span class="params">(datalist, dbpath)</span>:</span></span><br><span class="line">    init_db(dbpath)</span><br><span class="line">    conn = sqlite3.connect(dbpath)</span><br><span class="line">    cur = conn.cursor()</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> data <span class="keyword">in</span> datalist:</span><br><span class="line">        print(data)</span><br><span class="line">        sql = <span class="string">'''</span></span><br><span class="line"><span class="string">                insert or ignore into job_quanguo(</span></span><br><span class="line"><span class="string">                link,title,comlink,com,area,salary,cp_type,cp_scale,industry,exp,edu,other,demand,pubdate,msg</span></span><br><span class="line"><span class="string">                 ) </span></span><br><span class="line"><span class="string">                 values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)'''</span></span><br><span class="line">        <span class="comment"># print(sql)</span></span><br><span class="line">        cur.execute(sql,(data[<span class="string">'link'</span>],data[<span class="string">'title'</span>],data[<span class="string">'comlink'</span>],data[<span class="string">'com'</span>],data[<span class="string">'area'</span>],data[<span class="string">'salary'</span>],data[<span class="string">'cp_type'</span>],</span><br><span class="line">                         data[<span class="string">'cp_scale'</span>],data[<span class="string">'industry'</span>],data[<span class="string">'exp'</span>],data[<span class="string">'edu'</span>],data[<span class="string">'other'</span>],data[<span class="string">'demand'</span>],data[<span class="string">'pubdate'</span>],data[<span class="string">'msg'</span>]))</span><br><span class="line">        conn.commit()</span><br><span class="line">    cur.close()</span><br><span class="line">    conn.close()</span><br></pre></td></tr></table></figure>
-<p>爬取结果：<br><img src="https://img-blog.csdnimg.cn/2020053115105068.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>一共爬取了7277条数据，包括：公司名称、链接、岗位名称、地区、薪水、企业性质、企业规模、行业、招聘要求、招聘信息等等。</p>
-<h1 id="三、数据处理"><a href="#三、数据处理" class="headerlink" title="三、数据处理"></a>三、数据处理</h1><p>薪水处理：由于薪水是以上下限显示的，故将薪水分成三列，分别为下限，上限以及平均薪水。同时删除一部分没有显示薪水的信息。</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">getSalary</span><span class="params">()</span>:</span></span><br><span class="line">    datalist = []</span><br><span class="line">    con = sqlite3.connect(<span class="string">"51job.db"</span>)</span><br><span class="line">    cur = con.cursor()</span><br><span class="line">    sql = <span class="string">"SELECT com,title,area,cp_type,cp_scale,industry,exp,edu,salary FROM job_quanguo"</span></span><br><span class="line">    data_quanguo = cur.execute(sql)</span><br><span class="line">    <span class="keyword">for</span> item <span class="keyword">in</span> data_quanguo:</span><br><span class="line">        string = <span class="string">""</span>.join(item[<span class="number">8</span>])</span><br><span class="line">        <span class="keyword">if</span> string.endswith(<span class="string">'千/月'</span>):</span><br><span class="line">            num = string.replace(<span class="string">"千/月"</span>,<span class="string">""</span>).split(<span class="string">"-"</span>)</span><br><span class="line">            sal = pd.to_numeric(num)*<span class="number">1000</span></span><br><span class="line">            <span class="comment"># datalist.append(pd.to_numeric(num)*1000)</span></span><br><span class="line">            data1 = append_other(item)</span><br><span class="line">            data2 = append_salary(sal)</span><br><span class="line">        <span class="keyword">elif</span> string.endswith(<span class="string">'万/月'</span>):</span><br><span class="line">            num = string.replace(<span class="string">"万/月"</span>,<span class="string">""</span>).split(<span class="string">"-"</span>)</span><br><span class="line">            sal = pd.to_numeric(num)*<span class="number">10000</span></span><br><span class="line">            <span class="comment"># datalist.append(pd.to_numeric(num)*10000)</span></span><br><span class="line">            data1 = append_other(item)</span><br><span class="line">            data2 = append_salary(sal)</span><br><span class="line">        <span class="keyword">elif</span> string.endswith(<span class="string">'万/年'</span>):</span><br><span class="line">            num = string.replace(<span class="string">"万/年"</span>,<span class="string">""</span>).split(<span class="string">"-"</span>)</span><br><span class="line">            sal = pd.to_numeric(num)*<span class="number">10000</span>/<span class="number">12</span></span><br><span class="line">            <span class="comment"># datalist.append(pd.to_numeric(num)*10000/12)</span></span><br><span class="line">            <span class="comment"># append_other(item)</span></span><br><span class="line">            data1 = append_other(item)</span><br><span class="line">            data2 = append_salary(sal)</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">continue</span></span><br><span class="line">        data = dict(data1.items(), **data2)</span><br><span class="line">        datalist.append(data)</span><br><span class="line">    cur.close()</span><br><span class="line">    con.close()</span><br><span class="line"></span><br><span class="line">    <span class="comment"># df_salary = pd.DataFrame(columns=['low-salary','high-salary'])</span></span><br><span class="line">    dbpath = <span class="string">"./51job.db"</span></span><br><span class="line">    saveDB(datalist, dbpath)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">append_salary</span><span class="params">(sal)</span>:</span></span><br><span class="line">    data1 = &#123;&#125;</span><br><span class="line">    data1[<span class="string">'low-salary'</span>] = sal[<span class="number">0</span>].astype(np.int64)</span><br><span class="line">    data1[<span class="string">'high-salary'</span>] = sal[<span class="number">1</span>].astype(np.int64)</span><br><span class="line">    data1[<span class="string">'avg-salary'</span>] = (sal[<span class="number">0</span>].astype(np.int64)+sal[<span class="number">1</span>].astype(np.int64))/<span class="number">2</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> data1</span><br></pre></td></tr></table></figure>
-
-<h1 id="四、Flask与ECharts"><a href="#四、Flask与ECharts" class="headerlink" title="四、Flask与ECharts"></a>四、Flask与ECharts</h1><p>主要参考了ECharts官方文档，在此就不一一论述了。</p>
-]]></content>
-      <categories>
-        <category>python</category>
-        <category>数据分析</category>
-      </categories>
-      <tags>
-        <tag>python</tag>
-        <tag>flask</tag>
-        <tag>BeautifulSoup</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>关于SQL易忘的知识点</title>
     <url>/2020/06/19/%E5%85%B3%E4%BA%8ESQL%E6%98%93%E5%BF%98%E7%9A%84%E5%8D%81%E4%BA%94%E4%B8%AA%E7%9F%A5%E8%AF%86%E7%82%B9/</url>
     <content><![CDATA[<p><img src="https://img-blog.csdnimg.cn/20200619102150246.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
@@ -760,24 +770,39 @@ dtype: int64"></p>
       </tags>
   </entry>
   <entry>
-    <title>运营指标</title>
-    <url>/2020/06/22/%E8%BF%90%E8%90%A5%E6%8C%87%E6%A0%87/</url>
-    <content><![CDATA[<p><img src="https://img-blog.csdnimg.cn/20200622160118760.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+    <title>爬虫爬取招聘信息并进行数据分析</title>
+    <url>/2020/06/18/%E7%88%AC%E8%99%AB%E7%88%AC%E5%8F%96%E6%8B%9B%E8%81%98%E4%BF%A1%E6%81%AF%E5%B9%B6%E8%BF%9B%E8%A1%8C%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90/</url>
+    <content><![CDATA[<p><img src="https://img-blog.csdnimg.cn/20200618161152222.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
 <a id="more"></a>
 
-<h2 id="商品"><a href="#商品" class="headerlink" title="商品"></a>商品</h2><p><img src="https://img-blog.csdnimg.cn/20200622160714145.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
-<h2 id="营收"><a href="#营收" class="headerlink" title="营收"></a>营收</h2><p><img src="https://img-blog.csdnimg.cn/20200622161148322.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
-<h2 id="传播-活动"><a href="#传播-活动" class="headerlink" title="传播/活动"></a>传播/活动</h2><p><img src="https://img-blog.csdnimg.cn/20200622161407440.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
-<h2 id="营销"><a href="#营销" class="headerlink" title="营销"></a>营销</h2><p><img src="https://img-blog.csdnimg.cn/20200622161650584.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
-<h2 id="用户获取"><a href="#用户获取" class="headerlink" title="用户获取"></a>用户获取</h2><p><img src="https://img-blog.csdnimg.cn/20200622162035539.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
-<h2 id="用户活跃"><a href="#用户活跃" class="headerlink" title="用户活跃"></a>用户活跃</h2><p><img src="https://img-blog.csdnimg.cn/20200622162101254.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
-<h2 id="用户留存"><a href="#用户留存" class="headerlink" title="用户留存"></a>用户留存</h2><p><img src="https://img-blog.csdnimg.cn/20200622162124762.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<h1 id="一、结果放在最前面"><a href="#一、结果放在最前面" class="headerlink" title="一、结果放在最前面"></a>一、结果放在最前面</h1><p><img src="https://img-blog.csdnimg.cn/20200531144422829.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70" alt="请忽略"><br>（请忽略截图右边的蓝色正方形）<br>使用爬虫爬取智联招聘上关于“数据分析师”岗位的信息，并应用flask和echarts技术实现数据分析结果。</p>
+<h1 id="二、爬虫"><a href="#二、爬虫" class="headerlink" title="二、爬虫"></a>二、爬虫</h1><p>主函数(main)：实现网页解析以及数据存储。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">main</span><span class="params">()</span>:</span></span><br><span class="line">    kw = input(<span class="string">"请输入你要搜索的岗位关键字："</span>).strip()</span><br><span class="line">    keyword = urllib.parse.quote(urllib.parse.quote(kw))   <span class="comment">#二次编码</span></span><br><span class="line">    <span class="comment"># ka = input("请输入你要搜索的地区：").strip()</span></span><br><span class="line">    <span class="comment"># karea = getArea(ka)</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>, <span class="number">165</span>):</span><br><span class="line">        print(<span class="string">'正在爬取第&#123;&#125;页信息'</span>.format(i))</span><br><span class="line">        baseurl = <span class="string">"https://search.51job.com/list/"</span>+ str(<span class="number">000000</span>) +<span class="string">",000000,0000,00,9,99,"</span>+ keyword +<span class="string">",2,"</span>+ str(i) +<span class="string">".html"</span>    <span class="comment">#全国+keyword</span></span><br><span class="line">        html = askURL(baseurl)</span><br><span class="line">        bs = BeautifulSoup(html,<span class="string">"html.parser"</span>)</span><br><span class="line"></span><br><span class="line">        datalist = getData(bs)</span><br><span class="line">        dbpath = <span class="string">"./51job.db"</span></span><br><span class="line">        saveDB(datalist, dbpath)</span><br></pre></td></tr></table></figure>
+<p>网页解析(askURL)：调用request和BeautifulSoup实现网页解析。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">askURL</span><span class="params">(url)</span>:</span></span><br><span class="line">    head = &#123;</span><br><span class="line">        <span class="string">"User-Agent"</span>: <span class="string">"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36"</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    request = urllib.request.Request(url,headers=head)</span><br><span class="line">    html = <span class="string">""</span></span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        response = urllib.request.urlopen(request)</span><br><span class="line">        html = response.read().decode(<span class="string">'gbk'</span>, <span class="string">'ignore'</span>)</span><br><span class="line">        <span class="comment"># print(html)</span></span><br><span class="line">    <span class="keyword">except</span> urllib.error.URLError <span class="keyword">as</span> e:</span><br><span class="line">        <span class="keyword">if</span> hasattr(e, <span class="string">"code"</span>):</span><br><span class="line">            print(e.code)</span><br><span class="line">        <span class="keyword">if</span> hasattr(e,<span class="string">"reason"</span>):</span><br><span class="line">            print(e.reason)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> html</span><br></pre></td></tr></table></figure>
+<p>数据爬取(getData)：获取招聘信息，公司链接、招聘岗位链接、公司名称、岗位名称、地区、薪水；调用getCOM获取公司链接内的信息，调用getREC获取招聘岗位信息，并合并返回给main()。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">getData</span><span class="params">(bs)</span>:</span></span><br><span class="line">    datalist = []</span><br><span class="line">    <span class="keyword">for</span> item <span class="keyword">in</span> bs.select(<span class="string">".dw_table &gt; div.el"</span>):</span><br><span class="line">        data = &#123;&#125;</span><br><span class="line">        item = str(item)</span><br><span class="line"></span><br><span class="line">        link = re.findall(findLink, item)</span><br><span class="line">        data[<span class="string">'link'</span>] = <span class="string">''</span>.join(link)</span><br><span class="line"></span><br><span class="line">        title = re.findall(findTitle, item)</span><br><span class="line">        data[<span class="string">'title'</span>] = <span class="string">''</span>.join(title)</span><br><span class="line"></span><br><span class="line">        area = re.findall(findArea, item)</span><br><span class="line">        data[<span class="string">'area'</span>] = <span class="string">''</span>.join(area)</span><br><span class="line"></span><br><span class="line">        com = re.findall(findCom, item)</span><br><span class="line">        data[<span class="string">'com'</span>] = <span class="string">''</span>.join(com)</span><br><span class="line"></span><br><span class="line">        comlink = re.findall(findComLink, item)</span><br><span class="line">        data[<span class="string">'comlink'</span>] = <span class="string">''</span>.join(comlink)</span><br><span class="line"></span><br><span class="line">        salary = re.findall(findSalary, item)</span><br><span class="line">        data[<span class="string">'salary'</span>] = <span class="string">''</span>.join(salary)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        strhtml = <span class="string">'https://jobs.51job.com/'</span></span><br><span class="line">        <span class="keyword">if</span> data[<span class="string">"link"</span>].startswith(strhtml) <span class="keyword">and</span> data[<span class="string">'comlink'</span>].startswith(strhtml):</span><br><span class="line"></span><br><span class="line">            com_link = data[<span class="string">'comlink'</span>]</span><br><span class="line">            com_data = getCOM(com_link)</span><br><span class="line">            data = dict(data.items(), **com_data)</span><br><span class="line"></span><br><span class="line">            rec_link = data[<span class="string">'link'</span>]</span><br><span class="line">            recruit_data = getREC(rec_link)</span><br><span class="line">            data = dict(data.items(), **recruit_data)</span><br><span class="line">            datalist.append(data)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> datalist</span><br></pre></td></tr></table></figure>
+<p>爬取公司信息(getCOM)：获取公司链接内的信息，公司性质、公司规模、公司行业</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">getCOM</span><span class="params">(com_link)</span>:</span></span><br><span class="line">    com_html = askURL(com_link)</span><br><span class="line">    bs = BeautifulSoup(com_html, <span class="string">"html.parser"</span>)</span><br><span class="line">    <span class="comment"># 公司信息</span></span><br><span class="line">    CP_TYPE = [<span class="string">'民营公司'</span>, <span class="string">'上市公司'</span>, <span class="string">'事业单位'</span>, <span class="string">'国企'</span>, <span class="string">'外资（欧美）'</span>, <span class="string">'外资（非欧美）'</span>,</span><br><span class="line">               <span class="string">'创业公司'</span>, <span class="string">'政府机关'</span>, <span class="string">'合资'</span>, <span class="string">'外资'</span>, <span class="string">'合资'</span>, <span class="string">'外企代表处'</span>, <span class="string">'非营利组织'</span>]</span><br><span class="line">    CP_SCALE = [<span class="string">'少于50人'</span>, <span class="string">'50-150人'</span>, <span class="string">'150-500人'</span>, <span class="string">'500-1000人'</span>,</span><br><span class="line">                <span class="string">'1000-5000人'</span>, <span class="string">'5000-10000人'</span>, <span class="string">'10000人以上'</span>]</span><br><span class="line"></span><br><span class="line">    cp_info = bs.select(<span class="string">'.in &gt; p.ltype'</span>)[<span class="number">0</span>].text.split(<span class="string">'\xa0\xa0|\xa0\xa0'</span>)</span><br><span class="line">    com_data = &#123;&#125;</span><br><span class="line">    com_data[<span class="string">'cp_type'</span>] = com_data[<span class="string">'cp_scale'</span>] = com_data[<span class="string">'industry'</span>] = <span class="string">''</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> CP_TYPE:</span><br><span class="line">        <span class="keyword">if</span> i <span class="keyword">in</span> cp_info:</span><br><span class="line">            com_data[<span class="string">'cp_type'</span>] = i</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> CP_SCALE:</span><br><span class="line">        <span class="keyword">if</span> i <span class="keyword">in</span> cp_info:</span><br><span class="line">            com_data[<span class="string">'cp_scale'</span>] = i</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> cp_info:</span><br><span class="line">        <span class="keyword">if</span> i <span class="keyword">not</span> <span class="keyword">in</span> CP_TYPE <span class="keyword">and</span> i <span class="keyword">not</span> <span class="keyword">in</span> CP_SCALE:</span><br><span class="line">            com_data[<span class="string">'industry'</span>] = i</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> com_data</span><br></pre></td></tr></table></figure>
+<p>爬取招聘信息(getREC)：获取招聘岗位链接内的信息，经验、学历、招聘人数、发布日期、工作描述</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">getREC</span><span class="params">(rec_link)</span>:</span></span><br><span class="line">    jobHtml = askURL(rec_link)  <span class="comment">#获取详情页</span></span><br><span class="line">    bs = BeautifulSoup(jobHtml,<span class="string">"html.parser"</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 经验、学历、招聘人数、发布日期</span></span><br><span class="line">    text = bs.select(<span class="string">".ltype"</span>)</span><br><span class="line">    job = &#123;&#125;</span><br><span class="line">    <span class="keyword">if</span> len(text) != <span class="number">0</span>:</span><br><span class="line">        info = text[<span class="number">0</span>].text.split(<span class="string">'\xa0\xa0|\xa0\xa0'</span>)</span><br><span class="line">        EDU = [<span class="string">'博士'</span>, <span class="string">'硕士'</span>, <span class="string">'本科'</span>, <span class="string">'大专'</span>,</span><br><span class="line">               <span class="string">'中专'</span>, <span class="string">'中技'</span>, <span class="string">'高中'</span>, <span class="string">'初中及以下'</span>]</span><br><span class="line"></span><br><span class="line">        job[<span class="string">'exp'</span>] = job[<span class="string">'edu'</span>] = job[<span class="string">'other'</span>] = job[<span class="string">'demand'</span>] = job[<span class="string">'pubdate'</span>] = <span class="string">" "</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> info:</span><br><span class="line">            <span class="keyword">if</span> <span class="string">'经验'</span> <span class="keyword">in</span> i:</span><br><span class="line">                job[<span class="string">'exp'</span>] = i</span><br><span class="line">            <span class="keyword">elif</span> i <span class="keyword">in</span> EDU:</span><br><span class="line">                job[<span class="string">'edu'</span>] = i</span><br><span class="line">            <span class="keyword">elif</span> <span class="string">'招'</span> <span class="keyword">in</span> i:</span><br><span class="line">                job[<span class="string">'demand'</span>] = i</span><br><span class="line">            <span class="keyword">elif</span> <span class="string">'发布'</span> <span class="keyword">in</span> i:</span><br><span class="line">                job[<span class="string">'pubdate'</span>] = i</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                job[<span class="string">'other'</span>] = i</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        job[<span class="string">'exp'</span>] = job[<span class="string">'edu'</span>] = job[<span class="string">'other'</span>] = job[<span class="string">'demand'</span>] = job[<span class="string">'pubdate'</span>] = <span class="string">" "</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    job[<span class="string">'msg'</span>] = <span class="string">" "</span></span><br><span class="line">    jobMsgList = bs.select(<span class="string">".job_msg &gt; p"</span>)  <span class="comment">#工作描述</span></span><br><span class="line">    jobMsgStr = <span class="string">""</span></span><br><span class="line">    <span class="keyword">for</span> str <span class="keyword">in</span> jobMsgList:</span><br><span class="line">        jobMsgStr = jobMsgStr + str.text</span><br><span class="line">    job[<span class="string">"msg"</span>] = jobMsgStr</span><br><span class="line"></span><br><span class="line">    <span class="comment"># jobList.append(job)</span></span><br><span class="line">    <span class="keyword">return</span> job</span><br></pre></td></tr></table></figure>
+
+<p>数据存储(saveData)：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">saveDB</span><span class="params">(datalist, dbpath)</span>:</span></span><br><span class="line">    init_db(dbpath)</span><br><span class="line">    conn = sqlite3.connect(dbpath)</span><br><span class="line">    cur = conn.cursor()</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> data <span class="keyword">in</span> datalist:</span><br><span class="line">        print(data)</span><br><span class="line">        sql = <span class="string">'''</span></span><br><span class="line"><span class="string">                insert or ignore into job_quanguo(</span></span><br><span class="line"><span class="string">                link,title,comlink,com,area,salary,cp_type,cp_scale,industry,exp,edu,other,demand,pubdate,msg</span></span><br><span class="line"><span class="string">                 ) </span></span><br><span class="line"><span class="string">                 values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)'''</span></span><br><span class="line">        <span class="comment"># print(sql)</span></span><br><span class="line">        cur.execute(sql,(data[<span class="string">'link'</span>],data[<span class="string">'title'</span>],data[<span class="string">'comlink'</span>],data[<span class="string">'com'</span>],data[<span class="string">'area'</span>],data[<span class="string">'salary'</span>],data[<span class="string">'cp_type'</span>],</span><br><span class="line">                         data[<span class="string">'cp_scale'</span>],data[<span class="string">'industry'</span>],data[<span class="string">'exp'</span>],data[<span class="string">'edu'</span>],data[<span class="string">'other'</span>],data[<span class="string">'demand'</span>],data[<span class="string">'pubdate'</span>],data[<span class="string">'msg'</span>]))</span><br><span class="line">        conn.commit()</span><br><span class="line">    cur.close()</span><br><span class="line">    conn.close()</span><br></pre></td></tr></table></figure>
+<p>爬取结果：<br><img src="https://img-blog.csdnimg.cn/2020053115105068.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>一共爬取了7277条数据，包括：公司名称、链接、岗位名称、地区、薪水、企业性质、企业规模、行业、招聘要求、招聘信息等等。</p>
+<h1 id="三、数据处理"><a href="#三、数据处理" class="headerlink" title="三、数据处理"></a>三、数据处理</h1><p>薪水处理：由于薪水是以上下限显示的，故将薪水分成三列，分别为下限，上限以及平均薪水。同时删除一部分没有显示薪水的信息。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">getSalary</span><span class="params">()</span>:</span></span><br><span class="line">    datalist = []</span><br><span class="line">    con = sqlite3.connect(<span class="string">"51job.db"</span>)</span><br><span class="line">    cur = con.cursor()</span><br><span class="line">    sql = <span class="string">"SELECT com,title,area,cp_type,cp_scale,industry,exp,edu,salary FROM job_quanguo"</span></span><br><span class="line">    data_quanguo = cur.execute(sql)</span><br><span class="line">    <span class="keyword">for</span> item <span class="keyword">in</span> data_quanguo:</span><br><span class="line">        string = <span class="string">""</span>.join(item[<span class="number">8</span>])</span><br><span class="line">        <span class="keyword">if</span> string.endswith(<span class="string">'千/月'</span>):</span><br><span class="line">            num = string.replace(<span class="string">"千/月"</span>,<span class="string">""</span>).split(<span class="string">"-"</span>)</span><br><span class="line">            sal = pd.to_numeric(num)*<span class="number">1000</span></span><br><span class="line">            <span class="comment"># datalist.append(pd.to_numeric(num)*1000)</span></span><br><span class="line">            data1 = append_other(item)</span><br><span class="line">            data2 = append_salary(sal)</span><br><span class="line">        <span class="keyword">elif</span> string.endswith(<span class="string">'万/月'</span>):</span><br><span class="line">            num = string.replace(<span class="string">"万/月"</span>,<span class="string">""</span>).split(<span class="string">"-"</span>)</span><br><span class="line">            sal = pd.to_numeric(num)*<span class="number">10000</span></span><br><span class="line">            <span class="comment"># datalist.append(pd.to_numeric(num)*10000)</span></span><br><span class="line">            data1 = append_other(item)</span><br><span class="line">            data2 = append_salary(sal)</span><br><span class="line">        <span class="keyword">elif</span> string.endswith(<span class="string">'万/年'</span>):</span><br><span class="line">            num = string.replace(<span class="string">"万/年"</span>,<span class="string">""</span>).split(<span class="string">"-"</span>)</span><br><span class="line">            sal = pd.to_numeric(num)*<span class="number">10000</span>/<span class="number">12</span></span><br><span class="line">            <span class="comment"># datalist.append(pd.to_numeric(num)*10000/12)</span></span><br><span class="line">            <span class="comment"># append_other(item)</span></span><br><span class="line">            data1 = append_other(item)</span><br><span class="line">            data2 = append_salary(sal)</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">continue</span></span><br><span class="line">        data = dict(data1.items(), **data2)</span><br><span class="line">        datalist.append(data)</span><br><span class="line">    cur.close()</span><br><span class="line">    con.close()</span><br><span class="line"></span><br><span class="line">    <span class="comment"># df_salary = pd.DataFrame(columns=['low-salary','high-salary'])</span></span><br><span class="line">    dbpath = <span class="string">"./51job.db"</span></span><br><span class="line">    saveDB(datalist, dbpath)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">append_salary</span><span class="params">(sal)</span>:</span></span><br><span class="line">    data1 = &#123;&#125;</span><br><span class="line">    data1[<span class="string">'low-salary'</span>] = sal[<span class="number">0</span>].astype(np.int64)</span><br><span class="line">    data1[<span class="string">'high-salary'</span>] = sal[<span class="number">1</span>].astype(np.int64)</span><br><span class="line">    data1[<span class="string">'avg-salary'</span>] = (sal[<span class="number">0</span>].astype(np.int64)+sal[<span class="number">1</span>].astype(np.int64))/<span class="number">2</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> data1</span><br></pre></td></tr></table></figure>
+
+<h1 id="四、Flask与ECharts"><a href="#四、Flask与ECharts" class="headerlink" title="四、Flask与ECharts"></a>四、Flask与ECharts</h1><p>主要参考了ECharts官方文档，在此就不一一论述了。</p>
 ]]></content>
       <categories>
-        <category>产品/运营</category>
+        <category>python</category>
+        <category>数据分析</category>
       </categories>
       <tags>
-        <tag>运营指标</tag>
+        <tag>python</tag>
+        <tag>flask</tag>
+        <tag>BeautifulSoup</tag>
       </tags>
   </entry>
   <entry>
@@ -860,6 +885,27 @@ dtype: int64"></p>
       </categories>
       <tags>
         <tag>用户行为</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>运营指标</title>
+    <url>/2020/06/22/%E8%BF%90%E8%90%A5%E6%8C%87%E6%A0%87/</url>
+    <content><![CDATA[<p><img src="https://img-blog.csdnimg.cn/20200622160118760.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<a id="more"></a>
+
+<h2 id="商品"><a href="#商品" class="headerlink" title="商品"></a>商品</h2><p><img src="https://img-blog.csdnimg.cn/20200622160714145.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<h2 id="营收"><a href="#营收" class="headerlink" title="营收"></a>营收</h2><p><img src="https://img-blog.csdnimg.cn/20200622161148322.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<h2 id="传播-活动"><a href="#传播-活动" class="headerlink" title="传播/活动"></a>传播/活动</h2><p><img src="https://img-blog.csdnimg.cn/20200622161407440.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<h2 id="营销"><a href="#营销" class="headerlink" title="营销"></a>营销</h2><p><img src="https://img-blog.csdnimg.cn/20200622161650584.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<h2 id="用户获取"><a href="#用户获取" class="headerlink" title="用户获取"></a>用户获取</h2><p><img src="https://img-blog.csdnimg.cn/20200622162035539.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<h2 id="用户活跃"><a href="#用户活跃" class="headerlink" title="用户活跃"></a>用户活跃</h2><p><img src="https://img-blog.csdnimg.cn/20200622162101254.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<h2 id="用户留存"><a href="#用户留存" class="headerlink" title="用户留存"></a>用户留存</h2><p><img src="https://img-blog.csdnimg.cn/20200622162124762.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+]]></content>
+      <categories>
+        <category>产品/运营</category>
+      </categories>
+      <tags>
+        <tag>运营指标</tag>
       </tags>
   </entry>
 </search>
