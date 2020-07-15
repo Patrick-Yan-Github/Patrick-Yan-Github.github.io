@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="Machine Learning,Skewed Classes," />
 
 
 
@@ -79,14 +79,26 @@
 
 
 
-<meta name="description" content="交个朋友吧 (*^▽^*)">
-<meta property="og:type" content="website">
-<meta property="og:title" content="今天你DEBUG了吗">
-<meta property="og:url" content="http://yoursite.com/archives/2020/06/index.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【Machine Learning】机器学习系统的设计(Machine Learning System Design)">
+<meta property="og:url" content="http://yoursite.com/2020/07/15/[Machine%20Learning]%20%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%B3%BB%E7%BB%9F%E7%9A%84%E8%AE%BE%E8%AE%A1(Machine%20Learning%20System%20Design)/index.html">
 <meta property="og:site_name" content="今天你DEBUG了吗">
-<meta property="og:description" content="交个朋友吧 (*^▽^*)">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200715144610243.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/2020071512515334.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200715134329675.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200715140646134.PNG#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200715141018277.PNG#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200715141425862.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200715141508777.png#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200715143139923.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200715144013603.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="article:published_time" content="2020-07-15T06:49:12.000Z">
+<meta property="article:modified_time" content="2020-07-15T06:50:55.114Z">
 <meta property="article:author" content="Patrick Yan">
+<meta property="article:tag" content="Machine Learning">
+<meta property="article:tag" content="Skewed Classes">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img-blog.csdnimg.cn/20200715144610243.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center">
 
 
 
@@ -116,13 +128,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/archives/2020/06/"/>
+  <link rel="canonical" href="http://yoursite.com/2020/07/15/[Machine Learning] 机器学习系统的设计(Machine Learning System Design)/"/>
 
 
 
 
 
-  <title>归档 | 今天你DEBUG了吗</title>
+  <title>【Machine Learning】机器学习系统的设计(Machine Learning System Design) | 今天你DEBUG了吗</title>
   
 
 
@@ -151,7 +163,7 @@
     
   
 
-  <div class="container sidebar-position-left page-archive">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -279,221 +291,255 @@
           <div id="content" class="content">
             
 
-  
-  
-  
-  <div class="post-block archive">
-    <div id="posts" class="posts-collapse">
-      <span class="archive-move-on"></span>
+  <div id="posts" class="posts-expand">
+    
 
-      <span class="archive-page-counter">
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/07/15/%5BMachine%20Learning%5D%20%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%B3%BB%E7%BB%9F%E7%9A%84%E8%AE%BE%E8%AE%A1(Machine%20Learning%20System%20Design)/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Patrick Yan">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/panda.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="今天你DEBUG了吗">
+    </span>
+
+    
+      <header class="post-header">
+
         
         
+          <h1 class="post-title" itemprop="name headline">【Machine Learning】机器学习系统的设计(Machine Learning System Design)</h1>
         
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-07-15T14:49:12+08:00">
+                2020-07-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
           
-        
-        嗯..! 目前共计 15 篇日志。 继续努力。
-      </span>
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index">
+                    <span itemprop="name">机器学习</span>
+                  </a>
+                </span>
 
-      
-
-        
-        
-        
-
-        
+                
+                
+              
+            </span>
           
-          <div class="collection-title">
-            <h1 class="archive-year" id="archive-year-2020">2020</h1>
-          </div>
-        
-        
 
-        
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2020/07/15/%5BMachine%20Learning%5D%20%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%B3%BB%E7%BB%9F%E7%9A%84%E8%AE%BE%E8%AE%A1(Machine%20Learning%20System%20Design)/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2020/07/15/[Machine Learning] 机器学习系统的设计(Machine Learning System Design)/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
 
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+          
+          
 
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2020/06/22/%E7%94%A8%E6%88%B7%E8%A1%8C%E4%B8%BA%E5%88%86%E6%9E%90%EF%BC%88%E9%9D%9E%E5%8E%9F%E5%88%9B%EF%BC%89/" itemprop="url">
+          
+
+          
+            <div class="post-wordcount">
               
-                <span itemprop="name">用户行为分析（非原创）</span>
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  2.1k
+                </span>
               
-            </a>
-        
-      </h2>
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2020-06-22T18:12:07+08:00"
-              content="2020-06-22" >
-          06-22
-        </time>
-      </div>
+              
+                <span class="post-meta-divider">|</span>
+              
 
-    </header>
-  </article>
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  7
+                </span>
+              
+            </div>
+          
 
+          
 
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2020/06/22/%E8%BF%90%E8%90%A5%E6%8C%87%E6%A0%87/" itemprop="url">
-              
-                <span itemprop="name">运营指标</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2020-06-22T16:23:15+08:00"
-              content="2020-06-22" >
-          06-22
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
       
 
-        
-        
-        
+      
+        <p><img src="https://img-blog.csdnimg.cn/20200715144610243.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<a id="more"></a>
 
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2020/06/19/%E5%85%B3%E4%BA%8ESQL%E6%98%93%E5%BF%98%E7%9A%84%E5%8D%81%E4%BA%94%E4%B8%AA%E7%9F%A5%E8%AF%86%E7%82%B9/" itemprop="url">
-              
-                <span itemprop="name">关于SQL易忘的知识点</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2020-06-19T10:23:52+08:00"
-              content="2020-06-19" >
-          06-19
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
+<h2 id="9-Machine-Learning-System-Design-机器学习系统的设计"><a href="#9-Machine-Learning-System-Design-机器学习系统的设计" class="headerlink" title="9 Machine Learning System Design(机器学习系统的设计)"></a>9 Machine Learning System Design(机器学习系统的设计)</h2><h3 id="9-1-Prioritizing-What-to-Work-On"><a href="#9-1-Prioritizing-What-to-Work-On" class="headerlink" title="9.1 Prioritizing What to Work On"></a>9.1 Prioritizing What to Work On</h3><p>例子：一个垃圾邮件分类器算法。</p>
+<p>为了解决这样一个问题，首先要确定如何选择并表达特征向量𝑥。例如可以选择由 100 个最常出现在垃圾邮件中的词所构成的列表，根据这些词是否有在邮件中出现，来获得特征向量（出现为 1，不出现为 0），尺寸为 100×1。<br><img src="https://img-blog.csdnimg.cn/2020071512515334.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>为了构建这个分类器算法，可以做很多事，例如：</p>
+<ol>
+<li>收集更多的数据，让我们有更多的垃圾邮件和非垃圾邮件的样本</li>
+<li>基于邮件的路由信息开发一系列复杂的特征</li>
+<li>基于邮件的正文信息开发一系列复杂的特征，包括考虑截词的处理</li>
+<li>为探测刻意的拼写错误（把 watch 写成 w4tch）开发复杂的算法</li>
+</ol>
+<p>对于上面这些选项，难以决定应该在哪一项上花费时间和精力。不过当使用机器学习时，总是可以“头脑风暴”一下，想出一堆方法来试试，作出明智的选择，比随着感觉走要更好。</p>
+<h3 id="9-2-Error-Analysis"><a href="#9-2-Error-Analysis" class="headerlink" title="9.2 Error Analysis"></a>9.2 Error Analysis</h3><p>构建一个学习算法的推荐方法为：</p>
+<ol>
+<li>构建一个简单并且能快速实现的算法，即便运行得不完美，但是也把它运行一遍，最后通过交叉验证来检验数据。</li>
+<li>一旦做完，可以画出学习曲线，通过画出学习曲线，以及检验误差，来找出算法是否有高偏差和高方差的问题，或者别的问题。在这样分析之后，再来决定用更多的数据训练，或者加入更多的特征变量是否有用。</li>
+<li>除了画出学习曲线之外，一件非常有用的事是误差分析。例如，当在构造垃圾邮件分类器时，看一看交叉验证数据集，然后亲自看一看哪些邮件被算法错误地分类。因此，通过这些被算法错误分类的垃圾邮件与非垃圾邮件，可以发现某些系统性的规律：什么类型的邮件总是被错误分类。思考怎样能改进分类器。例如，发现是否缺少某些特征，记下这些特征出现的次数。</li>
+</ol>
+<p>误差分析并不总能帮助我们判断应该采取怎样的行动。有时需要尝试不同的模型，然后进行比较，在模型比较时，用数值来判断哪一个模型更好更有效，通常是看交叉验证集的误差。</p>
+<p>在垃圾邮件分类器例子中 ，对于“是否应该将 discount/discounts/discounted/discounting 处理成同一个词？”如果这样做可以改善算法，则会采用一些截词软件。误差分析并不能帮助做出这类判断，只能尝试采用和不采用截词软件这两种不同方案，然后根据数值检验的结果来判断哪一种更好。</p>
+<p>推荐在交叉验证集上来实施误差分析，而不是在测试集上。</p>
+<h3 id="9-3-Error-Metrics-for-Skewed-Classes-偏斜类的误差评估"><a href="#9-3-Error-Metrics-for-Skewed-Classes-偏斜类的误差评估" class="headerlink" title="9.3 Error Metrics for Skewed Classes(偏斜类的误差评估)"></a>9.3 Error Metrics for Skewed Classes(偏斜类的误差评估)</h3><p><label style="color:red">类偏斜（Skewed Classes）</label> 情况表现为训练集中有非常多的同一种类的实例，只有很少或没有其他类的实例。例如以算法来预测癌症是否是恶性的，在训练集中，只有 0.5%的实例是恶性肿瘤。假设编写一个非学习的算法，在所有情况下都预测肿瘤是良性的，那么误差只有 0.5%。然而通过训练而得到的神经网络算法却有 1%的误差。这时，误差的大小是不能视为评判算法效果的依据的。</p>
+<p><label style="color:red">查准率（Precision）和查全率（Recall）</label> 将算法预测的结果分成四种情况：</p>
+<ol>
+<li>正确肯定（True Positive,TP）：预测为真，实际为真</li>
+<li>正确否定（True Negative,TN）：预测为假，实际为假</li>
+<li>错误肯定（False Positive,FP）：预测为真，实际为假</li>
+<li>错误否定（False Negative,FN）：预测为假，实际为真</li>
+</ol>
+<p>则：查准率=TP/(TP+FP)。例，在所有我们预测有恶性肿瘤的病人中，实际上有恶性肿瘤的病人的百分比，越高越好。<br>查全率=TP/(TP+FN)。例，在所有实际上有恶性肿瘤的病人中，成功预测有恶性肿瘤的病人的百分比，越高越好。</p>
+<p>这样，对于我们刚才那个总是预测病人肿瘤为良性的算法，其查全率是 0。<br><img src="https://img-blog.csdnimg.cn/20200715134329675.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<h3 id="9-4-Trading-Off-Precision-and-Recall-查准率和查全率之间的权衡"><a href="#9-4-Trading-Off-Precision-and-Recall-查准率和查全率之间的权衡" class="headerlink" title="9.4 Trading Off Precision and Recall(查准率和查全率之间的权衡)"></a>9.4 Trading Off Precision and Recall(查准率和查全率之间的权衡)</h3><p>在很多应用中，我们希望能够保证查准率和查全率的相对平衡。</p>
+<p>继续沿用刚才预测肿瘤性质的例子。假使，算法输出的结果在 0-1 之间，使用阀值 0.5 来预测真和假。<br><img src="https://img-blog.csdnimg.cn/20200715140646134.PNG#pic_center" alt="在这里插入图片描述"></p>
+<ul>
+<li>查准率(Precision)=TP/(TP+FP) 。在所有预测有恶性肿瘤的病人中，实际上有恶 性肿瘤的病人的百分比，越高越好。</li>
+<li>查全率(Recall)=TP/(TP+FN)。在所有实际上有恶性肿瘤的病人中，成功预测有恶性肿瘤的病人的百分比，越高越好。</li>
+<li>如果希望只在非常确信的情况下预测为真（肿瘤为恶性），即希望更高的查准率，可以使用比 0.5 更大的阀值，如0.7，0.9。这样做我们会减少错误预测病人为恶性肿瘤的情况，同时却会增加未能成功预测肿瘤为恶性的情况。</li>
+<li>如果希望提高查全率，尽可能地让所有有可能是恶性肿瘤的病人都得到进一步地 检查、诊断，可以使用比 0.5 更小的阀值，如 0.3。</li>
+</ul>
+<p>将不同阈值情况下，查全率与查准率的关系绘制成图表，曲线的形状根据数据的不同而不同：<br><img src="https://img-blog.csdnimg.cn/20200715141018277.PNG#pic_center" alt="在这里插入图片描述"><br>希望有一个帮助我们选择这个阈值的方法。<br><img src="https://img-blog.csdnimg.cn/20200715141425862.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>一种方法是计算 F1 值（F1 Score），其计算公式为：<br><img src="https://img-blog.csdnimg.cn/20200715141508777.png#pic_center" alt="在这里插入图片描述"><br>选择使得 F1 值最高的阀值。</p>
+<h3 id="9-5-Data-For-Machine-Learning"><a href="#9-5-Data-For-Machine-Learning" class="headerlink" title="9.5 Data For Machine Learning"></a>9.5 Data For Machine Learning</h3><p>例：希望通过机器学习算法来区分常见的易混淆的单词，尝试了许多种不同的算法，发现数据量非常大时，这些不同类型的算法效果都很好。<br><img src="https://img-blog.csdnimg.cn/20200715143139923.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>如上折线图所示，首先大部分算法，都具有相似的性能，其次，随着训练数据集的增大，在横轴上代表以百万为单位的训练集大小，从 0.1 个百万到 1000 百万，也就是到了 10亿规模的训练集的样本，这些算法的性能也都对应地增强了。</p>
+<p>事实上，如果选择任意一个算法，可能是选择了一个”劣等的”算法，如果给这个劣等算法更多的数据，那么从这些例子中看起来的话，它看上去很有可能会其他算法更好，甚至会比”优等算法”更好。像这样的结果，引起了一种在机器学习中的普遍共识：”取得成功的人不是拥有最好算法的人，而是拥有最多数据的人”。</p>
+<p>另一种考虑这个问题的角度是为了有一个高性能的学习算法，希望它不要有高的偏差和方差。因此偏差问题，将通过确保有一个具有很多参数的学习算法来解决，以便能够得到一个较低偏差的算法，并且通过用非常大的训练集来保证。<br><img src="https://img-blog.csdnimg.cn/20200715144013603.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>在此没有方差问题，这算法将没有方差，并且通过将这两个值放在一起，最终可以得到一个低误差和低方差的学习算法，能够很好地测试测试数据集。从根本上来说，这是一个关键的假设：特征值有足够的信息量，且有一类很好的函数，这是为什么能保证低误差的关键所在。它有大量的训练数据集，这能保证得到更多的方差值，因此这提出了一些可能的条件，如果你有大量的数据，而且你训练了一种带有很多参数的学习算法，那么这将会是一个很好的方式，来提供一个高性能的学习算法。</p>
 
       
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2020/06/18/%E4%BD%BF%E7%94%A8Python%E5%AF%B9%E6%B7%98%E5%AE%9D%E7%94%A8%E6%88%B7%E8%A1%8C%E4%B8%BA%E8%BF%9B%E8%A1%8C%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90/" itemprop="url">
-              
-                <span itemprop="name">使用Python对淘宝用户行为进行数据分析</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2020-06-18T16:32:48+08:00"
-              content="2020-06-18" >
-          06-18
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2020/06/18/%E7%88%AC%E8%99%AB%E7%88%AC%E5%8F%96%E6%8B%9B%E8%81%98%E4%BF%A1%E6%81%AF%E5%B9%B6%E8%BF%9B%E8%A1%8C%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90/" itemprop="url">
-              
-                <span itemprop="name">爬虫爬取招聘信息并进行数据分析</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2020-06-18T16:30:40+08:00"
-              content="2020-06-18" >
-          06-18
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
     </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Machine-Learning/" rel="tag"># Machine Learning</a>
+          
+            <a href="/tags/Skewed-Classes/" rel="tag"># Skewed Classes</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/07/14/%5BMachine%20Learning%5D%20%E5%BA%94%E7%94%A8%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%9A%84%E5%BB%BA%E8%AE%AE(Advice%20for%20Applying%20Machine%20Learning)/" rel="next" title="【Machine Learning】应用机器学习的建议(Advice for Applying Machine Learning)">
+                <i class="fa fa-chevron-left"></i> 【Machine Learning】应用机器学习的建议(Advice for Applying Machine Learning)
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
+  </article>
 
-  
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -501,6 +547,20 @@
 
 
           
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript" target="_blank" rel="noopener">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
 
         </div>
         
@@ -521,8 +581,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -652,6 +721,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#9-Machine-Learning-System-Design-机器学习系统的设计"><span class="nav-text">9 Machine Learning System Design(机器学习系统的设计)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#9-1-Prioritizing-What-to-Work-On"><span class="nav-text">9.1 Prioritizing What to Work On</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#9-2-Error-Analysis"><span class="nav-text">9.2 Error Analysis</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#9-3-Error-Metrics-for-Skewed-Classes-偏斜类的误差评估"><span class="nav-text">9.3 Error Metrics for Skewed Classes(偏斜类的误差评估)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#9-4-Trading-Off-Precision-and-Recall-查准率和查全率之间的权衡"><span class="nav-text">9.4 Trading Off Precision and Recall(查准率和查全率之间的权衡)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#9-5-Data-For-Machine-Learning"><span class="nav-text">9.5 Data For Machine Learning</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -801,6 +886,10 @@
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 
@@ -818,6 +907,18 @@
       <script id="dsq-count-scr" src="https://.disqus.com/count.js" async></script>
     
 
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'http://yoursite.com/2020/07/15/[Machine%20Learning]%20%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%B3%BB%E7%BB%9F%E7%9A%84%E8%AE%BE%E8%AE%A1(Machine%20Learning%20System%20Design)/';
+          this.page.identifier = '2020/07/15/[Machine Learning] 机器学习系统的设计(Machine Learning System Design)/';
+          this.page.title = '【Machine Learning】机器学习系统的设计(Machine Learning System Design)';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
     
 
   
