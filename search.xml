@@ -56,6 +56,83 @@
       </tags>
   </entry>
   <entry>
+    <title>【Machine Learning】多变量线性回归(Linear Regression with Multiple Variables)</title>
+    <url>/2020/07/07/%5BMachine%20Learning%5D%20%E5%A4%9A%E5%8F%98%E9%87%8F%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92(Linear%20Regression%20with%20Multiple%20Variables)/</url>
+    <content><![CDATA[<p><img src="https://img-blog.csdnimg.cn/20200707131529483.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<a id="more"></a>
+
+<h2 id="3-Linear-Regression-with-Multiple-Variables-多变量线性回归"><a href="#3-Linear-Regression-with-Multiple-Variables-多变量线性回归" class="headerlink" title="3 Linear Regression with Multiple Variables(多变量线性回归)"></a>3 Linear Regression with Multiple Variables(多变量线性回归)</h2><h3 id="3-1-Multiple-Features-多维特征"><a href="#3-1-Multiple-Features-多维特征" class="headerlink" title="3.1 Multiple Features(多维特征)"></a>3.1 Multiple Features(多维特征)</h3><p><img src="https://img-blog.csdnimg.cn/20200707100825934.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20200707100922690.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>注：实际上不一定是线性的，仅本例中使用线性。非线性也是此思想。</p>
+<h3 id="3-2-Gradient-Descent-for-Multiple-Variables-多变量梯度下降"><a href="#3-2-Gradient-Descent-for-Multiple-Variables-多变量梯度下降" class="headerlink" title="3.2 Gradient Descent for Multiple Variables(多变量梯度下降)"></a>3.2 Gradient Descent for Multiple Variables(多变量梯度下降)</h3><p>与单变量线性回归类似，在多变量线性回归中，同样也构建一个代价函数，则这个代价函数是所有建模误差的平方和，即：<br><img src="https://img-blog.csdnimg.cn/20200707102308696.PNG#pic_center" alt="在这里插入图片描述"><br>目标和单变量线性回归问题中一样，是要找出使得代价函数最小的一系列参数。<img src="https://img-blog.csdnimg.cn/20200707101806364.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20200707101739874.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>上图右边显示了多变量线性回归的批量梯度下降算法，其开始随机选择一系列的参数值，计算所有的预测结果后，再给所有的参数一个新的值，如此循环直到收敛。</p>
+<p><strong>python代码：</strong></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">computeCost</span><span class="params">(X, y, theta)</span>:</span></span><br><span class="line">	inner = np.power(((X * theta.T) - y), <span class="number">2</span>)</span><br><span class="line">	<span class="keyword">return</span> np.sum(inner) / (<span class="number">2</span> * len(X))</span><br></pre></td></tr></table></figure>
+
+<h4 id="3-2-1-Gradient-Descent-in-Practice-I-Feature-Scaling-特征缩放"><a href="#3-2-1-Gradient-Descent-in-Practice-I-Feature-Scaling-特征缩放" class="headerlink" title="3.2.1 Gradient Descent in Practice I - Feature Scaling (特征缩放)"></a>3.2.1 Gradient Descent in Practice I - Feature Scaling (特征缩放)</h4><p><strong>在解决多维特征问题时，应该保证这些特征都具有相近的尺度，这将帮助梯度下降算法更快地收敛。</strong></p>
+<p>以房价问题为例，假设有两个特征，房屋的尺寸和房间的数量，尺寸的值为 0-2000 平方英尺，而房间数量的值则是 0-5，以两个参数分别为横纵坐标，绘制代价函数等高线图能，看出图像会显得很扁，梯度下降算法需要非常多次的迭代才能收敛。<br><img src="https://img-blog.csdnimg.cn/20200707104230484.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>解决方法是尝试将所有特征的尺度都尽量缩放到-1 到 1 之间，即==特征归一化==。如图：<br><img src="https://img-blog.csdnimg.cn/20200707104328954.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<blockquote>
+<p>数据的标准化（normalization）是将数据按比例缩放，使之落入一个小的特定区间。在某些比较和评价的指标处理中经常会用到，去除数据的单位限制，将其转化为无量纲的纯数值，便于不同单位或量级的指标能够进行比较和加权，可以大大提高分类器的准确性。<br>其中最典型的就是数据的归一化处理，即将数据统一映射到[0,1]区间上。</p>
+</blockquote>
+<p>归一化公式：<br><img src="https://img-blog.csdnimg.cn/20200707105004270.PNG#pic_center" alt="在这里插入图片描述"></p>
+<h4 id="3-2-2-Gradient-Descent-in-Practice-II-Learning-Rate-学习率"><a href="#3-2-2-Gradient-Descent-in-Practice-II-Learning-Rate-学习率" class="headerlink" title="3.2.2 Gradient Descent in Practice II - Learning Rate (学习率)"></a>3.2.2 Gradient Descent in Practice II - Learning Rate (学习率)</h4><p>梯度下降算法收敛所需要的迭代次数根据模型的不同而不同，无法提前预知，但可以绘制迭代次数和代价函数的图表来观测算法在何时趋于收敛。<br><img src="https://img-blog.csdnimg.cn/20200707105546868.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>图像300~400已经相当平坦了，可推测到达400左右时梯度下降法差不多已经收敛了。</p>
+<p>梯度下降算法的每次迭代受到学习率的影响，如果学习率𝑎过小，则达到收敛所需的迭代次数会非常多；如果学习率𝑎过大，每次迭代可能不会减小代价函数，可能会越过局部最小值导致无法收敛。</p>
+<p>通常可以考虑尝试些学习率：<br>𝛼 =…，0.001，0.003，0.01，0.03，0.1，0.3，1，…</p>
+<h3 id="3-3-Features-and-Polynomial-Regression-特征和多项式回归"><a href="#3-3-Features-and-Polynomial-Regression-特征和多项式回归" class="headerlink" title="3.3 Features and Polynomial Regression(特征和多项式回归)"></a>3.3 Features and Polynomial Regression(特征和多项式回归)</h3><p><img src="https://img-blog.csdnimg.cn/20200707121141207.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>线性回归并不适用于所有数据，有时需要曲线来适应数据，比如，<br>一个二次方模型：<img src="https://img-blog.csdnimg.cn/20200707121921446.PNG#pic_center" alt="在这里插入图片描述"><br>或者三次方模型：<img src="https://img-blog.csdnimg.cn/20200707121933949.PNG#pic_center" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20200707122024153.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>根据函数图形特性，我们还可以使：<br><img src="https://img-blog.csdnimg.cn/20200707122340253.PNG#pic_center" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20200707122358694.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>注：如果采用多项式回归模型，在运行梯度下降算法前，特征缩放非常有必要。</p>
+<h3 id="3-4-Normal-Equation-正规方程"><a href="#3-4-Normal-Equation-正规方程" class="headerlink" title="3.4 Normal Equation(正规方程)"></a>3.4 Normal Equation(正规方程)</h3><p>正规方程是区别于迭代方法的直接计算解法，即直接求导数等于0的点。<br><img src="https://img-blog.csdnimg.cn/20200707123106110.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>假设训练集特征矩阵为 𝑋（包含了 𝑥0 = 1）并且训练集结果为向量 𝑦，则利用正规方程解出向量：<img src="https://img-blog.csdnimg.cn/202007071243148.PNG#pic_center" alt="在这里插入图片描述"><br>例子：<br><img src="https://img-blog.csdnimg.cn/20200707124545251.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>注：对于不可逆的矩阵（通常是因为特征之间不独立，如同时包含英尺为单位的尺寸和米为单位的尺寸两个特征，也有可能是特征数量大于训练集的数量），正规方程方法是不能用的。</p>
+<p><strong>梯度下降与正规方程的比较</strong><br><img src="https://img-blog.csdnimg.cn/20200707125601290.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>注：只要特征变量的数目并不大，标准方程是一个很好的计算参数𝜃的替代方法。具体地说，只要特征变量数量小于一万，通常使用标准方程法，而不使用梯度下降法。</p>
+<p><strong>Normal Equation Noninvertibility(正规方程及不可逆性)</strong><br><img src="https://img-blog.csdnimg.cn/20200707130156670.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<p><strong>python实现正规方程：</strong></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">normalEqn</span><span class="params">(X, y)</span>:</span></span><br><span class="line">	theta = np.linalg.inv(X.T@X)@X.T@y <span class="comment">#X.T@X 等价于 X.T.dot(X)</span></span><br><span class="line">	<span class="keyword">return</span> theta</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://img-blog.csdnimg.cn/20200707130732297.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20200707130731881.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+]]></content>
+      <categories>
+        <category>机器学习</category>
+      </categories>
+      <tags>
+        <tag>Machine Learning</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>【Machine Learning】单变量线性回归(Linear Regression with One Variable)</title>
+    <url>/2020/07/06/%5BMachine%20Learning%5D%20%E5%8D%95%E5%8F%98%E9%87%8F%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92(Linear%20Regression%20with%20One%20Variable)/</url>
+    <content><![CDATA[<p><img src="https://img-blog.csdnimg.cn/20200706191025292.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<a id="more"></a>
+
+<h2 id="2-Linear-Regression-with-One-Variable-单变量线性回归"><a href="#2-Linear-Regression-with-One-Variable-单变量线性回归" class="headerlink" title="2 Linear Regression with One Variable(单变量线性回归)"></a>2 Linear Regression with One Variable(单变量线性回归)</h2><h3 id="2-1-Case-Housing-Prices"><a href="#2-1-Case-Housing-Prices" class="headerlink" title="2.1 Case: Housing Prices"></a>2.1 Case: Housing Prices</h3><p>使用数据集预测住房价格，数据集包含某市的不同房屋尺寸所售出的价格。<br><img src="https://img-blog.csdnimg.cn/20200706132157519.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述">)<img src="https://img-blog.csdnimg.cn/20200706131824876.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>其中，ℎ 代表学习算法的解决方案或函数也称为==假设（hypothesis）==。</p>
+<p>这就是一个监督学习算法的工作方式，在学习算法下，输入训练集里的房屋价格，然后输出一个函数，通常表示为小写 ℎ表示。ℎ 代表 hypothesis(假设)，ℎ表示一个函数，输入是房屋尺寸大小，因此 ℎ 根据输入的 𝑥值来得出 𝑦 值，𝑦 值对应房子的价格。因此，ℎ 是一个从𝑥到 𝑦 的函数映射。</p>
+<p>那么，对于房价预测问题，该如何表达 ℎ？</p>
+<p>一种可能的表达方式为：ℎ𝜃(𝑥) = 𝜃0 + 𝜃1𝑥，因为只含有一个特征/输入变量，因此这样的问题叫作==单变量线性回归问题(Linear Regression with One Variable)==。</p>
+<h3 id="2-2-Cost-Function-代价函数"><a href="#2-2-Cost-Function-代价函数" class="headerlink" title="2.2 Cost Function(代价函数)"></a>2.2 Cost Function(代价函数)</h3><p><img src="https://img-blog.csdnimg.cn/2020070613382955.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>在线性回归中有一个训练集，其预测的函数形式是：ℎ𝜃(𝑥) = 𝜃0 + 𝜃1𝑥。接下来要做的便是为模型选择合适的参数（parameters）𝜃0 和 𝜃1，在房价问题这个例子中便是直线的斜率和在𝑦 轴上的截距。</p>
+<p>选择的参数决定了所得到的直线相对于我们的训练集的准确程度，模型所预测的值与训练集中实际值之间的差距（下图中蓝线所指）就是==建模误差（modeling error）==。</p>
+<p><img src="https://img-blog.csdnimg.cn/20200706135220962.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>目标便是选择出可以使得建模误差的平方和能够最小的模型参数， 即让代价函数：<img src="https://img-blog.csdnimg.cn/20200706135354668.PNG#pic_center" alt="在这里插入图片描述">最小。</p>
+<p>如图一个等高线图，三个坐标分别为𝜃0和𝜃1 和𝐽(𝜃0, 𝜃1)：<br><img src="https://img-blog.csdnimg.cn/20200706135500768.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>则可以看出在三维空间中存在一个使得𝐽(𝜃0, 𝜃1)最小的点。</p>
+<p>在实际问题上，我们会遇到更复杂、更高维度、更多参数的情况，而这些情况是很难画出图的，因此更无法将其可视化，因此我们需要的是编写程序来找出这些最小化代价函数的𝜃0和𝜃1的值。</p>
+<p>==代价函数  (Cost Function)== 也被称作平方误差函数，有时也被称为平方误差代价函数。之所以要求出误差的平方和，是因为对于大多数问题，特别是回归问题，误差平方代价函数都是一个合理的选择。虽然还有其他的代价函数也能很好地发挥作用，但是平方误差代价函数可能是解决回归问题最常用的手段了。<br><img src="https://img-blog.csdnimg.cn/20200706141519668.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述">)<img src="https://img-blog.csdnimg.cn/20200706141307651.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<h3 id="2-3-Gradient-Decent-梯度下降"><a href="#2-3-Gradient-Decent-梯度下降" class="headerlink" title="2.3 Gradient Decent(梯度下降)"></a>2.3 Gradient Decent(梯度下降)</h3><p>==梯度下降(Gradient Decent)== 是一个用来求函数最小值的算法，可使用梯度下降算法来求出代价函数𝐽(𝜃0, 𝜃1) 的最小值。</p>
+<p>梯度下降含义是：开始时随机选择一个参数的组合(𝜃0, 𝜃1, . . . . . . , 𝜃𝑛)，计算代价函数，然后寻找下一个能让代价函数值下降最多的参数组合。持续这么做直到到到一个局部最小值（local minimum），因为并没有尝试完所有的参数组合，所以不能确定所得到的局部最小值是否便是全局最小值（global minimum），选择不同的初始参数组合，可能会找到不同的局部最小值。<br><img src="https://img-blog.csdnimg.cn/20200706144357901.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>例如，你站立在这座红色山上，寻找最快下山的方向。在梯度下降算法中，我们要做的就是旋转 360 度，发现最佳的下山方向，然后按照判断迈出一步，再在新的一个点重复上面的步骤，决定从什么方向将会最快下山，并依此类推，直到接近局部最低点的位置。</p>
+<p>==批量梯度下降（batch gradient descent）== 算法的公式为：<br><img src="https://img-blog.csdnimg.cn/202007061443109.PNG#pic_center" alt="在这里插入图片描述"><br>其中𝑎是学习率（learning rate），它决定了沿着能让代价函数下降程度最大的方向向下迈出的步子有多大，在批量梯度下降中，每一次都同时让所有的参数减去学习速率乘以代价函数的导数。</p>
+<p><img src="https://img-blog.csdnimg.cn/2020070614584344.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>在梯度下降算法中，左边是正确实现<strong>同时</strong>更新的方法。</p>
+<p>梯度下降算法如下：<br><img src="https://img-blog.csdnimg.cn/20200706154630872.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>描述：对𝜃赋值，使得𝐽(𝜃)按梯度下降最快方向进行，一直迭代下去，最终得到局部最小值。<br><img src="https://img-blog.csdnimg.cn/20200706161527701.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>图中上方红色切线的斜率是正，也就是说它有正导数，因此可得到的新的𝜃1，𝜃1更新后等于𝜃1减去一个正数乘以𝑎。相反，图中下方红色切线的斜率是负。</p>
+<p><strong>如果𝑎太小或𝑎太大会出现什么情况：</strong></p>
+<ul>
+<li>如果𝑎太小了，即我的学习速率太小，结果就是像蜗牛一样一点点地挪动，不断接近最低点，这样就需要很多步才能到达最低点，所以如果𝑎太小的话，可能会很慢，因为它会一点点挪动，它会需要很多步才能到达全局最低点。</li>
+<li>如果𝑎太大，那么梯度下降法可能会越过最低点，甚至可能无法收敛，下一次迭代又移动了一大步，越过一次，又越过一次，一次次越过最低点，直到你发现实际上离最低点越来越远，所以，如果𝑎太大，它会导致无法收敛，甚至发散。</li>
+</ul>
+<p><strong>如果预先把𝜃1放在一个局部的最低点，下一步梯度下降法会怎样工作？</strong></p>
+<ul>
+<li>假设将𝜃1初始化在局部最低点，那么它已经在一个局部的最优处或局部最低点，导数将等于零。这意味着该点已经在局部最优点，它使得𝜃1不再改变，也就是新的𝜃1等于原来的𝜃1，因此，如果参数已经处于局部最低点，那么梯度下降法更新其实什么都没做，它不会改变参数的值。这也解释了为什么即使学习速率𝑎保持不变时，梯度下降也可以收敛到局部最低点。</li>
+</ul>
+<h4 id="2-3-1-Case-Cost-Function-of-Gradient-Descent"><a href="#2-3-1-Case-Cost-Function-of-Gradient-Descent" class="headerlink" title="2.3.1 Case: Cost Function of Gradient Descent"></a>2.3.1 Case: Cost Function of Gradient Descent</h4><p>例子：<br><img src="https://img-blog.csdnimg.cn/20200706161618177.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>为了找到最小值，首先初始化梯度下降算法，在那个粉红色的点初始化，如果更新一步梯度下降，到了绿色的点。不断更新，越来越接近最低点，导数也越来越接近零。所以随着梯度下降法的运行，移动的幅度会自动变得越来越小，直到最终移动幅度非常小，收敛到局部极小值。</p>
+<p>总结一下，在梯度下降法中，当接近局部最低点时，梯度下降法会自动采取更小的幅度，实际上没有必要再另外减小𝑎。这是因为在局部最低点时导数等于零，当接近局部最低时，导数值会自动变得越来越小。</p>
+<h4 id="2-3-2-Gradient-Descent-For-Linear-Regression-梯度下降的线性回归"><a href="#2-3-2-Gradient-Descent-For-Linear-Regression-梯度下降的线性回归" class="headerlink" title="2.3.2 Gradient Descent For Linear Regression(梯度下降的线性回归)"></a>2.3.2 Gradient Descent For Linear Regression(梯度下降的线性回归)</h4><p>梯度下降算法和线性回归算法比较如图：<br><img src="https://img-blog.csdnimg.cn/20200706162727647.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20200706163111965.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>则算法可改写为：<br><img src="https://img-blog.csdnimg.cn/20200706163141859.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>上面的算法有时也称为==批量梯度下降(“Batch” Gradient Descent，简称：BGD)== ，指的是在梯度下降的每一步中，都会用到所有的训练样本，在计算微分求导项时，需要进行求和运算，所以，在每一个单独的梯度下降中，最终都要计算这样一个东西，这个项需要对所有𝑚个训练样本求和。因此，批量梯度下降法这个名字说明了需要考虑所有这一”批”训练样本，而事实上，也有其他类型的梯度下降法，不是这种”批量”型的，不考虑整个的训练集，而是每次只关注训练集中的一些小的子集。</p>
+]]></content>
+      <categories>
+        <category>机器学习</category>
+      </categories>
+      <tags>
+        <tag>Machine Learning</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>【Machine Learning】神经网络的学习(Neural Networks_Learning)</title>
     <url>/2020/07/12/%5BMachine%20Learning%5D%20%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E7%9A%84%E5%AD%A6%E4%B9%A0(Neural%20Networks_%20Learning)/</url>
     <content><![CDATA[<p><img src="https://img-blog.csdnimg.cn/20200712143509812.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
@@ -117,33 +194,118 @@
       </tags>
   </entry>
   <entry>
-    <title>【Machine Learning】多变量线性回归(Linear Regression with Multiple Variables)</title>
-    <url>/2020/07/07/%5BMachine%20Learning%5D%20%E5%A4%9A%E5%8F%98%E9%87%8F%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92(Linear%20Regression%20with%20Multiple%20Variables)/</url>
-    <content><![CDATA[<p><img src="https://img-blog.csdnimg.cn/20200707131529483.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+    <title>【Machine Learning】机器学习系统的设计(Machine Learning System Design)</title>
+    <url>/2020/07/15/%5BMachine%20Learning%5D%20%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%B3%BB%E7%BB%9F%E7%9A%84%E8%AE%BE%E8%AE%A1(Machine%20Learning%20System%20Design)/</url>
+    <content><![CDATA[<p><img src="https://img-blog.csdnimg.cn/20200715144610243.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
 <a id="more"></a>
 
-<h2 id="3-Linear-Regression-with-Multiple-Variables-多变量线性回归"><a href="#3-Linear-Regression-with-Multiple-Variables-多变量线性回归" class="headerlink" title="3 Linear Regression with Multiple Variables(多变量线性回归)"></a>3 Linear Regression with Multiple Variables(多变量线性回归)</h2><h3 id="3-1-Multiple-Features-多维特征"><a href="#3-1-Multiple-Features-多维特征" class="headerlink" title="3.1 Multiple Features(多维特征)"></a>3.1 Multiple Features(多维特征)</h3><p><img src="https://img-blog.csdnimg.cn/20200707100825934.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20200707100922690.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>注：实际上不一定是线性的，仅本例中使用线性。非线性也是此思想。</p>
-<h3 id="3-2-Gradient-Descent-for-Multiple-Variables-多变量梯度下降"><a href="#3-2-Gradient-Descent-for-Multiple-Variables-多变量梯度下降" class="headerlink" title="3.2 Gradient Descent for Multiple Variables(多变量梯度下降)"></a>3.2 Gradient Descent for Multiple Variables(多变量梯度下降)</h3><p>与单变量线性回归类似，在多变量线性回归中，同样也构建一个代价函数，则这个代价函数是所有建模误差的平方和，即：<br><img src="https://img-blog.csdnimg.cn/20200707102308696.PNG#pic_center" alt="在这里插入图片描述"><br>目标和单变量线性回归问题中一样，是要找出使得代价函数最小的一系列参数。<img src="https://img-blog.csdnimg.cn/20200707101806364.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20200707101739874.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>上图右边显示了多变量线性回归的批量梯度下降算法，其开始随机选择一系列的参数值，计算所有的预测结果后，再给所有的参数一个新的值，如此循环直到收敛。</p>
-<p><strong>python代码：</strong></p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">computeCost</span><span class="params">(X, y, theta)</span>:</span></span><br><span class="line">	inner = np.power(((X * theta.T) - y), <span class="number">2</span>)</span><br><span class="line">	<span class="keyword">return</span> np.sum(inner) / (<span class="number">2</span> * len(X))</span><br></pre></td></tr></table></figure>
+<h2 id="9-Machine-Learning-System-Design-机器学习系统的设计"><a href="#9-Machine-Learning-System-Design-机器学习系统的设计" class="headerlink" title="9 Machine Learning System Design(机器学习系统的设计)"></a>9 Machine Learning System Design(机器学习系统的设计)</h2><h3 id="9-1-Prioritizing-What-to-Work-On"><a href="#9-1-Prioritizing-What-to-Work-On" class="headerlink" title="9.1 Prioritizing What to Work On"></a>9.1 Prioritizing What to Work On</h3><p>例子：一个垃圾邮件分类器算法。</p>
+<p>为了解决这样一个问题，首先要确定如何选择并表达特征向量𝑥。例如可以选择由 100 个最常出现在垃圾邮件中的词所构成的列表，根据这些词是否有在邮件中出现，来获得特征向量（出现为 1，不出现为 0），尺寸为 100×1。<br><img src="https://img-blog.csdnimg.cn/2020071512515334.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>为了构建这个分类器算法，可以做很多事，例如：</p>
+<ol>
+<li>收集更多的数据，让我们有更多的垃圾邮件和非垃圾邮件的样本</li>
+<li>基于邮件的路由信息开发一系列复杂的特征</li>
+<li>基于邮件的正文信息开发一系列复杂的特征，包括考虑截词的处理</li>
+<li>为探测刻意的拼写错误（把 watch 写成 w4tch）开发复杂的算法</li>
+</ol>
+<p>对于上面这些选项，难以决定应该在哪一项上花费时间和精力。不过当使用机器学习时，总是可以“头脑风暴”一下，想出一堆方法来试试，作出明智的选择，比随着感觉走要更好。</p>
+<h3 id="9-2-Error-Analysis"><a href="#9-2-Error-Analysis" class="headerlink" title="9.2 Error Analysis"></a>9.2 Error Analysis</h3><p>构建一个学习算法的推荐方法为：</p>
+<ol>
+<li>构建一个简单并且能快速实现的算法，即便运行得不完美，但是也把它运行一遍，最后通过交叉验证来检验数据。</li>
+<li>一旦做完，可以画出学习曲线，通过画出学习曲线，以及检验误差，来找出算法是否有高偏差和高方差的问题，或者别的问题。在这样分析之后，再来决定用更多的数据训练，或者加入更多的特征变量是否有用。</li>
+<li>除了画出学习曲线之外，一件非常有用的事是误差分析。例如，当在构造垃圾邮件分类器时，看一看交叉验证数据集，然后亲自看一看哪些邮件被算法错误地分类。因此，通过这些被算法错误分类的垃圾邮件与非垃圾邮件，可以发现某些系统性的规律：什么类型的邮件总是被错误分类。思考怎样能改进分类器。例如，发现是否缺少某些特征，记下这些特征出现的次数。</li>
+</ol>
+<p>误差分析并不总能帮助我们判断应该采取怎样的行动。有时需要尝试不同的模型，然后进行比较，在模型比较时，用数值来判断哪一个模型更好更有效，通常是看交叉验证集的误差。</p>
+<p>在垃圾邮件分类器例子中 ，对于“是否应该将 discount/discounts/discounted/discounting 处理成同一个词？”如果这样做可以改善算法，则会采用一些截词软件。误差分析并不能帮助做出这类判断，只能尝试采用和不采用截词软件这两种不同方案，然后根据数值检验的结果来判断哪一种更好。</p>
+<p>推荐在交叉验证集上来实施误差分析，而不是在测试集上。</p>
+<h3 id="9-3-Error-Metrics-for-Skewed-Classes-偏斜类的误差评估"><a href="#9-3-Error-Metrics-for-Skewed-Classes-偏斜类的误差评估" class="headerlink" title="9.3 Error Metrics for Skewed Classes(偏斜类的误差评估)"></a>9.3 Error Metrics for Skewed Classes(偏斜类的误差评估)</h3><p><label style="color:red">类偏斜（Skewed Classes）</label> 情况表现为训练集中有非常多的同一种类的实例，只有很少或没有其他类的实例。例如以算法来预测癌症是否是恶性的，在训练集中，只有 0.5%的实例是恶性肿瘤。假设编写一个非学习的算法，在所有情况下都预测肿瘤是良性的，那么误差只有 0.5%。然而通过训练而得到的神经网络算法却有 1%的误差。这时，误差的大小是不能视为评判算法效果的依据的。</p>
+<p><label style="color:red">查准率（Precision）和查全率（Recall）</label> 将算法预测的结果分成四种情况：</p>
+<ol>
+<li>正确肯定（True Positive,TP）：预测为真，实际为真</li>
+<li>正确否定（True Negative,TN）：预测为假，实际为假</li>
+<li>错误肯定（False Positive,FP）：预测为真，实际为假</li>
+<li>错误否定（False Negative,FN）：预测为假，实际为真</li>
+</ol>
+<p>则：查准率=TP/(TP+FP)。例，在所有我们预测有恶性肿瘤的病人中，实际上有恶性肿瘤的病人的百分比，越高越好。<br>查全率=TP/(TP+FN)。例，在所有实际上有恶性肿瘤的病人中，成功预测有恶性肿瘤的病人的百分比，越高越好。</p>
+<p>这样，对于我们刚才那个总是预测病人肿瘤为良性的算法，其查全率是 0。<br><img src="https://img-blog.csdnimg.cn/20200715134329675.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<h3 id="9-4-Trading-Off-Precision-and-Recall-查准率和查全率之间的权衡"><a href="#9-4-Trading-Off-Precision-and-Recall-查准率和查全率之间的权衡" class="headerlink" title="9.4 Trading Off Precision and Recall(查准率和查全率之间的权衡)"></a>9.4 Trading Off Precision and Recall(查准率和查全率之间的权衡)</h3><p>在很多应用中，我们希望能够保证查准率和查全率的相对平衡。</p>
+<p>继续沿用刚才预测肿瘤性质的例子。假使，算法输出的结果在 0-1 之间，使用阀值 0.5 来预测真和假。<br><img src="https://img-blog.csdnimg.cn/20200715140646134.PNG#pic_center" alt="在这里插入图片描述"></p>
+<ul>
+<li>查准率(Precision)=TP/(TP+FP) 。在所有预测有恶性肿瘤的病人中，实际上有恶 性肿瘤的病人的百分比，越高越好。</li>
+<li>查全率(Recall)=TP/(TP+FN)。在所有实际上有恶性肿瘤的病人中，成功预测有恶性肿瘤的病人的百分比，越高越好。</li>
+<li>如果希望只在非常确信的情况下预测为真（肿瘤为恶性），即希望更高的查准率，可以使用比 0.5 更大的阀值，如0.7，0.9。这样做我们会减少错误预测病人为恶性肿瘤的情况，同时却会增加未能成功预测肿瘤为恶性的情况。</li>
+<li>如果希望提高查全率，尽可能地让所有有可能是恶性肿瘤的病人都得到进一步地 检查、诊断，可以使用比 0.5 更小的阀值，如 0.3。</li>
+</ul>
+<p>将不同阈值情况下，查全率与查准率的关系绘制成图表，曲线的形状根据数据的不同而不同：<br><img src="https://img-blog.csdnimg.cn/20200715141018277.PNG#pic_center" alt="在这里插入图片描述"><br>希望有一个帮助我们选择这个阈值的方法。<br><img src="https://img-blog.csdnimg.cn/20200715141425862.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>一种方法是计算 F1 值（F1 Score），其计算公式为：<br><img src="https://img-blog.csdnimg.cn/20200715141508777.png#pic_center" alt="在这里插入图片描述"><br>选择使得 F1 值最高的阀值。</p>
+<h3 id="9-5-Data-For-Machine-Learning"><a href="#9-5-Data-For-Machine-Learning" class="headerlink" title="9.5 Data For Machine Learning"></a>9.5 Data For Machine Learning</h3><p>例：希望通过机器学习算法来区分常见的易混淆的单词，尝试了许多种不同的算法，发现数据量非常大时，这些不同类型的算法效果都很好。<br><img src="https://img-blog.csdnimg.cn/20200715143139923.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>如上折线图所示，首先大部分算法，都具有相似的性能，其次，随着训练数据集的增大，在横轴上代表以百万为单位的训练集大小，从 0.1 个百万到 1000 百万，也就是到了 10亿规模的训练集的样本，这些算法的性能也都对应地增强了。</p>
+<p>事实上，如果选择任意一个算法，可能是选择了一个”劣等的”算法，如果给这个劣等算法更多的数据，那么从这些例子中看起来的话，它看上去很有可能会其他算法更好，甚至会比”优等算法”更好。像这样的结果，引起了一种在机器学习中的普遍共识：”取得成功的人不是拥有最好算法的人，而是拥有最多数据的人”。</p>
+<p>另一种考虑这个问题的角度是为了有一个高性能的学习算法，希望它不要有高的偏差和方差。因此偏差问题，将通过确保有一个具有很多参数的学习算法来解决，以便能够得到一个较低偏差的算法，并且通过用非常大的训练集来保证。<br><img src="https://img-blog.csdnimg.cn/20200715144013603.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>在此没有方差问题，这算法将没有方差，并且通过将这两个值放在一起，最终可以得到一个低误差和低方差的学习算法，能够很好地测试测试数据集。从根本上来说，这是一个关键的假设：特征值有足够的信息量，且有一类很好的函数，这是为什么能保证低误差的关键所在。它有大量的训练数据集，这能保证得到更多的方差值，因此这提出了一些可能的条件，如果你有大量的数据，而且你训练了一种带有很多参数的学习算法，那么这将会是一个很好的方式，来提供一个高性能的学习算法。</p>
+]]></content>
+      <categories>
+        <category>机器学习</category>
+      </categories>
+      <tags>
+        <tag>Machine Learning</tag>
+        <tag>Skewed Classes</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>【Machine Learning】概述</title>
+    <url>/2020/07/05/%5BMachine%20Learning%5D%20%E6%A6%82%E8%BF%B0/</url>
+    <content><![CDATA[<p><img src="https://img-blog.csdnimg.cn/20200705203342231.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<a id="more"></a>
 
-<h4 id="3-2-1-Gradient-Descent-in-Practice-I-Feature-Scaling-特征缩放"><a href="#3-2-1-Gradient-Descent-in-Practice-I-Feature-Scaling-特征缩放" class="headerlink" title="3.2.1 Gradient Descent in Practice I - Feature Scaling (特征缩放)"></a>3.2.1 Gradient Descent in Practice I - Feature Scaling (特征缩放)</h4><p><strong>在解决多维特征问题时，应该保证这些特征都具有相近的尺度，这将帮助梯度下降算法更快地收敛。</strong></p>
-<p>以房价问题为例，假设有两个特征，房屋的尺寸和房间的数量，尺寸的值为 0-2000 平方英尺，而房间数量的值则是 0-5，以两个参数分别为横纵坐标，绘制代价函数等高线图能，看出图像会显得很扁，梯度下降算法需要非常多次的迭代才能收敛。<br><img src="https://img-blog.csdnimg.cn/20200707104230484.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>解决方法是尝试将所有特征的尺度都尽量缩放到-1 到 1 之间，即==特征归一化==。如图：<br><img src="https://img-blog.csdnimg.cn/20200707104328954.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+
+<h2 id="1-概述"><a href="#1-概述" class="headerlink" title="1 概述"></a>1 概述</h2><p>机器学习即在进行特定编程的情况下，使用计算机作为工具并致力于真实实时的模拟人类学习方式， 并将现有内容进行知识结构划分来有效提高学习效率。</p>
+<p>根据训练数据是否拥有标记信息，学习任务可大致分为：“监督学习”、“无监督学习”。可理解为，监督学习这个想法是指我们将教计算机如何去完成任务；而在无监督学习中我们打算让它自己进行学习。分类和回归是前者的代表，聚类是后者的代表。</p>
+<h3 id="1-1-Learning-Map"><a href="#1-1-Learning-Map" class="headerlink" title="1.1 Learning Map"></a>1.1 Learning Map</h3><p>蓝色方块指的是scenario，即学习的情境。通常学习的情境是我们没有办法控制的，比如做reinforcement Learning是因为我们没有data、没有办法来做supervised Learning的情况下才去做的。如果有data，supervised Learning当然比reinforcement Learning要好；因此手上有什么样的data，就决定你使用什么样的scenario。</p>
+<p>红色方块指的是task，即要解决的问题。你要解的问题，随着你要找的function的output的不同，有输出scalar的regression、有输出options的classification、有输出structured object的structured Learning…</p>
+<p>绿色的方块指的是model，即用来解决问题的模型(function set)。在这些task里面有不同的model，也就是说，同样的task，我们可以用不同的方法来解它，比如linear model、Non-linear model(deep Learning、SVM、decision tree、K-NN…)</p>
+<p><img src="https://img-blog.csdnimg.cn/20200704201834783.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="&lt;img src=&quot;https://github.com/Sakura-gh/ML-notes/blob/master/img/learningMap.png?raw=true&quot; alt=&quot;learning map&quot; style=&quot;width: 60%;&quot; /&gt;"></p>
+<h3 id="1-2-Supervised-Learning-监督学习"><a href="#1-2-Supervised-Learning-监督学习" class="headerlink" title="1.2 Supervised Learning(监督学习)"></a>1.2 Supervised Learning(监督学习)</h3><p>supervised learning 需要大量的training data，这些training data要求我们找到function，当这个function看到某种input则输出a，看到另一种input输出b，看到……</p>
+<p>而这种function的output，通常被叫做==label(标签)==，也就是说，我们要使用supervised learning这样一种技术，我们需要告诉机器，function的input和output分别是什么，而这种output通常是通过人工的方式标注出来的，因此称为人工标注的label，它的缺点是需要大量的人工effort。</p>
+<h4 id="1-2-1-Case1-Housing-price-prediction"><a href="#1-2-1-Case1-Housing-price-prediction" class="headerlink" title="1.2.1 Case1: Housing price prediction"></a>1.2.1 Case1: Housing price prediction</h4><p>通过收集的房价数据绘制如下图，那基于这组数据，若有一套 750 平方英尺房子，那么这房子能卖多少钱。</p>
+<p>关于这个问题，机器学习算法将会怎么帮助你呢？<br><img src="https://img-blog.csdnimg.cn/20200705162412478.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>应用学习算法，可以在这组数据中画一条直线，即==拟合一条直线==，根据这条线我们可以推测出，这套房子可能卖$150,000，当然这不是唯一的算法。可能还有更好的，比如我们不用直线拟合这些数据，==用二次方程去拟合==可能效果会更好。根据二次方程的曲线，我们可以从这个点推测出，这套房子能卖接近$200,000。稍后我们将讨论如何选择学习算法，如何决定用直线还是二次方程来拟合。两个方案中有一个能让你朋友的房子出售得更合理。这些都是学习算法里面很好的例子。以上就是监督学习的例子。</p>
+<p>可以看出，监督学习指的就是我们给学习算法一个数据集。这个数据集由“正确答案”组成。在房价的例子中，我们给了一系列房子的数据，我们给定数据集中每个样本的正确价格，即它们实际的售价然后运用学习算法，算出更多的正确答案。比如你朋友那个新房子的价格。用术语来讲，这叫做==回归问题 (Regression)==。我们试着推测出一个连续值的结果，即房子的价格。</p>
 <blockquote>
-<p>数据的标准化（normalization）是将数据按比例缩放，使之落入一个小的特定区间。在某些比较和评价的指标处理中经常会用到，去除数据的单位限制，将其转化为无量纲的纯数值，便于不同单位或量级的指标能够进行比较和加权，可以大大提高分类器的准确性。<br>其中最典型的就是数据的归一化处理，即将数据统一映射到[0,1]区间上。</p>
+<p>regression是machine learning的一个task，特点是通过regression找到的function，它的输出是一个scalar数值。<br>比如PM2.5的预测，给machine的training data是过去的PM2.5资料，而输出的是对未来PM2.5的预测<strong>数值</strong>，这就是一个典型的regression的问题。</p>
 </blockquote>
-<p>归一化公式：<br><img src="https://img-blog.csdnimg.cn/20200707105004270.PNG#pic_center" alt="在这里插入图片描述"></p>
-<h4 id="3-2-2-Gradient-Descent-in-Practice-II-Learning-Rate-学习率"><a href="#3-2-2-Gradient-Descent-in-Practice-II-Learning-Rate-学习率" class="headerlink" title="3.2.2 Gradient Descent in Practice II - Learning Rate (学习率)"></a>3.2.2 Gradient Descent in Practice II - Learning Rate (学习率)</h4><p>梯度下降算法收敛所需要的迭代次数根据模型的不同而不同，无法提前预知，但可以绘制迭代次数和代价函数的图表来观测算法在何时趋于收敛。<br><img src="https://img-blog.csdnimg.cn/20200707105546868.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>图像300~400已经相当平坦了，可推测到达400左右时梯度下降法差不多已经收敛了。</p>
-<p>梯度下降算法的每次迭代受到学习率的影响，如果学习率𝑎过小，则达到收敛所需的迭代次数会非常多；如果学习率𝑎过大，每次迭代可能不会减小代价函数，可能会越过局部最小值导致无法收敛。</p>
-<p>通常可以考虑尝试些学习率：<br>𝛼 =…，0.001，0.003，0.01，0.03，0.1，0.3，1，…</p>
-<h3 id="3-3-Features-and-Polynomial-Regression-特征和多项式回归"><a href="#3-3-Features-and-Polynomial-Regression-特征和多项式回归" class="headerlink" title="3.3 Features and Polynomial Regression(特征和多项式回归)"></a>3.3 Features and Polynomial Regression(特征和多项式回归)</h3><p><img src="https://img-blog.csdnimg.cn/20200707121141207.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>线性回归并不适用于所有数据，有时需要曲线来适应数据，比如，<br>一个二次方模型：<img src="https://img-blog.csdnimg.cn/20200707121921446.PNG#pic_center" alt="在这里插入图片描述"><br>或者三次方模型：<img src="https://img-blog.csdnimg.cn/20200707121933949.PNG#pic_center" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20200707122024153.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>根据函数图形特性，我们还可以使：<br><img src="https://img-blog.csdnimg.cn/20200707122340253.PNG#pic_center" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20200707122358694.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>注：如果采用多项式回归模型，在运行梯度下降算法前，特征缩放非常有必要。</p>
-<h3 id="3-4-Normal-Equation-正规方程"><a href="#3-4-Normal-Equation-正规方程" class="headerlink" title="3.4 Normal Equation(正规方程)"></a>3.4 Normal Equation(正规方程)</h3><p>正规方程是区别于迭代方法的直接计算解法，即直接求导数等于0的点。<br><img src="https://img-blog.csdnimg.cn/20200707123106110.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>假设训练集特征矩阵为 𝑋（包含了 𝑥0 = 1）并且训练集结果为向量 𝑦，则利用正规方程解出向量：<img src="https://img-blog.csdnimg.cn/202007071243148.PNG#pic_center" alt="在这里插入图片描述"><br>例子：<br><img src="https://img-blog.csdnimg.cn/20200707124545251.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>注：对于不可逆的矩阵（通常是因为特征之间不独立，如同时包含英尺为单位的尺寸和米为单位的尺寸两个特征，也有可能是特征数量大于训练集的数量），正规方程方法是不能用的。</p>
-<p><strong>梯度下降与正规方程的比较</strong><br><img src="https://img-blog.csdnimg.cn/20200707125601290.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>注：只要特征变量的数目并不大，标准方程是一个很好的计算参数𝜃的替代方法。具体地说，只要特征变量数量小于一万，通常使用标准方程法，而不使用梯度下降法。</p>
-<p><strong>Normal Equation Noninvertibility(正规方程及不可逆性)</strong><br><img src="https://img-blog.csdnimg.cn/20200707130156670.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
-<p><strong>python实现正规方程：</strong></p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">normalEqn</span><span class="params">(X, y)</span>:</span></span><br><span class="line">	theta = np.linalg.inv(X.T@X)@X.T@y <span class="comment">#X.T@X 等价于 X.T.dot(X)</span></span><br><span class="line">	<span class="keyword">return</span> theta</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://img-blog.csdnimg.cn/20200707130732297.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20200707130731881.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<p>一般房子的价格会记到美分，所以房价实际上是一系列离散的值，但是我们通常又把房价看成实数，看成是标量，所以又把它看成一个连续的数值。</p>
+<h4 id="1-2-2-Case2-Breast-cancer-malignant-benign"><a href="#1-2-2-Case2-Breast-cancer-malignant-benign" class="headerlink" title="1.2.2 Case2: Breast cancer (malignant,benign)"></a>1.2.2 Case2: Breast cancer (malignant,benign)</h4><p>现有有 5 个良性肿瘤样本（O），5 个恶性肿瘤样本（X）。假设已知一个肿瘤的尺寸，那么机器学习的工作就在于能否估算出肿瘤是恶性的或是良性的概率。<br><img src="https://img-blog.csdnimg.cn/20200705163240876.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<p>用术语来讲，这是一个==分类问题 (Classification)==。分类指的是，我们试着推测出离散的输出值：0 或 1 良性或恶性，而事实上在分类问题中，输出可能不止两个值。比如说可能有三种乳腺癌，所以你希望预测离散输出 0、1、2、3。0 代表良性，1 表示第 1 类乳腺癌，2 表示第 2 类癌症，3 表示第 3 类，但这也是分类问题。</p>
+<blockquote>
+<p>regression和classification的区别是，我们要机器输出的东西的类型是不一样的，在regression里机器输出的是scalar（标量），而classification又分为两类：Binary Classification(二元分类)、Multi-class classification(多元分类)。<br><strong>在binary classification里</strong>，我们要机器输出的是yes or no，是或否。比如G-mail的spam filtering(垃圾邮件过滤器)，输入是邮件，输出是该邮件是否是垃圾邮件。<br><strong>在multi-class classification里</strong>，机器要做的是选择题，等于给他数个选项，每一个选项就是一个类别，它要从数个类别里面选择正确的类别。比如document classification(新闻文章分类)，输入是一则新闻，输出是这个新闻属于哪一个类别(选项)。</p>
+</blockquote>
+<p>在其它机器学习问题中，可能会遇到不止一种特征。举个例子，我们不仅知道肿瘤的尺寸，还知道对应患者的年龄。在其他机器学习问题中，我们通常有更多的特征，比如肿块密度，肿瘤细胞尺寸的一致性和形状的一致性等等，还有一些其他的特征。</p>
+<p><img src="https://img-blog.csdnimg.cn/20200705164946740.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>上图中，总共列举了 5 种不同的特征，坐标轴上的两种和右边的 3 种，但在一些学习问题上需要使用多种特征甚至无限，好让算法可以利用大量的特征，或者说线索来做推测。那如何处理无限多个特征，甚至如何存储这些特征都存在问题，你电脑的内存肯定不够用。我们以后会讲一个算法，叫==支持向量机==，里面有一个巧妙的数学技巧，能让计算机处理无限多个特征。</p>
+<p>现在来回顾一下，这节课我们介绍了监督学习。其基本思想是，我们数据集中的每个样本都有相应的“正确答案”。再根据这些样本作出预测，就像房子和肿瘤的例子中做的那样。</p>
+<p>我们还介绍了回归问题，即通过回归来推出一个连续的输出，之后我们介绍了分类问题，其目标是推出一组离散的结果。</p>
+<h3 id="1-3-Unsupervised-Learning-无监督学习"><a href="#1-3-Unsupervised-Learning-无监督学习" class="headerlink" title="1.3 Unsupervised Learning(无监督学习)"></a>1.3 Unsupervised Learning(无监督学习)</h3><p>区别于supervised learning，unsupervised learning希望机器学到无师自通，在完全没有任何label的情况下，机器到底能学到什么样的知识。</p>
+<p><img src="https://img-blog.csdnimg.cn/20200705192208335.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<p>在无监督学习中，已知的数据不同于监督学习的数据，无监督学习中没有任何的标签或者是有相同的标签或者就是没标签。所以我们已知数据集，却不知如何处理，也未告知每个数据点是什么。针对数据集，无监督学习就能判断出数据有两个不同的聚集簇。这是一个，那是另一个，二者不同。是的，无监督学习算法可能会把这些数据分成两个不同的簇。所以叫做==聚类算法（Clustering Algorithm）==。</p>
+<p>聚类应用的一个例子就是在谷歌新闻中。谷歌新闻每天都在，收集非常多，非常多的网络的新闻内容。它再将这些新闻分组，组成有关联的新闻。所以谷歌新闻做的就是搜索非常多的新闻事件，自动地把它们聚类到一起，显示到一起。</p>
+<h4 id="1-3-1-Case-Cocktail-party-problem-algorithm"><a href="#1-3-1-Case-Cocktail-party-problem-algorithm" class="headerlink" title="1.3.1 Case: Cocktail party problem algorithm"></a>1.3.1 Case: Cocktail party problem algorithm</h4><p>在鸡尾酒宴上，人们都在聊天，这么多人同时在聊天，声音彼此重叠，所以可能会发生两个人同时都在说话的情形。现假设在一个小型鸡尾酒宴上，房间中有两个麦克风，因为这些麦克风在两个地方，每个麦克风记录下不同的声音，两份录音被叠加到一起，或是被归结到一起，产生了我们现在的这些录音。</p>
+<p>为区分出两个音频资源，似乎需要写大量复杂的代码或链接到一堆的合成器 JAVA 库。事实上，只要一行代码即可完成。</p>
+<p>[W,s,v] = svd((repmat(sum(x.<em>x,1),size(x,1),1).</em>x)*x’);</p>
+<h3 id="1-4-Semi-supervised-Learning-半监督学习"><a href="#1-4-Semi-supervised-Learning-半监督学习" class="headerlink" title="1.4 Semi-supervised Learning(半监督学习)"></a>1.4 Semi-supervised Learning(半监督学习)</h3><p>举例：如果想要做一个区分猫和狗的function。手头上有少量的labeled data，它们标注了图片上哪只是猫哪只是狗；同时又有大量的unlabeled data，它们仅仅只有猫和狗的图片，但没有标注去告诉机器哪只是猫哪只是狗。</p>
+<p>在Semi-supervised Learning的技术里面，这些没有labeled的data，对机器学习也是有帮助的。</p>
+<h3 id="1-5-Transfer-Learning-迁移学习"><a href="#1-5-Transfer-Learning-迁移学习" class="headerlink" title="1.5 Transfer Learning(迁移学习)"></a>1.5 Transfer Learning(迁移学习)</h3><p>假设一样我们要做猫和狗的分类问题。我们也一样只有少量的有labeled的data；但是我们现在有大量的不相干的data(不是猫和狗的图片，而是一些其他不相干的图片)，在这些大量的data里面，它可能有label也可能没有label。</p>
+<p>Transfer Learning要解决的问题是，这一堆不相干的data可以对结果带来什么样的帮助。</p>
+<p><img src="https://img-blog.csdnimg.cn/2020070520234656.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<h3 id="1-6-Structured-Learning-结构化学习"><a href="#1-6-Structured-Learning-结构化学习" class="headerlink" title="1.6 Structured Learning(结构化学习)"></a>1.6 Structured Learning(结构化学习)</h3><p>在structured Learning里，我们要机器输出的是，一个有结构性的东西。</p>
+<p>在分类的问题中，机器输出的只是一个选项；在structured类的problem里面，机器要输出的是一个复杂的物件。举例来说，在语音识别的情境下，机器的输入是一个声音信号，输出是一个句子；句子是由许多词汇拼凑而成，它是一个有结构性的object；或者说机器翻译、人脸识别(标出不同的人的名称)。</p>
+<p>比如<strong>GAN</strong>也是structured Learning的一种方法。</p>
+<p><img src="https://img-blog.csdnimg.cn/20200705203242595.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<h3 id="1-7-Reinforcement-Learning-强化学习"><a href="#1-7-Reinforcement-Learning-强化学习" class="headerlink" title="1.7 Reinforcement Learning(强化学习)"></a>1.7 Reinforcement Learning(强化学习)</h3><p><strong>Supervised Learning</strong>：我们会告诉机器正确的答案是什么 ，其特点是<strong>Learning from teacher</strong>。</p>
+<ul>
+<li>比如训练一个聊天机器人，告诉他如果使用者说了“Hello”，你就说“Hi”；如果使用者说了“Bye bye”，你就说“Good bye”；就好像有一个家教在它的旁边手把手地教他每一件事情。</li>
+</ul>
+<p><strong>Reinforcement Learning</strong>：我们没有告诉机器正确的答案是什么，机器最终得到的只有一个分数，就是它做的好还是不好，但他不知道自己到底哪里做的不好，他也没有正确的答案；很像真实社会中的学习，你没有一个正确的答案，你只知道自己是做得好还是不好。其特点是<strong>Learning from critics</strong>。</p>
+<ul>
+<li>比如训练一个聊天机器人，让它跟客人直接对话；如果客人勃然大怒把电话挂掉了，那机器就学到一件事情，刚才做错了，它不知道自己哪里做错了，必须自己回去反省检讨到底要如何改进，比如一开始不应该打招呼吗？还是中间不能骂脏话之类的。</li>
+</ul>
+<p><img src="https://img-blog.csdnimg.cn/20200705202235316.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<p>拿下棋这件事举例，supervised Learning是说看到眼前这个棋盘，告诉机器下一步要走什么位置；而reinforcement Learning是说让机器和对手互弈，下了好几手之后赢了，机器就知道这一局棋下的不错，但是到底哪一步是赢的关键，机器是不知道的，他只知道自己是赢了还是输了。</p>
+<p>其实Alpha Go是用supervised Learning+reinforcement Learning的方式去学习的，机器先是从棋谱学习，有棋谱就可以做supervised的学习；之后再做reinforcement Learning，机器的对手是另外一台机器，Alpha Go就是和自己下棋，然后不断的进步。</p>
 ]]></content>
       <categories>
         <category>机器学习</category>
@@ -334,79 +496,9 @@
       </tags>
   </entry>
   <entry>
-    <title>【Machine Learning】单变量线性回归(Linear Regression with One Variable)</title>
-    <url>/2020/07/06/%5BMachine%20Learning%5D%20%E5%8D%95%E5%8F%98%E9%87%8F%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92(Linear%20Regression%20with%20One%20Variable)/</url>
-    <content><![CDATA[<p><img src="https://img-blog.csdnimg.cn/20200706191025292.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
-<a id="more"></a>
-
-<h2 id="2-Linear-Regression-with-One-Variable-单变量线性回归"><a href="#2-Linear-Regression-with-One-Variable-单变量线性回归" class="headerlink" title="2 Linear Regression with One Variable(单变量线性回归)"></a>2 Linear Regression with One Variable(单变量线性回归)</h2><h3 id="2-1-Case-Housing-Prices"><a href="#2-1-Case-Housing-Prices" class="headerlink" title="2.1 Case: Housing Prices"></a>2.1 Case: Housing Prices</h3><p>使用数据集预测住房价格，数据集包含某市的不同房屋尺寸所售出的价格。<br><img src="https://img-blog.csdnimg.cn/20200706132157519.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述">)<img src="https://img-blog.csdnimg.cn/20200706131824876.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>其中，ℎ 代表学习算法的解决方案或函数也称为==假设（hypothesis）==。</p>
-<p>这就是一个监督学习算法的工作方式，在学习算法下，输入训练集里的房屋价格，然后输出一个函数，通常表示为小写 ℎ表示。ℎ 代表 hypothesis(假设)，ℎ表示一个函数，输入是房屋尺寸大小，因此 ℎ 根据输入的 𝑥值来得出 𝑦 值，𝑦 值对应房子的价格。因此，ℎ 是一个从𝑥到 𝑦 的函数映射。</p>
-<p>那么，对于房价预测问题，该如何表达 ℎ？</p>
-<p>一种可能的表达方式为：ℎ𝜃(𝑥) = 𝜃0 + 𝜃1𝑥，因为只含有一个特征/输入变量，因此这样的问题叫作==单变量线性回归问题(Linear Regression with One Variable)==。</p>
-<h3 id="2-2-Cost-Function-代价函数"><a href="#2-2-Cost-Function-代价函数" class="headerlink" title="2.2 Cost Function(代价函数)"></a>2.2 Cost Function(代价函数)</h3><p><img src="https://img-blog.csdnimg.cn/2020070613382955.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>在线性回归中有一个训练集，其预测的函数形式是：ℎ𝜃(𝑥) = 𝜃0 + 𝜃1𝑥。接下来要做的便是为模型选择合适的参数（parameters）𝜃0 和 𝜃1，在房价问题这个例子中便是直线的斜率和在𝑦 轴上的截距。</p>
-<p>选择的参数决定了所得到的直线相对于我们的训练集的准确程度，模型所预测的值与训练集中实际值之间的差距（下图中蓝线所指）就是==建模误差（modeling error）==。</p>
-<p><img src="https://img-blog.csdnimg.cn/20200706135220962.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>目标便是选择出可以使得建模误差的平方和能够最小的模型参数， 即让代价函数：<img src="https://img-blog.csdnimg.cn/20200706135354668.PNG#pic_center" alt="在这里插入图片描述">最小。</p>
-<p>如图一个等高线图，三个坐标分别为𝜃0和𝜃1 和𝐽(𝜃0, 𝜃1)：<br><img src="https://img-blog.csdnimg.cn/20200706135500768.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>则可以看出在三维空间中存在一个使得𝐽(𝜃0, 𝜃1)最小的点。</p>
-<p>在实际问题上，我们会遇到更复杂、更高维度、更多参数的情况，而这些情况是很难画出图的，因此更无法将其可视化，因此我们需要的是编写程序来找出这些最小化代价函数的𝜃0和𝜃1的值。</p>
-<p>==代价函数  (Cost Function)== 也被称作平方误差函数，有时也被称为平方误差代价函数。之所以要求出误差的平方和，是因为对于大多数问题，特别是回归问题，误差平方代价函数都是一个合理的选择。虽然还有其他的代价函数也能很好地发挥作用，但是平方误差代价函数可能是解决回归问题最常用的手段了。<br><img src="https://img-blog.csdnimg.cn/20200706141519668.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述">)<img src="https://img-blog.csdnimg.cn/20200706141307651.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
-<h3 id="2-3-Gradient-Decent-梯度下降"><a href="#2-3-Gradient-Decent-梯度下降" class="headerlink" title="2.3 Gradient Decent(梯度下降)"></a>2.3 Gradient Decent(梯度下降)</h3><p>==梯度下降(Gradient Decent)== 是一个用来求函数最小值的算法，可使用梯度下降算法来求出代价函数𝐽(𝜃0, 𝜃1) 的最小值。</p>
-<p>梯度下降含义是：开始时随机选择一个参数的组合(𝜃0, 𝜃1, . . . . . . , 𝜃𝑛)，计算代价函数，然后寻找下一个能让代价函数值下降最多的参数组合。持续这么做直到到到一个局部最小值（local minimum），因为并没有尝试完所有的参数组合，所以不能确定所得到的局部最小值是否便是全局最小值（global minimum），选择不同的初始参数组合，可能会找到不同的局部最小值。<br><img src="https://img-blog.csdnimg.cn/20200706144357901.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>例如，你站立在这座红色山上，寻找最快下山的方向。在梯度下降算法中，我们要做的就是旋转 360 度，发现最佳的下山方向，然后按照判断迈出一步，再在新的一个点重复上面的步骤，决定从什么方向将会最快下山，并依此类推，直到接近局部最低点的位置。</p>
-<p>==批量梯度下降（batch gradient descent）== 算法的公式为：<br><img src="https://img-blog.csdnimg.cn/202007061443109.PNG#pic_center" alt="在这里插入图片描述"><br>其中𝑎是学习率（learning rate），它决定了沿着能让代价函数下降程度最大的方向向下迈出的步子有多大，在批量梯度下降中，每一次都同时让所有的参数减去学习速率乘以代价函数的导数。</p>
-<p><img src="https://img-blog.csdnimg.cn/2020070614584344.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>在梯度下降算法中，左边是正确实现<strong>同时</strong>更新的方法。</p>
-<p>梯度下降算法如下：<br><img src="https://img-blog.csdnimg.cn/20200706154630872.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>描述：对𝜃赋值，使得𝐽(𝜃)按梯度下降最快方向进行，一直迭代下去，最终得到局部最小值。<br><img src="https://img-blog.csdnimg.cn/20200706161527701.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>图中上方红色切线的斜率是正，也就是说它有正导数，因此可得到的新的𝜃1，𝜃1更新后等于𝜃1减去一个正数乘以𝑎。相反，图中下方红色切线的斜率是负。</p>
-<p><strong>如果𝑎太小或𝑎太大会出现什么情况：</strong></p>
-<ul>
-<li>如果𝑎太小了，即我的学习速率太小，结果就是像蜗牛一样一点点地挪动，不断接近最低点，这样就需要很多步才能到达最低点，所以如果𝑎太小的话，可能会很慢，因为它会一点点挪动，它会需要很多步才能到达全局最低点。</li>
-<li>如果𝑎太大，那么梯度下降法可能会越过最低点，甚至可能无法收敛，下一次迭代又移动了一大步，越过一次，又越过一次，一次次越过最低点，直到你发现实际上离最低点越来越远，所以，如果𝑎太大，它会导致无法收敛，甚至发散。</li>
-</ul>
-<p><strong>如果预先把𝜃1放在一个局部的最低点，下一步梯度下降法会怎样工作？</strong></p>
-<ul>
-<li>假设将𝜃1初始化在局部最低点，那么它已经在一个局部的最优处或局部最低点，导数将等于零。这意味着该点已经在局部最优点，它使得𝜃1不再改变，也就是新的𝜃1等于原来的𝜃1，因此，如果参数已经处于局部最低点，那么梯度下降法更新其实什么都没做，它不会改变参数的值。这也解释了为什么即使学习速率𝑎保持不变时，梯度下降也可以收敛到局部最低点。</li>
-</ul>
-<h4 id="2-3-1-Case-Cost-Function-of-Gradient-Descent"><a href="#2-3-1-Case-Cost-Function-of-Gradient-Descent" class="headerlink" title="2.3.1 Case: Cost Function of Gradient Descent"></a>2.3.1 Case: Cost Function of Gradient Descent</h4><p>例子：<br><img src="https://img-blog.csdnimg.cn/20200706161618177.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>为了找到最小值，首先初始化梯度下降算法，在那个粉红色的点初始化，如果更新一步梯度下降，到了绿色的点。不断更新，越来越接近最低点，导数也越来越接近零。所以随着梯度下降法的运行，移动的幅度会自动变得越来越小，直到最终移动幅度非常小，收敛到局部极小值。</p>
-<p>总结一下，在梯度下降法中，当接近局部最低点时，梯度下降法会自动采取更小的幅度，实际上没有必要再另外减小𝑎。这是因为在局部最低点时导数等于零，当接近局部最低时，导数值会自动变得越来越小。</p>
-<h4 id="2-3-2-Gradient-Descent-For-Linear-Regression-梯度下降的线性回归"><a href="#2-3-2-Gradient-Descent-For-Linear-Regression-梯度下降的线性回归" class="headerlink" title="2.3.2 Gradient Descent For Linear Regression(梯度下降的线性回归)"></a>2.3.2 Gradient Descent For Linear Regression(梯度下降的线性回归)</h4><p>梯度下降算法和线性回归算法比较如图：<br><img src="https://img-blog.csdnimg.cn/20200706162727647.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20200706163111965.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>则算法可改写为：<br><img src="https://img-blog.csdnimg.cn/20200706163141859.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>上面的算法有时也称为==批量梯度下降(“Batch” Gradient Descent，简称：BGD)== ，指的是在梯度下降的每一步中，都会用到所有的训练样本，在计算微分求导项时，需要进行求和运算，所以，在每一个单独的梯度下降中，最终都要计算这样一个东西，这个项需要对所有𝑚个训练样本求和。因此，批量梯度下降法这个名字说明了需要考虑所有这一”批”训练样本，而事实上，也有其他类型的梯度下降法，不是这种”批量”型的，不考虑整个的训练集，而是每次只关注训练集中的一些小的子集。</p>
-]]></content>
-      <categories>
-        <category>机器学习</category>
-      </categories>
-      <tags>
-        <tag>Machine Learning</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>【Machine Learning】正则化(Regularization)</title>
-    <url>/2020/07/08/%5BMachine%20Learning%5D%20%E6%AD%A3%E5%88%99%E5%8C%96(Regularization)/</url>
-    <content><![CDATA[<p><img src="https://img-blog.csdnimg.cn/20200708161032267.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
-<a id="more"></a>
-
-<h2 id="5-Regularization-正则化"><a href="#5-Regularization-正则化" class="headerlink" title="5 Regularization(正则化)"></a>5 Regularization(正则化)</h2><h3 id="5-1-The-problem-of-overfitting"><a href="#5-1-The-problem-of-overfitting" class="headerlink" title="5.1 The problem of overfitting"></a>5.1 The problem of overfitting</h3><p><strong>case1：</strong><br><img src="https://img-blog.csdnimg.cn/20200708133431983.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
-<ul>
-<li>第一个模型是一个线性模型，欠拟合，不能很好地适应训练集；</li>
-<li>第三个模型是一个四次方的模型，过于强调拟合原始数据，而丢失了算法的本质：预测新数据。即，若给出一个新的值使之预测，它将表现的很差；</li>
-<li>而中间的模型似乎最合适。</li>
-</ul>
-<p><strong>case2：</strong><br><img src="https://img-blog.csdnimg.cn/20200708134042138.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>同上。</p>
-<p><strong>过拟合的解决方法</strong><br><img src="https://img-blog.csdnimg.cn/20200708134338840.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
-<h3 id="5-2-Cost-Function"><a href="#5-2-Cost-Function" class="headerlink" title="5.2 Cost Function"></a>5.2 Cost Function</h3><p>上面的回归问题中模型是：<br><img src="https://img-blog.csdnimg.cn/20200708135115992.PNG#pic_center" alt="在这里插入图片描述"><br>一般而言，正是那些高次项导致了过拟合的产生，所以如果能让这些高次项的系数接近于 0 的话，就能很好的拟合了，所以可以在一定程度上减小这些参数𝜃 的值，这正是正则化的基本方法。当要减少𝜃3和𝜃4的大小，需要做的便是修改代价函数，在其中𝜃3和𝜃4 设置一点惩罚。在尝试最小化代价时也需要将这个惩罚纳入考虑中，并最终导致选择较小一些的𝜃3和𝜃4。</p>
-<p>修改后的代价函数：<br><img src="https://img-blog.csdnimg.cn/2020070813555675.PNG#pic_center" alt="在这里插入图片描述"><br>通过这样的代价函数选择出的𝜃3和𝜃4 对预测结果的影响就比之前要小许多。假如有非常多的特征，并不知道其中哪些特征需要惩罚，可以将对所有的特征进行惩罚，并且让代价函数最优化的软件来选择这些惩罚的程度。这样的结果是得到了一个较为简单的能防止过拟合问题的假设：<br><img src="https://img-blog.csdnimg.cn/20200708135853580.PNG#pic_center" alt="在这里插入图片描述"><br>其中𝜆又称为==正则化参数（Regularization Parameter）==。 注：根据惯例，我们不对𝜃0 进行惩罚。经过正则化处理的模型（粉色）与原模型（蓝色）的可能对比如下图所示：<br><img src="https://img-blog.csdnimg.cn/2020070814004971.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>如果选择的正则化参数 λ 过大，则会把所有的参数都最小化了，那么𝜃（不包括𝜃0）都会趋近于 0，这样我们所得到的只能是一条平行于𝑥轴的直线，模型变成 ℎ<sub>𝜃</sub>(𝑥) =𝜃<sub>0</sub>，造成欠拟合。</p>
-<h3 id="5-3-Regularizede-linear-regression-正则化线性回归"><a href="#5-3-Regularizede-linear-regression-正则化线性回归" class="headerlink" title="5.3 Regularizede linear regression(正则化线性回归)"></a>5.3 Regularizede linear regression(正则化线性回归)</h3><p>对于线性回归的求解，之前推导了两种学习算法：一种基于梯度下降，一种基于正规方程。</p>
-<p>正则化线性回归的代价函数为：<br><img src="https://img-blog.csdnimg.cn/20200708142309532.PNG#pic_center" alt="在这里插入图片描述"><br>如果要使用梯度下降法令这个代价函数最小化，因为未进行正则化，所以梯度下降算法将分两种情形：<br><img src="https://img-blog.csdnimg.cn/20200708142428802.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>对上面的算法中𝑗 = 1,2, . . . , 𝑛 时的更新式子进行调整可得：<br><img src="https://img-blog.csdnimg.cn/2020070814252032.PNG#pic_center" alt="在这里插入图片描述"><br>可以看出，正则化线性回归的梯度下降算法的变化在于，每次都在原有算法更新规则的基础上令𝜃值减少了一个额外的值。</p>
-<p>注：在梯度下降时，对任意的θ<sub>j</sub>的处理可以分为两部分，J(θ)的偏导数 + 单独针对该θ<sub>j</sub>的正则化项。</p>
-<p>同样也可以利用正规方程来求解正则化线性回归模型，方法如下所示：<br><img src="https://img-blog.csdnimg.cn/20200708155229540.PNG#pic_center" alt="在这里插入图片描述"><br>图中的矩阵尺寸为 (𝑛 + 1) ∗ (𝑛 + 1)。</p>
-<h3 id="5-4-Regularized-Logistic-Regression-正则化的逻辑回归模型"><a href="#5-4-Regularized-Logistic-Regression-正则化的逻辑回归模型" class="headerlink" title="5.4 Regularized Logistic Regression(正则化的逻辑回归模型)"></a>5.4 Regularized Logistic Regression(正则化的逻辑回归模型)</h3><p>针对逻辑回归问题，之前已学习过两种优化算法：首先学习了使用梯度下降法来优化代价函数𝐽(𝜃)，接下来学习了更高级的优化算法，这些高级优化算法需要自己设计代价函数𝐽(𝜃)。<br><img src="https://img-blog.csdnimg.cn/20200708160007681.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>对于逻辑回归，代价函数正则化的表达式：<br><img src="https://img-blog.csdnimg.cn/20200708160155875.PNG#pic_center" alt="在这里插入图片描述"><br>要最小化该代价函数，通过求导，得出梯度下降算法为：<br><img src="https://img-blog.csdnimg.cn/20200708160313567.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>注：看上去同线性回归一样，但是知道 ℎ<sub>𝜃</sub>(𝑥) = 𝑔(𝜃<sup>𝑇</sup>𝑋)，所以与线性回归不同。𝜃<sub>0</sub>不参与其中的任何一个正则化。</p>
-]]></content>
-      <categories>
-        <category>机器学习</category>
-      </categories>
-      <tags>
-        <tag>Machine Learning</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>《增长黑客实战》（第4-6章）</title>
     <url>/2020/07/16/%E3%80%8A%E5%A2%9E%E9%95%BF%E9%BB%91%E5%AE%A2%E5%AE%9E%E6%88%98%E3%80%8B%EF%BC%88%E7%AC%AC4-6%E7%AB%A0%EF%BC%89/</url>
-    <content><![CDATA[<p>![在这里插入图片描述](<a href="https://img-blog.csdnimg.cn/2020071414080124.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" target="_blank" rel="noopener">https://img-blog.csdnimg.cn/2020071414080124.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center</a> =242x320)</p>
+    <content><![CDATA[<p><img src="https://img-blog.csdnimg.cn/2020071414384626.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
 <a id="more"></a>
 
 <h2 id="4-秉持数据为王"><a href="#4-秉持数据为王" class="headerlink" title="4 秉持数据为王"></a>4 秉持数据为王</h2><h3 id="4-1-数据能够解决什么"><a href="#4-1-数据能够解决什么" class="headerlink" title="4.1 数据能够解决什么"></a>4.1 数据能够解决什么</h3><h4 id="4-1-1-是否一切皆可数据化衡量"><a href="#4-1-1-是否一切皆可数据化衡量" class="headerlink" title="4.1.1 是否一切皆可数据化衡量"></a>4.1.1 是否一切皆可数据化衡量</h4><p><strong>如何估算芝加哥有多少钢琴调音师？</strong><br>解答：芝加哥人口大约300万人，假设平均10-30个家庭中有一部钢琴，每部钢琴大约一年需要调音一次，每个调音师每天大约调音4-5家，每个调音师每年工作250天。那么，上述问题答案可由以下公式求得：<br><img src="https://img-blog.csdnimg.cn/20200715151232307.PNG#pic_center" alt="在这里插入图片描述"></p>
@@ -517,6 +609,35 @@
       </categories>
       <tags>
         <tag>用户增长</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>【Machine Learning】正则化(Regularization)</title>
+    <url>/2020/07/08/%5BMachine%20Learning%5D%20%E6%AD%A3%E5%88%99%E5%8C%96(Regularization)/</url>
+    <content><![CDATA[<p><img src="https://img-blog.csdnimg.cn/20200708161032267.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<a id="more"></a>
+
+<h2 id="5-Regularization-正则化"><a href="#5-Regularization-正则化" class="headerlink" title="5 Regularization(正则化)"></a>5 Regularization(正则化)</h2><h3 id="5-1-The-problem-of-overfitting"><a href="#5-1-The-problem-of-overfitting" class="headerlink" title="5.1 The problem of overfitting"></a>5.1 The problem of overfitting</h3><p><strong>case1：</strong><br><img src="https://img-blog.csdnimg.cn/20200708133431983.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<ul>
+<li>第一个模型是一个线性模型，欠拟合，不能很好地适应训练集；</li>
+<li>第三个模型是一个四次方的模型，过于强调拟合原始数据，而丢失了算法的本质：预测新数据。即，若给出一个新的值使之预测，它将表现的很差；</li>
+<li>而中间的模型似乎最合适。</li>
+</ul>
+<p><strong>case2：</strong><br><img src="https://img-blog.csdnimg.cn/20200708134042138.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>同上。</p>
+<p><strong>过拟合的解决方法</strong><br><img src="https://img-blog.csdnimg.cn/20200708134338840.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<h3 id="5-2-Cost-Function"><a href="#5-2-Cost-Function" class="headerlink" title="5.2 Cost Function"></a>5.2 Cost Function</h3><p>上面的回归问题中模型是：<br><img src="https://img-blog.csdnimg.cn/20200708135115992.PNG#pic_center" alt="在这里插入图片描述"><br>一般而言，正是那些高次项导致了过拟合的产生，所以如果能让这些高次项的系数接近于 0 的话，就能很好的拟合了，所以可以在一定程度上减小这些参数𝜃 的值，这正是正则化的基本方法。当要减少𝜃3和𝜃4的大小，需要做的便是修改代价函数，在其中𝜃3和𝜃4 设置一点惩罚。在尝试最小化代价时也需要将这个惩罚纳入考虑中，并最终导致选择较小一些的𝜃3和𝜃4。</p>
+<p>修改后的代价函数：<br><img src="https://img-blog.csdnimg.cn/2020070813555675.PNG#pic_center" alt="在这里插入图片描述"><br>通过这样的代价函数选择出的𝜃3和𝜃4 对预测结果的影响就比之前要小许多。假如有非常多的特征，并不知道其中哪些特征需要惩罚，可以将对所有的特征进行惩罚，并且让代价函数最优化的软件来选择这些惩罚的程度。这样的结果是得到了一个较为简单的能防止过拟合问题的假设：<br><img src="https://img-blog.csdnimg.cn/20200708135853580.PNG#pic_center" alt="在这里插入图片描述"><br>其中𝜆又称为==正则化参数（Regularization Parameter）==。 注：根据惯例，我们不对𝜃0 进行惩罚。经过正则化处理的模型（粉色）与原模型（蓝色）的可能对比如下图所示：<br><img src="https://img-blog.csdnimg.cn/2020070814004971.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>如果选择的正则化参数 λ 过大，则会把所有的参数都最小化了，那么𝜃（不包括𝜃0）都会趋近于 0，这样我们所得到的只能是一条平行于𝑥轴的直线，模型变成 ℎ<sub>𝜃</sub>(𝑥) =𝜃<sub>0</sub>，造成欠拟合。</p>
+<h3 id="5-3-Regularizede-linear-regression-正则化线性回归"><a href="#5-3-Regularizede-linear-regression-正则化线性回归" class="headerlink" title="5.3 Regularizede linear regression(正则化线性回归)"></a>5.3 Regularizede linear regression(正则化线性回归)</h3><p>对于线性回归的求解，之前推导了两种学习算法：一种基于梯度下降，一种基于正规方程。</p>
+<p>正则化线性回归的代价函数为：<br><img src="https://img-blog.csdnimg.cn/20200708142309532.PNG#pic_center" alt="在这里插入图片描述"><br>如果要使用梯度下降法令这个代价函数最小化，因为未进行正则化，所以梯度下降算法将分两种情形：<br><img src="https://img-blog.csdnimg.cn/20200708142428802.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>对上面的算法中𝑗 = 1,2, . . . , 𝑛 时的更新式子进行调整可得：<br><img src="https://img-blog.csdnimg.cn/2020070814252032.PNG#pic_center" alt="在这里插入图片描述"><br>可以看出，正则化线性回归的梯度下降算法的变化在于，每次都在原有算法更新规则的基础上令𝜃值减少了一个额外的值。</p>
+<p>注：在梯度下降时，对任意的θ<sub>j</sub>的处理可以分为两部分，J(θ)的偏导数 + 单独针对该θ<sub>j</sub>的正则化项。</p>
+<p>同样也可以利用正规方程来求解正则化线性回归模型，方法如下所示：<br><img src="https://img-blog.csdnimg.cn/20200708155229540.PNG#pic_center" alt="在这里插入图片描述"><br>图中的矩阵尺寸为 (𝑛 + 1) ∗ (𝑛 + 1)。</p>
+<h3 id="5-4-Regularized-Logistic-Regression-正则化的逻辑回归模型"><a href="#5-4-Regularized-Logistic-Regression-正则化的逻辑回归模型" class="headerlink" title="5.4 Regularized Logistic Regression(正则化的逻辑回归模型)"></a>5.4 Regularized Logistic Regression(正则化的逻辑回归模型)</h3><p>针对逻辑回归问题，之前已学习过两种优化算法：首先学习了使用梯度下降法来优化代价函数𝐽(𝜃)，接下来学习了更高级的优化算法，这些高级优化算法需要自己设计代价函数𝐽(𝜃)。<br><img src="https://img-blog.csdnimg.cn/20200708160007681.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>对于逻辑回归，代价函数正则化的表达式：<br><img src="https://img-blog.csdnimg.cn/20200708160155875.PNG#pic_center" alt="在这里插入图片描述"><br>要最小化该代价函数，通过求导，得出梯度下降算法为：<br><img src="https://img-blog.csdnimg.cn/20200708160313567.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>注：看上去同线性回归一样，但是知道 ℎ<sub>𝜃</sub>(𝑥) = 𝑔(𝜃<sup>𝑇</sup>𝑋)，所以与线性回归不同。𝜃<sub>0</sub>不参与其中的任何一个正则化。</p>
+]]></content>
+      <categories>
+        <category>机器学习</category>
+      </categories>
+      <tags>
+        <tag>Machine Learning</tag>
       </tags>
   </entry>
   <entry>
@@ -1011,127 +1132,6 @@ dtype: int64"></p>
       </categories>
       <tags>
         <tag>运营指标</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>【Machine Learning】机器学习系统的设计(Machine Learning System Design)</title>
-    <url>/2020/07/15/%5BMachine%20Learning%5D%20%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%B3%BB%E7%BB%9F%E7%9A%84%E8%AE%BE%E8%AE%A1(Machine%20Learning%20System%20Design)/</url>
-    <content><![CDATA[<p><img src="https://img-blog.csdnimg.cn/20200715144610243.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
-<a id="more"></a>
-
-<h2 id="9-Machine-Learning-System-Design-机器学习系统的设计"><a href="#9-Machine-Learning-System-Design-机器学习系统的设计" class="headerlink" title="9 Machine Learning System Design(机器学习系统的设计)"></a>9 Machine Learning System Design(机器学习系统的设计)</h2><h3 id="9-1-Prioritizing-What-to-Work-On"><a href="#9-1-Prioritizing-What-to-Work-On" class="headerlink" title="9.1 Prioritizing What to Work On"></a>9.1 Prioritizing What to Work On</h3><p>例子：一个垃圾邮件分类器算法。</p>
-<p>为了解决这样一个问题，首先要确定如何选择并表达特征向量𝑥。例如可以选择由 100 个最常出现在垃圾邮件中的词所构成的列表，根据这些词是否有在邮件中出现，来获得特征向量（出现为 1，不出现为 0），尺寸为 100×1。<br><img src="https://img-blog.csdnimg.cn/2020071512515334.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>为了构建这个分类器算法，可以做很多事，例如：</p>
-<ol>
-<li>收集更多的数据，让我们有更多的垃圾邮件和非垃圾邮件的样本</li>
-<li>基于邮件的路由信息开发一系列复杂的特征</li>
-<li>基于邮件的正文信息开发一系列复杂的特征，包括考虑截词的处理</li>
-<li>为探测刻意的拼写错误（把 watch 写成 w4tch）开发复杂的算法</li>
-</ol>
-<p>对于上面这些选项，难以决定应该在哪一项上花费时间和精力。不过当使用机器学习时，总是可以“头脑风暴”一下，想出一堆方法来试试，作出明智的选择，比随着感觉走要更好。</p>
-<h3 id="9-2-Error-Analysis"><a href="#9-2-Error-Analysis" class="headerlink" title="9.2 Error Analysis"></a>9.2 Error Analysis</h3><p>构建一个学习算法的推荐方法为：</p>
-<ol>
-<li>构建一个简单并且能快速实现的算法，即便运行得不完美，但是也把它运行一遍，最后通过交叉验证来检验数据。</li>
-<li>一旦做完，可以画出学习曲线，通过画出学习曲线，以及检验误差，来找出算法是否有高偏差和高方差的问题，或者别的问题。在这样分析之后，再来决定用更多的数据训练，或者加入更多的特征变量是否有用。</li>
-<li>除了画出学习曲线之外，一件非常有用的事是误差分析。例如，当在构造垃圾邮件分类器时，看一看交叉验证数据集，然后亲自看一看哪些邮件被算法错误地分类。因此，通过这些被算法错误分类的垃圾邮件与非垃圾邮件，可以发现某些系统性的规律：什么类型的邮件总是被错误分类。思考怎样能改进分类器。例如，发现是否缺少某些特征，记下这些特征出现的次数。</li>
-</ol>
-<p>误差分析并不总能帮助我们判断应该采取怎样的行动。有时需要尝试不同的模型，然后进行比较，在模型比较时，用数值来判断哪一个模型更好更有效，通常是看交叉验证集的误差。</p>
-<p>在垃圾邮件分类器例子中 ，对于“是否应该将 discount/discounts/discounted/discounting 处理成同一个词？”如果这样做可以改善算法，则会采用一些截词软件。误差分析并不能帮助做出这类判断，只能尝试采用和不采用截词软件这两种不同方案，然后根据数值检验的结果来判断哪一种更好。</p>
-<p>推荐在交叉验证集上来实施误差分析，而不是在测试集上。</p>
-<h3 id="9-3-Error-Metrics-for-Skewed-Classes-偏斜类的误差评估"><a href="#9-3-Error-Metrics-for-Skewed-Classes-偏斜类的误差评估" class="headerlink" title="9.3 Error Metrics for Skewed Classes(偏斜类的误差评估)"></a>9.3 Error Metrics for Skewed Classes(偏斜类的误差评估)</h3><p><label style="color:red">类偏斜（Skewed Classes）</label> 情况表现为训练集中有非常多的同一种类的实例，只有很少或没有其他类的实例。例如以算法来预测癌症是否是恶性的，在训练集中，只有 0.5%的实例是恶性肿瘤。假设编写一个非学习的算法，在所有情况下都预测肿瘤是良性的，那么误差只有 0.5%。然而通过训练而得到的神经网络算法却有 1%的误差。这时，误差的大小是不能视为评判算法效果的依据的。</p>
-<p><label style="color:red">查准率（Precision）和查全率（Recall）</label> 将算法预测的结果分成四种情况：</p>
-<ol>
-<li>正确肯定（True Positive,TP）：预测为真，实际为真</li>
-<li>正确否定（True Negative,TN）：预测为假，实际为假</li>
-<li>错误肯定（False Positive,FP）：预测为真，实际为假</li>
-<li>错误否定（False Negative,FN）：预测为假，实际为真</li>
-</ol>
-<p>则：查准率=TP/(TP+FP)。例，在所有我们预测有恶性肿瘤的病人中，实际上有恶性肿瘤的病人的百分比，越高越好。<br>查全率=TP/(TP+FN)。例，在所有实际上有恶性肿瘤的病人中，成功预测有恶性肿瘤的病人的百分比，越高越好。</p>
-<p>这样，对于我们刚才那个总是预测病人肿瘤为良性的算法，其查全率是 0。<br><img src="https://img-blog.csdnimg.cn/20200715134329675.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
-<h3 id="9-4-Trading-Off-Precision-and-Recall-查准率和查全率之间的权衡"><a href="#9-4-Trading-Off-Precision-and-Recall-查准率和查全率之间的权衡" class="headerlink" title="9.4 Trading Off Precision and Recall(查准率和查全率之间的权衡)"></a>9.4 Trading Off Precision and Recall(查准率和查全率之间的权衡)</h3><p>在很多应用中，我们希望能够保证查准率和查全率的相对平衡。</p>
-<p>继续沿用刚才预测肿瘤性质的例子。假使，算法输出的结果在 0-1 之间，使用阀值 0.5 来预测真和假。<br><img src="https://img-blog.csdnimg.cn/20200715140646134.PNG#pic_center" alt="在这里插入图片描述"></p>
-<ul>
-<li>查准率(Precision)=TP/(TP+FP) 。在所有预测有恶性肿瘤的病人中，实际上有恶 性肿瘤的病人的百分比，越高越好。</li>
-<li>查全率(Recall)=TP/(TP+FN)。在所有实际上有恶性肿瘤的病人中，成功预测有恶性肿瘤的病人的百分比，越高越好。</li>
-<li>如果希望只在非常确信的情况下预测为真（肿瘤为恶性），即希望更高的查准率，可以使用比 0.5 更大的阀值，如0.7，0.9。这样做我们会减少错误预测病人为恶性肿瘤的情况，同时却会增加未能成功预测肿瘤为恶性的情况。</li>
-<li>如果希望提高查全率，尽可能地让所有有可能是恶性肿瘤的病人都得到进一步地 检查、诊断，可以使用比 0.5 更小的阀值，如 0.3。</li>
-</ul>
-<p>将不同阈值情况下，查全率与查准率的关系绘制成图表，曲线的形状根据数据的不同而不同：<br><img src="https://img-blog.csdnimg.cn/20200715141018277.PNG#pic_center" alt="在这里插入图片描述"><br>希望有一个帮助我们选择这个阈值的方法。<br><img src="https://img-blog.csdnimg.cn/20200715141425862.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>一种方法是计算 F1 值（F1 Score），其计算公式为：<br><img src="https://img-blog.csdnimg.cn/20200715141508777.png#pic_center" alt="在这里插入图片描述"><br>选择使得 F1 值最高的阀值。</p>
-<h3 id="9-5-Data-For-Machine-Learning"><a href="#9-5-Data-For-Machine-Learning" class="headerlink" title="9.5 Data For Machine Learning"></a>9.5 Data For Machine Learning</h3><p>例：希望通过机器学习算法来区分常见的易混淆的单词，尝试了许多种不同的算法，发现数据量非常大时，这些不同类型的算法效果都很好。<br><img src="https://img-blog.csdnimg.cn/20200715143139923.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>如上折线图所示，首先大部分算法，都具有相似的性能，其次，随着训练数据集的增大，在横轴上代表以百万为单位的训练集大小，从 0.1 个百万到 1000 百万，也就是到了 10亿规模的训练集的样本，这些算法的性能也都对应地增强了。</p>
-<p>事实上，如果选择任意一个算法，可能是选择了一个”劣等的”算法，如果给这个劣等算法更多的数据，那么从这些例子中看起来的话，它看上去很有可能会其他算法更好，甚至会比”优等算法”更好。像这样的结果，引起了一种在机器学习中的普遍共识：”取得成功的人不是拥有最好算法的人，而是拥有最多数据的人”。</p>
-<p>另一种考虑这个问题的角度是为了有一个高性能的学习算法，希望它不要有高的偏差和方差。因此偏差问题，将通过确保有一个具有很多参数的学习算法来解决，以便能够得到一个较低偏差的算法，并且通过用非常大的训练集来保证。<br><img src="https://img-blog.csdnimg.cn/20200715144013603.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>在此没有方差问题，这算法将没有方差，并且通过将这两个值放在一起，最终可以得到一个低误差和低方差的学习算法，能够很好地测试测试数据集。从根本上来说，这是一个关键的假设：特征值有足够的信息量，且有一类很好的函数，这是为什么能保证低误差的关键所在。它有大量的训练数据集，这能保证得到更多的方差值，因此这提出了一些可能的条件，如果你有大量的数据，而且你训练了一种带有很多参数的学习算法，那么这将会是一个很好的方式，来提供一个高性能的学习算法。</p>
-]]></content>
-      <categories>
-        <category>机器学习</category>
-      </categories>
-      <tags>
-        <tag>Machine Learning</tag>
-        <tag>Skewed Classes</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>【Machine Learning】概述</title>
-    <url>/2020/07/05/%5BMachine%20Learning%5D%20%E6%A6%82%E8%BF%B0/</url>
-    <content><![CDATA[<p><img src="https://img-blog.csdnimg.cn/20200705203342231.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
-<a id="more"></a>
-
-
-<h2 id="1-概述"><a href="#1-概述" class="headerlink" title="1 概述"></a>1 概述</h2><p>机器学习即在进行特定编程的情况下，使用计算机作为工具并致力于真实实时的模拟人类学习方式， 并将现有内容进行知识结构划分来有效提高学习效率。</p>
-<p>根据训练数据是否拥有标记信息，学习任务可大致分为：“监督学习”、“无监督学习”。可理解为，监督学习这个想法是指我们将教计算机如何去完成任务；而在无监督学习中我们打算让它自己进行学习。分类和回归是前者的代表，聚类是后者的代表。</p>
-<h3 id="1-1-Learning-Map"><a href="#1-1-Learning-Map" class="headerlink" title="1.1 Learning Map"></a>1.1 Learning Map</h3><p>蓝色方块指的是scenario，即学习的情境。通常学习的情境是我们没有办法控制的，比如做reinforcement Learning是因为我们没有data、没有办法来做supervised Learning的情况下才去做的。如果有data，supervised Learning当然比reinforcement Learning要好；因此手上有什么样的data，就决定你使用什么样的scenario。</p>
-<p>红色方块指的是task，即要解决的问题。你要解的问题，随着你要找的function的output的不同，有输出scalar的regression、有输出options的classification、有输出structured object的structured Learning…</p>
-<p>绿色的方块指的是model，即用来解决问题的模型(function set)。在这些task里面有不同的model，也就是说，同样的task，我们可以用不同的方法来解它，比如linear model、Non-linear model(deep Learning、SVM、decision tree、K-NN…)</p>
-<p><img src="https://img-blog.csdnimg.cn/20200704201834783.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="&lt;img src=&quot;https://github.com/Sakura-gh/ML-notes/blob/master/img/learningMap.png?raw=true&quot; alt=&quot;learning map&quot; style=&quot;width: 60%;&quot; /&gt;"></p>
-<h3 id="1-2-Supervised-Learning-监督学习"><a href="#1-2-Supervised-Learning-监督学习" class="headerlink" title="1.2 Supervised Learning(监督学习)"></a>1.2 Supervised Learning(监督学习)</h3><p>supervised learning 需要大量的training data，这些training data要求我们找到function，当这个function看到某种input则输出a，看到另一种input输出b，看到……</p>
-<p>而这种function的output，通常被叫做==label(标签)==，也就是说，我们要使用supervised learning这样一种技术，我们需要告诉机器，function的input和output分别是什么，而这种output通常是通过人工的方式标注出来的，因此称为人工标注的label，它的缺点是需要大量的人工effort。</p>
-<h4 id="1-2-1-Case1-Housing-price-prediction"><a href="#1-2-1-Case1-Housing-price-prediction" class="headerlink" title="1.2.1 Case1: Housing price prediction"></a>1.2.1 Case1: Housing price prediction</h4><p>通过收集的房价数据绘制如下图，那基于这组数据，若有一套 750 平方英尺房子，那么这房子能卖多少钱。</p>
-<p>关于这个问题，机器学习算法将会怎么帮助你呢？<br><img src="https://img-blog.csdnimg.cn/20200705162412478.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>应用学习算法，可以在这组数据中画一条直线，即==拟合一条直线==，根据这条线我们可以推测出，这套房子可能卖$150,000，当然这不是唯一的算法。可能还有更好的，比如我们不用直线拟合这些数据，==用二次方程去拟合==可能效果会更好。根据二次方程的曲线，我们可以从这个点推测出，这套房子能卖接近$200,000。稍后我们将讨论如何选择学习算法，如何决定用直线还是二次方程来拟合。两个方案中有一个能让你朋友的房子出售得更合理。这些都是学习算法里面很好的例子。以上就是监督学习的例子。</p>
-<p>可以看出，监督学习指的就是我们给学习算法一个数据集。这个数据集由“正确答案”组成。在房价的例子中，我们给了一系列房子的数据，我们给定数据集中每个样本的正确价格，即它们实际的售价然后运用学习算法，算出更多的正确答案。比如你朋友那个新房子的价格。用术语来讲，这叫做==回归问题 (Regression)==。我们试着推测出一个连续值的结果，即房子的价格。</p>
-<blockquote>
-<p>regression是machine learning的一个task，特点是通过regression找到的function，它的输出是一个scalar数值。<br>比如PM2.5的预测，给machine的training data是过去的PM2.5资料，而输出的是对未来PM2.5的预测<strong>数值</strong>，这就是一个典型的regression的问题。</p>
-</blockquote>
-<p>一般房子的价格会记到美分，所以房价实际上是一系列离散的值，但是我们通常又把房价看成实数，看成是标量，所以又把它看成一个连续的数值。</p>
-<h4 id="1-2-2-Case2-Breast-cancer-malignant-benign"><a href="#1-2-2-Case2-Breast-cancer-malignant-benign" class="headerlink" title="1.2.2 Case2: Breast cancer (malignant,benign)"></a>1.2.2 Case2: Breast cancer (malignant,benign)</h4><p>现有有 5 个良性肿瘤样本（O），5 个恶性肿瘤样本（X）。假设已知一个肿瘤的尺寸，那么机器学习的工作就在于能否估算出肿瘤是恶性的或是良性的概率。<br><img src="https://img-blog.csdnimg.cn/20200705163240876.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
-<p>用术语来讲，这是一个==分类问题 (Classification)==。分类指的是，我们试着推测出离散的输出值：0 或 1 良性或恶性，而事实上在分类问题中，输出可能不止两个值。比如说可能有三种乳腺癌，所以你希望预测离散输出 0、1、2、3。0 代表良性，1 表示第 1 类乳腺癌，2 表示第 2 类癌症，3 表示第 3 类，但这也是分类问题。</p>
-<blockquote>
-<p>regression和classification的区别是，我们要机器输出的东西的类型是不一样的，在regression里机器输出的是scalar（标量），而classification又分为两类：Binary Classification(二元分类)、Multi-class classification(多元分类)。<br><strong>在binary classification里</strong>，我们要机器输出的是yes or no，是或否。比如G-mail的spam filtering(垃圾邮件过滤器)，输入是邮件，输出是该邮件是否是垃圾邮件。<br><strong>在multi-class classification里</strong>，机器要做的是选择题，等于给他数个选项，每一个选项就是一个类别，它要从数个类别里面选择正确的类别。比如document classification(新闻文章分类)，输入是一则新闻，输出是这个新闻属于哪一个类别(选项)。</p>
-</blockquote>
-<p>在其它机器学习问题中，可能会遇到不止一种特征。举个例子，我们不仅知道肿瘤的尺寸，还知道对应患者的年龄。在其他机器学习问题中，我们通常有更多的特征，比如肿块密度，肿瘤细胞尺寸的一致性和形状的一致性等等，还有一些其他的特征。</p>
-<p><img src="https://img-blog.csdnimg.cn/20200705164946740.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>上图中，总共列举了 5 种不同的特征，坐标轴上的两种和右边的 3 种，但在一些学习问题上需要使用多种特征甚至无限，好让算法可以利用大量的特征，或者说线索来做推测。那如何处理无限多个特征，甚至如何存储这些特征都存在问题，你电脑的内存肯定不够用。我们以后会讲一个算法，叫==支持向量机==，里面有一个巧妙的数学技巧，能让计算机处理无限多个特征。</p>
-<p>现在来回顾一下，这节课我们介绍了监督学习。其基本思想是，我们数据集中的每个样本都有相应的“正确答案”。再根据这些样本作出预测，就像房子和肿瘤的例子中做的那样。</p>
-<p>我们还介绍了回归问题，即通过回归来推出一个连续的输出，之后我们介绍了分类问题，其目标是推出一组离散的结果。</p>
-<h3 id="1-3-Unsupervised-Learning-无监督学习"><a href="#1-3-Unsupervised-Learning-无监督学习" class="headerlink" title="1.3 Unsupervised Learning(无监督学习)"></a>1.3 Unsupervised Learning(无监督学习)</h3><p>区别于supervised learning，unsupervised learning希望机器学到无师自通，在完全没有任何label的情况下，机器到底能学到什么样的知识。</p>
-<p><img src="https://img-blog.csdnimg.cn/20200705192208335.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
-<p>在无监督学习中，已知的数据不同于监督学习的数据，无监督学习中没有任何的标签或者是有相同的标签或者就是没标签。所以我们已知数据集，却不知如何处理，也未告知每个数据点是什么。针对数据集，无监督学习就能判断出数据有两个不同的聚集簇。这是一个，那是另一个，二者不同。是的，无监督学习算法可能会把这些数据分成两个不同的簇。所以叫做==聚类算法（Clustering Algorithm）==。</p>
-<p>聚类应用的一个例子就是在谷歌新闻中。谷歌新闻每天都在，收集非常多，非常多的网络的新闻内容。它再将这些新闻分组，组成有关联的新闻。所以谷歌新闻做的就是搜索非常多的新闻事件，自动地把它们聚类到一起，显示到一起。</p>
-<h4 id="1-3-1-Case-Cocktail-party-problem-algorithm"><a href="#1-3-1-Case-Cocktail-party-problem-algorithm" class="headerlink" title="1.3.1 Case: Cocktail party problem algorithm"></a>1.3.1 Case: Cocktail party problem algorithm</h4><p>在鸡尾酒宴上，人们都在聊天，这么多人同时在聊天，声音彼此重叠，所以可能会发生两个人同时都在说话的情形。现假设在一个小型鸡尾酒宴上，房间中有两个麦克风，因为这些麦克风在两个地方，每个麦克风记录下不同的声音，两份录音被叠加到一起，或是被归结到一起，产生了我们现在的这些录音。</p>
-<p>为区分出两个音频资源，似乎需要写大量复杂的代码或链接到一堆的合成器 JAVA 库。事实上，只要一行代码即可完成。</p>
-<p>[W,s,v] = svd((repmat(sum(x.<em>x,1),size(x,1),1).</em>x)*x’);</p>
-<h3 id="1-4-Semi-supervised-Learning-半监督学习"><a href="#1-4-Semi-supervised-Learning-半监督学习" class="headerlink" title="1.4 Semi-supervised Learning(半监督学习)"></a>1.4 Semi-supervised Learning(半监督学习)</h3><p>举例：如果想要做一个区分猫和狗的function。手头上有少量的labeled data，它们标注了图片上哪只是猫哪只是狗；同时又有大量的unlabeled data，它们仅仅只有猫和狗的图片，但没有标注去告诉机器哪只是猫哪只是狗。</p>
-<p>在Semi-supervised Learning的技术里面，这些没有labeled的data，对机器学习也是有帮助的。</p>
-<h3 id="1-5-Transfer-Learning-迁移学习"><a href="#1-5-Transfer-Learning-迁移学习" class="headerlink" title="1.5 Transfer Learning(迁移学习)"></a>1.5 Transfer Learning(迁移学习)</h3><p>假设一样我们要做猫和狗的分类问题。我们也一样只有少量的有labeled的data；但是我们现在有大量的不相干的data(不是猫和狗的图片，而是一些其他不相干的图片)，在这些大量的data里面，它可能有label也可能没有label。</p>
-<p>Transfer Learning要解决的问题是，这一堆不相干的data可以对结果带来什么样的帮助。</p>
-<p><img src="https://img-blog.csdnimg.cn/2020070520234656.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
-<h3 id="1-6-Structured-Learning-结构化学习"><a href="#1-6-Structured-Learning-结构化学习" class="headerlink" title="1.6 Structured Learning(结构化学习)"></a>1.6 Structured Learning(结构化学习)</h3><p>在structured Learning里，我们要机器输出的是，一个有结构性的东西。</p>
-<p>在分类的问题中，机器输出的只是一个选项；在structured类的problem里面，机器要输出的是一个复杂的物件。举例来说，在语音识别的情境下，机器的输入是一个声音信号，输出是一个句子；句子是由许多词汇拼凑而成，它是一个有结构性的object；或者说机器翻译、人脸识别(标出不同的人的名称)。</p>
-<p>比如<strong>GAN</strong>也是structured Learning的一种方法。</p>
-<p><img src="https://img-blog.csdnimg.cn/20200705203242595.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
-<h3 id="1-7-Reinforcement-Learning-强化学习"><a href="#1-7-Reinforcement-Learning-强化学习" class="headerlink" title="1.7 Reinforcement Learning(强化学习)"></a>1.7 Reinforcement Learning(强化学习)</h3><p><strong>Supervised Learning</strong>：我们会告诉机器正确的答案是什么 ，其特点是<strong>Learning from teacher</strong>。</p>
-<ul>
-<li>比如训练一个聊天机器人，告诉他如果使用者说了“Hello”，你就说“Hi”；如果使用者说了“Bye bye”，你就说“Good bye”；就好像有一个家教在它的旁边手把手地教他每一件事情。</li>
-</ul>
-<p><strong>Reinforcement Learning</strong>：我们没有告诉机器正确的答案是什么，机器最终得到的只有一个分数，就是它做的好还是不好，但他不知道自己到底哪里做的不好，他也没有正确的答案；很像真实社会中的学习，你没有一个正确的答案，你只知道自己是做得好还是不好。其特点是<strong>Learning from critics</strong>。</p>
-<ul>
-<li>比如训练一个聊天机器人，让它跟客人直接对话；如果客人勃然大怒把电话挂掉了，那机器就学到一件事情，刚才做错了，它不知道自己哪里做错了，必须自己回去反省检讨到底要如何改进，比如一开始不应该打招呼吗？还是中间不能骂脏话之类的。</li>
-</ul>
-<p><img src="https://img-blog.csdnimg.cn/20200705202235316.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
-<p>拿下棋这件事举例，supervised Learning是说看到眼前这个棋盘，告诉机器下一步要走什么位置；而reinforcement Learning是说让机器和对手互弈，下了好几手之后赢了，机器就知道这一局棋下的不错，但是到底哪一步是赢的关键，机器是不知道的，他只知道自己是赢了还是输了。</p>
-<p>其实Alpha Go是用supervised Learning+reinforcement Learning的方式去学习的，机器先是从棋谱学习，有棋谱就可以做supervised的学习；之后再做reinforcement Learning，机器的对手是另外一台机器，Alpha Go就是和自己下棋，然后不断的进步。</p>
-]]></content>
-      <categories>
-        <category>机器学习</category>
-      </categories>
-      <tags>
-        <tag>Machine Learning</tag>
       </tags>
   </entry>
 </search>
