@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="运营指标," />
+  <meta name="keywords" content="Machine Learning,Neural Networks," />
 
 
 
@@ -80,23 +80,37 @@
 
 
 <meta property="og:type" content="article">
-<meta property="og:title" content="运营指标">
-<meta property="og:url" content="http://yoursite.com/2020/06/22/%E8%BF%90%E8%90%A5%E6%8C%87%E6%A0%87/index.html">
+<meta property="og:title" content="【Machine Learning】6 神经网络-表述(Neural Networks-Representation)">
+<meta property="og:url" content="http://yoursite.com/2020/07/11/[Machine%20Learning]%206%20%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%EF%BC%9A%E8%A1%A8%E8%BF%B0(Neural%20Networks_%20Representation)/index.html">
 <meta property="og:site_name" content="今天你DEBUG了吗">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200622160118760.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200622160714145.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200622161148322.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200622161407440.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200622161650584.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200622162035539.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200622162101254.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200622162124762.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70">
-<meta property="article:published_time" content="2020-06-22T08:23:15.000Z">
-<meta property="article:modified_time" content="2020-06-22T08:31:47.974Z">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200711130358651.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200710163445193.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200710163602179.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200710180319605.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200710183458169.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200710183840825.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200710184011764.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/2020071018415966.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200710185328930.PNG#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200710190032240.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200710194213751.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200710194334438.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200710195253281.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200710195332905.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200710195730589.PNG#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200711123825308.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200711123956883.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200711125641473.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200711125006673.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200711125423807.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/2020071112595442.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="article:published_time" content="2020-07-11T05:05:59.000Z">
+<meta property="article:modified_time" content="2020-07-19T07:01:01.939Z">
 <meta property="article:author" content="Patrick Yan">
-<meta property="article:tag" content="运营指标">
+<meta property="article:tag" content="Machine Learning">
+<meta property="article:tag" content="Neural Networks">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://img-blog.csdnimg.cn/20200622160118760.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70">
+<meta name="twitter:image" content="https://img-blog.csdnimg.cn/20200711130358651.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center">
 
 
 
@@ -126,13 +140,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2020/06/22/运营指标/"/>
+  <link rel="canonical" href="http://yoursite.com/2020/07/11/[Machine Learning] 6 神经网络：表述(Neural Networks_ Representation)/"/>
 
 
 
 
 
-  <title>运营指标 | 今天你DEBUG了吗</title>
+  <title>【Machine Learning】6 神经网络-表述(Neural Networks-Representation) | 今天你DEBUG了吗</title>
   
 
 
@@ -303,7 +317,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/06/22/%E8%BF%90%E8%90%A5%E6%8C%87%E6%A0%87/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/07/11/%5BMachine%20Learning%5D%206%20%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%EF%BC%9A%E8%A1%A8%E8%BF%B0(Neural%20Networks_%20Representation)/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Patrick Yan">
@@ -320,7 +334,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">运营指标</h1>
+          <h1 class="post-title" itemprop="name headline">【Machine Learning】6 神经网络-表述(Neural Networks-Representation)</h1>
         
 
         <div class="post-meta">
@@ -332,8 +346,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-06-22T16:23:15+08:00">
-                2020-06-22
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-07-11T13:05:59+08:00">
+                2020-07-11
               </time>
             
 
@@ -355,8 +369,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E4%BA%A7%E5%93%81-%E8%BF%90%E8%90%A5/" itemprop="url" rel="index">
-                    <span itemprop="name">产品/运营</span>
+                  <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index">
+                    <span itemprop="name">机器学习</span>
                   </a>
                 </span>
 
@@ -373,9 +387,9 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2020/06/22/%E8%BF%90%E8%90%A5%E6%8C%87%E6%A0%87/#comments" itemprop="discussionUrl">
+                <a href="/2020/07/11/%5BMachine%20Learning%5D%206%20%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%EF%BC%9A%E8%A1%A8%E8%BF%B0(Neural%20Networks_%20Representation)/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2020/06/22/运营指标/" itemprop="commentCount"></span>
+                        data-disqus-identifier="2020/07/11/[Machine Learning] 6 神经网络：表述(Neural Networks_ Representation)/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -397,7 +411,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  22
+                  2k
                 </span>
               
 
@@ -413,7 +427,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  1
+                  7
                 </span>
               
             </div>
@@ -434,16 +448,27 @@
       
 
       
-        <p><img src="https://img-blog.csdnimg.cn/20200622160118760.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+        <p><img src="https://img-blog.csdnimg.cn/20200711130358651.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
 <a id="more"></a>
 
-<h2 id="商品"><a href="#商品" class="headerlink" title="商品"></a>商品</h2><p><img src="https://img-blog.csdnimg.cn/20200622160714145.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
-<h2 id="营收"><a href="#营收" class="headerlink" title="营收"></a>营收</h2><p><img src="https://img-blog.csdnimg.cn/20200622161148322.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
-<h2 id="传播-活动"><a href="#传播-活动" class="headerlink" title="传播/活动"></a>传播/活动</h2><p><img src="https://img-blog.csdnimg.cn/20200622161407440.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
-<h2 id="营销"><a href="#营销" class="headerlink" title="营销"></a>营销</h2><p><img src="https://img-blog.csdnimg.cn/20200622161650584.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
-<h2 id="用户获取"><a href="#用户获取" class="headerlink" title="用户获取"></a>用户获取</h2><p><img src="https://img-blog.csdnimg.cn/20200622162035539.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
-<h2 id="用户活跃"><a href="#用户活跃" class="headerlink" title="用户活跃"></a>用户活跃</h2><p><img src="https://img-blog.csdnimg.cn/20200622162101254.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
-<h2 id="用户留存"><a href="#用户留存" class="headerlink" title="用户留存"></a>用户留存</h2><p><img src="https://img-blog.csdnimg.cn/20200622162124762.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<h2 id="6-Neural-Networks-Representation-神经网络：表述"><a href="#6-Neural-Networks-Representation-神经网络：表述" class="headerlink" title="6 Neural Networks: Representation(神经网络：表述)"></a>6 Neural Networks: Representation(神经网络：表述)</h2><h3 id="6-1-Non-linear-hypotheses-非线性假设"><a href="#6-1-Non-linear-hypotheses-非线性假设" class="headerlink" title="6.1 Non-linear hypotheses(非线性假设)"></a>6.1 Non-linear hypotheses(非线性假设)</h3><p>无论是线性回归还是逻辑回归都有这样一个缺点，即：当特征太多时，计算的负荷会非常大。</p>
+<p>假设希望训练一个模型来识别视觉对象（例如识别一张图片上是否是一辆汽车），应该怎么做呢？一种方法是利用很多汽车的图片和很多非汽车的图片，然后利用这些图片上一个个像素的值（饱和度或亮度）来作为特征。<br><img src="https://img-blog.csdnimg.cn/20200710163445193.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>假如只选用灰度图片，每个像素则只有一个值（而非 RGB 值），可以选取图片上的两个不同位置上的两个像素，然后训练一个逻辑回归算法利用这两个像素的值来判断图片上是否是汽车：<br><img src="https://img-blog.csdnimg.cn/20200710163602179.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>假使采用的都是 50x50 像素的小图片，并且将所有的像素视为特征，则会有2500 个特征，如果要进一步将两两特征组合构成一个多项式模型，则会有约2500<sup>2</sup>/2个（接近 3 百万个）特征。普通的逻辑回归模型，不能有效地处理这么多的特征，这时候需要神经网络。</p>
+<h3 id="6-2-Model-Representation-模型表示"><a href="#6-2-Model-Representation-模型表示" class="headerlink" title="6.2 Model Representation(模型表示)"></a>6.2 Model Representation(模型表示)</h3><p>神经网络是一种很古老的算法，它最初产生的目的是制造能模拟大脑的机器。</p>
+<p>为了构建神经网络模型，首先需要思考大脑中的神经网络是怎样的？每一个神经元都可以被认为是一个处理单元/神经核（processing unit/Nucleus），它含有许多输入/树突（input/Dendrite），并且有一个输出/轴突（output/Axon）。神经网络是大量神经元相互链接并通过电脉冲来交流的一个网络。<br><img src="https://img-blog.csdnimg.cn/20200710180319605.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>神经元利用微弱的电流进行沟通。这些弱电流也称作动作电位，其实就是一些微弱的电流。所以如果神经元想要传递一个消息，它就会就通过它的轴突，发送一段微弱电流给其他神经元。</p>
+<p>下图是一条连接到输入神经，或者连接另一个神经元树突的神经，接下来这个神经元接收这条消息，做一些计算，它有可能会反过来将在轴突上的自己的消息传给其他神经元。这就是所有人类思考的模型：我们的神经元把自己的收到的消息进行计算，并向其他神经元传递消息。这也是感觉和肌肉运转的原理。如果想活动一块肌肉，就会触发一个神经元给肌肉发送脉冲，并引起你的肌肉收缩。如果一些感官：比如说眼睛想要给大脑传递一个消息，那么它就像这样发送电脉冲给大脑的。<br><img src="https://img-blog.csdnimg.cn/20200710183458169.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>神经网络模型建立在很多神经元之上，每一个神经元又是一个个学习模型。这些神经元（也叫激活单元，activation unit）采纳一些特征作为输出，并且根据本身的模型提供一个输出。下图是一个以逻辑回归模型作为自身学习模型的神经元示例，在神经网络中，参数又可被成为权重（weight）。<br><img src="https://img-blog.csdnimg.cn/20200710183840825.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>设计出了类似于神经元的神经网络，效果如下：<br><img src="https://img-blog.csdnimg.cn/20200710184011764.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>其中𝑥1, 𝑥2, 𝑥3是输入单元（input units），我们将原始数据输入给它们。𝑎1, 𝑎2, 𝑎3是中间单元，它们负责将数据进行处理，然后呈递到下一层。最后是输出单元，它负责计算ℎ𝜃<br>(𝑥)。</p>
+<p>神经网络模型是许多逻辑单元按照不同层级组织起来的网络，每一层的输出变量都是下一层的输入变量。下图为一个 3 层的神经网络，第一层成为输入层（Input Layer），最后一层称为输出层（Output Layer），中间一层成为隐藏层（Hidden Layers）。为每一层都增加一个偏差单位（bias unit）：<br><img src="https://img-blog.csdnimg.cn/2020071018415966.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>注：𝑎<sub>𝑖</sub><sup>(𝑗)</sup> 代表第𝑗 层的第 𝑖 个激活单元。𝜃<sup>(𝑗)</sup>代表从第 𝑗 层映射到第𝑗 + 1 层时的权重的矩阵，例如𝜃<sup>(1)</sup>代表从第一层映射到第二层的权重的矩阵。其尺寸为：以第 𝑗 + 1层的激活单元数量为行数，以第 𝑗 层的激活单元数加一为列数的矩阵。例如：上图所示的神经网络中𝜃<sup>(1)</sup>的尺寸为 3*4。</p>
+<p>对于上图所示的模型，激活单元和输出分别表达为：<br><img src="https://img-blog.csdnimg.cn/20200710185328930.PNG#pic_center" alt="在这里插入图片描述"><br>上面进行的讨论中只是将特征矩阵中的一行（一个训练实例）喂给了神经网络，我们需要将整个训练集都喂给我们的神经网络算法来学习模型。</p>
+<p>我们可以知道：每一个𝑎都是由上一层所有的𝑥和每一个𝑥所对应的决定的。<br>（我们把这样从左到右的算法称为前向传播算法( FORWARD PROPAGATION )）</p>
+<p>把𝑥, 𝜃, 𝑎 分别用矩阵表示，我们可以得到𝜃 ⋅ 𝑋 = a :<br><img src="https://img-blog.csdnimg.cn/20200710190032240.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>相对于使用循环来编码，利用向量化的方法会使得计算更为简便。以上面的神经网络为例，试着计算第二层的值：<br><img src="https://img-blog.csdnimg.cn/20200710194213751.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20200710194334438.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>为了更好了了解 Neuron Networks 的工作原理，先把左半部分遮住：<br><img src="https://img-blog.csdnimg.cn/20200710195253281.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>右半部分其实就是以𝑎0, 𝑎1, 𝑎2, 𝑎3, 按照 Logistic Regression 的方式输出ℎ𝜃(𝑥)：</p>
+<p><img src="https://img-blog.csdnimg.cn/20200710195332905.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>其实神经网络就像是 logistic regression，只不过把 logistic regression 中的输入向量[𝑥<sub>1</sub> ∼ 𝑥<sub>3</sub>] 变成了中间层的[𝑎<sub>1</sub><sup>(2)</sup>∼ 𝑎<sub>3</sub><sup>(2)</sup>], 即:<br><img src="https://img-blog.csdnimg.cn/20200710195730589.PNG#pic_center" alt="在这里插入图片描述"><br>可以把𝑎0, 𝑎1, 𝑎2, 𝑎3看成更为高级的特征值，也就是𝑥0, 𝑥1, 𝑥2, 𝑥3的进化体，并且它们是由 𝑥与决定的，因为是梯度下降的，所以𝑎是变化的，并且变得越来越厉害，所以这些更高级的特征值远比仅仅将 𝑥次方厉害，也能更好的预测新数据。这就是神经网络相比于逻辑回归和线性回归的优势。</p>
+<p>从本质上讲，神经网络能够通过学习得出其自身的一系列特征。在普通的逻辑回归中，被限制为使用数据中的原始特征𝑥1, 𝑥2, . . . , 𝑥𝑛，虽然可以使用一些二项式项来组合这些特征，但是仍然受到这些原始特征的限制。在神经网络中，原始特征只是输入层，在上面三层的神经网络例子中，第三层也就是输出层做出的预测利用的是第二层的特征，而非输入层中的原始特征，可以认为第二层中的特征是神经网络通过学习后自己得出的一系列用于预测输出变量的新特征。</p>
+<p>神经网络中，单层神经元（无中间层）的计算可用来表示逻辑运算，比如逻辑与(AND)、逻辑或(OR)。</p>
+<p>举例说明：逻辑与(AND)；下图中左半部分是神经网络的设计与 output 层表达式，右边上部分是 sigmod 函数，下半部分是真值表。</p>
+<p>可以用这样的一个神经网络表示 <strong>AND 函数：</strong><br><img src="https://img-blog.csdnimg.cn/20200711123825308.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br><strong>OR 函数：</strong><br><img src="https://img-blog.csdnimg.cn/20200711123956883.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>OR 与 AND 整体一样，区别只在于的取值不同。</p>
+<p>利用神经元来组合成更为复杂的神经网络可以实现更复杂的运算。例如要实现 XNOR 功能（输入的两个值必须一样，均为 1 或均为 0），即：<br>XNOR = (x1 ANDx2) OR((NOT x1)AND(NOT x2))</p>
+<p>首先构造能表达(x1 ANDx2)和(NOT x1)AND(NOT x2)部分的神经元：<br><img src="https://img-blog.csdnimg.cn/20200711125641473.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20200711125006673.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>然后将表示 AND 的神经元和表示(NOT x1)AND(NOT x2)的神经元以及表示 OR 的神经元进行组合：<br><img src="https://img-blog.csdnimg.cn/20200711125423807.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>这样就得到了一个能实现 XNOR 运算符功能的神经网络。</p>
+<p>按这种方法可以逐渐构造出越来越复杂的函数，也能得到更加厉害的特征值。这就是神经网络的厉害之处。</p>
+<h3 id="6-3-Multi-class-Classification-多元分类"><a href="#6-3-Multi-class-Classification-多元分类" class="headerlink" title="6.3 Multi-class Classification(多元分类)"></a>6.3 Multi-class Classification(多元分类)</h3><p>当有不止两种分类时（也就是𝑦 = 1,2,3 ….）<br><img src="https://img-blog.csdnimg.cn/2020071112595442.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
 
       
     </div>
@@ -461,7 +486,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/%E8%BF%90%E8%90%A5%E6%8C%87%E6%A0%87/" rel="tag"># 运营指标</a>
+            <a href="/tags/Machine-Learning/" rel="tag"># Machine Learning</a>
+          
+            <a href="/tags/Neural-Networks/" rel="tag"># Neural Networks</a>
           
         </div>
       
@@ -474,8 +501,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2020/06/19/%E5%85%B3%E4%BA%8ESQL%E6%98%93%E5%BF%98%E7%9A%84%E5%8D%81%E4%BA%94%E4%B8%AA%E7%9F%A5%E8%AF%86%E7%82%B9/" rel="next" title="关于SQL易忘的知识点">
-                <i class="fa fa-chevron-left"></i> 关于SQL易忘的知识点
+              <a href="/2020/07/08/%5BMachine%20Learning%5D%205%20%E6%AD%A3%E5%88%99%E5%8C%96(Regularization)/" rel="next" title="【Machine Learning】5 正则化(Regularization)">
+                <i class="fa fa-chevron-left"></i> 【Machine Learning】5 正则化(Regularization)
               </a>
             
           </div>
@@ -484,8 +511,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2020/06/22/%E7%94%A8%E6%88%B7%E8%A1%8C%E4%B8%BA%E5%88%86%E6%9E%90%EF%BC%88%E9%9D%9E%E5%8E%9F%E5%88%9B%EF%BC%89/" rel="prev" title="用户行为分析（非原创）">
-                用户行为分析（非原创） <i class="fa fa-chevron-right"></i>
+              <a href="/2020/07/12/%5BMachine%20Learning%5D%207%20%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E7%9A%84%E5%AD%A6%E4%B9%A0(Neural%20Networks_%20Learning)/" rel="prev" title="【Machine Learning】7 神经网络的学习(Neural Networks_Learning)">
+                【Machine Learning】7 神经网络的学习(Neural Networks_Learning) <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -698,7 +725,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#商品"><span class="nav-text">商品</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#营收"><span class="nav-text">营收</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#传播-活动"><span class="nav-text">传播&#x2F;活动</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#营销"><span class="nav-text">营销</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#用户获取"><span class="nav-text">用户获取</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#用户活跃"><span class="nav-text">用户活跃</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#用户留存"><span class="nav-text">用户留存</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#6-Neural-Networks-Representation-神经网络：表述"><span class="nav-text">6 Neural Networks: Representation(神经网络：表述)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#6-1-Non-linear-hypotheses-非线性假设"><span class="nav-text">6.1 Non-linear hypotheses(非线性假设)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-2-Model-Representation-模型表示"><span class="nav-text">6.2 Model Representation(模型表示)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-3-Multi-class-Classification-多元分类"><span class="nav-text">6.3 Multi-class Classification(多元分类)</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -877,9 +904,9 @@
     
       <script type="text/javascript">
         var disqus_config = function () {
-          this.page.url = 'http://yoursite.com/2020/06/22/%E8%BF%90%E8%90%A5%E6%8C%87%E6%A0%87/';
-          this.page.identifier = '2020/06/22/运营指标/';
-          this.page.title = '运营指标';
+          this.page.url = 'http://yoursite.com/2020/07/11/[Machine%20Learning]%206%20%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%EF%BC%9A%E8%A1%A8%E8%BF%B0(Neural%20Networks_%20Representation)/';
+          this.page.identifier = '2020/07/11/[Machine Learning] 6 神经网络：表述(Neural Networks_ Representation)/';
+          this.page.title = '【Machine Learning】6 神经网络-表述(Neural Networks-Representation)';
         };
         var d = document, s = d.createElement('script');
         s.src = 'https://.disqus.com/embed.js';

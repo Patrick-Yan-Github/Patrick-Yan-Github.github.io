@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Machine Learning," />
+  <meta name="keywords" content="Machine Learning,Learning Curves,Bias/Variance," />
 
 
 
@@ -80,30 +80,36 @@
 
 
 <meta property="og:type" content="article">
-<meta property="og:title" content="【Machine Learning】正则化(Regularization)">
-<meta property="og:url" content="http://yoursite.com/2020/07/08/[Machine%20Learning]%20%E6%AD%A3%E5%88%99%E5%8C%96(Regularization)/index.html">
+<meta property="og:title" content="【Machine Learning】8 应用机器学习的建议(Advice for Applying Machine Learning)">
+<meta property="og:url" content="http://yoursite.com/2020/07/14/[Machine%20Learning]%208%20%E5%BA%94%E7%94%A8%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%9A%84%E5%BB%BA%E8%AE%AE(Advice%20for%20Applying%20Machine%20Learning)/index.html">
 <meta property="og:site_name" content="今天你DEBUG了吗">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200708161032267.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200708133431983.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200708134042138.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200708134338840.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200708135115992.PNG#pic_center">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/2020070813555675.PNG#pic_center">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200708135853580.PNG#pic_center">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/2020070814004971.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200708142309532.PNG#pic_center">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200708142428802.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/2020070814252032.PNG#pic_center">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200708155229540.PNG#pic_center">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200708160007681.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200708160155875.PNG#pic_center">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200708160313567.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center">
-<meta property="article:published_time" content="2020-07-08T08:13:02.000Z">
-<meta property="article:modified_time" content="2020-07-08T08:13:07.839Z">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200714180442551.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200714153351469.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200714153540170.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200714163139716.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200714163307224.PNG#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200714163458637.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200714163712246.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200714163835857.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/202007141657370.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200714165636740.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200714170214653.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200714170427983.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200714170902750.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200714172426323.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200714172535993.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200714173125794.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/2020071417355684.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200714173709702.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200714180238125.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="article:published_time" content="2020-07-14T10:10:07.000Z">
+<meta property="article:modified_time" content="2020-07-19T07:00:34.439Z">
 <meta property="article:author" content="Patrick Yan">
 <meta property="article:tag" content="Machine Learning">
+<meta property="article:tag" content="Learning Curves">
+<meta property="article:tag" content="Bias&#x2F;Variance">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://img-blog.csdnimg.cn/20200708161032267.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center">
+<meta name="twitter:image" content="https://img-blog.csdnimg.cn/20200714180442551.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center">
 
 
 
@@ -133,13 +139,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2020/07/08/[Machine Learning] 正则化(Regularization)/"/>
+  <link rel="canonical" href="http://yoursite.com/2020/07/14/[Machine Learning] 8 应用机器学习的建议(Advice for Applying Machine Learning)/"/>
 
 
 
 
 
-  <title>【Machine Learning】正则化(Regularization) | 今天你DEBUG了吗</title>
+  <title>【Machine Learning】8 应用机器学习的建议(Advice for Applying Machine Learning) | 今天你DEBUG了吗</title>
   
 
 
@@ -310,7 +316,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/07/08/%5BMachine%20Learning%5D%20%E6%AD%A3%E5%88%99%E5%8C%96(Regularization)/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/07/14/%5BMachine%20Learning%5D%208%20%E5%BA%94%E7%94%A8%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%9A%84%E5%BB%BA%E8%AE%AE(Advice%20for%20Applying%20Machine%20Learning)/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Patrick Yan">
@@ -327,7 +333,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">【Machine Learning】正则化(Regularization)</h1>
+          <h1 class="post-title" itemprop="name headline">【Machine Learning】8 应用机器学习的建议(Advice for Applying Machine Learning)</h1>
         
 
         <div class="post-meta">
@@ -339,8 +345,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-07-08T16:13:02+08:00">
-                2020-07-08
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-07-14T18:10:07+08:00">
+                2020-07-14
               </time>
             
 
@@ -380,9 +386,9 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2020/07/08/%5BMachine%20Learning%5D%20%E6%AD%A3%E5%88%99%E5%8C%96(Regularization)/#comments" itemprop="discussionUrl">
+                <a href="/2020/07/14/%5BMachine%20Learning%5D%208%20%E5%BA%94%E7%94%A8%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%9A%84%E5%BB%BA%E8%AE%AE(Advice%20for%20Applying%20Machine%20Learning)/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2020/07/08/[Machine Learning] 正则化(Regularization)/" itemprop="commentCount"></span>
+                        data-disqus-identifier="2020/07/14/[Machine Learning] 8 应用机器学习的建议(Advice for Applying Machine Learning)/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -404,7 +410,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  942
+                  2.4k
                 </span>
               
 
@@ -420,7 +426,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  3
+                  8
                 </span>
               
             </div>
@@ -441,24 +447,48 @@
       
 
       
-        <p><img src="https://img-blog.csdnimg.cn/20200708161032267.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+        <p><img src="https://img-blog.csdnimg.cn/20200714180442551.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
 <a id="more"></a>
 
-<h2 id="5-Regularization-正则化"><a href="#5-Regularization-正则化" class="headerlink" title="5 Regularization(正则化)"></a>5 Regularization(正则化)</h2><h3 id="5-1-The-problem-of-overfitting"><a href="#5-1-The-problem-of-overfitting" class="headerlink" title="5.1 The problem of overfitting"></a>5.1 The problem of overfitting</h3><p><strong>case1：</strong><br><img src="https://img-blog.csdnimg.cn/20200708133431983.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<h2 id="8-Advice-for-Applying-Machine-Learning-应用机器学习的建议"><a href="#8-Advice-for-Applying-Machine-Learning-应用机器学习的建议" class="headerlink" title="8 Advice for Applying Machine Learning(应用机器学习的建议)"></a>8 Advice for Applying Machine Learning(应用机器学习的建议)</h2><h3 id="8-1-Introduction"><a href="#8-1-Introduction" class="headerlink" title="8.1 Introduction"></a>8.1 Introduction</h3><p>获得更多的训练实例——通常是有效的，但代价较大，下面的方法也可能有效，可考虑先采用下面的几种方法。<br>1.尝试减少特征的数量<br>2.尝试获得更多的特征<br>3.尝试增加多项式特征<br>4.尝试减少正则化程度𝜆<br>5.尝试增加正则化程度𝜆<br>不应该随机选择上面的某种方法来改进算法，而是运用一些机器学习诊断法来确定上面哪些方法对算法是有效的。</p>
+<p>接下来将介绍怎样评估机器学习算法的性能，然后再开始讨论这些方法，它们也被称为”机器学习诊断法”。“诊断法”的意思是：这是一种测试法，你通过执行这种测试，能够深入了解某种算法到底是否有用。这通常也能够告诉你，要想改进一种算法的效果，什么样的尝试，才是有意义的。这些诊断法的执行和实现，是需要花些时间的，有时候确实需要花很多时间来理解和实现，但这样做的确是把时间用在了刀刃上。</p>
+<h3 id="8-2-Evaluating-a-Hypothesis"><a href="#8-2-Evaluating-a-Hypothesis" class="headerlink" title="8.2 Evaluating a Hypothesis"></a>8.2 Evaluating a Hypothesis</h3><p><img src="https://img-blog.csdnimg.cn/20200714153351469.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>在确定学习算法参数的时候，需要考虑的是选择参量来使训练误差最小化。另外，仅仅是因为这个假设具有很小的训练误差，并不能说明它就一定是一个好的假设函数。例如，可能发生了过拟合问题。</p>
+<p>那么，该如何判断一个假设函数是过拟合的呢？对于这个简单的例子，可以对假设函数ℎ(𝑥)进行画图，然后观察图形趋势，但对于特征变量不止一个的这种一般情况，还有像有很多特征变量的问题，想要通过画出假设函数来进行观察，就会变得很难甚至是不可能实现。因此，需要另一种方法来评估假设函数过拟合。</p>
+<p>为了检验算法是否过拟合，将数据分成训练集和测试集，通常用 70%的数据作为<br>训练集，用剩下 30%的数据作为测试集。很重要的一点是训练集和测试集均要含有各种类型的数据，通常需要对数据进行“洗牌”，然后再分成训练集和测试集。<img src="https://img-blog.csdnimg.cn/20200714153540170.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt=" "><br>测试集评估在通过训练集让模型学习得出其参数后，对测试集运用该模型，有两种方式计算误差：<br>1.对于线性回归模型，利用测试集数据计算代价函数𝐽<br>2.对于逻辑回归模型，除了可以利用测试数据集来计算代价函数外：<br><img src="https://img-blog.csdnimg.cn/20200714163139716.png" alt="在这里插入图片描述"><br>误分类的比率，对于每一个测试集实例，计算：<br><img src="https://img-blog.csdnimg.cn/20200714163307224.PNG#pic_center" alt="在这里插入图片描述"><br>然后对计算结果求平均。</p>
+<h3 id="8-3-Model-Selection-and-Train-Validation-Test-Sets"><a href="#8-3-Model-Selection-and-Train-Validation-Test-Sets" class="headerlink" title="8.3 Model Selection and Train_Validation_Test Sets"></a>8.3 Model Selection and Train_Validation_Test Sets</h3><p><img src="https://img-blog.csdnimg.cn/20200714163458637.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>假设要在 10 个不同次数的二项式模型之间进行选择，显然越高次数的多项式模型越能够适应训练数据集，但是适应训练数据集并不代表着能推广至一般情况，应该选择一个更能适应一般情况的模型。此时需要使用交叉验证集来帮助选择模型。</p>
+<p>即：使用 60%的数据作为训练集，使用 20%的数据作为交叉验证集，使用 20%的数据作为测试集。<br><img src="https://img-blog.csdnimg.cn/20200714163712246.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>模型选择的方法为：</p>
+<ol>
+<li>使用训练集训练出 10 个模型</li>
+<li>用 10 个模型分别对交叉验证集计算得出交叉验证误差（代价函数的值）</li>
+<li>选取代价函数值最小的模型</li>
+<li>用步骤 3 中选出的模型对测试集计算得出推广误差（代价函数的值）</li>
+</ol>
+<p><img src="https://img-blog.csdnimg.cn/20200714163835857.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<h3 id="8-4-Diagnosing-Bias-vs-Variance"><a href="#8-4-Diagnosing-Bias-vs-Variance" class="headerlink" title="8.4 Diagnosing Bias vs. Variance"></a>8.4 Diagnosing Bias vs. Variance</h3><p>当运行一个学习算法时，如果这个算法的表现不理想，那么多半是出现两种情况：要么是偏差比较大，要么是方差比较大。换句话说，出现的情况要么是欠拟合，要么是过拟合问题。那么这两种情况，哪个和偏差有关，哪个和方差有关，或者是不是和两个都有关？搞清楚这一点非常重要，因为能判断出现的情况是这两种情况中的哪一种。其实是一个很有效的指示器，指引着可以改进算法的最有效的方法和途径。<br><img src="https://img-blog.csdnimg.cn/202007141657370.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<p>通常会通过将训练集和交叉验证集的代价函数误差与多项式的次数绘制在同一张图表上来帮助分析：<br><img src="https://img-blog.csdnimg.cn/20200714165636740.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20200714170214653.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>对于训练集，当 𝑑 较小时，模型拟合程度更低，误差较大；随着 𝑑 的增长，拟合程度提高，误差减小。<br>对于交叉验证集，当 𝑑 较小时，模型拟合程度低，误差较大；但是随着 𝑑 的增长，误差呈现先减小后增大的趋势，转折点是我们的模型开始过拟合训练数据集的时候。</p>
+<p>如果交叉验证集误差较大，如何判断是方差还是偏差呢？根据上面的图表，得出:<br><img src="https://img-blog.csdnimg.cn/20200714170427983.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
 <ul>
-<li>第一个模型是一个线性模型，欠拟合，不能很好地适应训练集；</li>
-<li>第三个模型是一个四次方的模型，过于强调拟合原始数据，而丢失了算法的本质：预测新数据。即，若给出一个新的值使之预测，它将表现的很差；</li>
-<li>而中间的模型似乎最合适。</li>
+<li>训练集误差和交叉验证集误差近似时：偏差/欠拟合</li>
+<li>交叉验证集误差远大于训练集误差时：方差/过拟合</li>
 </ul>
-<p><strong>case2：</strong><br><img src="https://img-blog.csdnimg.cn/20200708134042138.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>同上。</p>
-<p><strong>过拟合的解决方法</strong><br><img src="https://img-blog.csdnimg.cn/20200708134338840.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
-<h3 id="5-2-Cost-Function"><a href="#5-2-Cost-Function" class="headerlink" title="5.2 Cost Function"></a>5.2 Cost Function</h3><p>上面的回归问题中模型是：<br><img src="https://img-blog.csdnimg.cn/20200708135115992.PNG#pic_center" alt="在这里插入图片描述"><br>一般而言，正是那些高次项导致了过拟合的产生，所以如果能让这些高次项的系数接近于 0 的话，就能很好的拟合了，所以可以在一定程度上减小这些参数𝜃 的值，这正是正则化的基本方法。当要减少𝜃3和𝜃4的大小，需要做的便是修改代价函数，在其中𝜃3和𝜃4 设置一点惩罚。在尝试最小化代价时也需要将这个惩罚纳入考虑中，并最终导致选择较小一些的𝜃3和𝜃4。</p>
-<p>修改后的代价函数：<br><img src="https://img-blog.csdnimg.cn/2020070813555675.PNG#pic_center" alt="在这里插入图片描述"><br>通过这样的代价函数选择出的𝜃3和𝜃4 对预测结果的影响就比之前要小许多。假如有非常多的特征，并不知道其中哪些特征需要惩罚，可以将对所有的特征进行惩罚，并且让代价函数最优化的软件来选择这些惩罚的程度。这样的结果是得到了一个较为简单的能防止过拟合问题的假设：<br><img src="https://img-blog.csdnimg.cn/20200708135853580.PNG#pic_center" alt="在这里插入图片描述"><br>其中𝜆又称为==正则化参数（Regularization Parameter）==。 注：根据惯例，我们不对𝜃0 进行惩罚。经过正则化处理的模型（粉色）与原模型（蓝色）的可能对比如下图所示：<br><img src="https://img-blog.csdnimg.cn/2020070814004971.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>如果选择的正则化参数 λ 过大，则会把所有的参数都最小化了，那么𝜃（不包括𝜃0）都会趋近于 0，这样我们所得到的只能是一条平行于𝑥轴的直线，模型变成 ℎ<sub>𝜃</sub>(𝑥) =𝜃<sub>0</sub>，造成欠拟合。</p>
-<h3 id="5-3-Regularizede-linear-regression-正则化线性回归"><a href="#5-3-Regularizede-linear-regression-正则化线性回归" class="headerlink" title="5.3 Regularizede linear regression(正则化线性回归)"></a>5.3 Regularizede linear regression(正则化线性回归)</h3><p>对于线性回归的求解，之前推导了两种学习算法：一种基于梯度下降，一种基于正规方程。</p>
-<p>正则化线性回归的代价函数为：<br><img src="https://img-blog.csdnimg.cn/20200708142309532.PNG#pic_center" alt="在这里插入图片描述"><br>如果要使用梯度下降法令这个代价函数最小化，因为未进行正则化，所以梯度下降算法将分两种情形：<br><img src="https://img-blog.csdnimg.cn/20200708142428802.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>对上面的算法中𝑗 = 1,2, . . . , 𝑛 时的更新式子进行调整可得：<br><img src="https://img-blog.csdnimg.cn/2020070814252032.PNG#pic_center" alt="在这里插入图片描述"><br>可以看出，正则化线性回归的梯度下降算法的变化在于，每次都在原有算法更新规则的基础上令𝜃值减少了一个额外的值。</p>
-<p>注：在梯度下降时，对任意的θ<sub>j</sub>的处理可以分为两部分，J(θ)的偏导数 + 单独针对该θ<sub>j</sub>的正则化项。</p>
-<p>同样也可以利用正规方程来求解正则化线性回归模型，方法如下所示：<br><img src="https://img-blog.csdnimg.cn/20200708155229540.PNG#pic_center" alt="在这里插入图片描述"><br>图中的矩阵尺寸为 (𝑛 + 1) ∗ (𝑛 + 1)。</p>
-<h3 id="5-4-Regularized-Logistic-Regression-正则化的逻辑回归模型"><a href="#5-4-Regularized-Logistic-Regression-正则化的逻辑回归模型" class="headerlink" title="5.4 Regularized Logistic Regression(正则化的逻辑回归模型)"></a>5.4 Regularized Logistic Regression(正则化的逻辑回归模型)</h3><p>针对逻辑回归问题，之前已学习过两种优化算法：首先学习了使用梯度下降法来优化代价函数𝐽(𝜃)，接下来学习了更高级的优化算法，这些高级优化算法需要自己设计代价函数𝐽(𝜃)。<br><img src="https://img-blog.csdnimg.cn/20200708160007681.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>对于逻辑回归，代价函数正则化的表达式：<br><img src="https://img-blog.csdnimg.cn/20200708160155875.PNG#pic_center" alt="在这里插入图片描述"><br>要最小化该代价函数，通过求导，得出梯度下降算法为：<br><img src="https://img-blog.csdnimg.cn/20200708160313567.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>注：看上去同线性回归一样，但是知道 ℎ<sub>𝜃</sub>(𝑥) = 𝑔(𝜃<sup>𝑇</sup>𝑋)，所以与线性回归不同。𝜃<sub>0</sub>不参与其中的任何一个正则化。</p>
+<h3 id="8-5-Regularization-and-Bias-Variance"><a href="#8-5-Regularization-and-Bias-Variance" class="headerlink" title="8.5 Regularization and Bias/Variance"></a>8.5 Regularization and Bias/Variance</h3><p>在训练模型的过程中，一般会使用一些正则化方法来防止过拟合。但是可能会正则化的程度太高或太小了，即在选择 λ 的值时也需要思考与刚才选择多项式模型次数类似的问题。<br><img src="https://img-blog.csdnimg.cn/20200714170902750.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>选择一系列的想要测试的 𝜆 值，通常是 0-10 之间的呈现 2 倍关系的值（如：0,0.01,0.02,0.04,0.08,0.15,0.32,0.64,1.28,2.56,5.12,10共 12 个）。同样把数据分为训练集、交叉验证集和测试集。<br><img src="https://img-blog.csdnimg.cn/20200714172426323.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>选择𝜆的方法为：<br>1.使用训练集训练出 12 个不同程度正则化的模型<br>2.用 12 个模型分别对交叉验证集计算的出交叉验证误差<br>3.选择得出交叉验证误差最小的模型<br>4.运用步骤 3 中选出模型对测试集计算得出推广误差，也可以同时将训练集和交叉验证集模型的代价函数误差与 λ 的值绘制在一张图表上：<br><img src="https://img-blog.csdnimg.cn/20200714172535993.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<ul>
+<li>当 𝜆 较小时，训练集误差较小（过拟合）而交叉验证集误差较大</li>
+<li>随着 𝜆 的增加，训练集误差不断增加（欠拟合），而交叉验证集误差则是先减小后增加</li>
+</ul>
+<h3 id="8-6-Learning-Curves"><a href="#8-6-Learning-Curves" class="headerlink" title="8.6 Learning Curves"></a>8.6 Learning Curves</h3><p>学习曲线可用于判断某一个学习算法是否处于偏差、方差问题。学习曲线是学习算法的一个很好的<label style="color:red">合理检验（sanity check）</label>。学习曲线是将训练集误差和交叉验证集误差作为训练集实例数量（𝑚）的函数绘制的图表。</p>
+<p>即，如果有 100 行数据，从 1 行数据开始，逐渐学习更多行的数据。思想是：当训练较少行数据的时候，训练的模型将能够非常完美地适应较少的训练数据，但是训练出来的模型却不能很好地适应交叉验证集数据或测试集数据。<br><img src="https://img-blog.csdnimg.cn/20200714173125794.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>如何利用学习曲线识别高偏差/欠拟合：作为例子，尝试用一条直线来适应下面的数据，可以看出，无论训练集有多么大误差都不会有太大改观：<br><img src="https://img-blog.csdnimg.cn/2020071417355684.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>也就是说在高偏差/欠拟合的情况下，增加数据到训练集不一定能有帮助。</p>
+<p>如何利用学习曲线识别高方差/过拟合：假设使用一个非常高次的多项式模型，并且正则化非常小，可以看出，当交叉验证集误差远大于训练集误差时，往训练集增加更多数据可以提高模型的效果。<br><img src="https://img-blog.csdnimg.cn/20200714173709702.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>也就是说在高方差/过拟合的情况下，增加更多数据到训练集可能可以提高算法效果。</p>
+<h3 id="8-7-Summary"><a href="#8-7-Summary" class="headerlink" title="8.7 Summary"></a>8.7 Summary</h3><ol>
+<li>获得更多的训练实例——解决高方差</li>
+<li>尝试减少特征的数量——解决高方差</li>
+<li>尝试获得更多的特征——解决高偏差</li>
+<li>尝试增加多项式特征——解决高偏差</li>
+<li>尝试减少正则化程度 λ——解决高偏差</li>
+<li>尝试增加正则化程度 λ——解决高方差</li>
+</ol>
+<p><strong>神经网络的方差和偏差：</strong><br><img src="https://img-blog.csdnimg.cn/20200714180238125.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>使用较小的神经网络，类似于参数较少的情况，容易导致高偏差和欠拟合，但计算代价较小使用较大的神经网络，类似于参数较多的情况，容易导致高方差和过拟合，虽然计算代价比较大，但是可以通过正则化手段来调整而更加适应数据。通常选择较大的神经网络并采用正则化处理会比采用较小的神经网络效果要好。</p>
+<p>对于神经网络中的隐藏层的层数的选择，通常从一层开始逐渐增加层数，为了更好地作选择，可以把数据分为训练集、交叉验证集和测试集，针对不同隐藏层层数的神经网络训练神经网络， 然后选择交叉验证集代价最小的神经网络。</p>
 
       
     </div>
@@ -478,6 +508,10 @@
           
             <a href="/tags/Machine-Learning/" rel="tag"># Machine Learning</a>
           
+            <a href="/tags/Learning-Curves/" rel="tag"># Learning Curves</a>
+          
+            <a href="/tags/Bias-Variance/" rel="tag"># Bias/Variance</a>
+          
         </div>
       
 
@@ -489,8 +523,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2020/07/08/%5BMachine%20Learning%5D%20%E9%80%BB%E8%BE%91%E5%9B%9E%E5%BD%92(Logistic%20Regression)/" rel="next" title="【Machine Learning】逻辑回归(Logistic Regression)">
-                <i class="fa fa-chevron-left"></i> 【Machine Learning】逻辑回归(Logistic Regression)
+              <a href="/2020/07/14/%E3%80%8A%E5%A2%9E%E9%95%BF%E9%BB%91%E5%AE%A2%E5%AE%9E%E6%88%98%E3%80%8B%EF%BC%88%E7%AC%AC1-3%E7%AB%A0%EF%BC%89/" rel="next" title="《增长黑客实战》（第1-3章）">
+                <i class="fa fa-chevron-left"></i> 《增长黑客实战》（第1-3章）
               </a>
             
           </div>
@@ -499,8 +533,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2020/07/11/%5BMachine%20Learning%5D%20%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%EF%BC%9A%E8%A1%A8%E8%BF%B0(Neural%20Networks_%20Representation)/" rel="prev" title="【Machine Learning】神经网络-表述(Neural Networks-Representation)">
-                【Machine Learning】神经网络-表述(Neural Networks-Representation) <i class="fa fa-chevron-right"></i>
+              <a href="/2020/07/15/%5BMachine%20Learning%5D%209%20%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%B3%BB%E7%BB%9F%E7%9A%84%E8%AE%BE%E8%AE%A1(Machine%20Learning%20System%20Design)/" rel="prev" title="【Machine Learning】9 机器学习系统的设计(Machine Learning System Design)">
+                【Machine Learning】9 机器学习系统的设计(Machine Learning System Design) <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -592,7 +626,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-count">18</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -614,7 +648,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-count">16</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -654,7 +688,11 @@
 				  
 				  
 					<li class="recent_posts_li">
-					  <a href="/2020/07/18/%5BMachine%20Learning%5D%20%E6%94%AF%E6%8C%81%E5%90%91%E9%87%8F%E6%9C%BA(Support%20Vector%20Machines)/" title="【Machine Learning】支持向量机(Support Vector Machines)" target="_blank">【Machine Learning】支持向量机(Support Vector Machines)</a>
+					  <a href="/2020/07/19/%5BMachine%20Learning%5D%2011%20%E8%81%9A%E7%B1%BB(Clustering)/" title="【Machine Learning】11 聚类(Clustering)" target="_blank">【Machine Learning】11 聚类(Clustering)</a>
+					</li>
+				  
+					<li class="recent_posts_li">
+					  <a href="/2020/07/18/%5BMachine%20Learning%5D%2010%20%E6%94%AF%E6%8C%81%E5%90%91%E9%87%8F%E6%9C%BA(Support%20Vector%20Machines)/" title="【Machine Learning】10 支持向量机(Support Vector Machines)" target="_blank">【Machine Learning】10 支持向量机(Support Vector Machines)</a>
 					</li>
 				  
 					<li class="recent_posts_li">
@@ -662,15 +700,11 @@
 					</li>
 				  
 					<li class="recent_posts_li">
-					  <a href="/2020/07/15/%5BMachine%20Learning%5D%20%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%B3%BB%E7%BB%9F%E7%9A%84%E8%AE%BE%E8%AE%A1(Machine%20Learning%20System%20Design)/" title="【Machine Learning】机器学习系统的设计(Machine Learning System Design)" target="_blank">【Machine Learning】机器学习系统的设计(Machine Learning System Design)</a>
+					  <a href="/2020/07/15/%5BMachine%20Learning%5D%209%20%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%B3%BB%E7%BB%9F%E7%9A%84%E8%AE%BE%E8%AE%A1(Machine%20Learning%20System%20Design)/" title="【Machine Learning】9 机器学习系统的设计(Machine Learning System Design)" target="_blank">【Machine Learning】9 机器学习系统的设计(Machine Learning System Design)</a>
 					</li>
 				  
 					<li class="recent_posts_li">
-					  <a href="/2020/07/14/%5BMachine%20Learning%5D%20%E5%BA%94%E7%94%A8%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%9A%84%E5%BB%BA%E8%AE%AE(Advice%20for%20Applying%20Machine%20Learning)/" title="【Machine Learning】应用机器学习的建议(Advice for Applying Machine Learning)" target="_blank">【Machine Learning】应用机器学习的建议(Advice for Applying Machine Learning)</a>
-					</li>
-				  
-					<li class="recent_posts_li">
-					  <a href="/2020/07/14/%E3%80%8A%E5%A2%9E%E9%95%BF%E9%BB%91%E5%AE%A2%E5%AE%9E%E6%88%98%E3%80%8B%EF%BC%88%E7%AC%AC1-3%E7%AB%A0%EF%BC%89/" title="《增长黑客实战》（第1-3章）" target="_blank">《增长黑客实战》（第1-3章）</a>
+					  <a href="/2020/07/14/%5BMachine%20Learning%5D%208%20%E5%BA%94%E7%94%A8%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%9A%84%E5%BB%BA%E8%AE%AE(Advice%20for%20Applying%20Machine%20Learning)/" title="【Machine Learning】8 应用机器学习的建议(Advice for Applying Machine Learning)" target="_blank">【Machine Learning】8 应用机器学习的建议(Advice for Applying Machine Learning)</a>
 					</li>
 				  
 				</ul>
@@ -713,7 +747,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#5-Regularization-正则化"><span class="nav-text">5 Regularization(正则化)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#5-1-The-problem-of-overfitting"><span class="nav-text">5.1 The problem of overfitting</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-2-Cost-Function"><span class="nav-text">5.2 Cost Function</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-3-Regularizede-linear-regression-正则化线性回归"><span class="nav-text">5.3 Regularizede linear regression(正则化线性回归)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-4-Regularized-Logistic-Regression-正则化的逻辑回归模型"><span class="nav-text">5.4 Regularized Logistic Regression(正则化的逻辑回归模型)</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#8-Advice-for-Applying-Machine-Learning-应用机器学习的建议"><span class="nav-text">8 Advice for Applying Machine Learning(应用机器学习的建议)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#8-1-Introduction"><span class="nav-text">8.1 Introduction</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-2-Evaluating-a-Hypothesis"><span class="nav-text">8.2 Evaluating a Hypothesis</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-3-Model-Selection-and-Train-Validation-Test-Sets"><span class="nav-text">8.3 Model Selection and Train_Validation_Test Sets</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-4-Diagnosing-Bias-vs-Variance"><span class="nav-text">8.4 Diagnosing Bias vs. Variance</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-5-Regularization-and-Bias-Variance"><span class="nav-text">8.5 Regularization and Bias&#x2F;Variance</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-6-Learning-Curves"><span class="nav-text">8.6 Learning Curves</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-7-Summary"><span class="nav-text">8.7 Summary</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -747,7 +781,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">55.8k</span>
+    <span title="Site words total count">57.6k</span>
   
 </div>
 
@@ -892,9 +926,9 @@
     
       <script type="text/javascript">
         var disqus_config = function () {
-          this.page.url = 'http://yoursite.com/2020/07/08/[Machine%20Learning]%20%E6%AD%A3%E5%88%99%E5%8C%96(Regularization)/';
-          this.page.identifier = '2020/07/08/[Machine Learning] 正则化(Regularization)/';
-          this.page.title = '【Machine Learning】正则化(Regularization)';
+          this.page.url = 'http://yoursite.com/2020/07/14/[Machine%20Learning]%208%20%E5%BA%94%E7%94%A8%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%9A%84%E5%BB%BA%E8%AE%AE(Advice%20for%20Applying%20Machine%20Learning)/';
+          this.page.identifier = '2020/07/14/[Machine Learning] 8 应用机器学习的建议(Advice for Applying Machine Learning)/';
+          this.page.title = '【Machine Learning】8 应用机器学习的建议(Advice for Applying Machine Learning)';
         };
         var d = document, s = d.createElement('script');
         s.src = 'https://.disqus.com/embed.js';
