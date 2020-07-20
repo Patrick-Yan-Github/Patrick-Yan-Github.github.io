@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Machine Learning," />
+  <meta name="keywords" content="Machine Learning,PCA," />
 
 
 
@@ -82,33 +82,36 @@
 
 
 <meta property="og:type" content="article">
-<meta property="og:title" content="【Machine Learning】2 单变量线性回归(Linear Regression with One Variable)">
-<meta property="og:url" content="http://yoursite.com/2020/07/06/[Machine%20Learning]%202%20%E5%8D%95%E5%8F%98%E9%87%8F%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92(Linear%20Regression%20with%20One%20Variable)/index.html">
+<meta property="og:title" content="【Machine Learning】12 降维(Dimensionality Reduction)">
+<meta property="og:url" content="http://yoursite.com/2020/07/20/[Machine%20Learning]%2012%20%E9%99%8D%E7%BB%B4(Dimensionality%20Reduction)/index.html">
 <meta property="og:site_name" content="今天你DEBUG了吗">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200706191025292.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200706132157519.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200706131824876.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/2020070613382955.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200706135220962.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200706135354668.PNG#pic_center">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200706135500768.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200706141519668.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200706141307651.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200706144357901.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/202007061443109.PNG#pic_center">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/2020070614584344.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200706154630872.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200706161527701.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200706161618177.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200706162727647.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200706163111965.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200706163141859.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center">
-<meta property="article:published_time" content="2020-07-06T11:07:27.000Z">
-<meta property="article:modified_time" content="2020-07-19T06:59:13.249Z">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200720151913225.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200720133240451.PNG#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200720133953685.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200720134132906.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200720134505327.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200720134719309.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200720142621705.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200720142903671.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/202007201433127.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/2020072014384614.png#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200720144008580.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/2020072014414560.PNG#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200720145454169.PNG#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200720145626928.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200720145716263.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200720145822799.PNG#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200720145856156.png#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200720145934745.PNG#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200720150332378.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200720150949625.PNG#pic_center">
+<meta property="article:published_time" content="2020-07-20T07:21:49.000Z">
+<meta property="article:modified_time" content="2020-07-20T07:22:25.476Z">
 <meta property="article:author" content="Patrick Yan">
 <meta property="article:tag" content="Machine Learning">
+<meta property="article:tag" content="PCA">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://img-blog.csdnimg.cn/20200706191025292.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center">
+<meta name="twitter:image" content="https://img-blog.csdnimg.cn/20200720151913225.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center">
 
 
 
@@ -138,13 +141,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2020/07/06/[Machine Learning] 2 单变量线性回归(Linear Regression with One Variable)/"/>
+  <link rel="canonical" href="http://yoursite.com/2020/07/20/[Machine Learning] 12 降维(Dimensionality Reduction)/"/>
 
 
 
 
 
-  <title>【Machine Learning】2 单变量线性回归(Linear Regression with One Variable) | 今天你DEBUG了吗</title>
+  <title>【Machine Learning】12 降维(Dimensionality Reduction) | 今天你DEBUG了吗</title>
   
 
 
@@ -315,7 +318,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/07/06/%5BMachine%20Learning%5D%202%20%E5%8D%95%E5%8F%98%E9%87%8F%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92(Linear%20Regression%20with%20One%20Variable)/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/07/20/%5BMachine%20Learning%5D%2012%20%E9%99%8D%E7%BB%B4(Dimensionality%20Reduction)/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Patrick Yan">
@@ -332,7 +335,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">【Machine Learning】2 单变量线性回归(Linear Regression with One Variable)</h1>
+          <h1 class="post-title" itemprop="name headline">【Machine Learning】12 降维(Dimensionality Reduction)</h1>
         
 
         <div class="post-meta">
@@ -344,8 +347,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-07-06T19:07:27+08:00">
-                2020-07-06
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-07-20T15:21:49+08:00">
+                2020-07-20
               </time>
             
 
@@ -385,9 +388,9 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2020/07/06/%5BMachine%20Learning%5D%202%20%E5%8D%95%E5%8F%98%E9%87%8F%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92(Linear%20Regression%20with%20One%20Variable)/#comments" itemprop="discussionUrl">
+                <a href="/2020/07/20/%5BMachine%20Learning%5D%2012%20%E9%99%8D%E7%BB%B4(Dimensionality%20Reduction)/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2020/07/06/[Machine Learning] 2 单变量线性回归(Linear Regression with One Variable)/" itemprop="commentCount"></span>
+                        data-disqus-identifier="2020/07/20/[Machine Learning] 12 降维(Dimensionality Reduction)/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -409,7 +412,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  2k
+                  2.4k
                 </span>
               
 
@@ -425,7 +428,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  6
+                  8
                 </span>
               
             </div>
@@ -446,36 +449,35 @@
       
 
       
-        <p><img src="https://img-blog.csdnimg.cn/20200706191025292.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+        <p><img src="https://img-blog.csdnimg.cn/20200720151913225.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
 <a id="more"></a>
 
-<h2 id="2-Linear-Regression-with-One-Variable-单变量线性回归"><a href="#2-Linear-Regression-with-One-Variable-单变量线性回归" class="headerlink" title="2 Linear Regression with One Variable(单变量线性回归)"></a>2 Linear Regression with One Variable(单变量线性回归)</h2><h3 id="2-1-Case-Housing-Prices"><a href="#2-1-Case-Housing-Prices" class="headerlink" title="2.1 Case: Housing Prices"></a>2.1 Case: Housing Prices</h3><p>使用数据集预测住房价格，数据集包含某市的不同房屋尺寸所售出的价格。<br><img src="https://img-blog.csdnimg.cn/20200706132157519.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述">)<img src="https://img-blog.csdnimg.cn/20200706131824876.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>其中，ℎ 代表学习算法的解决方案或函数也称为==假设（hypothesis）==。</p>
-<p>这就是一个监督学习算法的工作方式，在学习算法下，输入训练集里的房屋价格，然后输出一个函数，通常表示为小写 ℎ表示。ℎ 代表 hypothesis(假设)，ℎ表示一个函数，输入是房屋尺寸大小，因此 ℎ 根据输入的 𝑥值来得出 𝑦 值，𝑦 值对应房子的价格。因此，ℎ 是一个从𝑥到 𝑦 的函数映射。</p>
-<p>那么，对于房价预测问题，该如何表达 ℎ？</p>
-<p>一种可能的表达方式为：ℎ𝜃(𝑥) = 𝜃0 + 𝜃1𝑥，因为只含有一个特征/输入变量，因此这样的问题叫作==单变量线性回归问题(Linear Regression with One Variable)==。</p>
-<h3 id="2-2-Cost-Function-代价函数"><a href="#2-2-Cost-Function-代价函数" class="headerlink" title="2.2 Cost Function(代价函数)"></a>2.2 Cost Function(代价函数)</h3><p><img src="https://img-blog.csdnimg.cn/2020070613382955.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>在线性回归中有一个训练集，其预测的函数形式是：ℎ𝜃(𝑥) = 𝜃0 + 𝜃1𝑥。接下来要做的便是为模型选择合适的参数（parameters）𝜃0 和 𝜃1，在房价问题这个例子中便是直线的斜率和在𝑦 轴上的截距。</p>
-<p>选择的参数决定了所得到的直线相对于我们的训练集的准确程度，模型所预测的值与训练集中实际值之间的差距（下图中蓝线所指）就是==建模误差（modeling error）==。</p>
-<p><img src="https://img-blog.csdnimg.cn/20200706135220962.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>目标便是选择出可以使得建模误差的平方和能够最小的模型参数， 即让代价函数：<img src="https://img-blog.csdnimg.cn/20200706135354668.PNG#pic_center" alt="在这里插入图片描述">最小。</p>
-<p>如图一个等高线图，三个坐标分别为𝜃0和𝜃1 和𝐽(𝜃0, 𝜃1)：<br><img src="https://img-blog.csdnimg.cn/20200706135500768.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>则可以看出在三维空间中存在一个使得𝐽(𝜃0, 𝜃1)最小的点。</p>
-<p>在实际问题上，我们会遇到更复杂、更高维度、更多参数的情况，而这些情况是很难画出图的，因此更无法将其可视化，因此我们需要的是编写程序来找出这些最小化代价函数的𝜃0和𝜃1的值。</p>
-<p>==代价函数  (Cost Function)== 也被称作平方误差函数，有时也被称为平方误差代价函数。之所以要求出误差的平方和，是因为对于大多数问题，特别是回归问题，误差平方代价函数都是一个合理的选择。虽然还有其他的代价函数也能很好地发挥作用，但是平方误差代价函数可能是解决回归问题最常用的手段了。<br><img src="https://img-blog.csdnimg.cn/20200706141519668.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述">)<img src="https://img-blog.csdnimg.cn/20200706141307651.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
-<h3 id="2-3-Gradient-Decent-梯度下降"><a href="#2-3-Gradient-Decent-梯度下降" class="headerlink" title="2.3 Gradient Decent(梯度下降)"></a>2.3 Gradient Decent(梯度下降)</h3><p>==梯度下降(Gradient Decent)== 是一个用来求函数最小值的算法，可使用梯度下降算法来求出代价函数𝐽(𝜃0, 𝜃1) 的最小值。</p>
-<p>梯度下降含义是：开始时随机选择一个参数的组合(𝜃0, 𝜃1, . . . . . . , 𝜃𝑛)，计算代价函数，然后寻找下一个能让代价函数值下降最多的参数组合。持续这么做直到到到一个局部最小值（local minimum），因为并没有尝试完所有的参数组合，所以不能确定所得到的局部最小值是否便是全局最小值（global minimum），选择不同的初始参数组合，可能会找到不同的局部最小值。<br><img src="https://img-blog.csdnimg.cn/20200706144357901.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>例如，你站立在这座红色山上，寻找最快下山的方向。在梯度下降算法中，我们要做的就是旋转 360 度，发现最佳的下山方向，然后按照判断迈出一步，再在新的一个点重复上面的步骤，决定从什么方向将会最快下山，并依此类推，直到接近局部最低点的位置。</p>
-<p>==批量梯度下降（batch gradient descent）== 算法的公式为：<br><img src="https://img-blog.csdnimg.cn/202007061443109.PNG#pic_center" alt="在这里插入图片描述"><br>其中𝑎是学习率（learning rate），它决定了沿着能让代价函数下降程度最大的方向向下迈出的步子有多大，在批量梯度下降中，每一次都同时让所有的参数减去学习速率乘以代价函数的导数。</p>
-<p><img src="https://img-blog.csdnimg.cn/2020070614584344.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>在梯度下降算法中，左边是正确实现<strong>同时</strong>更新的方法。</p>
-<p>梯度下降算法如下：<br><img src="https://img-blog.csdnimg.cn/20200706154630872.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>描述：对𝜃赋值，使得𝐽(𝜃)按梯度下降最快方向进行，一直迭代下去，最终得到局部最小值。<br><img src="https://img-blog.csdnimg.cn/20200706161527701.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>图中上方红色切线的斜率是正，也就是说它有正导数，因此可得到的新的𝜃1，𝜃1更新后等于𝜃1减去一个正数乘以𝑎。相反，图中下方红色切线的斜率是负。</p>
-<p><strong>如果𝑎太小或𝑎太大会出现什么情况：</strong></p>
-<ul>
-<li>如果𝑎太小了，即我的学习速率太小，结果就是像蜗牛一样一点点地挪动，不断接近最低点，这样就需要很多步才能到达最低点，所以如果𝑎太小的话，可能会很慢，因为它会一点点挪动，它会需要很多步才能到达全局最低点。</li>
-<li>如果𝑎太大，那么梯度下降法可能会越过最低点，甚至可能无法收敛，下一次迭代又移动了一大步，越过一次，又越过一次，一次次越过最低点，直到你发现实际上离最低点越来越远，所以，如果𝑎太大，它会导致无法收敛，甚至发散。</li>
-</ul>
-<p><strong>如果预先把𝜃1放在一个局部的最低点，下一步梯度下降法会怎样工作？</strong></p>
-<ul>
-<li>假设将𝜃1初始化在局部最低点，那么它已经在一个局部的最优处或局部最低点，导数将等于零。这意味着该点已经在局部最优点，它使得𝜃1不再改变，也就是新的𝜃1等于原来的𝜃1，因此，如果参数已经处于局部最低点，那么梯度下降法更新其实什么都没做，它不会改变参数的值。这也解释了为什么即使学习速率𝑎保持不变时，梯度下降也可以收敛到局部最低点。</li>
-</ul>
-<h4 id="2-3-1-Case-Cost-Function-of-Gradient-Descent"><a href="#2-3-1-Case-Cost-Function-of-Gradient-Descent" class="headerlink" title="2.3.1 Case: Cost Function of Gradient Descent"></a>2.3.1 Case: Cost Function of Gradient Descent</h4><p>例子：<br><img src="https://img-blog.csdnimg.cn/20200706161618177.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>为了找到最小值，首先初始化梯度下降算法，在那个粉红色的点初始化，如果更新一步梯度下降，到了绿色的点。不断更新，越来越接近最低点，导数也越来越接近零。所以随着梯度下降法的运行，移动的幅度会自动变得越来越小，直到最终移动幅度非常小，收敛到局部极小值。</p>
-<p>总结一下，在梯度下降法中，当接近局部最低点时，梯度下降法会自动采取更小的幅度，实际上没有必要再另外减小𝑎。这是因为在局部最低点时导数等于零，当接近局部最低时，导数值会自动变得越来越小。</p>
-<h4 id="2-3-2-Gradient-Descent-For-Linear-Regression-梯度下降的线性回归"><a href="#2-3-2-Gradient-Descent-For-Linear-Regression-梯度下降的线性回归" class="headerlink" title="2.3.2 Gradient Descent For Linear Regression(梯度下降的线性回归)"></a>2.3.2 Gradient Descent For Linear Regression(梯度下降的线性回归)</h4><p>梯度下降算法和线性回归算法比较如图：<br><img src="https://img-blog.csdnimg.cn/20200706162727647.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20200706163111965.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>则算法可改写为：<br><img src="https://img-blog.csdnimg.cn/20200706163141859.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>上面的算法有时也称为==批量梯度下降(“Batch” Gradient Descent，简称：BGD)== ，指的是在梯度下降的每一步中，都会用到所有的训练样本，在计算微分求导项时，需要进行求和运算，所以，在每一个单独的梯度下降中，最终都要计算这样一个东西，这个项需要对所有𝑚个训练样本求和。因此，批量梯度下降法这个名字说明了需要考虑所有这一”批”训练样本，而事实上，也有其他类型的梯度下降法，不是这种”批量”型的，不考虑整个的训练集，而是每次只关注训练集中的一些小的子集。</p>
+<h2 id="12-Dimensionality-Reduction-降维"><a href="#12-Dimensionality-Reduction-降维" class="headerlink" title="12 Dimensionality Reduction(降维)"></a>12 Dimensionality Reduction(降维)</h2><h3 id="12-1-Motivation-I-Data-Compression"><a href="#12-1-Motivation-I-Data-Compression" class="headerlink" title="12.1 Motivation I_ Data Compression"></a>12.1 Motivation I_ Data Compression</h3><p>第二种无监督学习问题，称为降维。使用降维可以实现数据压缩，数据压缩不仅可以压缩数据，因而使用较少的计算机内存或磁盘空间，但它也加快了学习算法。</p>
+<p>那么，什么是降维？举一个例子，有一个数据集，其含有许多特征。<br><img src="https://img-blog.csdnimg.cn/20200720133240451.PNG#pic_center" alt="在这里插入图片描述"><br>假设有两个未知的特征：𝑥1:长度：用厘米表示；𝑥2：是用英寸表示同一物体的长度。所以，这给了我们高度冗余表示，也许这两个特征𝑥1和𝑥2，能减少数据到一维。</p>
+<p>将数据从二维降至一维： 假使要采用两种不同的仪器来测量一些东西的尺寸，其中一个仪器测量结果的单位是英寸，另一个仪器测量的结果是厘米，我们希望将测量的结果作为我们机器学习的特征。现在的问题的是，两种仪器对同一个东西测量的结果不完全相等（由于误差、精度等），而将两者都作为特征有些重复，因而，我们希望将这个二维的数据降至一维。<br><img src="https://img-blog.csdnimg.cn/20200720133953685.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>将数据从三维降至二维： 这个例子中我们要将一个三维的特征向量降至一个二维的特征向量。过程是与上面类似的，将三维向量投射到一个二维的平面上，强迫使得所有的数据都在同一个平面上，降至二维的特征向量。<br><img src="https://img-blog.csdnimg.cn/20200720134132906.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>这样的处理过程可以被用于把任何维度的数据降到任何想要的维度，例如将 1000 维的特征降至 100 维。</p>
+<h3 id="12-2-Motivation-II-Visualization"><a href="#12-2-Motivation-II-Visualization" class="headerlink" title="12.2 Motivation II_ Visualization"></a>12.2 Motivation II_ Visualization</h3><p>在许多机器学习问题中，如果能将数据可视化，便能寻找到一个更好的解决方案，其中降维就有助于实现这一目的。<br><img src="https://img-blog.csdnimg.cn/20200720134505327.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>例如，一个数据集包含有许多不同国家的数据，每一个特征向量都有 50 个特征（如 GDP，人均 GDP，平均寿命等）。如果要将这个 50 维的数据可视化是不可能的。使用降维的方法将其降至 2 维，便可以将其可视化了。<br><img src="https://img-blog.csdnimg.cn/20200720134719309.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>这样做的问题在于，降维的算法只负责减少维数，新产生的特征的意义就必须由我们自己去发现了。</p>
+<h3 id="12-3-Principal-Component-Analysis-Problem-Formulation"><a href="#12-3-Principal-Component-Analysis-Problem-Formulation" class="headerlink" title="12.3 Principal Component Analysis Problem Formulation"></a>12.3 Principal Component Analysis Problem Formulation</h3><p>主成分分析(PCA)是最常见的降维算法。</p>
+<p>在 PCA 中，要做的是找到一个方向向量（Vector direction），当把所有的数据都投射到该向量上时，希望投射平均均方误差能尽可能地小。方向向量是一个经过原点的向量，而投射误差是从特征向量向该方向向量作垂线的长度。<br><img src="https://img-blog.csdnimg.cn/20200720142621705.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>主成分分析问题的描述：问题是要将𝑛维数据降至𝑘维，目标是找到向量𝑢<sup>(1)</sup>,𝑢<sup>(2)</sup>,…,𝑢<sup>(𝑘)</sup>使得总的投射误差最小。</p>
+<p><strong>主成分分析与线性回归的比较</strong><br>主成分分析与线性回归是两种不同的算法。主成分分析最小化的是投射误差（Projected Error），而线性回归尝试的是最小化预测误差。线性回归的目的是预测结果，而主成分分析不作任何预测。<br><img src="https://img-blog.csdnimg.cn/20200720142903671.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>上图中，左边的是线性回归的误差（垂直于横轴投影），右边则是主要成分分析的误差（垂直于红线投影）。</p>
+<p>PCA 将𝑛个特征降维到𝑘个，可以用来进行数据压缩，如果 100 维的向量最后可以用 10 维来表示，那么压缩率为 90%。同样图像处理领域的 KL 变换使用 PCA 做图像压缩。但 PCA 要保证降维后，还要保证数据的特性损失最小。</p>
+<p>PCA 技术的一大好处是对数据进行降维的处理。可以对新求出的“主元”向量的重要性进行排序，根据需要取前面最重要的部分，将后面的维数省去，可以达到降维从而简化模型或是对数据进行压缩的效果。同时最大程度的保持了原有数据的信息。</p>
+<p>PCA 技术的一个很大的优点是，它是完全无参数限制的。在 PCA 的计算过程中完全不需要人为的设定参数或是根据任何经验模型对计算进行干预，最后的结果只与数据相关，与用户是独立的。但是，这一点同时也可以看作是缺点。如果用户对观测对象有一定的先验知识，掌握了数据的一些特征，却无法通过参数化等方法对处理过程进行干预，可能会得不到预期的效果，效率也不高。</p>
+<h3 id="12-4-Principal-Component-Analysis-Algorithm"><a href="#12-4-Principal-Component-Analysis-Algorithm" class="headerlink" title="12.4 Principal Component Analysis Algorithm"></a>12.4 Principal Component Analysis Algorithm</h3><p><img src="https://img-blog.csdnimg.cn/202007201433127.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>PCA 减少𝑛维到𝑘维：<br>第一步是均值归一化。需要计算出所有特征的均值，然后令 𝑥𝑗 = 𝑥𝑗 − 𝜇𝑗。如果特征是在不同的数量级上，还需要将其除以标准差 𝜎<sup>2</sup>。<br>第二步是计算协方差矩阵（covariance matrix）𝛴： <img src="https://img-blog.csdnimg.cn/2020072014384614.png#pic_center" alt="在这里插入图片描述"></p>
+<p>第三步是计算协方差矩阵𝛴的特征向量（eigenvectors）:<br>在 Octave 里我们可以利用奇异值分解（singular value decomposition）来求解，[U, S,V]= svd(sigma)。</p>
+<p><img src="https://img-blog.csdnimg.cn/20200720144008580.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>对于一个 𝑛 × 𝑛维度的矩阵，上式中的𝑈是一个具有与数据之间最小投射误差的方向向量构成的矩阵。如果我们希望将数据从𝑛维降至𝑘维，只需要从𝑈中选取前𝑘个向量，获得一个𝑛 × 𝑘维度的矩阵，我们用𝑈𝑟𝑒𝑑𝑢𝑐𝑒表示，然后通过如下计算获得要求的新特征向量𝑧<sup>(𝑖)</sup>:<img src="https://img-blog.csdnimg.cn/2020072014414560.PNG#pic_center" alt="在这里插入图片描述"><br>其中𝑥是𝑛 × 1维的，因此结果为𝑘 × 1维度。注，不对方差特征进行处理。</p>
+<h3 id="12-5-Choosing-The-Number-Of-Principal-Components"><a href="#12-5-Choosing-The-Number-Of-Principal-Components" class="headerlink" title="12.5 Choosing The Number Of Principal Components"></a>12.5 Choosing The Number Of Principal Components</h3><p>主要成分分析是减少投射的平均均方误差。</p>
+<p>训练集的方差为：<img src="https://img-blog.csdnimg.cn/20200720145454169.PNG#pic_center" alt="在这里插入图片描述"><br>我们希望在平均均方误差与训练集方差的比例尽可能小的情况下选择尽可能小的𝑘值。如果我们希望这个比例小于 1%，就意味着原本数据的偏差有 99%都保留下来了，如果我们选择保留 95%的偏差，便能非常显著地降低模型中特征的维度了。<br><img src="https://img-blog.csdnimg.cn/20200720145626928.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>我们可以先令𝑘 = 1，然后进行主要成分分析，获得𝑈𝑟𝑒𝑑𝑢𝑐𝑒和𝑧，然后计算比例是否小于1%。如果不是的话再令𝑘 = 2，如此类推，直到找到可以使得比例小于 1%的最小𝑘 值（原因是各个特征之间通常情况存在某种相关性）。</p>
+<p>还有一些更好的方式来选择𝑘，当我们在 Octave 中调用“svd”函数的时候，我们获得三个参数：[U, S, V] = svd(sigma)。<br><img src="https://img-blog.csdnimg.cn/20200720145716263.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>其中的𝑆是一个𝑛 × 𝑛的矩阵，只有对角线上有值，而其它单元都是 0，我们可以使用这个矩阵来计算平均均方误差与训练集方差的比例：<br><img src="https://img-blog.csdnimg.cn/20200720145822799.PNG#pic_center" alt="在这里插入图片描述"><br>也就是：<img src="https://img-blog.csdnimg.cn/20200720145856156.png#pic_center" alt="在这里插入图片描述"><br>在压缩过数据后，我们可以采用如下方法来近似地获得原有的特征：<br><img src="https://img-blog.csdnimg.cn/20200720145934745.PNG#pic_center" alt="在这里插入图片描述"></p>
+<h3 id="12-6-Reconstruction-from-Compressed-Representation"><a href="#12-6-Reconstruction-from-Compressed-Representation" class="headerlink" title="12.6 Reconstruction from Compressed Representation"></a>12.6 Reconstruction from Compressed Representation</h3><p>PCA 作为压缩算法，可能把 1000 维的数据压缩 100 维特征，或具有三维数据压缩到一二维表示。所以，如果这是一个压缩算法，那么如何回到原有的高维数据的表示？<br><img src="https://img-blog.csdnimg.cn/20200720150332378.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>如图中样本𝑥<sup>(1)</sup>,𝑥<sup>(2)</sup>，这些样本在图中这个二维平面上，然后只使用一个实数，比如𝑧<sup>(1)</sup>，指定这些点的位置后他们被投射到这一个一维曲线上。那么，给定一个点𝑧<sup>(1)</sup>，如何能把这些点还原为原始的二维空间呢？𝑥为 2 维，z 为 1 维，𝑧 = 𝑈<sub>𝑟𝑒𝑑𝑢𝑐𝑒</sub><sup>𝑇</sup> 𝑥，相反的方程为：<br><img src="https://img-blog.csdnimg.cn/20200720150949625.PNG#pic_center" alt="𝑥𝑎𝑝𝑝𝑜𝑥 = 𝑈𝑟𝑒𝑑𝑢𝑐𝑒 ⋅ 𝑧,𝑥𝑎𝑝𝑝𝑜𝑥 ≈ 𝑥。"><br>所以，这就是从低维表示𝑧回到未压缩的表示，得到了数据之前的原始数据 𝑥，也把这个过程称为重建原始数据。</p>
+<h3 id="12-7-Advice-for-Applying-PCA"><a href="#12-7-Advice-for-Applying-PCA" class="headerlink" title="12.7 Advice for Applying PCA"></a>12.7 Advice for Applying PCA</h3><p>假使正在针对一张 100×100 像素的图片进行某个计算机视觉的机器学习，即总共有 10000 个特征。</p>
+<ol>
+<li>第一步是运用主要成分分析将数据压缩至 1000 个特征</li>
+<li>然后对训练集运行学习算法。</li>
+<li>在预测时，采用之前学习而来的𝑈𝑟𝑒𝑑𝑢𝑐𝑒将输入的特征𝑥转换成特征向量𝑧，然后再进行预测</li>
+</ol>
+<p>注：如果我们有交叉验证集合测试集，也采用对训练集学习而来的𝑈𝑟𝑒𝑑𝑢𝑐𝑒。</p>
+<p>错误的主要成分分析情况：一个常见错误使用主要成分分析的情况是，将其用于减少过拟合（减少了特征的数量）。这样做非常不好，不如尝试正则化处理。原因在于主要成分分析只是近似地丢弃掉一些特征，它并不考虑任何与结果变量有关的信息，因此可能会丢失非常重要的特征。然而当我们进行正则化处理时，会考虑到结果变量，不会丢掉重要的数据。</p>
+<p>另一个常见的错误是，默认地将主要成分分析作为学习过程中的一部分，这虽然很多时候有效果，但最好还是从所有原始特征开始，只在有必要的时候（算法运行太慢或者占用太多内存）才考虑采用主要成分分析。</p>
 
       
     </div>
@@ -495,6 +497,8 @@
           
             <a href="/tags/Machine-Learning/" rel="tag"># Machine Learning</a>
           
+            <a href="/tags/PCA/" rel="tag"># PCA</a>
+          
         </div>
       
 
@@ -506,8 +510,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2020/07/05/%5BMachine%20Learning%5D%201%20%E6%A6%82%E8%BF%B0/" rel="next" title="【Machine Learning】1 概述">
-                <i class="fa fa-chevron-left"></i> 【Machine Learning】1 概述
+              <a href="/2020/07/19/%5BMachine%20Learning%5D%2011%20%E8%81%9A%E7%B1%BB(Clustering)/" rel="next" title="【Machine Learning】11 聚类(Clustering)">
+                <i class="fa fa-chevron-left"></i> 【Machine Learning】11 聚类(Clustering)
               </a>
             
           </div>
@@ -515,10 +519,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2020/07/07/%5BMachine%20Learning%5D%203%20%E5%A4%9A%E5%8F%98%E9%87%8F%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92(Linear%20Regression%20with%20Multiple%20Variables)/" rel="prev" title="【Machine Learning】3 多变量线性回归(Linear Regression with Multiple Variables)">
-                【Machine Learning】3 多变量线性回归(Linear Regression with Multiple Variables) <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -737,7 +737,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-Linear-Regression-with-One-Variable-单变量线性回归"><span class="nav-text">2 Linear Regression with One Variable(单变量线性回归)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-Case-Housing-Prices"><span class="nav-text">2.1 Case: Housing Prices</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-Cost-Function-代价函数"><span class="nav-text">2.2 Cost Function(代价函数)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-Gradient-Decent-梯度下降"><span class="nav-text">2.3 Gradient Decent(梯度下降)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-3-1-Case-Cost-Function-of-Gradient-Descent"><span class="nav-text">2.3.1 Case: Cost Function of Gradient Descent</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-3-2-Gradient-Descent-For-Linear-Regression-梯度下降的线性回归"><span class="nav-text">2.3.2 Gradient Descent For Linear Regression(梯度下降的线性回归)</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#12-Dimensionality-Reduction-降维"><span class="nav-text">12 Dimensionality Reduction(降维)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#12-1-Motivation-I-Data-Compression"><span class="nav-text">12.1 Motivation I_ Data Compression</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#12-2-Motivation-II-Visualization"><span class="nav-text">12.2 Motivation II_ Visualization</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#12-3-Principal-Component-Analysis-Problem-Formulation"><span class="nav-text">12.3 Principal Component Analysis Problem Formulation</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#12-4-Principal-Component-Analysis-Algorithm"><span class="nav-text">12.4 Principal Component Analysis Algorithm</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#12-5-Choosing-The-Number-Of-Principal-Components"><span class="nav-text">12.5 Choosing The Number Of Principal Components</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#12-6-Reconstruction-from-Compressed-Representation"><span class="nav-text">12.6 Reconstruction from Compressed Representation</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#12-7-Advice-for-Applying-PCA"><span class="nav-text">12.7 Advice for Applying PCA</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -916,9 +916,9 @@
     
       <script type="text/javascript">
         var disqus_config = function () {
-          this.page.url = 'http://yoursite.com/2020/07/06/[Machine%20Learning]%202%20%E5%8D%95%E5%8F%98%E9%87%8F%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92(Linear%20Regression%20with%20One%20Variable)/';
-          this.page.identifier = '2020/07/06/[Machine Learning] 2 单变量线性回归(Linear Regression with One Variable)/';
-          this.page.title = '【Machine Learning】2 单变量线性回归(Linear Regression with One Variable)';
+          this.page.url = 'http://yoursite.com/2020/07/20/[Machine%20Learning]%2012%20%E9%99%8D%E7%BB%B4(Dimensionality%20Reduction)/';
+          this.page.identifier = '2020/07/20/[Machine Learning] 12 降维(Dimensionality Reduction)/';
+          this.page.title = '【Machine Learning】12 降维(Dimensionality Reduction)';
         };
         var d = document, s = d.createElement('script');
         s.src = 'https://.disqus.com/embed.js';
