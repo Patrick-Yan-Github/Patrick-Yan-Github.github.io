@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="运营指标," />
+  <meta name="keywords" content="Machine Learning," />
 
 
 
@@ -82,23 +82,37 @@
 
 
 <meta property="og:type" content="article">
-<meta property="og:title" content="运营指标">
-<meta property="og:url" content="http://yoursite.com/2020/06/22/%E8%BF%90%E8%90%A5%E6%8C%87%E6%A0%87/index.html">
+<meta property="og:title" content="【Machine Learning】13 异常检测(Anomaly Detection)">
+<meta property="og:url" content="http://yoursite.com/2020/07/21/[Machine%20Learning]%2013%20%E5%BC%82%E5%B8%B8%E6%A3%80%E6%B5%8B(Anomaly%20Detection)/index.html">
 <meta property="og:site_name" content="今天你DEBUG了吗">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200622160118760.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200622160714145.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200622161148322.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200622161407440.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200622161650584.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200622162035539.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200622162101254.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200622162124762.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70">
-<meta property="article:published_time" content="2020-06-22T08:23:15.000Z">
-<meta property="article:modified_time" content="2020-06-22T08:31:47.974Z">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200721144739196.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200721105251707.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200721110500301.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200721110613636.PNG#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200721111023447.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200721111103835.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200721124039696.PNG#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200721124146373.PNG#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200721124345468.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200721124528244.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200721133502124.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200721133550665.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200721135545231.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200721135639131.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200721135725964.PNG#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200721135904511.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200721140737892.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200721141750265.png#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200721141749912.png#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200721143321455.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200721143806670.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200721144058852.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="article:published_time" content="2020-07-21T06:52:02.000Z">
+<meta property="article:modified_time" content="2020-07-21T06:52:24.936Z">
 <meta property="article:author" content="Patrick Yan">
-<meta property="article:tag" content="运营指标">
+<meta property="article:tag" content="Machine Learning">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://img-blog.csdnimg.cn/20200622160118760.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70">
+<meta name="twitter:image" content="https://img-blog.csdnimg.cn/20200721144739196.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center">
 
 
 
@@ -128,13 +142,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2020/06/22/运营指标/"/>
+  <link rel="canonical" href="http://yoursite.com/2020/07/21/[Machine Learning] 13 异常检测(Anomaly Detection)/"/>
 
 
 
 
 
-  <title>运营指标 | 今天你DEBUG了吗</title>
+  <title>【Machine Learning】13 异常检测(Anomaly Detection) | 今天你DEBUG了吗</title>
   
 
 
@@ -305,7 +319,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/06/22/%E8%BF%90%E8%90%A5%E6%8C%87%E6%A0%87/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/07/21/%5BMachine%20Learning%5D%2013%20%E5%BC%82%E5%B8%B8%E6%A3%80%E6%B5%8B(Anomaly%20Detection)/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Patrick Yan">
@@ -322,7 +336,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">运营指标</h1>
+          <h1 class="post-title" itemprop="name headline">【Machine Learning】13 异常检测(Anomaly Detection)</h1>
         
 
         <div class="post-meta">
@@ -334,8 +348,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-06-22T16:23:15+08:00">
-                2020-06-22
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-07-21T14:52:02+08:00">
+                2020-07-21
               </time>
             
 
@@ -357,8 +371,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E4%BA%A7%E5%93%81-%E8%BF%90%E8%90%A5/" itemprop="url" rel="index">
-                    <span itemprop="name">产品/运营</span>
+                  <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index">
+                    <span itemprop="name">机器学习</span>
                   </a>
                 </span>
 
@@ -375,9 +389,9 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2020/06/22/%E8%BF%90%E8%90%A5%E6%8C%87%E6%A0%87/#comments" itemprop="discussionUrl">
+                <a href="/2020/07/21/%5BMachine%20Learning%5D%2013%20%E5%BC%82%E5%B8%B8%E6%A3%80%E6%B5%8B(Anomaly%20Detection)/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2020/06/22/运营指标/" itemprop="commentCount"></span>
+                        data-disqus-identifier="2020/07/21/[Machine Learning] 13 异常检测(Anomaly Detection)/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -399,7 +413,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  22
+                  3.3k
                 </span>
               
 
@@ -415,7 +429,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  1
+                  11
                 </span>
               
             </div>
@@ -436,16 +450,103 @@
       
 
       
-        <p><img src="https://img-blog.csdnimg.cn/20200622160118760.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+        <p><img src="https://img-blog.csdnimg.cn/20200721144739196.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
 <a id="more"></a>
 
-<h2 id="商品"><a href="#商品" class="headerlink" title="商品"></a>商品</h2><p><img src="https://img-blog.csdnimg.cn/20200622160714145.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
-<h2 id="营收"><a href="#营收" class="headerlink" title="营收"></a>营收</h2><p><img src="https://img-blog.csdnimg.cn/20200622161148322.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
-<h2 id="传播-活动"><a href="#传播-活动" class="headerlink" title="传播/活动"></a>传播/活动</h2><p><img src="https://img-blog.csdnimg.cn/20200622161407440.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
-<h2 id="营销"><a href="#营销" class="headerlink" title="营销"></a>营销</h2><p><img src="https://img-blog.csdnimg.cn/20200622161650584.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
-<h2 id="用户获取"><a href="#用户获取" class="headerlink" title="用户获取"></a>用户获取</h2><p><img src="https://img-blog.csdnimg.cn/20200622162035539.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
-<h2 id="用户活跃"><a href="#用户活跃" class="headerlink" title="用户活跃"></a>用户活跃</h2><p><img src="https://img-blog.csdnimg.cn/20200622162101254.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
-<h2 id="用户留存"><a href="#用户留存" class="headerlink" title="用户留存"></a>用户留存</h2><p><img src="https://img-blog.csdnimg.cn/20200622162124762.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<h2 id="13-Anomaly-Detection-异常检测"><a href="#13-Anomaly-Detection-异常检测" class="headerlink" title="13 Anomaly Detection(异常检测)"></a>13 Anomaly Detection(异常检测)</h2><h3 id="13-1-Problem-Motivation"><a href="#13-1-Problem-Motivation" class="headerlink" title="13.1 Problem Motivation"></a>13.1 Problem Motivation</h3><p>异常检测(Anomaly detection)问题，是机器学习算法的一个常见应用。这种算法的一个有趣之处在于：它虽然主要用于非监督学习问题，但从某些角度看，它又类似于一些监督学习问题。</p>
+<p>什么是异常检测呢？<br>举个例子：假设你是一个飞机引擎制造商，当你生产的飞机引擎从生产线上流出时，你需要进行QA(质量控制测试)，而作为这个测试的一部分，你测量了飞机引擎的一些特征变量，比如引擎运转时产生的热量，或者引擎的振动等等。<br><img src="https://img-blog.csdnimg.cn/20200721105251707.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>如果生产了𝑚个引擎的话，得到一个从𝑥<sup>(1)</sup>到𝑥<sup>(𝑚)</sup>的数据集，然后将这些数据绘制成图表，看起来就是上图这样：每个叉都是无标签数据。这样，异常检测问题可以定义如下：我们假设后来有一天，你有一个新的飞机引擎从生产线上流出，而你的新飞机引擎有特征变量𝑥<sub>𝑡𝑒𝑠𝑡</sub>。所谓的异常检测问题就是：我们希望知道这个新的飞机引擎是否有某种异常，或者说，我们希望判断这个引擎是否需要进一步测试。因为，如果它看起来像一个正常的引擎，那么我们可以直接将它运送到客户那里，而不需要进一步的测试。</p>
+<p>给定数据集 𝑥<sup>(1)</sup>, 𝑥<sup>(2)</sup>, . . , 𝑥<sup>(𝑚)</sup>，假设数据集是正常的，我们希望知道新的数据 𝑥<sub>𝑡𝑒𝑠𝑡</sub>是不是异常的，即这个测试数据不属于该组数据的几率如何。我们所构建的模型应该能根据该测试数据的位置告诉我们其属于一组数据的可能性 𝑝(𝑥)。<br><img src="https://img-blog.csdnimg.cn/20200721110500301.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>上图中，在蓝色圈内的数据属于该组数据的可能性较高，而越是偏远的数据，其属于该组数据的可能性就越低。</p>
+<p>这种方法称为密度估计，表达如下：<br><img src="https://img-blog.csdnimg.cn/20200721110613636.PNG#pic_center" alt="在这里插入图片描述"><br>欺诈检测：𝑥<sup>(𝑖)</sup> = 用户的第 𝑖个活动特征<br>模型𝑝(𝑥) 为我们其属于一组数据的可能性，通过𝑝(𝑥) &lt; 𝜀检测非正常用户。</p>
+<p>异常检测主要用来识别欺骗。例如在线采集而来的有关用户的数据，一个特征向量中可能会包含如：用户多久登录一次，访问过的页面，在论坛发布的帖子数量，甚至是打字速度等。尝试根据这些特征构建一个模型，可以用这个模型来识别那些不符合该模式的用户。再一个例子是检测一个数据中心，特征可能包含：内存使用情况，被访问的磁盘数量，CPU 的负载，网络的通信量等。根据这些特征可以构建一个模型，用来判断某些计算机是不是有可能出错了。</p>
+<h3 id="13-2-Gaussian-Distribution-高斯分布"><a href="#13-2-Gaussian-Distribution-高斯分布" class="headerlink" title="13.2 Gaussian Distribution(高斯分布)"></a>13.2 Gaussian Distribution(高斯分布)</h3><p>高斯分布，也称为正态分布。<br><img src="https://img-blog.csdnimg.cn/20200721111023447.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20200721111103835.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>注：机器学习中对于方差通常只除以𝑚而非统计学中的(𝑚 − 1)。这里顺便提一下，在实际使用中，到底是选择使用1/𝑚还是1/(𝑚 − 1)其实区别很小，只要你有一个还算大的训练集，在机器学习领域大部分人更习惯使用1/𝑚这个版本的公式。这两个版本的公式在理论特性和数学特性上稍有不同，但是在实际使用中，他们的区别甚小，几乎可以忽略不计。</p>
+<h3 id="13-3-Algorithm"><a href="#13-3-Algorithm" class="headerlink" title="13.3 Algorithm"></a>13.3 Algorithm</h3><p>异常检测算法：<br>对于给定的数据集 𝑥<sup>(1)</sup>, 𝑥<sup>(2)</sup>, . . . , 𝑥<sup>(𝑚)</sup>，针对每一个特征计算 𝜇 和 𝜎<sup>2</sup> 的估计值。<br><img src="https://img-blog.csdnimg.cn/20200721124039696.PNG#pic_center" alt="在这里插入图片描述"><br>一旦获得了平均值和方差的估计值，给定新的一个训练实例，根据模型计算𝑝(𝑥)：<br><img src="https://img-blog.csdnimg.cn/20200721124146373.PNG#pic_center" alt="在这里插入图片描述"></p>
+<p>当𝑝(𝑥) &lt; 𝜀时，为异常。</p>
+<p>下图是一个由两个特征的训练集，以及特征的分布情况：<br><img src="https://img-blog.csdnimg.cn/20200721124345468.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<p>下面的三维图表表示的是密度估计函数，𝑧轴为根据两个特征的值所估计𝑝(𝑥)值：<br><img src="https://img-blog.csdnimg.cn/20200721124528244.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>选择一个𝜀，将𝑝(𝑥) = 𝜀作为我们的判定边界，当𝑝(𝑥) &gt; 𝜀时预测数据为正常数据，否则为异常。</p>
+<h3 id="13-4-Developing-and-Evaluating-an-Anomaly-Detection-System"><a href="#13-4-Developing-and-Evaluating-an-Anomaly-Detection-System" class="headerlink" title="13.4 Developing and Evaluating an Anomaly Detection System"></a>13.4 Developing and Evaluating an Anomaly Detection System</h3><p>异常检测算法是一个非监督学习算法，意味着无法根据结果变量 𝑦 的值来告诉数据是否真的是异常的。我们需要另一种方法来帮助检验算法是否有效。当开发一个异常检测系统时，从带标记（异常或正常）的数据着手，选择其中一部分正常数据用于构建训练集，然后用剩下的正常数据和异常数据混合的数据构成交叉检验集和测试集。</p>
+<p>例如：有 10000 台正常引擎的数据，有 20 台异常引擎的数据。 可以这样分配数<br>据：</p>
+<ul>
+<li>6000 台正常引擎的数据作为训练集</li>
+<li>2000 台正常引擎和 10 台异常引擎的数据作为交叉检验集</li>
+<li>2000 台正常引擎和 10 台异常引擎的数据作为测试集</li>
+</ul>
+<p>具体的评价方法如下：</p>
+<ol>
+<li>根据测试集数据，估计特征的平均值和方差并构建𝑝(𝑥)函数</li>
+<li>对交叉检验集，尝试使用不同的𝜀值作为阀值，并预测数据是否异常，根据 F1 值或者查准率与查全率的比例来选择 𝜀</li>
+<li>选出 𝜀 后，针对测试集进行预测，计算异常检验系统的𝐹1值，或者查准率与查全率之比。</li>
+</ol>
+<h3 id="13-5-Anomaly-Detection-vs-Supervised-Learning"><a href="#13-5-Anomaly-Detection-vs-Supervised-Learning" class="headerlink" title="13.5 Anomaly Detection vs. Supervised Learning"></a>13.5 Anomaly Detection vs. Supervised Learning</h3><table>
+<thead>
+<tr>
+<th>异常检测</th>
+<th>监督学习</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>非常少量的正向类（异常数据 𝑦 = 1）, 大量的负向类（𝑦 = 0）</td>
+<td>同时有大量的正向类和负向类</td>
+</tr>
+<tr>
+<td>许多不同种类的异常，非常难。根据非常少量的正向类数据来训练算法。</td>
+<td>有足够多的正向类实例，足够用于训练算法，未来遇到的正向类实例可能与训练集中的非常近似。</td>
+</tr>
+<tr>
+<td>未来遇到的异常可能与已掌握的异常、非常的不同。</td>
+<td></td>
+</tr>
+<tr>
+<td>例如：欺诈行为检测、生产（例如飞机引擎）、检测数据中心的计算机运行状况</td>
+<td>例如：邮件过滤器、天气预报、肿瘤分类</td>
+</tr>
+</tbody></table>
+<p>另外，对于很多技术公司可能会遇到的一些问题，通常来说，正样本的数量很少，甚至有时候是 0，也就是说，出现了太多没见过的不同的异常类型，那么对于这些问题，通常应该使用的算法就是异常检测算法。</p>
+<h3 id="13-5-Choosing-What-Features-to-Use"><a href="#13-5-Choosing-What-Features-to-Use" class="headerlink" title="13.5 Choosing What Features to Use"></a>13.5 Choosing What Features to Use</h3><p>对于异常检测算法，使用的特征是至关重要的，下面谈谈如何选择特征：</p>
+<p>异常检测假设特征符合高斯分布，如果数据的分布不是高斯分布，异常检测算法也能够工作，但是最好还是将数据转换成高斯分布，例如使用对数函数：𝑥 = 𝑙𝑜𝑔(𝑥 + 𝑐)，其中 𝑐为非负常数； 或者 𝑥 = 𝑥<sup>𝑐</sup>，𝑐为 0-1 之间的一个分数，等方法。<br><img src="https://img-blog.csdnimg.cn/20200721133502124.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>注：在 python 中，通常用 np.log1p()函数，𝑙𝑜𝑔1𝑝就是 𝑙𝑜𝑔(𝑥 + 1)，可以避免<br>出现负数结果，反向函数就是 np.expm1()</p>
+<p>误差分析：<br>一个常见的问题是一些异常的数据可能也会有较高的𝑝(𝑥)值，因而被算法认为是正常的。这种情况下误差分析能够帮助我们，我们可以分析那些被算法错误预测为正常的数据，观察能否找出一些问题。我们可能能从问题中发现我们需要增加一些新的特征，增加这些新特征后获得的新算法能够帮助我们更好地进行异常检测。</p>
+<p>异常检测误差分析：<br><img src="https://img-blog.csdnimg.cn/20200721133550665.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>通常可以通过将一些相关的特征进行组合，来获得一些新的更好的特征（异常数据的该特征值异常地大或小），例如，在检测数据中心的计算机状况的例子中，我们可以用 CPU负载与网络通信量的比例作为一个新的特征，如果该值异常地大，便有可能意味着该服务器是陷入了一些问题中。</p>
+<h3 id="13-7-Multivariate-Gaussian-Distribution"><a href="#13-7-Multivariate-Gaussian-Distribution" class="headerlink" title="13.7 Multivariate Gaussian Distribution"></a>13.7 Multivariate Gaussian Distribution</h3><p>假使我们有两个相关的特征，而且这两个特征的值域范围比较宽，这种情况下，一般的高斯分布模型可能不能很好地识别异常数据。其原因在于，一般的高斯分布模型尝试的是去同时抓住两个特征的偏差，因此创造出一个比较大的判定边界。</p>
+<p>下图中是两个相关特征，洋红色的线（根据 ε 的不同其范围可大可小）是一般的高斯分布模型获得的判定边界，很明显绿色的 X 所代表的数据点很可能是异常值，但是其𝑝(𝑥)值却仍然在正常范围内。多元高斯分布将创建像图中蓝色曲线所示的判定边界。<br><img src="https://img-blog.csdnimg.cn/20200721135545231.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>在一般的高斯分布模型中，计算 𝑝(𝑥) 的方法是： 通过分别计算每个特征对应的几率然后将其累乘起来，在多元高斯分布模型中，我们将构建特征的协方差矩阵，用所有的特征一起来计算 𝑝(𝑥)。</p>
+<p>首先计算所有特征的平均值，然后再计算协方差矩阵：<br><img src="https://img-blog.csdnimg.cn/20200721135639131.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>注:其中𝜇 是一个向量，其每一个单元都是原特征矩阵中一行数据的均值。最后我们计算多元高斯分布的𝑝(𝑥): <img src="https://img-blog.csdnimg.cn/20200721135725964.PNG#pic_center" alt="在这里插入图片描述"><br>其中：<br>|𝛴|是定矩阵，在 Octave 中用 det(sigma)计算</p>
+<p>𝛴1 是逆矩阵，那么协方差矩阵是如何影响模型的？<br><img src="https://img-blog.csdnimg.cn/20200721135904511.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>上图是 5 个不同的模型，从左往右依次分析：</p>
+<ol>
+<li>是一个一般的高斯分布模型</li>
+<li>通过协方差矩阵，令特征 1 拥有较小的偏差，同时保持特征 2 的偏差</li>
+<li>通过协方差矩阵，令特征 2 拥有较大的偏差，同时保持特征 1 的偏差</li>
+<li>通过协方差矩阵，在不改变两个特征的原有偏差的基础上，增加两者之间的正相关性</li>
+<li>通过协方差矩阵，在不改变两个特征的原有偏差的基础上，增加两者之间的负相关性</li>
+</ol>
+<p>多元高斯分布模型与原高斯分布模型的关系：<br>可以证明的是，原本的高斯分布模型是多元高斯分布模型的一个子集，即像上图中的第1、2、3，3 个例子所示，如果协方差矩阵只在对角线的单位上有非零的值时，即为原本的高斯分布模型了。</p>
+<p>原高斯分布模型和多元高斯分布模型的比较：</p>
+<table>
+<thead>
+<tr>
+<th>原高斯分布模型</th>
+<th>多元高斯分布模型</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>不能捕捉特征之间的相关性，但可以通过将特征进行组合的方法来解决</td>
+<td>自动捕捉特征之间的相关性</td>
+</tr>
+<tr>
+<td>计算代价低，能适应大规模的特征</td>
+<td>计算代价较高，训练集较小时也同样适用</td>
+</tr>
+<tr>
+<td></td>
+<td>必须要有 𝑚 &gt; 𝑛，不然的话协方差矩阵，不可逆的，通常需要 𝑚 &gt; 10𝑛 另外特征冗余也会导致协方差矩阵不可逆</td>
+</tr>
+</tbody></table>
+<p>原高斯分布模型被广泛使用着，如果特征之间在某种程度上存在相互关联的情况，我们可以通过构造新新特征的方法来捕捉这些相关性。</p>
+<p>如果训练集不是太大，并且没有太多的特征，我们可以使用多元高斯分布模型。</p>
+<h3 id="13-8-Anomaly-Detection-Using-the-Multivariate-Gaussian-Distribution"><a href="#13-8-Anomaly-Detection-Using-the-Multivariate-Gaussian-Distribution" class="headerlink" title="13.8 Anomaly Detection Using the Multivariate Gaussian Distribution"></a>13.8 Anomaly Detection Using the Multivariate Gaussian Distribution</h3><p>多元高斯分布和多元正态分布：<br><img src="https://img-blog.csdnimg.cn/20200721140737892.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>分布有两个参数， 𝜇 和 𝛴。其中𝜇是𝑛维向量和 𝛴 是协方差矩阵(𝑛 × 𝑛的矩阵)。而p(x)，通过调整 𝜇 和𝛴，可以得到一个范围不同的分布。</p>
+<p>参数拟合/参数估计问题<br>有一组样本𝑥<sup>(1)</sup>, 𝑥<sup>(2)</sup>, . . . , 𝑥<sup>(𝑚)</sup>都是一个𝑛维向量，并且样本服从多元高斯分布。那么，如何尝试估计参数 𝜇 和 𝛴 ？</p>
+<p>对于估计参数有一个标准公式<br>假设 𝜇 是你的训练样本的平均值：<br><img src="https://img-blog.csdnimg.cn/20200721141750265.png#pic_center" alt="在这里插入图片描述"><br>并设置𝛴：<img src="https://img-blog.csdnimg.cn/20200721141749912.png#pic_center" alt="在这里插入图片描述"></p>
+<p>这和使用 PCA 算法时，写 𝛴 是一样的。所以只需将上述两个公式插入到p(x)中，就能估计参数 𝜇 和𝛴，并将其代入到异常检测算法。那么，如何把这些综合起来开发一个异常检测算法？</p>
+<p>首先，用训练集来拟合模型，通过设定 𝜇 和𝛴来计算𝑝(𝑥)。<br>接下来，当有一个新样本x，即测试样本，用该样本计算p(x)，若p(x)很小就标记为异常。<br><img src="https://img-blog.csdnimg.cn/20200721143321455.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>如上图，该分布在中央最多，越到外面圈的范围越小，并且绿色这个点的概率非常低，即能够检测出绿色点为一个异常。</p>
+<p>原始模型与多元高斯模型的关系如图：<br><img src="https://img-blog.csdnimg.cn/20200721143806670.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<p>原始模型和多元高斯分布比较如图：<br><img src="https://img-blog.csdnimg.cn/20200721144058852.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
 
       
     </div>
@@ -463,7 +564,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/%E8%BF%90%E8%90%A5%E6%8C%87%E6%A0%87/" rel="tag"># 运营指标</a>
+            <a href="/tags/Machine-Learning/" rel="tag"># Machine Learning</a>
           
         </div>
       
@@ -476,8 +577,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2020/06/19/%E5%85%B3%E4%BA%8ESQL%E6%98%93%E5%BF%98%E7%9A%84%E5%8D%81%E4%BA%94%E4%B8%AA%E7%9F%A5%E8%AF%86%E7%82%B9/" rel="next" title="关于SQL易忘的知识点">
-                <i class="fa fa-chevron-left"></i> 关于SQL易忘的知识点
+              <a href="/2020/07/20/%5BMachine%20Learning%5D%2012%20%E9%99%8D%E7%BB%B4(Dimensionality%20Reduction)/" rel="next" title="【Machine Learning】12 降维(Dimensionality Reduction)">
+                <i class="fa fa-chevron-left"></i> 【Machine Learning】12 降维(Dimensionality Reduction)
               </a>
             
           </div>
@@ -485,10 +586,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2020/06/22/%E7%94%A8%E6%88%B7%E8%A1%8C%E4%B8%BA%E5%88%86%E6%9E%90%EF%BC%88%E9%9D%9E%E5%8E%9F%E5%88%9B%EF%BC%89/" rel="prev" title="用户行为分析（非原创）">
-                用户行为分析（非原创） <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -707,7 +804,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#商品"><span class="nav-text">商品</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#营收"><span class="nav-text">营收</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#传播-活动"><span class="nav-text">传播&#x2F;活动</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#营销"><span class="nav-text">营销</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#用户获取"><span class="nav-text">用户获取</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#用户活跃"><span class="nav-text">用户活跃</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#用户留存"><span class="nav-text">用户留存</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#13-Anomaly-Detection-异常检测"><span class="nav-text">13 Anomaly Detection(异常检测)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#13-1-Problem-Motivation"><span class="nav-text">13.1 Problem Motivation</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#13-2-Gaussian-Distribution-高斯分布"><span class="nav-text">13.2 Gaussian Distribution(高斯分布)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#13-3-Algorithm"><span class="nav-text">13.3 Algorithm</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#13-4-Developing-and-Evaluating-an-Anomaly-Detection-System"><span class="nav-text">13.4 Developing and Evaluating an Anomaly Detection System</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#13-5-Anomaly-Detection-vs-Supervised-Learning"><span class="nav-text">13.5 Anomaly Detection vs. Supervised Learning</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#13-5-Choosing-What-Features-to-Use"><span class="nav-text">13.5 Choosing What Features to Use</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#13-7-Multivariate-Gaussian-Distribution"><span class="nav-text">13.7 Multivariate Gaussian Distribution</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#13-8-Anomaly-Detection-Using-the-Multivariate-Gaussian-Distribution"><span class="nav-text">13.8 Anomaly Detection Using the Multivariate Gaussian Distribution</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -886,9 +983,9 @@
     
       <script type="text/javascript">
         var disqus_config = function () {
-          this.page.url = 'http://yoursite.com/2020/06/22/%E8%BF%90%E8%90%A5%E6%8C%87%E6%A0%87/';
-          this.page.identifier = '2020/06/22/运营指标/';
-          this.page.title = '运营指标';
+          this.page.url = 'http://yoursite.com/2020/07/21/[Machine%20Learning]%2013%20%E5%BC%82%E5%B8%B8%E6%A3%80%E6%B5%8B(Anomaly%20Detection)/';
+          this.page.identifier = '2020/07/21/[Machine Learning] 13 异常检测(Anomaly Detection)/';
+          this.page.title = '【Machine Learning】13 异常检测(Anomaly Detection)';
         };
         var d = document, s = d.createElement('script');
         s.src = 'https://.disqus.com/embed.js';
