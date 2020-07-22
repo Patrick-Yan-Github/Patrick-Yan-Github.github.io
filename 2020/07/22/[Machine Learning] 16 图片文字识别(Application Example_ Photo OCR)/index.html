@@ -82,24 +82,21 @@
 
 
 <meta property="og:type" content="article">
-<meta property="og:title" content="【Machine Learning】1 概述">
-<meta property="og:url" content="http://yoursite.com/2020/07/05/[Machine%20Learning]%201%20%E6%A6%82%E8%BF%B0/index.html">
+<meta property="og:title" content="【Machine Learning】16 图片文字识别(Application Example_Photo OCR)">
+<meta property="og:url" content="http://yoursite.com/2020/07/22/[Machine%20Learning]%2016%20%E5%9B%BE%E7%89%87%E6%96%87%E5%AD%97%E8%AF%86%E5%88%AB(Application%20Example_%20Photo%20OCR)/index.html">
 <meta property="og:site_name" content="今天你DEBUG了吗">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200705203342231.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200704201834783.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200705162412478.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200705163240876.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200705164946740.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200705192208335.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/2020070520234656.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200705203242595.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200705202235316.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center">
-<meta property="article:published_time" content="2020-07-05T12:46:30.000Z">
-<meta property="article:modified_time" content="2020-07-19T06:58:06.419Z">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200722154505432.PNG#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200722145838803.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200722145956698.PNG#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200722151434591.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200722151528509.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200722151642739.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="article:published_time" content="2020-07-22T07:47:08.000Z">
+<meta property="article:modified_time" content="2020-07-22T07:57:09.687Z">
 <meta property="article:author" content="Patrick Yan">
 <meta property="article:tag" content="Machine Learning">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://img-blog.csdnimg.cn/20200705203342231.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center">
+<meta name="twitter:image" content="https://img-blog.csdnimg.cn/20200722154505432.PNG#pic_center">
 
 
 
@@ -129,13 +126,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2020/07/05/[Machine Learning] 1 概述/"/>
+  <link rel="canonical" href="http://yoursite.com/2020/07/22/[Machine Learning] 16 图片文字识别(Application Example_ Photo OCR)/"/>
 
 
 
 
 
-  <title>【Machine Learning】1 概述 | 今天你DEBUG了吗</title>
+  <title>【Machine Learning】16 图片文字识别(Application Example_Photo OCR) | 今天你DEBUG了吗</title>
   
 
 
@@ -306,7 +303,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/07/05/%5BMachine%20Learning%5D%201%20%E6%A6%82%E8%BF%B0/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/07/22/%5BMachine%20Learning%5D%2016%20%E5%9B%BE%E7%89%87%E6%96%87%E5%AD%97%E8%AF%86%E5%88%AB(Application%20Example_%20Photo%20OCR)/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Patrick Yan">
@@ -323,7 +320,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">【Machine Learning】1 概述</h1>
+          <h1 class="post-title" itemprop="name headline">【Machine Learning】16 图片文字识别(Application Example_Photo OCR)</h1>
         
 
         <div class="post-meta">
@@ -335,8 +332,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-07-05T20:46:30+08:00">
-                2020-07-05
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-07-22T15:47:08+08:00">
+                2020-07-22
               </time>
             
 
@@ -376,9 +373,9 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2020/07/05/%5BMachine%20Learning%5D%201%20%E6%A6%82%E8%BF%B0/#comments" itemprop="discussionUrl">
+                <a href="/2020/07/22/%5BMachine%20Learning%5D%2016%20%E5%9B%BE%E7%89%87%E6%96%87%E5%AD%97%E8%AF%86%E5%88%AB(Application%20Example_%20Photo%20OCR)/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2020/07/05/[Machine Learning] 1 概述/" itemprop="commentCount"></span>
+                        data-disqus-identifier="2020/07/22/[Machine Learning] 16 图片文字识别(Application Example_ Photo OCR)/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -400,7 +397,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  3.2k
+                  968
                 </span>
               
 
@@ -416,7 +413,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  11
+                  3
                 </span>
               
             </div>
@@ -437,61 +434,16 @@
       
 
       
-        <p><img src="https://img-blog.csdnimg.cn/20200705203342231.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+        <p><img src="https://img-blog.csdnimg.cn/20200722154505432.PNG#pic_center" alt="在这里插入图片描述"></p>
 <a id="more"></a>
 
-
-<h2 id="1-概述"><a href="#1-概述" class="headerlink" title="1 概述"></a>1 概述</h2><p>机器学习即在进行特定编程的情况下，使用计算机作为工具并致力于真实实时的模拟人类学习方式， 并将现有内容进行知识结构划分来有效提高学习效率。</p>
-<p>根据训练数据是否拥有标记信息，学习任务可大致分为：“监督学习”、“无监督学习”。可理解为，监督学习这个想法是指我们将教计算机如何去完成任务；而在无监督学习中我们打算让它自己进行学习。分类和回归是前者的代表，聚类是后者的代表。</p>
-<h3 id="1-1-Learning-Map"><a href="#1-1-Learning-Map" class="headerlink" title="1.1 Learning Map"></a>1.1 Learning Map</h3><p>蓝色方块指的是scenario，即学习的情境。通常学习的情境是我们没有办法控制的，比如做reinforcement Learning是因为我们没有data、没有办法来做supervised Learning的情况下才去做的。如果有data，supervised Learning当然比reinforcement Learning要好；因此手上有什么样的data，就决定你使用什么样的scenario。</p>
-<p>红色方块指的是task，即要解决的问题。你要解的问题，随着你要找的function的output的不同，有输出scalar的regression、有输出options的classification、有输出structured object的structured Learning…</p>
-<p>绿色的方块指的是model，即用来解决问题的模型(function set)。在这些task里面有不同的model，也就是说，同样的task，我们可以用不同的方法来解它，比如linear model、Non-linear model(deep Learning、SVM、decision tree、K-NN…)</p>
-<p><img src="https://img-blog.csdnimg.cn/20200704201834783.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="&lt;img src=&quot;https://github.com/Sakura-gh/ML-notes/blob/master/img/learningMap.png?raw=true&quot; alt=&quot;learning map&quot; style=&quot;width: 60%;&quot; /&gt;"></p>
-<h3 id="1-2-Supervised-Learning-监督学习"><a href="#1-2-Supervised-Learning-监督学习" class="headerlink" title="1.2 Supervised Learning(监督学习)"></a>1.2 Supervised Learning(监督学习)</h3><p>supervised learning 需要大量的training data，这些training data要求我们找到function，当这个function看到某种input则输出a，看到另一种input输出b，看到……</p>
-<p>而这种function的output，通常被叫做==label(标签)==，也就是说，我们要使用supervised learning这样一种技术，我们需要告诉机器，function的input和output分别是什么，而这种output通常是通过人工的方式标注出来的，因此称为人工标注的label，它的缺点是需要大量的人工effort。</p>
-<h4 id="1-2-1-Case1-Housing-price-prediction"><a href="#1-2-1-Case1-Housing-price-prediction" class="headerlink" title="1.2.1 Case1: Housing price prediction"></a>1.2.1 Case1: Housing price prediction</h4><p>通过收集的房价数据绘制如下图，那基于这组数据，若有一套 750 平方英尺房子，那么这房子能卖多少钱。</p>
-<p>关于这个问题，机器学习算法将会怎么帮助你呢？<br><img src="https://img-blog.csdnimg.cn/20200705162412478.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>应用学习算法，可以在这组数据中画一条直线，即==拟合一条直线==，根据这条线我们可以推测出，这套房子可能卖$150,000，当然这不是唯一的算法。可能还有更好的，比如我们不用直线拟合这些数据，==用二次方程去拟合==可能效果会更好。根据二次方程的曲线，我们可以从这个点推测出，这套房子能卖接近$200,000。稍后我们将讨论如何选择学习算法，如何决定用直线还是二次方程来拟合。两个方案中有一个能让你朋友的房子出售得更合理。这些都是学习算法里面很好的例子。以上就是监督学习的例子。</p>
-<p>可以看出，监督学习指的就是我们给学习算法一个数据集。这个数据集由“正确答案”组成。在房价的例子中，我们给了一系列房子的数据，我们给定数据集中每个样本的正确价格，即它们实际的售价然后运用学习算法，算出更多的正确答案。比如你朋友那个新房子的价格。用术语来讲，这叫做==回归问题 (Regression)==。我们试着推测出一个连续值的结果，即房子的价格。</p>
-<blockquote>
-<p>regression是machine learning的一个task，特点是通过regression找到的function，它的输出是一个scalar数值。<br>比如PM2.5的预测，给machine的training data是过去的PM2.5资料，而输出的是对未来PM2.5的预测<strong>数值</strong>，这就是一个典型的regression的问题。</p>
-</blockquote>
-<p>一般房子的价格会记到美分，所以房价实际上是一系列离散的值，但是我们通常又把房价看成实数，看成是标量，所以又把它看成一个连续的数值。</p>
-<h4 id="1-2-2-Case2-Breast-cancer-malignant-benign"><a href="#1-2-2-Case2-Breast-cancer-malignant-benign" class="headerlink" title="1.2.2 Case2: Breast cancer (malignant,benign)"></a>1.2.2 Case2: Breast cancer (malignant,benign)</h4><p>现有有 5 个良性肿瘤样本（O），5 个恶性肿瘤样本（X）。假设已知一个肿瘤的尺寸，那么机器学习的工作就在于能否估算出肿瘤是恶性的或是良性的概率。<br><img src="https://img-blog.csdnimg.cn/20200705163240876.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
-<p>用术语来讲，这是一个==分类问题 (Classification)==。分类指的是，我们试着推测出离散的输出值：0 或 1 良性或恶性，而事实上在分类问题中，输出可能不止两个值。比如说可能有三种乳腺癌，所以你希望预测离散输出 0、1、2、3。0 代表良性，1 表示第 1 类乳腺癌，2 表示第 2 类癌症，3 表示第 3 类，但这也是分类问题。</p>
-<blockquote>
-<p>regression和classification的区别是，我们要机器输出的东西的类型是不一样的，在regression里机器输出的是scalar（标量），而classification又分为两类：Binary Classification(二元分类)、Multi-class classification(多元分类)。<br><strong>在binary classification里</strong>，我们要机器输出的是yes or no，是或否。比如G-mail的spam filtering(垃圾邮件过滤器)，输入是邮件，输出是该邮件是否是垃圾邮件。<br><strong>在multi-class classification里</strong>，机器要做的是选择题，等于给他数个选项，每一个选项就是一个类别，它要从数个类别里面选择正确的类别。比如document classification(新闻文章分类)，输入是一则新闻，输出是这个新闻属于哪一个类别(选项)。</p>
-</blockquote>
-<p>在其它机器学习问题中，可能会遇到不止一种特征。举个例子，我们不仅知道肿瘤的尺寸，还知道对应患者的年龄。在其他机器学习问题中，我们通常有更多的特征，比如肿块密度，肿瘤细胞尺寸的一致性和形状的一致性等等，还有一些其他的特征。</p>
-<p><img src="https://img-blog.csdnimg.cn/20200705164946740.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>上图中，总共列举了 5 种不同的特征，坐标轴上的两种和右边的 3 种，但在一些学习问题上需要使用多种特征甚至无限，好让算法可以利用大量的特征，或者说线索来做推测。那如何处理无限多个特征，甚至如何存储这些特征都存在问题，你电脑的内存肯定不够用。我们以后会讲一个算法，叫==支持向量机==，里面有一个巧妙的数学技巧，能让计算机处理无限多个特征。</p>
-<p>现在来回顾一下，这节课我们介绍了监督学习。其基本思想是，我们数据集中的每个样本都有相应的“正确答案”。再根据这些样本作出预测，就像房子和肿瘤的例子中做的那样。</p>
-<p>我们还介绍了回归问题，即通过回归来推出一个连续的输出，之后我们介绍了分类问题，其目标是推出一组离散的结果。</p>
-<h3 id="1-3-Unsupervised-Learning-无监督学习"><a href="#1-3-Unsupervised-Learning-无监督学习" class="headerlink" title="1.3 Unsupervised Learning(无监督学习)"></a>1.3 Unsupervised Learning(无监督学习)</h3><p>区别于supervised learning，unsupervised learning希望机器学到无师自通，在完全没有任何label的情况下，机器到底能学到什么样的知识。</p>
-<p><img src="https://img-blog.csdnimg.cn/20200705192208335.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
-<p>在无监督学习中，已知的数据不同于监督学习的数据，无监督学习中没有任何的标签或者是有相同的标签或者就是没标签。所以我们已知数据集，却不知如何处理，也未告知每个数据点是什么。针对数据集，无监督学习就能判断出数据有两个不同的聚集簇。这是一个，那是另一个，二者不同。是的，无监督学习算法可能会把这些数据分成两个不同的簇。所以叫做==聚类算法（Clustering Algorithm）==。</p>
-<p>聚类应用的一个例子就是在谷歌新闻中。谷歌新闻每天都在，收集非常多，非常多的网络的新闻内容。它再将这些新闻分组，组成有关联的新闻。所以谷歌新闻做的就是搜索非常多的新闻事件，自动地把它们聚类到一起，显示到一起。</p>
-<h4 id="1-3-1-Case-Cocktail-party-problem-algorithm"><a href="#1-3-1-Case-Cocktail-party-problem-algorithm" class="headerlink" title="1.3.1 Case: Cocktail party problem algorithm"></a>1.3.1 Case: Cocktail party problem algorithm</h4><p>在鸡尾酒宴上，人们都在聊天，这么多人同时在聊天，声音彼此重叠，所以可能会发生两个人同时都在说话的情形。现假设在一个小型鸡尾酒宴上，房间中有两个麦克风，因为这些麦克风在两个地方，每个麦克风记录下不同的声音，两份录音被叠加到一起，或是被归结到一起，产生了我们现在的这些录音。</p>
-<p>为区分出两个音频资源，似乎需要写大量复杂的代码或链接到一堆的合成器 JAVA 库。事实上，只要一行代码即可完成。</p>
-<p>[W,s,v] = svd((repmat(sum(x.<em>x,1),size(x,1),1).</em>x)*x’);</p>
-<h3 id="1-4-Semi-supervised-Learning-半监督学习"><a href="#1-4-Semi-supervised-Learning-半监督学习" class="headerlink" title="1.4 Semi-supervised Learning(半监督学习)"></a>1.4 Semi-supervised Learning(半监督学习)</h3><p>举例：如果想要做一个区分猫和狗的function。手头上有少量的labeled data，它们标注了图片上哪只是猫哪只是狗；同时又有大量的unlabeled data，它们仅仅只有猫和狗的图片，但没有标注去告诉机器哪只是猫哪只是狗。</p>
-<p>在Semi-supervised Learning的技术里面，这些没有labeled的data，对机器学习也是有帮助的。</p>
-<h3 id="1-5-Transfer-Learning-迁移学习"><a href="#1-5-Transfer-Learning-迁移学习" class="headerlink" title="1.5 Transfer Learning(迁移学习)"></a>1.5 Transfer Learning(迁移学习)</h3><p>假设一样我们要做猫和狗的分类问题。我们也一样只有少量的有labeled的data；但是我们现在有大量的不相干的data(不是猫和狗的图片，而是一些其他不相干的图片)，在这些大量的data里面，它可能有label也可能没有label。</p>
-<p>Transfer Learning要解决的问题是，这一堆不相干的data可以对结果带来什么样的帮助。</p>
-<p><img src="https://img-blog.csdnimg.cn/2020070520234656.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
-<h3 id="1-6-Structured-Learning-结构化学习"><a href="#1-6-Structured-Learning-结构化学习" class="headerlink" title="1.6 Structured Learning(结构化学习)"></a>1.6 Structured Learning(结构化学习)</h3><p>在structured Learning里，我们要机器输出的是，一个有结构性的东西。</p>
-<p>在分类的问题中，机器输出的只是一个选项；在structured类的problem里面，机器要输出的是一个复杂的物件。举例来说，在语音识别的情境下，机器的输入是一个声音信号，输出是一个句子；句子是由许多词汇拼凑而成，它是一个有结构性的object；或者说机器翻译、人脸识别(标出不同的人的名称)。</p>
-<p>比如<strong>GAN</strong>也是structured Learning的一种方法。</p>
-<p><img src="https://img-blog.csdnimg.cn/20200705203242595.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
-<h3 id="1-7-Reinforcement-Learning-强化学习"><a href="#1-7-Reinforcement-Learning-强化学习" class="headerlink" title="1.7 Reinforcement Learning(强化学习)"></a>1.7 Reinforcement Learning(强化学习)</h3><p><strong>Supervised Learning</strong>：我们会告诉机器正确的答案是什么 ，其特点是<strong>Learning from teacher</strong>。</p>
-<ul>
-<li>比如训练一个聊天机器人，告诉他如果使用者说了“Hello”，你就说“Hi”；如果使用者说了“Bye bye”，你就说“Good bye”；就好像有一个家教在它的旁边手把手地教他每一件事情。</li>
-</ul>
-<p><strong>Reinforcement Learning</strong>：我们没有告诉机器正确的答案是什么，机器最终得到的只有一个分数，就是它做的好还是不好，但他不知道自己到底哪里做的不好，他也没有正确的答案；很像真实社会中的学习，你没有一个正确的答案，你只知道自己是做得好还是不好。其特点是<strong>Learning from critics</strong>。</p>
-<ul>
-<li>比如训练一个聊天机器人，让它跟客人直接对话；如果客人勃然大怒把电话挂掉了，那机器就学到一件事情，刚才做错了，它不知道自己哪里做错了，必须自己回去反省检讨到底要如何改进，比如一开始不应该打招呼吗？还是中间不能骂脏话之类的。</li>
-</ul>
-<p><img src="https://img-blog.csdnimg.cn/20200705202235316.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
-<p>拿下棋这件事举例，supervised Learning是说看到眼前这个棋盘，告诉机器下一步要走什么位置；而reinforcement Learning是说让机器和对手互弈，下了好几手之后赢了，机器就知道这一局棋下的不错，但是到底哪一步是赢的关键，机器是不知道的，他只知道自己是赢了还是输了。</p>
-<p>其实Alpha Go是用supervised Learning+reinforcement Learning的方式去学习的，机器先是从棋谱学习，有棋谱就可以做supervised的学习；之后再做reinforcement Learning，机器的对手是另外一台机器，Alpha Go就是和自己下棋，然后不断的进步。</p>
+<h2 id="16-Application-Example-Photo-OCR-图片文字识别"><a href="#16-Application-Example-Photo-OCR-图片文字识别" class="headerlink" title="16 Application Example: Photo OCR(图片文字识别)"></a>16 Application Example: Photo OCR(图片文字识别)</h2><h3 id="16-1-Problem-Description-and-Pipeline"><a href="#16-1-Problem-Description-and-Pipeline" class="headerlink" title="16.1 Problem Description and Pipeline"></a>16.1 Problem Description and Pipeline</h3><p>图像文字识别应用所作的事是，从一张给定的图片中识别文字。这比从一份扫描文档中识别文字要复杂的多。<br><img src="https://img-blog.csdnimg.cn/20200722145838803.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>为了完成这样的工作，需要采取如下步骤：<br>1.文字侦测（Text detection）—— 将图片上的文字与其他环境对象分离开来<br>2.字符切分（Character segmentation）—— 将文字分割成一个个单一的字符<br>3.字符分类（Character classification）—— 确定每一个字符是什么</p>
+<p><img src="https://img-blog.csdnimg.cn/20200722145956698.PNG#pic_center" alt="在这里插入图片描述"></p>
+<h3 id="16-2-Sliding-Windows"><a href="#16-2-Sliding-Windows" class="headerlink" title="16.2 Sliding Windows"></a>16.2 Sliding Windows</h3><p>滑动窗口是一项用来从图像中抽取对象的技术。假设需要在一张图片中识别行人，首先要做的是用许多固定尺寸的图片来训练一个能够准确识别行人的模型。然后用之前训练识别行人的模型时所采用的图片尺寸在要进行行人识别的图片上进行剪裁，接着将剪裁得到的切片交给模型，让模型判断是否为行人，再在图片上滑动剪裁区域重新进行剪裁，将新剪裁的切片也交给模型进行判断，如此循环直至将图片全部检测完。一旦完成后，按比例放大剪裁的区域，再以新的尺寸对图片进行剪裁，将新剪裁的切片按比例缩小至模型所采纳的尺寸，交给模型进行判断，如此循环。<br><img src="https://img-blog.csdnimg.cn/20200722151434591.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>滑动窗口技术也被用于文字识别，首先训练模型能够区分字符与非字符，然后，运用滑动窗口技术识别字符，一旦完成了字符的识别，将识别得出的区域进行一些扩展，然后将重叠的区域进行合并。接着以宽高比作为过滤条件，过滤掉高度比宽度更大的区域（认为单词的长度通常比高度要大）。下图中绿色的区域是经过这些步骤后被认为是文字的区域，而红色的区域是被忽略的。<br><img src="https://img-blog.csdnimg.cn/20200722151528509.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>以上便是文字侦测阶段。 下一步是训练一个模型来完成将文字分割成一个个字符的任务，需要的训练集由单个字符的图片和两个相连字符之间的图片来训练模型。<br><img src="https://img-blog.csdnimg.cn/20200722151642739.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>模型训练完后，我们仍然是使用滑动窗口技术来进行字符识别。</p>
+<p>以上便是字符切分阶段。 最后一个阶段是字符分类阶段，利用神经网络、支持向量机或者逻辑回归算法训练一个分类器即可。</p>
+<h3 id="16-3-Getting-Lots-of-Data-and-Artificial-Data"><a href="#16-3-Getting-Lots-of-Data-and-Artificial-Data" class="headerlink" title="16.3 Getting Lots of Data and Artificial Data"></a>16.3 Getting Lots of Data and Artificial Data</h3><p>如果模型是低方差的，那么获得更多的数据用于训练模型，是能够有更好的效果的。问题在于，怎样获得数据，数据不总是可以直接获得的，有可能需要人工地创造一些数据。</p>
+<p>以文字识别应用为例，我们可以字体网站下载各种字体，然后利用这些不同的字体配上各种不同的随机背景图片创造出一些用于训练的实例，这让我们能够获得一个无限大的训练集。这是从零开始创造实例。另一种方法是，利用已有的数据，然后对其进行修改，例如将已有的字符图片进行一些扭曲、旋转、模糊处理。只要我们认为实际数据有可能和经过这样处理后的数据类似，我们便可以用这样的方法来创造大量的数据。</p>
+<p>有关获得更多数据的几种方法：<br>1.人工数据合成<br>2.手动收集、标记数据<br>3.众包</p>
 
       
     </div>
@@ -522,8 +474,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2020/06/22/%E7%94%A8%E6%88%B7%E8%A1%8C%E4%B8%BA%E5%88%86%E6%9E%90%EF%BC%88%E9%9D%9E%E5%8E%9F%E5%88%9B%EF%BC%89/" rel="next" title="用户行为分析（非原创）">
-                <i class="fa fa-chevron-left"></i> 用户行为分析（非原创）
+              <a href="/2020/07/22/%5BMachine%20Learning%5D%2015%20%E5%A4%A7%E8%A7%84%E6%A8%A1%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0(Large%20Scale%20Machine%20Learning)/" rel="next" title="【Machine Learning】15 大规模机器学习(Large Scale Machine Learning)">
+                <i class="fa fa-chevron-left"></i> 【Machine Learning】15 大规模机器学习(Large Scale Machine Learning)
               </a>
             
           </div>
@@ -531,10 +483,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2020/07/06/%5BMachine%20Learning%5D%202%20%E5%8D%95%E5%8F%98%E9%87%8F%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92(Linear%20Regression%20with%20One%20Variable)/" rel="prev" title="【Machine Learning】2 单变量线性回归(Linear Regression with One Variable)">
-                【Machine Learning】2 单变量线性回归(Linear Regression with One Variable) <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -753,7 +701,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-概述"><span class="nav-text">1 概述</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-Learning-Map"><span class="nav-text">1.1 Learning Map</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-Supervised-Learning-监督学习"><span class="nav-text">1.2 Supervised Learning(监督学习)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-2-1-Case1-Housing-price-prediction"><span class="nav-text">1.2.1 Case1: Housing price prediction</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-2-2-Case2-Breast-cancer-malignant-benign"><span class="nav-text">1.2.2 Case2: Breast cancer (malignant,benign)</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3-Unsupervised-Learning-无监督学习"><span class="nav-text">1.3 Unsupervised Learning(无监督学习)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-3-1-Case-Cocktail-party-problem-algorithm"><span class="nav-text">1.3.1 Case: Cocktail party problem algorithm</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-4-Semi-supervised-Learning-半监督学习"><span class="nav-text">1.4 Semi-supervised Learning(半监督学习)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-5-Transfer-Learning-迁移学习"><span class="nav-text">1.5 Transfer Learning(迁移学习)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-6-Structured-Learning-结构化学习"><span class="nav-text">1.6 Structured Learning(结构化学习)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-7-Reinforcement-Learning-强化学习"><span class="nav-text">1.7 Reinforcement Learning(强化学习)</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#16-Application-Example-Photo-OCR-图片文字识别"><span class="nav-text">16 Application Example: Photo OCR(图片文字识别)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#16-1-Problem-Description-and-Pipeline"><span class="nav-text">16.1 Problem Description and Pipeline</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#16-2-Sliding-Windows"><span class="nav-text">16.2 Sliding Windows</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#16-3-Getting-Lots-of-Data-and-Artificial-Data"><span class="nav-text">16.3 Getting Lots of Data and Artificial Data</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -932,9 +880,9 @@
     
       <script type="text/javascript">
         var disqus_config = function () {
-          this.page.url = 'http://yoursite.com/2020/07/05/[Machine%20Learning]%201%20%E6%A6%82%E8%BF%B0/';
-          this.page.identifier = '2020/07/05/[Machine Learning] 1 概述/';
-          this.page.title = '【Machine Learning】1 概述';
+          this.page.url = 'http://yoursite.com/2020/07/22/[Machine%20Learning]%2016%20%E5%9B%BE%E7%89%87%E6%96%87%E5%AD%97%E8%AF%86%E5%88%AB(Application%20Example_%20Photo%20OCR)/';
+          this.page.identifier = '2020/07/22/[Machine Learning] 16 图片文字识别(Application Example_ Photo OCR)/';
+          this.page.title = '【Machine Learning】16 图片文字识别(Application Example_Photo OCR)';
         };
         var d = document, s = d.createElement('script');
         s.src = 'https://.disqus.com/embed.js';
