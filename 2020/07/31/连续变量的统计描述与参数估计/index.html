@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="统计描述,参数估计," />
 
 
 
@@ -81,14 +81,23 @@
 
 
 
-<meta name="description" content="交个朋友吧 (*^▽^*)">
-<meta property="og:type" content="website">
-<meta property="og:title" content="今天你DEBUG了吗">
-<meta property="og:url" content="http://yoursite.com/archives/2020/07/page/2/index.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="连续变量的统计描述与参数估计">
+<meta property="og:url" content="http://yoursite.com/2020/07/31/%E8%BF%9E%E7%BB%AD%E5%8F%98%E9%87%8F%E7%9A%84%E7%BB%9F%E8%AE%A1%E6%8F%8F%E8%BF%B0%E4%B8%8E%E5%8F%82%E6%95%B0%E4%BC%B0%E8%AE%A1/index.html">
 <meta property="og:site_name" content="今天你DEBUG了吗">
-<meta property="og:description" content="交个朋友吧 (*^▽^*)">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200731152400446.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200731151125515.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200731151515136.PNG#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200731151525931.png#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200731151705253.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200731152232154.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="article:published_time" content="2020-07-31T07:26:12.000Z">
+<meta property="article:modified_time" content="2020-07-31T07:26:47.977Z">
 <meta property="article:author" content="Patrick Yan">
+<meta property="article:tag" content="统计描述">
+<meta property="article:tag" content="参数估计">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img-blog.csdnimg.cn/20200731152400446.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center">
 
 
 
@@ -118,13 +127,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/archives/2020/07/page/2/"/>
+  <link rel="canonical" href="http://yoursite.com/2020/07/31/连续变量的统计描述与参数估计/"/>
 
 
 
 
 
-  <title>归档 | 今天你DEBUG了吗</title>
+  <title>连续变量的统计描述与参数估计 | 今天你DEBUG了吗</title>
   
 
 
@@ -153,7 +162,7 @@
     
   
 
-  <div class="container sidebar-position-left page-archive">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -281,409 +290,260 @@
           <div id="content" class="content">
             
 
+  <div id="posts" class="posts-expand">
+    
+
+  
+
   
   
   
-  <div class="post-block archive">
-    <div id="posts" class="posts-collapse">
-      <span class="archive-move-on"></span>
 
-      <span class="archive-page-counter">
-        
-        
-         
-        
-        OK! 目前共计 32 篇日志。 继续努力。
-      </span>
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/07/31/%E8%BF%9E%E7%BB%AD%E5%8F%98%E9%87%8F%E7%9A%84%E7%BB%9F%E8%AE%A1%E6%8F%8F%E8%BF%B0%E4%B8%8E%E5%8F%82%E6%95%B0%E4%BC%B0%E8%AE%A1/">
 
-      
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Patrick Yan">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/panda.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="今天你DEBUG了吗">
+    </span>
+
+    
+      <header class="post-header">
 
         
         
+          <h1 class="post-title" itemprop="name headline">连续变量的统计描述与参数估计</h1>
         
 
-        
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-07-31T15:26:12+08:00">
+                2020-07-31
+              </time>
+            
+
+            
+
+            
+          </span>
+
           
-          <div class="collection-title">
-            <h1 class="archive-year" id="archive-year-2020">2020</h1>
-          </div>
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2020/07/22/%5BMachine%20Learning%5D%2015%20%E5%A4%A7%E8%A7%84%E6%A8%A1%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0(Large%20Scale%20Machine%20Learning)/" itemprop="url">
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
               
-                <span itemprop="name">【Machine Learning】15 大规模机器学习(Large Scale Machine Learning)</span>
+                <span class="post-meta-item-text">分类于</span>
               
-            </a>
-        
-      </h2>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%BB%9F%E8%AE%A1%E5%AD%A6/" itemprop="url" rel="index">
+                    <span itemprop="name">统计学</span>
+                  </a>
+                </span>
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2020-07-22T14:54:03+08:00"
-              content="2020-07-22" >
-          07-22
-        </time>
-      </div>
+                
+                
+              
+            </span>
+          
 
-    </header>
-  </article>
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2020/07/31/%E8%BF%9E%E7%BB%AD%E5%8F%98%E9%87%8F%E7%9A%84%E7%BB%9F%E8%AE%A1%E6%8F%8F%E8%BF%B0%E4%B8%8E%E5%8F%82%E6%95%B0%E4%BC%B0%E8%AE%A1/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2020/07/31/连续变量的统计描述与参数估计/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
 
+          
+          
 
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  960
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  3
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2020/07/21/%5BMachine%20Learning%5D%2014%20%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F(Recommender%20Systems)/" itemprop="url">
-              
-                <span itemprop="name">【Machine Learning】14 推荐系统(Recommender Systems)</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2020-07-21T16:23:44+08:00"
-              content="2020-07-21" >
-          07-21
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
       
 
-        
-        
-        
+      
+        <p><img src="https://img-blog.csdnimg.cn/20200731152400446.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<a id="more"></a>
 
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2020/07/21/%5BMachine%20Learning%5D%2013%20%E5%BC%82%E5%B8%B8%E6%A3%80%E6%B5%8B(Anomaly%20Detection)/" itemprop="url">
-              
-                <span itemprop="name">【Machine Learning】13 异常检测(Anomaly Detection)</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2020-07-21T14:52:02+08:00"
-              content="2020-07-21" >
-          07-21
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
+<h2 id="1-连续变量的统计描述"><a href="#1-连续变量的统计描述" class="headerlink" title="1 连续变量的统计描述"></a>1 连续变量的统计描述</h2><p><img src="https://img-blog.csdnimg.cn/20200731151125515.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<h3 id="1-1-集中趋势的描述指标"><a href="#1-1-集中趋势的描述指标" class="headerlink" title="1.1 集中趋势的描述指标"></a>1.1 集中趋势的描述指标</h3><ul>
+<li>算数平均数</li>
+<li>中位数</li>
+<li>截尾均数</li>
+</ul>
+<h3 id="1-2-离散趋势的描述指标"><a href="#1-2-离散趋势的描述指标" class="headerlink" title="1.2 离散趋势的描述指标"></a>1.2 离散趋势的描述指标</h3><ul>
+<li>全距/极差</li>
+<li>方差或标准差</li>
+<li>百分位数、四分位数和四分位间距<br>百分位数Px是一种位置指标，Px将一组观察值分为两部分，理论上有x%的观察值比它小，有（100-x）%的观察值比它大</li>
+</ul>
+<h3 id="1-3-正态分布的描述指标"><a href="#1-3-正态分布的描述指标" class="headerlink" title="1.3 正态分布的描述指标"></a>1.3 正态分布的描述指标</h3><ul>
+<li><p>偏度<br>描述变量取值分布形态的统计量，指分布不对称的方向和程度。样本的偏度系数记为g1，偏度是与正态分布相比较而言的统计量。<br><img src="https://img-blog.csdnimg.cn/20200731151515136.PNG#pic_center" alt="在这里插入图片描述"></p>
+</li>
+<li><p>峰度<br>描述变量取值分布形态陡缓程度的统计量，指分布图形的尖峭程度或峰凸程度。样本的峰度系数记为g2，峰度也是与正态分布相比较而言的统计量。<br><img src="https://img-blog.csdnimg.cn/20200731151525931.png#pic_center" alt="在这里插入图片描述"></p>
+</li>
+</ul>
+<h2 id="2-连续变量的参数估计"><a href="#2-连续变量的参数估计" class="headerlink" title="2 连续变量的参数估计"></a>2 连续变量的参数估计</h2><p><img src="https://img-blog.csdnimg.cn/20200731151705253.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<h3 id="2-1-正态分布"><a href="#2-1-正态分布" class="headerlink" title="2.1 正态分布"></a>2.1 正态分布</h3><p>标准正态分布（u分布/z分布）</p>
+<h3 id="2-2-参数的点估计"><a href="#2-2-参数的点估计" class="headerlink" title="2.2 参数的点估计"></a>2.2 参数的点估计</h3><p><strong>所选统计量是否适用于作为参数估计量</strong></p>
+<ul>
+<li>无偏性：虽然估计量的值不全等于参数，但应当在真实值附近摆动</li>
+<li>一致性：样本量越大，估计值离真实值的差异应当越小</li>
+<li>有效性：如果有两个统计量都符合上述要求，则应当选取误差更小的一个作为估计值<br>例如均数和中位数，实际上两者在反映正态分布的集中趋势时，在无偏性和一致性上是一样好的，但中位数误差更大，所以应当尽量使用样本均数来反映正态分布的集中趋势</li>
+</ul>
+<p><strong>方法</strong></p>
+<ul>
+<li>矩法<br>在许多情况下，样本统计量本身往往就是相应的总体参数的最佳估计值，此时就可以直接取相应的样本统计量作为总体参数的点估计值。<br>例如样本均数、方差、标准差都是相应总体均数、方差、标准差的矩估计量。</li>
+<li>极大似然法<br>原理：在已知总体分布，但未知其参数值时，在待估计参数的可能取值范围内进行搜索，使似然函数值最大的那个数值即为极大似然估计值<br>优点在于估计量通常能满足一致性、有效性等要求，且具有不变性。<br>不变性：当原始数据进行某种函数变换后，相应估计量的同一函数变换值仍是新样本的极大似然估计量。</li>
+<li>稳健估计值<br>该统计量受数据异常值的影响较小，而且对大部分的分布而言都很好<br>M估计、R估计</li>
+</ul>
+<h3 id="2-3-参数的区间估计"><a href="#2-3-参数的区间估计" class="headerlink" title="2.3 参数的区间估计"></a>2.3 参数的区间估计</h3><p>虽然原始数据可能服从各种各样的分布，但是根据中心极限定理，当样本量n足够大(如n&gt;50)时,其抽样均数都会近似服从正态分布，而此正态分布所对应的标准差就可用来表示抽样误差的大小，此即标准误。</p>
+<p>区间估计的计算</p>
+<h2 id="3-Bootstrap方法"><a href="#3-Bootstrap方法" class="headerlink" title="3 Bootstrap方法"></a>3 Bootstrap方法</h2><p><img src="https://img-blog.csdnimg.cn/20200731152232154.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<p><strong>目的</strong></p>
+<ul>
+<li>判断原参数估计值是否准确</li>
+<li>计算出更准确的可信区间，判断得出的统计学结论是否正确</li>
+</ul>
+<p><strong>思想</strong><br>在原始数据的范围内做有放回的抽样，样本含量为n，原始数据中的每个观察单位每次被抽到的概率相等，为1/n，所得样本称为Bootstrap样本。于是可得到任何一个参数θ的一个估计值θ<sup>（b）</sub>。</p>
+<p><strong>方法</strong></p>
+<ul>
+<li>参数法<br>需假定θ<sup>（b）</sub>的分布状况</li>
+<li>非参数法<br>无任何限制</li>
+</ul>
 
       
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2020/07/20/%5BMachine%20Learning%5D%2012%20%E9%99%8D%E7%BB%B4(Dimensionality%20Reduction)/" itemprop="url">
-              
-                <span itemprop="name">【Machine Learning】12 降维(Dimensionality Reduction)</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2020-07-20T15:21:49+08:00"
-              content="2020-07-20" >
-          07-20
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2020/07/19/%5BMachine%20Learning%5D%2011%20%E8%81%9A%E7%B1%BB(Clustering)/" itemprop="url">
-              
-                <span itemprop="name">【Machine Learning】11 聚类(Clustering)</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2020-07-19T14:54:21+08:00"
-              content="2020-07-19" >
-          07-19
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2020/07/18/%5BMachine%20Learning%5D%2010%20%E6%94%AF%E6%8C%81%E5%90%91%E9%87%8F%E6%9C%BA(Support%20Vector%20Machines)/" itemprop="url">
-              
-                <span itemprop="name">【Machine Learning】10 支持向量机(Support Vector Machines)</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2020-07-18T18:19:53+08:00"
-              content="2020-07-18" >
-          07-18
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2020/07/16/%E3%80%8A%E5%A2%9E%E9%95%BF%E9%BB%91%E5%AE%A2%E5%AE%9E%E6%88%98%E3%80%8B%EF%BC%88%E7%AC%AC4-6%E7%AB%A0%EF%BC%89/" itemprop="url">
-              
-                <span itemprop="name">《增长黑客实战》（第4-6章）</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2020-07-16T17:36:02+08:00"
-              content="2020-07-16" >
-          07-16
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2020/07/15/%5BMachine%20Learning%5D%209%20%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%B3%BB%E7%BB%9F%E7%9A%84%E8%AE%BE%E8%AE%A1(Machine%20Learning%20System%20Design)/" itemprop="url">
-              
-                <span itemprop="name">【Machine Learning】9 机器学习系统的设计(Machine Learning System Design)</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2020-07-15T14:49:12+08:00"
-              content="2020-07-15" >
-          07-15
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2020/07/14/%5BMachine%20Learning%5D%208%20%E5%BA%94%E7%94%A8%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%9A%84%E5%BB%BA%E8%AE%AE(Advice%20for%20Applying%20Machine%20Learning)/" itemprop="url">
-              
-                <span itemprop="name">【Machine Learning】8 应用机器学习的建议(Advice for Applying Machine Learning)</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2020-07-14T18:10:07+08:00"
-              content="2020-07-14" >
-          07-14
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2020/07/14/%E3%80%8A%E5%A2%9E%E9%95%BF%E9%BB%91%E5%AE%A2%E5%AE%9E%E6%88%98%E3%80%8B%EF%BC%88%E7%AC%AC1-3%E7%AB%A0%EF%BC%89/" itemprop="url">
-              
-                <span itemprop="name">《增长黑客实战》（第1-3章）</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2020-07-14T15:11:57+08:00"
-              content="2020-07-14" >
-          07-14
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
     </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/%E7%BB%9F%E8%AE%A1%E6%8F%8F%E8%BF%B0/" rel="tag"># 统计描述</a>
+          
+            <a href="/tags/%E5%8F%82%E6%95%B0%E4%BC%B0%E8%AE%A1/" rel="tag"># 参数估计</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/07/27/%E3%80%8A%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98%E4%B8%8E%E6%95%B0%E6%8D%AE%E5%8C%96%E8%BF%90%E8%90%A5%E5%AE%9E%E6%88%98%E3%80%8B%EF%BC%88%E7%AC%AC13%E7%AB%A0%EF%BC%89/" rel="next" title="《数据挖掘与数据化运营实战》（第13章）">
+                <i class="fa fa-chevron-left"></i> 《数据挖掘与数据化运营实战》（第13章）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
+  </article>
 
-  
-  <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/archives/2020/07/">&lt;</a><a class="page-number" href="/archives/2020/07/">1</a><span class="page-number current">2</span><a class="page-number" href="/archives/2020/07/page/3/">3</a><a class="extend next" rel="next" href="/archives/2020/07/page/3/">&gt;</a>
-  </nav>
 
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -691,6 +551,20 @@
 
 
           
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript" target="_blank" rel="noopener">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
 
         </div>
         
@@ -711,8 +585,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -849,6 +732,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-连续变量的统计描述"><span class="nav-text">1 连续变量的统计描述</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-集中趋势的描述指标"><span class="nav-text">1.1 集中趋势的描述指标</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-离散趋势的描述指标"><span class="nav-text">1.2 离散趋势的描述指标</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3-正态分布的描述指标"><span class="nav-text">1.3 正态分布的描述指标</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-连续变量的参数估计"><span class="nav-text">2 连续变量的参数估计</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-正态分布"><span class="nav-text">2.1 正态分布</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-参数的点估计"><span class="nav-text">2.2 参数的点估计</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-参数的区间估计"><span class="nav-text">2.3 参数的区间估计</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-Bootstrap方法"><span class="nav-text">3 Bootstrap方法</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -998,6 +897,10 @@
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 
@@ -1015,6 +918,18 @@
       <script id="dsq-count-scr" src="https://.disqus.com/count.js" async></script>
     
 
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'http://yoursite.com/2020/07/31/%E8%BF%9E%E7%BB%AD%E5%8F%98%E9%87%8F%E7%9A%84%E7%BB%9F%E8%AE%A1%E6%8F%8F%E8%BF%B0%E4%B8%8E%E5%8F%82%E6%95%B0%E4%BC%B0%E8%AE%A1/';
+          this.page.identifier = '2020/07/31/连续变量的统计描述与参数估计/';
+          this.page.title = '连续变量的统计描述与参数估计';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
     
 
   

@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2020-07-27T11:02:53.107Z</updated>
+  <updated>2020-07-31T07:26:47.977Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>连续变量的统计描述与参数估计</title>
+    <link href="http://yoursite.com/2020/07/31/%E8%BF%9E%E7%BB%AD%E5%8F%98%E9%87%8F%E7%9A%84%E7%BB%9F%E8%AE%A1%E6%8F%8F%E8%BF%B0%E4%B8%8E%E5%8F%82%E6%95%B0%E4%BC%B0%E8%AE%A1/"/>
+    <id>http://yoursite.com/2020/07/31/%E8%BF%9E%E7%BB%AD%E5%8F%98%E9%87%8F%E7%9A%84%E7%BB%9F%E8%AE%A1%E6%8F%8F%E8%BF%B0%E4%B8%8E%E5%8F%82%E6%95%B0%E4%BC%B0%E8%AE%A1/</id>
+    <published>2020-07-31T07:26:12.000Z</published>
+    <updated>2020-07-31T07:26:47.977Z</updated>
+    
+    <content type="html"><![CDATA[<p><img src="https://img-blog.csdnimg.cn/20200731152400446.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p><a id="more"></a><h2 id="1-连续变量的统计描述"><a href="#1-连续变量的统计描述" class="headerlink" title="1 连续变量的统计描述"></a>1 连续变量的统计描述</h2><p><img src="https://img-blog.csdnimg.cn/20200731151125515.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p><h3 id="1-1-集中趋势的描述指标"><a href="#1-1-集中趋势的描述指标" class="headerlink" title="1.1 集中趋势的描述指标"></a>1.1 集中趋势的描述指标</h3><ul><li>算数平均数</li><li>中位数</li><li>截尾均数</li></ul><h3 id="1-2-离散趋势的描述指标"><a href="#1-2-离散趋势的描述指标" class="headerlink" title="1.2 离散趋势的描述指标"></a>1.2 离散趋势的描述指标</h3><ul><li>全距/极差</li><li>方差或标准差</li><li>百分位数、四分位数和四分位间距<br>百分位数Px是一种位置指标，Px将一组观察值分为两部分，理论上有x%的观察值比它小，有（100-x）%的观察值比它大</li></ul><h3 id="1-3-正态分布的描述指标"><a href="#1-3-正态分布的描述指标" class="headerlink" title="1.3 正态分布的描述指标"></a>1.3 正态分布的描述指标</h3><ul><li><p>偏度<br>描述变量取值分布形态的统计量，指分布不对称的方向和程度。样本的偏度系数记为g1，偏度是与正态分布相比较而言的统计量。<br><img src="https://img-blog.csdnimg.cn/20200731151515136.PNG#pic_center" alt="在这里插入图片描述"></p></li><li><p>峰度<br>描述变量取值分布形态陡缓程度的统计量，指分布图形的尖峭程度或峰凸程度。样本的峰度系数记为g2，峰度也是与正态分布相比较而言的统计量。<br><img src="https://img-blog.csdnimg.cn/20200731151525931.png#pic_center" alt="在这里插入图片描述"></p></li></ul><h2 id="2-连续变量的参数估计"><a href="#2-连续变量的参数估计" class="headerlink" title="2 连续变量的参数估计"></a>2 连续变量的参数估计</h2><p><img src="https://img-blog.csdnimg.cn/20200731151705253.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p><h3 id="2-1-正态分布"><a href="#2-1-正态分布" class="headerlink" title="2.1 正态分布"></a>2.1 正态分布</h3><p>标准正态分布（u分布/z分布）</p><h3 id="2-2-参数的点估计"><a href="#2-2-参数的点估计" class="headerlink" title="2.2 参数的点估计"></a>2.2 参数的点估计</h3><p><strong>所选统计量是否适用于作为参数估计量</strong></p><ul><li>无偏性：虽然估计量的值不全等于参数，但应当在真实值附近摆动</li><li>一致性：样本量越大，估计值离真实值的差异应当越小</li><li>有效性：如果有两个统计量都符合上述要求，则应当选取误差更小的一个作为估计值<br>例如均数和中位数，实际上两者在反映正态分布的集中趋势时，在无偏性和一致性上是一样好的，但中位数误差更大，所以应当尽量使用样本均数来反映正态分布的集中趋势</li></ul><p><strong>方法</strong></p><ul><li>矩法<br>在许多情况下，样本统计量本身往往就是相应的总体参数的最佳估计值，此时就可以直接取相应的样本统计量作为总体参数的点估计值。<br>例如样本均数、方差、标准差都是相应总体均数、方差、标准差的矩估计量。</li><li>极大似然法<br>原理：在已知总体分布，但未知其参数值时，在待估计参数的可能取值范围内进行搜索，使似然函数值最大的那个数值即为极大似然估计值<br>优点在于估计量通常能满足一致性、有效性等要求，且具有不变性。<br>不变性：当原始数据进行某种函数变换后，相应估计量的同一函数变换值仍是新样本的极大似然估计量。</li><li>稳健估计值<br>该统计量受数据异常值的影响较小，而且对大部分的分布而言都很好<br>M估计、R估计</li></ul><h3 id="2-3-参数的区间估计"><a href="#2-3-参数的区间估计" class="headerlink" title="2.3 参数的区间估计"></a>2.3 参数的区间估计</h3><p>虽然原始数据可能服从各种各样的分布，但是根据中心极限定理，当样本量n足够大(如n&gt;50)时,其抽样均数都会近似服从正态分布，而此正态分布所对应的标准差就可用来表示抽样误差的大小，此即标准误。</p><p>区间估计的计算</p><h2 id="3-Bootstrap方法"><a href="#3-Bootstrap方法" class="headerlink" title="3 Bootstrap方法"></a>3 Bootstrap方法</h2><p><img src="https://img-blog.csdnimg.cn/20200731152232154.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p><p><strong>目的</strong></p><ul><li>判断原参数估计值是否准确</li><li>计算出更准确的可信区间，判断得出的统计学结论是否正确</li></ul><p><strong>思想</strong><br>在原始数据的范围内做有放回的抽样，样本含量为n，原始数据中的每个观察单位每次被抽到的概率相等，为1/n，所得样本称为Bootstrap样本。于是可得到任何一个参数θ的一个估计值θ<sup>（b）</sub>。</p><p><strong>方法</strong></p><ul><li>参数法<br>需假定θ<sup>（b）</sub>的分布状况</li><li>非参数法<br>无任何限制</li></ul>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;img src=&quot;https://img-blog.csdnimg.cn/20200731152400446.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center&quot; alt=&quot;在这里插入图片描述&quot;&gt;&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="统计学" scheme="http://yoursite.com/categories/%E7%BB%9F%E8%AE%A1%E5%AD%A6/"/>
+    
+    
+      <category term="统计描述" scheme="http://yoursite.com/tags/%E7%BB%9F%E8%AE%A1%E6%8F%8F%E8%BF%B0/"/>
+    
+      <category term="参数估计" scheme="http://yoursite.com/tags/%E5%8F%82%E6%95%B0%E4%BC%B0%E8%AE%A1/"/>
+    
+  </entry>
   
   <entry>
     <title>《数据挖掘与数据化运营实战》（第13章）</title>
@@ -480,31 +505,6 @@
     
     
       <category term="用户增长" scheme="http://yoursite.com/tags/%E7%94%A8%E6%88%B7%E5%A2%9E%E9%95%BF/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>【Machine Learning】7 神经网络的学习(Neural Networks_Learning)</title>
-    <link href="http://yoursite.com/2020/07/12/[Machine%20Learning]%207%20%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E7%9A%84%E5%AD%A6%E4%B9%A0(Neural%20Networks_%20Learning)/"/>
-    <id>http://yoursite.com/2020/07/12/[Machine%20Learning]%207%20%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E7%9A%84%E5%AD%A6%E4%B9%A0(Neural%20Networks_%20Learning)/</id>
-    <published>2020-07-12T06:38:26.000Z</published>
-    <updated>2020-07-19T07:01:32.769Z</updated>
-    
-    <content type="html"><![CDATA[<p><img src="https://img-blog.csdnimg.cn/20200712143509812.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p><a id="more"></a><h2 id="7-Neural-Networks-Learning-神经网络的学习"><a href="#7-Neural-Networks-Learning-神经网络的学习" class="headerlink" title="7 Neural Networks-Learning(神经网络的学习)"></a>7 Neural Networks-Learning(神经网络的学习)</h2><h3 id="7-1-Cost-Function"><a href="#7-1-Cost-Function" class="headerlink" title="7.1 Cost Function"></a>7.1 Cost Function</h3><p>假设神经网络的训练样本有𝑚个，每个包含一组输入𝑥和一组输出信号𝑦，𝐿表示神经网络层数，𝑆<sub>𝐼</sub>表示每层的 neuron 个数(𝑆<sub>l</sub>表示输出层神经元个数)，𝑆<sub>L</sub>代表最后一层中处理单元的个数。</p><p>将神经网络的分类定义为两种情况：二类分类和多类分类，</p><ul><li>二类分类：𝑆<sub>L</sub> = 0, 𝑦 = 0 𝑜𝑟 1表示哪一类；</li><li>𝐾类分类：𝑆<sub>L</sub> = 𝑘, 𝑦<sub>i</sub> = 1表示分到第 i 类(𝑘 &gt; 2)；</li></ul><p><img src="https://img-blog.csdnimg.cn/20200711140907505.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>逻辑回归问题中的代价函数为：<br><img src="https://img-blog.csdnimg.cn/20200711141004490.PNG#pic_center" alt="在这里插入图片描述"><br>在逻辑回归中，只有一个输出变量，又称标量（scalar），也只有一个因变量𝑦，但是在神经网络中，可以有很多输出变量，ℎ𝜃(𝑥)是一个维度为𝐾的向量，并且训练集中的因变量也是同样维度的一个向量，因此代价函数会比逻辑回归更加复杂一些，为：<br><img src="https://img-blog.csdnimg.cn/2020071114131862.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>这个看起来复杂很多的代价函数背后的思想还是一样的，希望通过代价函数来观察算法预测的结果与真实情况的误差有多大，唯一不同的是，对于每一行特征，都会给出𝐾个预测，基本上可以利用循环，对每一行特征都预测𝐾个不同结果，然后在利用循环在𝐾个预测中选择可能性最高的一个，将其与𝑦中的实际数据进行比较。</p><p>正则化的那一项只是排除了每一层𝜃0后，每一层的𝜃 矩阵的和。最里层的循环𝑗循环所有的行（由𝑠𝑙 +1 层的激活单元数决定），循环𝑖则循环所有的列，由该层（𝑠𝑙层）的激活单元数所决定。即：ℎ𝜃(𝑥)与真实值之间的距离为每个样本-每个类输出的加和，对参数进行regularization 的 bias 项处理所有参数的平方和。</p><h3 id="7-2-Backpropagation-Algorithm-反向传播算法"><a href="#7-2-Backpropagation-Algorithm-反向传播算法" class="headerlink" title="7.2 Backpropagation Algorithm(反向传播算法)"></a>7.2 Backpropagation Algorithm(反向传播算法)</h3><p>在计算神经网络预测结果的时候采用了一种正向传播方法，从第一层开始正向一层一层进行计算，直到最后一层的ℎ𝜃(𝑥)。</p><p>现在，为了计算代价函数的偏导数 <img src="https://img-blog.csdnimg.cn/20200711145159753.png" alt="在这里插入图片描述">，需要采用一种反向传播算法，也就是首先计算最后一层的误差，然后再一层一层反向求出各层的误差，直到倒数第二层。 以一个例子来说明反向传播算法。</p><p>假设训练集只有一个实例(𝑥(1), 𝑦(1))，神经网络是一个四层的神经网络，其中𝐾 = 4，𝑆𝐿 = 4，𝐿 = 4：</p><p><strong>前向传播算法：</strong><br><img src="https://img-blog.csdnimg.cn/20200711145443278.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br><strong>反向传播算法</strong><br><img src="https://img-blog.csdnimg.cn/20200712131502934.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>从最后一层的误差开始计算，误差是激活单元的预测（a<sub>k</sub><sup>(4)</sup>）与实际值（𝑦<sup>𝑘</sup>）之间的误差，（𝑘 = 1: 𝑘），用𝛿来表示误差，则：𝛿<sup>(4)</sup> = 𝑎<sup>(4)</sup> − y 。</p><p>利用这个误差值来计算前一层的误差：𝛿<sup>(3)</sup> = (𝛩<sup>(3)</sup>)<sup>𝑇</sup>𝛿<sup>(4)</sup>∗ 𝑔′(𝑧<sup>(3)</sup>) 其中 𝑔′(𝑧<sup>(3)</sup>) 是 𝑆 形函数的导数，𝑔′(𝑧<sup>(3)</sup>)  = 𝑎<sup>(3)</sup>∗ (1 − 𝑎<sup>(3)</sup>)。而(𝛩<sup>(3)</sup>)<sup>𝑇</sup>𝛿<sup>(4)</sup>则是权重导致的误差的和。</p><p>下一步是继续计算第二层的误差：𝛿<sup>(2)</sup> = (𝛩<sup>(2)</sup>)<sup>𝑇</sup>𝛿<sup>(3)</sup>∗ 𝑔′(𝑧<sup>(2)</sup>) 。</p><p>因为第一层是输入变量，不存在误差。有了所有的误差的表达式后，便可以计算代价函数的偏导数了，假设𝜆 = 0，即不做任何正则化处理时有： 𝜕/𝜕𝛩<sub>𝑖𝑗</sub><sup>(𝑙)</sup>𝐽(𝛩) = 𝑎<sub>𝑗</sub><sup>(𝑙)</sup>𝛿<sub>𝑖</sub><sup>(𝑙+1)</sup> 。</p><p>上面式子中上下标的含义：</p><ul><li>𝑙 代表目前所计算的是第几层。</li><li>𝑗 代表目前计算层中的激活单元的下标，也将是下一层的第𝑗个输入变量的下标。</li><li>𝑖 代表下一层中误差单元的下标，是受到权重矩阵中第𝑖行影响的下一层中的误差单元的下标。</li></ul><p>如果考虑正则化处理，并且训练集是一个特征矩阵而非向量。在上面的特殊情况中，需要计算每一层的误差单元来计算代价函数的偏导数。在更为一般的情况中，同样需要计算每一层的误差单元，但是需要为整个训练集计算误差单元，此时的误差单元也是一个矩阵，我们用𝛥<sub>𝑖𝑗</sub><sup>(𝑙)</sup>来表示这个误差矩阵。第 𝑙 层的第 𝑖 个激活单元受到第 𝑗个参数影响而导致的误差。</p><p>反向传播算法为：<br><img src="https://img-blog.csdnimg.cn/20200712132926516.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>即首先用正向传播方法计算出每一层的激活单元，利用训练集的结果与神经网络预测的结果求出最后一层的误差，然后利用该误差运用反向传播法计算出直至第二层的所有误差。</p><p>在求出了𝛥<sub>𝑖𝑗</sub><sup>(𝑙)</sup>之后，便可以计算代价函数的偏导数了，计算方法如下：<br><img src="https://img-blog.csdnimg.cn/20200712133115751.PNG#pic_center" alt="在这里插入图片描述"><br>进一步理解：<br><img src="https://img-blog.csdnimg.cn/20200712135205765.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20200712135416318.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/2020071213542917.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p><h3 id="7-3-Gradient-Checking-梯度检测"><a href="#7-3-Gradient-Checking-梯度检测" class="headerlink" title="7.3 Gradient Checking(梯度检测)"></a>7.3 Gradient Checking(梯度检测)</h3><p>当对一个较为复杂的模型（例如神经网络）使用梯度下降算法时，可能会存在一些不容易察觉的错误，意味着，虽然代价看上去在不断减小，但最终的结果可能并不是最优解。为了避免这样的问题，我们采取一种叫做==梯度的数值检验（Numerical Gradient Checking）==方法。这种方法的思想是通过估计梯度值来检验计算的导数值是否真的是所要求的。</p><p>对梯度的估计采用的方法是在代价函数上沿着切线的方向选择两个非常近的点然后计算两个点的平均值用以估计梯度。即对于某个特定的 𝜃，计算出在 𝜃-𝜀 处和 𝜃+𝜀 的代价值（𝜀是一个非常小的值，通常选取 0.001），然后求两个代价的平均，用以估计在 𝜃处的代价值。<br><img src="https://img-blog.csdnimg.cn/20200712140624589.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>当𝜃是一个向量时，则需要对偏导数进行检验。因为代价函数的偏导数检验只针对一个参数的改变进行检验。<br><img src="https://img-blog.csdnimg.cn/20200712140921217.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>最后还需要对通过反向传播方法计算出的偏导数进行检验。</p><p>根据上面的算法，计算出的偏导数存储在矩阵 𝐷<sub>𝑖𝑗</sub><sup>(𝑙)</sup> 中。检验时，要将该矩阵展开成为向量，同时也将 𝜃 矩阵展开为向量，针对每一个 𝜃 都计算一个近似的梯度值，将这些值存储于一个近似梯度矩阵中，最终将得出的这个矩阵同𝐷<sub>𝑖𝑗</sub><sup>(𝑙)</sup> 进行比较。</p><p><img src="https://img-blog.csdnimg.cn/20200712141514334.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p><h3 id="7-4-Random-Initialization-随机初始化"><a href="#7-4-Random-Initialization-随机初始化" class="headerlink" title="7.4 Random Initialization(随机初始化)"></a>7.4 Random Initialization(随机初始化)</h3><p>任何优化算法都需要一些初始的参数。到目前为止都是初始所有参数为 0，这样的初始方法对于逻辑回归来说是可行的，但是对于神经网络来说是不可行的。如果令所有的初始参数都为 0，这将意味着第二层的所有激活单元都会有相同的值。同理，如果初始所有的参数都为一个非 0 的数，结果也是一样的。</p><p>通常初始参数为正负𝜀之间的随机值，假设要随机初始一个尺寸为 10×11 的参数矩阵，代码如下：<br>Theta1 = np.random.randn(10, 11) * (2*eps) – eps</p><h3 id="7-5-Putting-it-together"><a href="#7-5-Putting-it-together" class="headerlink" title="7.5 Putting it together"></a>7.5 Putting it together</h3><p><strong>神经网络结构：</strong></p><ul><li>第一层——特征数量</li><li>最后一层——类的数量（K分类就是K个）</li><li>隐藏层——每个隐藏层的单元个数相同，且单元的个数越多越好</li><li>需要设计的结构——隐藏层的层数and单元个数</li></ul><p><strong>训练神经网络步骤：</strong></p><ul><li>(a)参数的随机初始化</li><li>(b)利用正向传播方法计算所有的h_θ (x)</li><li>(c)编写计算代价函数 J 的代码</li><li>(d)利用反向传播方法计算所有偏导数</li><li>(e)利用数值检验方法检验这些偏导数</li><li>(f)使用优化算法来最小化代价函数</li></ul>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;&lt;img src=&quot;https://img-blog.csdnimg.cn/20200712143509812.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center&quot; alt=&quot;在这里插入图片描述&quot;&gt;&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="机器学习" scheme="http://yoursite.com/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
-    
-    
-      <category term="Machine Learning" scheme="http://yoursite.com/tags/Machine-Learning/"/>
-    
-      <category term="Neural Networks" scheme="http://yoursite.com/tags/Neural-Networks/"/>
     
   </entry>
   
