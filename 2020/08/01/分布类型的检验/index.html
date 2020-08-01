@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="假设检验," />
 
 
 
@@ -81,14 +81,27 @@
 
 
 
-<meta name="description" content="交个朋友吧 (*^▽^*)">
-<meta property="og:type" content="website">
-<meta property="og:title" content="今天你DEBUG了吗">
-<meta property="og:url" content="http://yoursite.com/categories/%E4%BA%A7%E5%93%81-%E8%BF%90%E8%90%A5/index.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="分布类型的检验">
+<meta property="og:url" content="http://yoursite.com/2020/08/01/%E5%88%86%E5%B8%83%E7%B1%BB%E5%9E%8B%E7%9A%84%E6%A3%80%E9%AA%8C/index.html">
 <meta property="og:site_name" content="今天你DEBUG了吗">
-<meta property="og:description" content="交个朋友吧 (*^▽^*)">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200801155450792.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200801151042539.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200801143551591.png#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200801143821196.PNG#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200801150924229.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200801152011508.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200801151808932.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200801153635956.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200801153807493.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200801154938204.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200801155138157.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="article:published_time" content="2020-08-01T07:56:42.000Z">
+<meta property="article:modified_time" content="2020-08-01T07:57:19.714Z">
 <meta property="article:author" content="Patrick Yan">
+<meta property="article:tag" content="假设检验">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img-blog.csdnimg.cn/20200801155450792.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center">
 
 
 
@@ -118,13 +131,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/categories/产品-运营/"/>
+  <link rel="canonical" href="http://yoursite.com/2020/08/01/分布类型的检验/"/>
 
 
 
 
 
-  <title>分类: 产品/运营 | 今天你DEBUG了吗</title>
+  <title>分布类型的检验 | 今天你DEBUG了吗</title>
   
 
 
@@ -153,7 +166,7 @@
     
   
 
-  <div class="container sidebar-position-left ">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -281,310 +294,233 @@
           <div id="content" class="content">
             
 
+  <div id="posts" class="posts-expand">
+    
+
+  
+
   
   
   
-  <div class="post-block category">
-
-    <div id="posts" class="posts-collapse">
-      <div class="collection-title">
-        <h1>产品/运营<small>分类</small>
-        </h1>
-      </div>
-
-      
-        
 
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/08/01/%E5%88%86%E5%B8%83%E7%B1%BB%E5%9E%8B%E7%9A%84%E6%A3%80%E9%AA%8C/">
 
-      <h2 class="post-title">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Patrick Yan">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/panda.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="今天你DEBUG了吗">
+    </span>
+
+    
+      <header class="post-header">
+
         
-            <a class="post-title-link" href="/2020/07/27/%E3%80%8A%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98%E4%B8%8E%E6%95%B0%E6%8D%AE%E5%8C%96%E8%BF%90%E8%90%A5%E5%AE%9E%E6%88%98%E3%80%8B%EF%BC%88%E7%AC%AC13%E7%AB%A0%EF%BC%89/" itemprop="url">
-              
-                <span itemprop="name">《数据挖掘与数据化运营实战》（第13章）</span>
-              
-            </a>
         
-      </h2>
+          <h1 class="post-title" itemprop="name headline">分布类型的检验</h1>
+        
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2020-07-27T19:02:40+08:00"
-              content="2020-07-27" >
-          07-27
-        </time>
-      </div>
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-08-01T15:56:42+08:00">
+                2020-08-01
+              </time>
+            
 
-    </header>
-  </article>
+            
 
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%BB%9F%E8%AE%A1%E5%AD%A6/" itemprop="url" rel="index">
+                    <span itemprop="name">统计学</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2020/08/01/%E5%88%86%E5%B8%83%E7%B1%BB%E5%9E%8B%E7%9A%84%E6%A3%80%E9%AA%8C/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2020/08/01/分布类型的检验/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1.3k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  4
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2020/07/27/%E3%80%8A%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98%E4%B8%8E%E6%95%B0%E6%8D%AE%E5%8C%96%E8%BF%90%E8%90%A5%E5%AE%9E%E6%88%98%E3%80%8B%EF%BC%88%E7%AC%AC11-12%E7%AB%A0%EF%BC%89/" itemprop="url">
-              
-                <span itemprop="name">《数据挖掘与数据化运营实战》（第11-12章）</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2020-07-27T17:22:31+08:00"
-              content="2020-07-27" >
-          07-27
-        </time>
-      </div>
-
-    </header>
-  </article>
-
+      
 
       
-        
+        <p><img src="https://img-blog.csdnimg.cn/20200801155450792.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<a id="more"></a>
 
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2020/07/26/%E3%80%8A%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98%E4%B8%8E%E6%95%B0%E6%8D%AE%E5%8C%96%E8%BF%90%E8%90%A5%E5%AE%9E%E6%88%98%E3%80%8B%EF%BC%88%E7%AC%AC10%E7%AB%A0%EF%BC%89/" itemprop="url">
-              
-                <span itemprop="name">《数据挖掘与数据化运营实战》（第10章）</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2020-07-26T17:29:18+08:00"
-              content="2020-07-26" >
-          07-26
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-      
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2020/07/26/%E3%80%8A%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98%E4%B8%8E%E6%95%B0%E6%8D%AE%E5%8C%96%E8%BF%90%E8%90%A5%E5%AE%9E%E6%88%98%E3%80%8B%EF%BC%88%E7%AC%AC9%E7%AB%A0%EF%BC%89/" itemprop="url">
-              
-                <span itemprop="name">《数据挖掘与数据化运营实战》（第9章）</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2020-07-26T15:42:12+08:00"
-              content="2020-07-26" >
-          07-26
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-      
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2020/07/25/%E3%80%8A%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98%E4%B8%8E%E6%95%B0%E6%8D%AE%E5%8C%96%E8%BF%90%E8%90%A5%E5%AE%9E%E6%88%98%E3%80%8B%EF%BC%88%E7%AC%AC8%E7%AB%A0%EF%BC%89/" itemprop="url">
-              
-                <span itemprop="name">《数据挖掘与数据化运营实战》（第8章）</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2020-07-25T19:00:08+08:00"
-              content="2020-07-25" >
-          07-25
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-      
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2020/07/24/%E3%80%8A%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98%E4%B8%8E%E6%95%B0%E6%8D%AE%E5%8C%96%E8%BF%90%E8%90%A5%E5%AE%9E%E6%88%98%E3%80%8B%EF%BC%88%E7%AC%AC4-7%E7%AB%A0%EF%BC%89/" itemprop="url">
-              
-                <span itemprop="name">《数据挖掘与数据化运营实战》（第4-7章）</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2020-07-24T17:48:10+08:00"
-              content="2020-07-24" >
-          07-24
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-      
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2020/07/23/%E3%80%8A%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98%E4%B8%8E%E6%95%B0%E6%8D%AE%E5%8C%96%E8%BF%90%E8%90%A5%E5%AE%9E%E6%88%98%E3%80%8B%EF%BC%88%E7%AC%AC3%E7%AB%A0%EF%BC%89/" itemprop="url">
-              
-                <span itemprop="name">《数据挖掘与数据化运营实战》（第3章）</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2020-07-23T17:18:45+08:00"
-              content="2020-07-23" >
-          07-23
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-      
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2020/07/23/%E3%80%8A%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98%E4%B8%8E%E6%95%B0%E6%8D%AE%E5%8C%96%E8%BF%90%E8%90%A5%E5%AE%9E%E6%88%98%E3%80%8B%EF%BC%88%E7%AC%AC1-2%E7%AB%A0%EF%BC%89/" itemprop="url">
-              
-                <span itemprop="name">《数据挖掘与数据化运营实战》（第1-2章）</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2020-07-23T14:45:34+08:00"
-              content="2020-07-23" >
-          07-23
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-      
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2020/07/16/%E3%80%8A%E5%A2%9E%E9%95%BF%E9%BB%91%E5%AE%A2%E5%AE%9E%E6%88%98%E3%80%8B%EF%BC%88%E7%AC%AC4-6%E7%AB%A0%EF%BC%89/" itemprop="url">
-              
-                <span itemprop="name">《增长黑客实战》（第4-6章）</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2020-07-16T17:36:02+08:00"
-              content="2020-07-16" >
-          07-16
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-      
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2020/07/14/%E3%80%8A%E5%A2%9E%E9%95%BF%E9%BB%91%E5%AE%A2%E5%AE%9E%E6%88%98%E3%80%8B%EF%BC%88%E7%AC%AC1-3%E7%AB%A0%EF%BC%89/" itemprop="url">
-              
-                <span itemprop="name">《增长黑客实战》（第1-3章）</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2020-07-14T15:11:57+08:00"
-              content="2020-07-14" >
-          07-14
-        </time>
-      </div>
-
-    </header>
-  </article>
-
+<h2 id="1-假设检验的基本思想"><a href="#1-假设检验的基本思想" class="headerlink" title="1 假设检验的基本思想"></a>1 假设检验的基本思想</h2><h3 id="1-1-假设检验的标准步骤"><a href="#1-1-假设检验的标准步骤" class="headerlink" title="1.1 假设检验的标准步骤"></a>1.1 假设检验的标准步骤</h3><ul>
+<li>小概率事件（发生概率很小，如P&lt;=0.05）</li>
+<li>小概率反证法<br>原理：对于一个小慨率事件而言，其对立面发生的可能性显然要大大高于这一小概率事件，可以认为小概率事件在一次试验中不应当发生。因此可以首先假定需要考察的假设是成立的，然后基于此进行推导，来计算一下在该假设所代表的总体中进行抽样研究得到当前样本(及更极端样本)的概率是多少。 如果结果显示这是一个小概率事件，则意味着如果假设是成立的，则在一次抽样研究中竟然就发生了小慨率事件。显然违反小概率原理，因此可以按照反证法的思路推翻所给出的假设，认为它们实际上是不成立的，这就是小概率反证法原理。</li>
+<li>标准步骤：<br>建立假设 &gt; 确立检验水准 &gt; 进行试验 &gt; 选定检验方法 &gt; 确定P值，给出推断结论<br><img src="https://img-blog.csdnimg.cn/20200801151042539.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20200801143551591.png#pic_center" alt="在这里插入图片描述"></li>
+</ul>
+<h3 id="1-2-假设检验的两类错误"><a href="#1-2-假设检验的两类错误" class="headerlink" title="1.2 假设检验的两类错误"></a>1.2 假设检验的两类错误</h3><p><img src="https://img-blog.csdnimg.cn/20200801143821196.PNG#pic_center" alt="在这里插入图片描述"></p>
+<ul>
+<li>第一类错误：无效假设H<sub>0</sub>实际上是正确的，但由于抽样误差的原因，或者说恰好发生小概率事件的原因，使得人们错误地拒绝了它，从而犯了”弃真”的错误，统计学上称它为”第一类错误” 。犯第一类错误的概率是人为指定的，就等于检验水准α。</li>
+<li>第二类错误：无效假设H<sub>0</sub>实际上是不正确的，但由于抽样误差的原因，检验中得到的P值大于检验水准，使得人们未能拒绝H<sub>0</sub>，从而犯了”存伪”的错误，统叶学中称它为”第二类错误”，用宇母β表示。和第一类错误不同，犯第二类错误的概率大小在进行假设检验时一般井不知道，但可以根据相关信息进行估计。</li>
+</ul>
+<h2 id="2-正态分布检验"><a href="#2-正态分布检验" class="headerlink" title="2 正态分布检验"></a>2 正态分布检验</h2><h3 id="2-1-K-S-检验的原理"><a href="#2-1-K-S-检验的原理" class="headerlink" title="2.1 K-S 检验的原理"></a>2.1 K-S 检验的原理</h3><p><img src="https://img-blog.csdnimg.cn/20200801150924229.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<h3 id="2-2-案例"><a href="#2-2-案例" class="headerlink" title="2.2 案例"></a>2.2 案例</h3><p><img src="https://img-blog.csdnimg.cn/20200801152011508.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<h2 id="3-二项分布检验"><a href="#3-二项分布检验" class="headerlink" title="3 二项分布检验"></a>3 二项分布检验</h2><h3 id="3-1-二项分布检验的原理"><a href="#3-1-二项分布检验的原理" class="headerlink" title="3.1 二项分布检验的原理"></a>3.1 二项分布检验的原理</h3><p>二项分布是对二分类变量的拟合优度检验，用于考察每个类别中观察值的频数与特定二项分布下的预期频数间是否存在统计学差异。其检验原理实际上和K-S检验的原理相同，只是这里使用的是二分变量，是一个离散分布的检验情况。</p>
+<h3 id="3-2-案例"><a href="#3-2-案例" class="headerlink" title="3.2 案例"></a>3.2 案例</h3><p><img src="https://img-blog.csdnimg.cn/20200801151808932.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<h2 id="4-游程检验"><a href="#4-游程检验" class="headerlink" title="4 游程检验"></a>4 游程检验</h2><h3 id="4-1-游程检验原理"><a href="#4-1-游程检验原理" class="headerlink" title="4.1 游程检验原理"></a>4.1 游程检验原理</h3><p>游程检验是对二分变量的随机检验，它可用于判断观察值的顺序是否为随机的。对于两分类变量，连续数个相同取值的记录称为一个游程，比如下面这个序列<br>0 0 1 1 0 1 1 1 0 0 0 1 0 0 1 0 0 0 1 0<br>它有6个0的游程，其长度为1、2、3的各有2个，并有5个1的游程，其中3个长度为1,1个长度为2，1个长度为3。上面的序列总共有 11 个游程。如用U表示序列总的游程数 ，那么对于上面的序列来讲， U= 11。</p>
+<p>根据游程检验的假设，如果序列是真随机序列，那么游程的总数应当不太多也不太少，比较适中。如果游程的总数极少，就意味着样本由于缺乏独立性，内部存在着一定的趋势或结构，这可能是由于观察值间不独立( 如传染病的发病) ，或者是来自不同总体；若样本中存在大量的游程，则可能存在系统的短周期波动影响着观察结果，同样不能认为序列是随机的。</p>
+<p>SPSS的Runs过程提供了基于游程个数的检验方法，对于连续性变量，该过程首先要将变量值进行分类，然后进行检验。</p>
+<h3 id="4-2-案例"><a href="#4-2-案例" class="headerlink" title="4.2 案例"></a>4.2 案例</h3><p><img src="https://img-blog.csdnimg.cn/20200801153635956.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20200801153807493.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<h2 id="5-蒙特卡罗方法"><a href="#5-蒙特卡罗方法" class="headerlink" title="5 蒙特卡罗方法"></a>5 蒙特卡罗方法</h2><h3 id="5-1-蒙特卡罗方法原理"><a href="#5-1-蒙特卡罗方法原理" class="headerlink" title="5.1 蒙特卡罗方法原理"></a>5.1 蒙特卡罗方法原理</h3><p>蒙特卡罗方法又称为统计模拟法、随机抽样技术，其名称听起来很神奇，但实际上原理非常简单。就是使用随机数(或更常见的伪随机数)来解决很多计算问题的方法，用下面这个例于就可以解释清楚：假设要计算一个不规则图形的面积，图形的不规则程度和计算方法(比如是否使用积分)的复杂程度是成正比的。要使用蒙特卡罗方法解决这个问题，可以假设有一袋豆于，把豆子均匀地朝这个图形撒，然后数这个图形之中有多少颗豆子，这里要假定豆子都在一个平面上，相互之间没有重叠，那么最终图形内豆子的数目就是图形的面积。当豆子越小，撒的量越多时，结果就越精确。</p>
+<p><img src="https://img-blog.csdnimg.cn/20200801154938204.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20200801155138157.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
 
       
     </div>
+    
+    
+    
 
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/%E5%81%87%E8%AE%BE%E6%A3%80%E9%AA%8C/" rel="tag"># 假设检验</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/07/31/%E8%BF%9E%E7%BB%AD%E5%8F%98%E9%87%8F%E7%9A%84%E7%BB%9F%E8%AE%A1%E6%8F%8F%E8%BF%B0%E4%B8%8E%E5%8F%82%E6%95%B0%E4%BC%B0%E8%AE%A1/" rel="next" title="连续变量的统计描述与参数估计">
+                <i class="fa fa-chevron-left"></i> 连续变量的统计描述与参数估计
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
+  </article>
 
-  
-  <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/categories/%E4%BA%A7%E5%93%81-%E8%BF%90%E8%90%A5/page/2/">2</a><a class="extend next" rel="next" href="/categories/%E4%BA%A7%E5%93%81-%E8%BF%90%E8%90%A5/page/2/">&gt;</a>
-  </nav>
 
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -592,6 +528,20 @@
 
 
           
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript" target="_blank" rel="noopener">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
 
         </div>
         
@@ -612,8 +562,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -750,6 +709,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-假设检验的基本思想"><span class="nav-text">1 假设检验的基本思想</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-假设检验的标准步骤"><span class="nav-text">1.1 假设检验的标准步骤</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-假设检验的两类错误"><span class="nav-text">1.2 假设检验的两类错误</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-正态分布检验"><span class="nav-text">2 正态分布检验</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-K-S-检验的原理"><span class="nav-text">2.1 K-S 检验的原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-案例"><span class="nav-text">2.2 案例</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-二项分布检验"><span class="nav-text">3 二项分布检验</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-二项分布检验的原理"><span class="nav-text">3.1 二项分布检验的原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-案例"><span class="nav-text">3.2 案例</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-游程检验"><span class="nav-text">4 游程检验</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#4-1-游程检验原理"><span class="nav-text">4.1 游程检验原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-2-案例"><span class="nav-text">4.2 案例</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-蒙特卡罗方法"><span class="nav-text">5 蒙特卡罗方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#5-1-蒙特卡罗方法原理"><span class="nav-text">5.1 蒙特卡罗方法原理</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -899,6 +874,10 @@
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 
@@ -916,6 +895,18 @@
       <script id="dsq-count-scr" src="https://.disqus.com/count.js" async></script>
     
 
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'http://yoursite.com/2020/08/01/%E5%88%86%E5%B8%83%E7%B1%BB%E5%9E%8B%E7%9A%84%E6%A3%80%E9%AA%8C/';
+          this.page.identifier = '2020/08/01/分布类型的检验/';
+          this.page.title = '分布类型的检验';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
     
 
   
