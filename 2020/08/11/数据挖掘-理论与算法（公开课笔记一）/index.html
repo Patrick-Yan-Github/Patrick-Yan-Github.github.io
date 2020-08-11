@@ -1,0 +1,1389 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="SVM,数据挖掘,Decision Tree," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="今天你DEBUG了吗" type="application/atom+xml" />
+
+
+
+
+
+
+<meta property="og:type" content="article">
+<meta property="og:title" content="数据挖掘-理论与算法（公开课笔记一）">
+<meta property="og:url" content="http://yoursite.com/2020/08/11/%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98-%E7%90%86%E8%AE%BA%E4%B8%8E%E7%AE%97%E6%B3%95%EF%BC%88%E5%85%AC%E5%BC%80%E8%AF%BE%E7%AC%94%E8%AE%B0%E4%B8%80%EF%BC%89/index.html">
+<meta property="og:site_name" content="今天你DEBUG了吗">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200811181626788.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/2020080516351878.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200806144007746.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200806145913666.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200806145931179.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200806151014650.png#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200806154859358.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200806155140221.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200806155305237.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200806160712616.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200806161213942.PNG#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200806161355302.PNG#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/2020080616180288.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200807165636583.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200807172730339.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200807173859785.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200807173423588.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200811151049881.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200811152204850.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200811163441130.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200811163744652.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200811163918817.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200811165813899.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200811170208941.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200811170233439.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200811173103773.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="article:published_time" content="2020-08-11T10:18:37.000Z">
+<meta property="article:modified_time" content="2020-08-11T10:22:09.566Z">
+<meta property="article:author" content="Patrick Yan">
+<meta property="article:tag" content="SVM">
+<meta property="article:tag" content="数据挖掘">
+<meta property="article:tag" content="Decision Tree">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img-blog.csdnimg.cn/20200811181626788.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2020/08/11/数据挖掘-理论与算法（公开课笔记一）/"/>
+
+
+
+
+
+  <title>数据挖掘-理论与算法（公开课笔记一） | 今天你DEBUG了吗</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?07169a0eb332beb35e3d76cae04890b9";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">今天你DEBUG了吗</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/08/11/%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98-%E7%90%86%E8%AE%BA%E4%B8%8E%E7%AE%97%E6%B3%95%EF%BC%88%E5%85%AC%E5%BC%80%E8%AF%BE%E7%AC%94%E8%AE%B0%E4%B8%80%EF%BC%89/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Patrick Yan">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/panda.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="今天你DEBUG了吗">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">数据挖掘-理论与算法（公开课笔记一）</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-08-11T18:18:37+08:00">
+                2020-08-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98/" itemprop="url" rel="index">
+                    <span itemprop="name">数据挖掘</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2020/08/11/%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98-%E7%90%86%E8%AE%BA%E4%B8%8E%E7%AE%97%E6%B3%95%EF%BC%88%E5%85%AC%E5%BC%80%E8%AF%BE%E7%AC%94%E8%AE%B0%E4%B8%80%EF%BC%89/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2020/08/11/数据挖掘-理论与算法（公开课笔记一）/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  3.3k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  11
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><img src="https://img-blog.csdnimg.cn/20200811181626788.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<a id="more"></a>
+
+<h2 id="2-Data-Preprocessing-数据预处理"><a href="#2-Data-Preprocessing-数据预处理" class="headerlink" title="2 Data Preprocessing 数据预处理"></a>2 Data Preprocessing 数据预处理</h2><h3 id="2-1-1-Data-Cleaning-数据清洗"><a href="#2-1-1-Data-Cleaning-数据清洗" class="headerlink" title="2.1.1 Data Cleaning 数据清洗"></a>2.1.1 Data Cleaning 数据清洗</h3><p>获取的数据可能不可用，存在缺数据、数据错误、噪音等问题，这些都会导致程序无法运行。因此在处理之前要进行清洗等操作。</p>
+<p>对于缺失少量的数据，可以进行适当的推测，或者规则界定，或者直接填均值，这个处理方法主要依经验判断。 More art than science.</p>
+<p>离群点和异常点是有区别的，要谨慎的区分两者。（如姚明身高可以称为离群点，但不是异常点）</p>
+<h3 id="2-2-1-Outliers-amp-Duplicate-detection-异常值与重复检测"><a href="#2-2-1-Outliers-amp-Duplicate-detection-异常值与重复检测" class="headerlink" title="2.2.1 Outliers &amp; Duplicate detection 异常值与重复检测"></a>2.2.1 Outliers &amp; Duplicate detection 异常值与重复检测</h3><p>异常是相对的，在计算异常值时要考虑相对性，可以尝试与近邻值相比较。</p>
+<p>相同的信息可以用不同的形式来表示，而计算机可能无法识别这些重复。</p>
+<p>我们可以尝试使用滑动窗口，将某数据与部分之前的数据进行比（前提是相似的数据是紧邻的）<br><img src="https://img-blog.csdnimg.cn/2020080516351878.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<h3 id="2-3-1-Type-conversion-amp-sampling-类型转换与采样"><a href="#2-3-1-Type-conversion-amp-sampling-类型转换与采样" class="headerlink" title="2.3.1 Type conversion &amp; sampling 类型转换与采样"></a>2.3.1 Type conversion &amp; sampling 类型转换与采样</h3><p>数据有很多形式，在编码时需要选择合适的方式进行处理，才能进行数据挖掘。在编码时，编码不同方式对问题结构和挖掘结果都会产生影响。</p>
+<p>采样：数据并不是都需要的，而且IO操作对数据库并不友好，我们可以根据需要可以进行适当的采样，能有效的降低数据量，加快处理速度。</p>
+<p>不平衡的数据集对挖掘结果也会有影响，在采样时也需要谨慎选择（可以尝试“复制”一些较少点加入数据集）。在做分类的情况下，当数据过多时，也可以尝试识别出边缘点并进行加入数实验据集，可以有效地降低实验时的数据量；当某一类别的数据过少，可以多采集一点，或生成一些邻近的点。如：<br><img src="https://img-blog.csdnimg.cn/20200806144007746.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<h3 id="2-4-1-Data-Description-amp-Visualization-数据描述与可视化"><a href="#2-4-1-Data-Description-amp-Visualization-数据描述与可视化" class="headerlink" title="2.4.1 Data Description &amp; Visualization 数据描述与可视化"></a>2.4.1 Data Description &amp; Visualization 数据描述与可视化</h3><p>数据标准化</p>
+<ul>
+<li><img src="https://img-blog.csdnimg.cn/20200806145913666.png" alt="在这里插入图片描述">可以归一化到[0,1]之间</li>
+<li><img src="https://img-blog.csdnimg.cn/20200806145931179.png" alt="在这里插入图片描述"></li>
+</ul>
+<h3 id="2-5-1-Feature-Selection-特征选择"><a href="#2-5-1-Feature-Selection-特征选择" class="headerlink" title="2.5.1 Feature Selection 特征选择"></a>2.5.1 Feature Selection 特征选择</h3><p>在做数据挖掘的时候，要在多个属性中进行挑选，否则会影响算法的效率与资源的消耗，所以属性需要分好坏。</p>
+<p><strong>熵-(Entropy)</strong>：在数据挖掘中，代表变量/系统的不确定性。<br><img src="https://img-blog.csdnimg.cn/20200806151014650.png#pic_center" alt="在这里插入图片描述"><br>此处b一般取2，但也可以为其他值，取2时单位为比特；b取e时，单位为纳特。</p>
+<p><strong>信息增益-(information gain)</strong>：在数据挖掘中代表属性的价值。<br>ΔH(x)=H(x1)−H(x2)ΔH(x) ，即增加属性前后熵的差值。</p>
+<p>属性组的优劣并不是单纯的单个属性好坏的叠加，因为属性间可能有影响或者关联。</p>
+<p><strong>搜索最优属性-(Subset Seach)</strong>：为了在众多属性中挑选最优的属性组，会有众多的排列组合，所以需要通过适当的算法。</p>
+<p><strong>Branch and Bound</strong>：寻找最优的属性组。建立属性树，如有单调的情况，可以通过剪枝方法加速。启发式、模拟退火等算法同样适用。</p>
+<h3 id="2-6-1-Feature-Extraction-特征提取"><a href="#2-6-1-Feature-Extraction-特征提取" class="headerlink" title="2.6.1 Feature Extraction 特征提取"></a>2.6.1 Feature Extraction 特征提取</h3><p>引例：照片把三维信息压缩（投影）为二维，信息损失很多，人们通过照片的特征，依旧可以识别照片中的物体。</p>
+<p>不同的属性有不同的区分度，越重要的属性越能区分物体，更少产生重复。所以属性有好坏。</p>
+<p><strong>主成分分析技术-PCA(principle components analysis)</strong>：把空间中的点投影到空间中的一根线上（相当于n维降到1维），相当于降维，投影方向（相当于属性）有好坏。最优情况为最大特征向量。另外，投影后实际上相当于丢失了一部分信息。</p>
+<h3 id="2-7-1-Linear-Discriminant-Analysis-线性判别分析"><a href="#2-7-1-Linear-Discriminant-Analysis-线性判别分析" class="headerlink" title="2.7.1 Linear Discriminant Analysis 线性判别分析"></a>2.7.1 Linear Discriminant Analysis 线性判别分析</h3><p>PCA是一种无监督学习，虽然可以进行降维，但是在分类时，PCA可能无法进行合理的投影方向选择，导致无法进行分类。</p>
+<p><img src="https://img-blog.csdnimg.cn/20200806154859358.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>举例：如果向1轴投影，可以明显区分两个数据集，但是PCA会向2轴投影，导致两个数据在低维混合，看不出分类。</p>
+<p><strong>线性判别分析-LDA(Liner Discriminant Analysis)</strong>：相对PCA，LDA在投影的同时保留类的区分信息（指相同组中数据尽可能近，不同组中数据尽可能远）</p>
+<p><strong>费舍尔准则-(Fisher Criterion)</strong>：用于评估投影效果好坏（整体上J越大越好）<br><img src="https://img-blog.csdnimg.cn/20200806155140221.png" alt="在这里插入图片描述"><br>其中μ为组中心点位置（越远越好），S为各组离散程度（越小越好）。<br>调整投影方向，J值变化。<br><img src="https://img-blog.csdnimg.cn/20200806155305237.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<h3 id="2-7-2-LDA-Example-线性判别分析例子"><a href="#2-7-2-LDA-Example-线性判别分析例子" class="headerlink" title="2.7.2 LDA Example 线性判别分析例子"></a>2.7.2 LDA Example 线性判别分析例子</h3><p>PCA与LDA的结果不一定相同。<br><img src="https://img-blog.csdnimg.cn/20200806160712616.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>LDA不局限于二分类，可以容易的拓展到n类的情况，此时J的分子为各个组中心点离所有点中心点的距离。此时n分类最高可以投影到n−1维上。如下，是三类问题投影到两个轴上（这两个轴不一定正交）。<br><img src="https://img-blog.csdnimg.cn/20200806161213942.PNG#pic_center" alt="在这里插入图片描述"><br>往两个轴投影如下：<br><img src="https://img-blog.csdnimg.cn/20200806161355302.PNG#pic_center" alt="在这里插入图片描述"><br>在一些特殊情况下（两类比较近μ1=μ2或者两个分类维互相垂直），LDA的分类可能不如PCA，在使用时要谨慎分析。<br><img src="https://img-blog.csdnimg.cn/2020080616180288.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<h2 id="3-Bayes-amp-Decision-Tree-Classifiers-贝叶斯和决策树"><a href="#3-Bayes-amp-Decision-Tree-Classifiers-贝叶斯和决策树" class="headerlink" title="3 Bayes &amp; Decision Tree Classifiers 贝叶斯和决策树"></a>3 Bayes &amp; Decision Tree Classifiers 贝叶斯和决策树</h2><h3 id="3-1-1-Bayes、Decision-Tree-贝叶斯、决策树（概率基础）"><a href="#3-1-1-Bayes、Decision-Tree-贝叶斯、决策树（概率基础）" class="headerlink" title="3.1.1 Bayes、Decision Tree 贝叶斯、决策树（概率基础）"></a>3.1.1 Bayes、Decision Tree 贝叶斯、决策树（概率基础）</h3><p>分类是一种有监督学习，会有标签，这也是分类与聚类的差别。</p>
+<h3 id="3-2-1-Naive-Bayes-Classifier-朴素贝叶斯公式"><a href="#3-2-1-Naive-Bayes-Classifier-朴素贝叶斯公式" class="headerlink" title="3.2.1 Naive Bayes Classifier 朴素贝叶斯公式"></a>3.2.1 Naive Bayes Classifier 朴素贝叶斯公式</h3><p>注意区分：先验后验、相关独立。</p>
+<p><strong>拉普拉斯平滑-(Laplace Smoothing)</strong>：如果出现数据库中从未存储的特殊点，一项为0会导致整个概率公式值为0。<br><img src="https://img-blog.csdnimg.cn/20200807165636583.png" alt="在这里插入图片描述"><br>（加1使得结果不会为0）</p>
+<p>贝叶斯公式的实际应用：<br>我们可以提取文章中的部分单词，根据出现与否计算文章分类概率，但是这种情况会导致计算量非常大。进一步改进，词袋模型-(Word Bag)，不考虑单词出现的位置，根据单词在文章中出现的频率来计算文章分类概率。</p>
+<h3 id="3-3-1-Decision-Tree-决策树"><a href="#3-3-1-Decision-Tree-决策树" class="headerlink" title="3.3.1 Decision Tree 决策树"></a>3.3.1 Decision Tree 决策树</h3><p>将不同因素设定规则，分层计算，形成决策树。决策树是可解释的(if…then…)，是决策树的一大优势。</p>
+<p>根据判断顺序不同，一个数据集可以建立很多树。运用奥卡姆剃刀，我们可以选择同样分类效率下，尽量简单的决策树。</p>
+<h3 id="3-4-1-Decision-Tree-Framework-决策树的建立策略"><a href="#3-4-1-Decision-Tree-Framework-决策树的建立策略" class="headerlink" title="3.4.1 Decision Tree Framework 决策树的建立策略"></a>3.4.1 Decision Tree Framework 决策树的建立策略</h3><p>把分类能力强的节点放在靠近根节点的情况可以大大缩小树的规模，于是决策树的建立与属性判断有关。</p>
+<p><strong>熵-(Entropy)</strong>：在变量选择中，代表属性的不确定性。最大值为1，此时最不确定。最小值为0，此时最确定。<br><img src="https://img-blog.csdnimg.cn/20200807172730339.png" alt="在这里插入图片描述"><br>此处b一般取2，但也可以为其他值，取2时单位为比特。</p>
+<p><strong>过学习-(Overfitting)</strong>：在训练集中a比b效果好，但在测试集中b比a好，此时就发生了过学习（通用概念）</p>
+<p>决策树并不是越大越好，也存在过学习(overfitting)的情况。为避免过学习，提高泛化能力，有两种剪枝策略：</p>
+<ul>
+<li>限制树的深度</li>
+<li>进行剪枝（将某些子节点合并到父节点上）<br><img src="https://img-blog.csdnimg.cn/20200807173859785.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></li>
+</ul>
+<p>简单的决策树 ID3 建立过程：</p>
+<ol>
+<li>寻找能把数据集分的最开的属性，进行分割</li>
+<li>如果子集纯，那么停止分割，如果不纯，继续从1分割（如果没有属性，停止分割，标签少数服从多数）</li>
+</ol>
+<p><img src="https://img-blog.csdnimg.cn/20200807173423588.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<h2 id="4-Neural-Networks-神经网络"><a href="#4-Neural-Networks-神经网络" class="headerlink" title="4 Neural Networks 神经网络"></a>4 Neural Networks 神经网络</h2><h3 id="4-1-1-Perceptrons-感知机"><a href="#4-1-1-Perceptrons-感知机" class="headerlink" title="4.1.1 Perceptrons 感知机"></a>4.1.1 Perceptrons 感知机</h3><p>神经网络是计算机程序对大脑中神经元的简化抽象模拟。</p>
+<p>单个神经元开关速度（0,1互换）相对计算机比较慢，但人脑是多个神经元联合分布式处理的，处理速度很快。</p>
+<p><strong>感知机-(Perceptrons)</strong>：单个的神经元，n个输入，n+1个权重（<strong>w<sub>0</sub></strong>，避免所有点都过原点），输出0或1。<br><img src="https://img-blog.csdnimg.cn/20200811151049881.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<h3 id="4-2-1-感知机的应用"><a href="#4-2-1-感知机的应用" class="headerlink" title="4.2.1 感知机的应用"></a>4.2.1 感知机的应用</h3><p>感知机可以理解为一个线性分类器，对于线性不可分等问题无能为力。</p>
+<p><strong>梯度下降法-(Gradient Descent)</strong>：取权重时不同权重对结果影响不同，所以让误差不断梯度下降。</p>
+<p><strong>批处理学习-(Batch Learning)</strong>：计算一批数据，将更改值保存在Δw中，计算完后统一修改w。</p>
+<p><strong>随机学习-(Stochastic Learning)</strong>：一旦出现误差，就修改w。</p>
+<h3 id="4-3-1-Multilayer-Perception-多层感知机神经网络"><a href="#4-3-1-Multilayer-Perception-多层感知机神经网络" class="headerlink" title="4.3.1 Multilayer Perception 多层感知机神经网络"></a>4.3.1 Multilayer Perception 多层感知机神经网络</h3><p><img src="https://img-blog.csdnimg.cn/20200811152204850.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<p>多层感知机通过在输入和输出间添加隐含层来解决线性不可分的问题，提升效率。</p>
+<p>多次感知机解决线性不可分问题：将输入的线性不可分问题转化为线性可分问题，输出到隐层，由隐含层解决并输出。</p>
+<h3 id="4-4-1-分类器学习算法"><a href="#4-4-1-分类器学习算法" class="headerlink" title="4.4.1 分类器学习算法"></a>4.4.1 分类器学习算法</h3><p><strong>误差反向传播算法-BP(Backpropagation Rule)</strong>：思想类似于感知机，用误差对某个权重的输入求偏导。但在多层感知机网络中，由于隐含层的期望值并不知道，所以没法得知隐含层的误差，因此输出后根据结果加权反向反馈，修改参数。</p>
+<p>在求导时，很容易使参数掉进局部最优点，导致误差不在下降，而神经网络恰恰有很多局部最优点。为了解决这个问题，</p>
+<ol>
+<li>我们可以尝试多次从不同点、不同方向出发，寻找最优参数。</li>
+<li>也可以增加“冲量”，相当于“惯性”，让参数点冲过一些比较小的局部最优点。</li>
+<li>也可以尝试改变学习率，较大的学习率可以直接大踏步跳过一些比较小的局部点，</li>
+<li>而特殊的学习率会在一些特殊情况产生震荡，左右横跳导致无法收敛，多次学习也是解决办法。</li>
+</ol>
+<p>↑↑↑可以结合小球滚斜坡、走路上下坡理解局部最优点↑↑↑</p>
+<p>同样，神经网络也有过学习问题。所以我们既要设置训练误差-(Training Error)—–随时间逐步降低，又要设置<strong>校验误差-(Validation Error)</strong>—–随时加先降后升。在校验误差拐点停止训练即可。</p>
+<h3 id="4-5-1-Beyond-BP-Networks-其他的神经网络算法"><a href="#4-5-1-Beyond-BP-Networks-其他的神经网络算法" class="headerlink" title="4.5.1 Beyond BP Networks 其他的神经网络算法"></a>4.5.1 Beyond BP Networks 其他的神经网络算法</h3><p><strong>Elman Network</strong>：此算法有一定的记忆性，通过之前的输入推出答案，输出不仅仅取决于当前的输入，还取决于之前的输入。</p>
+<p><strong>Hopfield Network</strong>：是一个全连接神经网络。类似于人大脑的记忆功能，利用收敛到局部最小值，实现联想记忆。</p>
+<p>同样，不存在万能的神经网络，每个网络算法都有自己的适应性，而且神经网络的训练时间很长，但训练完成后反应很快。</p>
+<p>神经网络的可解释性很差（只有权重）。</p>
+<h2 id="5-Support-Vector-Machines-支持向量机"><a href="#5-Support-Vector-Machines-支持向量机" class="headerlink" title="5 Support Vector Machines 支持向量机"></a>5 Support Vector Machines 支持向量机</h2><h3 id="5-1-1-Support-Vector-Machine（SVM）-支持向量机"><a href="#5-1-1-Support-Vector-Machine（SVM）-支持向量机" class="headerlink" title="5.1.1 Support Vector Machine（SVM） 支持向量机"></a>5.1.1 Support Vector Machine（SVM） 支持向量机</h3><p>原理：输入维度向高维映射并进行分类（升维），仍然是线性分类器的一种，真正有效的点只有support vector，最大化margin。<br><img src="https://img-blog.csdnimg.cn/20200811163441130.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>B和A相比，把点分得更均匀，无偏。<br><img src="https://img-blog.csdnimg.cn/20200811163744652.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<p><strong>边缘-(margin)</strong>：训练集中分界面可以上下平移的区域，margin越大，错误越不会影响结果，参数越好。</p>
+<p><strong>支持点-(Support Vectors)</strong>：导致平移边界的点，决定了分界面能移动的范围。其他的点对分界没有影响，可忽略。<br><img src="https://img-blog.csdnimg.cn/20200811163918817.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<h3 id="5-2-1-Linear-SVM-线性SVM"><a href="#5-2-1-Linear-SVM-线性SVM" class="headerlink" title="5.2.1 Linear SVM 线性SVM"></a>5.2.1 Linear SVM 线性SVM</h3><p>目标：先分样本（必须分对所有的点），再求最优值</p>
+<p>数学工具：拉格朗日乘数法</p>
+<p>但事实上很难完美的分对所有点，所以放宽条件（soft margin），允许少数点可以不满足约束条件。</p>
+<p>本质上还是一个线性分类器，仍然无法解决线性不可分问题。（soft margin只能解决数据有噪点的情况）</p>
+<h3 id="5-3-1-Non-linear-SVM-非线性SVM"><a href="#5-3-1-Non-linear-SVM-非线性SVM" class="headerlink" title="5.3.1 Non-linear SVM 非线性SVM"></a>5.3.1 Non-linear SVM 非线性SVM</h3><p>目的：弥补线性SVM不能解决线性不可分问题的缺陷。</p>
+<p>原理：输入坐标点向新坐标空间映射并进行分类，可以是升维，也可以是同维度转化。如下图，第一个线性可分，但第二个线性不可分，则将第二个映射到新的空间。<br><img src="https://img-blog.csdnimg.cn/20200811165813899.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>映射的结果并不唯一，如下图。<br><img src="https://img-blog.csdnimg.cn/20200811170208941.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20200811170233439.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<p>映射方法一般是固定的，m维一般升到 <strong>m<sup>2</sup>/2</strong> 维进行分类。</p>
+<p>通过引入<strong>核函数（Kernel Function）</strong> 进行等价变换，让高维空间的计算等价于低维空间的运算，有效降低运算量。</p>
+<p>在处理文本数据时，可以使用字符串核函数，处理字符串的子串，得到相应的式子进行分类。</p>
+<p>模型能力指数（model capacity）：若h个点无论怎么打标签，模型都能区分（shatter），那么该模型能力指数就是h。<br><img src="https://img-blog.csdnimg.cn/20200811173103773.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/SVM/" rel="tag"># SVM</a>
+          
+            <a href="/tags/%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98/" rel="tag"># 数据挖掘</a>
+          
+            <a href="/tags/Decision-Tree/" rel="tag"># Decision Tree</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/08/04/%E6%9C%89%E5%BA%8F_%E6%97%A0%E5%BA%8F%E5%88%86%E7%B1%BB%E5%8F%98%E9%87%8F%E7%9A%84%E7%BB%9F%E8%AE%A1%E6%8E%A8%E6%96%AD/" rel="next" title="有序/无序分类变量的统计推断">
+                <i class="fa fa-chevron-left"></i> 有序/无序分类变量的统计推断
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript" target="_blank" rel="noopener">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/panda.jpg"
+                alt="Patrick Yan" />
+            
+              <p class="site-author-name" itemprop="name">Patrick Yan</p>
+              <p class="site-description motion-element" itemprop="description">交个朋友吧 (*^▽^*)</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">36</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">27</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/PatrickYan01" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:yanyx9530@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+		  
+		  
+			
+			  <div class="links-of-blogroll motion-element links-of-blogroll-block">
+				<div class="links-of-blogroll-title">
+				  <!-- modify icon to fire by szw -->
+				  <i class="fa fa-history fa-" aria-hidden="true"></i>
+				  近期文章
+				</div>
+				<ul class="links-of-blogroll-list">
+				  
+				  
+					<li class="recent_posts_li">
+					  <a href="/2020/08/11/%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98-%E7%90%86%E8%AE%BA%E4%B8%8E%E7%AE%97%E6%B3%95%EF%BC%88%E5%85%AC%E5%BC%80%E8%AF%BE%E7%AC%94%E8%AE%B0%E4%B8%80%EF%BC%89/" title="数据挖掘-理论与算法（公开课笔记一）" target="_blank">数据挖掘-理论与算法（公开课笔记一）</a>
+					</li>
+				  
+					<li class="recent_posts_li">
+					  <a href="/2020/08/04/%E6%9C%89%E5%BA%8F_%E6%97%A0%E5%BA%8F%E5%88%86%E7%B1%BB%E5%8F%98%E9%87%8F%E7%9A%84%E7%BB%9F%E8%AE%A1%E6%8E%A8%E6%96%AD/" title="有序/无序分类变量的统计推断" target="_blank">有序/无序分类变量的统计推断</a>
+					</li>
+				  
+					<li class="recent_posts_li">
+					  <a href="/2020/08/03/%E8%BF%9E%E7%BB%AD%E5%8F%98%E9%87%8F%E7%9A%84%E7%BB%9F%E8%AE%A1%E6%8E%A8%E6%96%AD/" title="连续变量的统计推断" target="_blank">连续变量的统计推断</a>
+					</li>
+				  
+					<li class="recent_posts_li">
+					  <a href="/2020/08/01/%E5%88%86%E5%B8%83%E7%B1%BB%E5%9E%8B%E7%9A%84%E6%A3%80%E9%AA%8C/" title="分布类型的检验" target="_blank">分布类型的检验</a>
+					</li>
+				  
+					<li class="recent_posts_li">
+					  <a href="/2020/07/31/%E8%BF%9E%E7%BB%AD%E5%8F%98%E9%87%8F%E7%9A%84%E7%BB%9F%E8%AE%A1%E6%8F%8F%E8%BF%B0%E4%B8%8E%E5%8F%82%E6%95%B0%E4%BC%B0%E8%AE%A1/" title="连续变量的统计描述与参数估计" target="_blank">连续变量的统计描述与参数估计</a>
+					</li>
+				  
+				</ul>
+			  </div>
+			
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                友情链接
+              </div>
+              <ul class="links-of-blogroll-list">
+				
+				  <span class="links-of-author-item" style="text-align:left">
+					<a href="https://blog.csdn.net/weixin_45399074" title="CSDN" target="_blank">
+					  CSDN
+					</a>
+				  </span>
+				
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-Data-Preprocessing-数据预处理"><span class="nav-text">2 Data Preprocessing 数据预处理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-1-Data-Cleaning-数据清洗"><span class="nav-text">2.1.1 Data Cleaning 数据清洗</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-1-Outliers-amp-Duplicate-detection-异常值与重复检测"><span class="nav-text">2.2.1 Outliers &amp; Duplicate detection 异常值与重复检测</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-1-Type-conversion-amp-sampling-类型转换与采样"><span class="nav-text">2.3.1 Type conversion &amp; sampling 类型转换与采样</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-4-1-Data-Description-amp-Visualization-数据描述与可视化"><span class="nav-text">2.4.1 Data Description &amp; Visualization 数据描述与可视化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-5-1-Feature-Selection-特征选择"><span class="nav-text">2.5.1 Feature Selection 特征选择</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-6-1-Feature-Extraction-特征提取"><span class="nav-text">2.6.1 Feature Extraction 特征提取</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-7-1-Linear-Discriminant-Analysis-线性判别分析"><span class="nav-text">2.7.1 Linear Discriminant Analysis 线性判别分析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-7-2-LDA-Example-线性判别分析例子"><span class="nav-text">2.7.2 LDA Example 线性判别分析例子</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-Bayes-amp-Decision-Tree-Classifiers-贝叶斯和决策树"><span class="nav-text">3 Bayes &amp; Decision Tree Classifiers 贝叶斯和决策树</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-1-Bayes、Decision-Tree-贝叶斯、决策树（概率基础）"><span class="nav-text">3.1.1 Bayes、Decision Tree 贝叶斯、决策树（概率基础）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-1-Naive-Bayes-Classifier-朴素贝叶斯公式"><span class="nav-text">3.2.1 Naive Bayes Classifier 朴素贝叶斯公式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3-1-Decision-Tree-决策树"><span class="nav-text">3.3.1 Decision Tree 决策树</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-4-1-Decision-Tree-Framework-决策树的建立策略"><span class="nav-text">3.4.1 Decision Tree Framework 决策树的建立策略</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-Neural-Networks-神经网络"><span class="nav-text">4 Neural Networks 神经网络</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#4-1-1-Perceptrons-感知机"><span class="nav-text">4.1.1 Perceptrons 感知机</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-2-1-感知机的应用"><span class="nav-text">4.2.1 感知机的应用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-3-1-Multilayer-Perception-多层感知机神经网络"><span class="nav-text">4.3.1 Multilayer Perception 多层感知机神经网络</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-4-1-分类器学习算法"><span class="nav-text">4.4.1 分类器学习算法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-5-1-Beyond-BP-Networks-其他的神经网络算法"><span class="nav-text">4.5.1 Beyond BP Networks 其他的神经网络算法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-Support-Vector-Machines-支持向量机"><span class="nav-text">5 Support Vector Machines 支持向量机</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#5-1-1-Support-Vector-Machine（SVM）-支持向量机"><span class="nav-text">5.1.1 Support Vector Machine（SVM） 支持向量机</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-2-1-Linear-SVM-线性SVM"><span class="nav-text">5.2.1 Linear SVM 线性SVM</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-3-1-Non-linear-SVM-非线性SVM"><span class="nav-text">5.3.1 Non-linear SVM 非线性SVM</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Patrick Yan</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">108.3k</span>
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'http://yoursite.com/2020/08/11/%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98-%E7%90%86%E8%AE%BA%E4%B8%8E%E7%AE%97%E6%B3%95%EF%BC%88%E5%85%AC%E5%BC%80%E8%AF%BE%E7%AC%94%E8%AE%B0%E4%B8%80%EF%BC%89/';
+          this.page.identifier = '2020/08/11/数据挖掘-理论与算法（公开课笔记一）/';
+          this.page.title = '数据挖掘-理论与算法（公开课笔记一）';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'NBmS0rYRfqeIXHQQIGRmNaPM-gzGzoHsz',
+        appKey: 'aKyem3OJz4CXooX0S5dzuL0m',
+        placeholder: 'Welcome to my blog.',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+</html>
