@@ -1,0 +1,1464 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Clustering,数据挖掘," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="今天你DEBUG了吗" type="application/atom+xml" />
+
+
+
+
+
+
+<meta property="og:type" content="article">
+<meta property="og:title" content="数据挖掘-理论与算法（公开课笔记二）">
+<meta property="og:url" content="http://yoursite.com/2020/08/17/%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98-%E7%90%86%E8%AE%BA%E4%B8%8E%E7%AE%97%E6%B3%95%EF%BC%88%E5%85%AC%E5%BC%80%E8%AF%BE%E7%AC%94%E8%AE%B0%E4%BA%8C%EF%BC%89/index.html">
+<meta property="og:site_name" content="今天你DEBUG了吗">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200817152020342.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200812143747255.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200812143821463.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200812144003963.png#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200812150130920.png#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200812150148903.png#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200812151658904.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200812152305176.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200812153021116.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200812154508135.png#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200812154449385.png#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200814130200373.png#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200814130214496.png#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200814130225820.png#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200814131148888.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200814131346836.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200814132217264.png#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/202008141324353.png#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200814135722246.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200814135258940.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200814141328811.png#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200814141724370.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200814142021850.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/2020081414214560.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="article:published_time" content="2020-08-17T07:39:52.000Z">
+<meta property="article:modified_time" content="2020-08-17T07:40:36.127Z">
+<meta property="article:author" content="Patrick Yan">
+<meta property="article:tag" content="Clustering">
+<meta property="article:tag" content="数据挖掘">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img-blog.csdnimg.cn/20200817152020342.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2020/08/17/数据挖掘-理论与算法（公开课笔记二）/"/>
+
+
+
+
+
+  <title>数据挖掘-理论与算法（公开课笔记二） | 今天你DEBUG了吗</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?07169a0eb332beb35e3d76cae04890b9";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">今天你DEBUG了吗</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/08/17/%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98-%E7%90%86%E8%AE%BA%E4%B8%8E%E7%AE%97%E6%B3%95%EF%BC%88%E5%85%AC%E5%BC%80%E8%AF%BE%E7%AC%94%E8%AE%B0%E4%BA%8C%EF%BC%89/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Patrick Yan">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/panda.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="今天你DEBUG了吗">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">数据挖掘-理论与算法（公开课笔记二）</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-08-17T15:39:52+08:00">
+                2020-08-17
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98/" itemprop="url" rel="index">
+                    <span itemprop="name">数据挖掘</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2020/08/17/%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98-%E7%90%86%E8%AE%BA%E4%B8%8E%E7%AE%97%E6%B3%95%EF%BC%88%E5%85%AC%E5%BC%80%E8%AF%BE%E7%AC%94%E8%AE%B0%E4%BA%8C%EF%BC%89/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2020/08/17/数据挖掘-理论与算法（公开课笔记二）/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  3.5k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  12
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><img src="https://img-blog.csdnimg.cn/20200817152020342.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<a id="more"></a>
+
+<h2 id="6-1-Clustering-聚类"><a href="#6-1-Clustering-聚类" class="headerlink" title="6.1 Clustering 聚类"></a>6.1 Clustering 聚类</h2><h3 id="6-1-1-Unsupervised-Learning-无监督学习"><a href="#6-1-1-Unsupervised-Learning-无监督学习" class="headerlink" title="6.1.1 Unsupervised Learning 无监督学习"></a>6.1.1 Unsupervised Learning 无监督学习</h3><p>相似性导致聚集，聚类有两种：分割型聚类（将数据进行分块），层次型聚类（根据不同层次分块）。聚类与分类相似，不同的是聚类要规定相似度（Similarity）。</p>
+<p>聚类是无监督学习，无标签，没有绝对标准答案。</p>
+<p>目的：使不同簇（clusters）之间距离最远，相同簇最近。</p>
+<p>数据预处理对聚类影响很大，要谨慎对待。如坐标压缩、数据标准化等，如下图。<br><img src="https://img-blog.csdnimg.cn/20200812143747255.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br> <img src="https://img-blog.csdnimg.cn/20200812143821463.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<h3 id="6-2-1-Clustering-Algorithm-聚类算法"><a href="#6-2-1-Clustering-Algorithm-聚类算法" class="headerlink" title="6.2.1 Clustering Algorithm 聚类算法"></a>6.2.1 Clustering Algorithm 聚类算法</h3><p><strong>Silhouette：</strong>衡量聚类效果的参数，一般在[0,1)间，也存在少数负数</p>
+<p><img src="https://img-blog.csdnimg.cn/20200812144003963.png#pic_center" alt="在这里插入图片描述"><br> 其中，a代表与聚类在同一个簇之间的平均距离，b代表与聚类在不同簇之间的最小平均距离。</p>
+<p><strong>K-Means算法：</strong></p>
+<ol>
+<li>要分n块，则随机选n个种子点（模型参数）</li>
+<li>根据n个点将数据域划分</li>
+<li>计算数据域的中心点，更新为种子点，循环到1步</li>
+</ol>
+<p>优点：对“球形”数据效果好，收敛快（一般5,6步能出结果）</p>
+<p>缺点：K值难以不确定，初始点不好可能导致陷入局部最优点，噪点影响大，对“异型数据”适应性不好</p>
+<p>最终目的：求出把数据域分成n块的n个中心点（参数）</p>
+<p><strong>Sequential Leader Clustering算法：</strong></p>
+<p>可以应对数据流进行聚类，且不需要迭代，一遍过，且不需要确定K。</p>
+<p>进来的数据，根据设定距离极限，直接与现有中心点距离进行比较，大于则自成中心，小于则加入簇中。</p>
+<p>对于距离限设定比较敏感，太小则会产生很多簇，太大簇又会过少。</p>
+<h3 id="6-3-1-EM-Method-期望最大法"><a href="#6-3-1-EM-Method-期望最大法" class="headerlink" title="6.3.1 EM Method 期望最大法"></a>6.3.1 EM Method 期望最大法</h3><p><strong>混合高斯模型-(Gaussian Mixture)</strong>：用不同高斯分布进行叠加，每个分布都有相应权重(α<sub>i</sub>)，权重和为1。</p>
+<ul>
+<li>高斯分布 <img src="https://img-blog.csdnimg.cn/20200812150130920.png#pic_center" alt="在这里插入图片描述"></li>
+<li><img src="https://img-blog.csdnimg.cn/20200812150148903.png#pic_center" alt="在这里插入图片描述"></li>
+</ul>
+<p><strong>期望最大化算法-EM</strong>：类似于K均值聚类，先随机生成各参数，再通过不断迭代进行训练，调整参数。</p>
+<h3 id="6-4-1-Density-Hierarchical-Based-Methods-密度与层次"><a href="#6-4-1-Density-Hierarchical-Based-Methods-密度与层次" class="headerlink" title="6.4.1 Density/Hierarchical Based Methods 密度与层次"></a>6.4.1 Density/Hierarchical Based Methods 密度与层次</h3><p>为了解决“非规则分布”数据和“大噪声”数据的问题，从密度方向解决问题</p>
+<p>优点：不需要设定K值或距离极限（虽然还要定义一个距离参数）</p>
+<p><strong>DBSCAN算法</strong>：通过点与点之间的距离进行聚类，不断递归膨胀，其中距离参数即为分类的层面，越小的话分类层析越低，越大分类层次越高。</p>
+<p><img src="https://img-blog.csdnimg.cn/20200812151658904.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<p>核心点（Core Point）：在一定距离（需要用户设定）内有足够的点</p>
+<p>边缘点（Border Point）：在核心点距离范围内且不是核心点的点</p>
+<p>噪点（Noise Point）：既不是核心点也不是边缘点（需要排除）</p>
+<p><strong>Hierarchical Based Methods</strong>：算模型中每个点与其他点的距离矩阵，选模型中最近的两个点合并进一个簇，迭代至只有一个簇结束。</p>
+<p><img src="https://img-blog.csdnimg.cn/20200812152305176.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<ul>
+<li><p>最小距离法：合并后新簇与其他簇的距离，为两簇中距离最小的点之间的距离</p>
+</li>
+<li><p>最大距离法：合并后新簇与其他簇的距离，为两簇中距离最大的点之间的距离</p>
+</li>
+</ul>
+<p><img src="https://img-blog.csdnimg.cn/20200812153021116.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<h2 id="7-Assocation-Role-关联规则"><a href="#7-Assocation-Role-关联规则" class="headerlink" title="7 Assocation Role 关联规则"></a>7 Assocation Role 关联规则</h2><h3 id="7-1-1-Assocation-Role-关联规则"><a href="#7-1-1-Assocation-Role-关联规则" class="headerlink" title="7.1.1 Assocation Role 关联规则"></a>7.1.1 Assocation Role 关联规则</h3><p>目的：在庞大的元素库中找出元素之间的关联关系</p>
+<p>这个规则主要应用在商品的推销上（啤酒与尿布）</p>
+<p>还可以延伸用于文字分析，把单个单词看做元素，对每篇文章分析即可得出单词之间的关联关系</p>
+<h3 id="7-2-1-Support-amp-Confidence-of-Association-Role-支持度-置信度"><a href="#7-2-1-Support-amp-Confidence-of-Association-Role-支持度-置信度" class="headerlink" title="7.2.1 Support&amp;Confidence of Association Role 支持度 置信度"></a>7.2.1 Support&amp;Confidence of Association Role 支持度 置信度</h3><p>支持度在关联规则分析中就是频率（关联发生的次数总次数 / 总次数）</p>
+<p>置信度为在某元素出现的情况下关联发生的概率（关联发生的次数 / 包含某一元素的次数 ）即条件概率<br><img src="https://img-blog.csdnimg.cn/20200812154508135.png#pic_center" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20200812154449385.png#pic_center" alt="在这里插入图片描述"></p>
+<p>注意规则顺序，顺序相反Support不变，Confidence会变化。</p>
+<p>在大元素集中，组合的数量会快速增加，同时记录也是海量的，一条一条验证显然不可行。·宏观处理：</p>
+<ol>
+<li>设置一个支持度、置信度的一个限值</li>
+<li>把所有频繁的组合找出来</li>
+<li>生成频繁组合的所有非空子集，并写出所有可能的子集关联规则</li>
+<li>计算所有子集关联规则的支持度与置信度</li>
+<li>比较子集的支持度、置信度与设定的限值，若超过则认为关联性强</li>
+</ol>
+<h3 id="7-3-1-About-Assocation-Role-关联规则的误区"><a href="#7-3-1-About-Assocation-Role-关联规则的误区" class="headerlink" title="7.3.1 About Assocation Role 关联规则的误区"></a>7.3.1 About Assocation Role 关联规则的误区</h3><p>规则的关联性很强并不一定代表该规则有意义（当两个元素频率差别特别大时尤为明显，如一个商品几乎每个人都会买，而另一个商品买的人很少）</p>
+<p>关联规则就是一个条件概率，两件事物相关，并不一定他们之间有代表因果关系，不应做过多解释。</p>
+<h3 id="7-4-1-Apriori-Method-Apriori算法"><a href="#7-4-1-Apriori-Method-Apriori算法" class="headerlink" title="7.4.1 Apriori Method Apriori算法"></a>7.4.1 Apriori Method Apriori算法</h3><p>元素因为排列组合，所有可能的非空关联的数量非常庞大(2<sup>d</sup>−1)，不能用传统方法解决。</p>
+<p>原理：</p>
+<ul>
+<li>任何一个频繁项的非空子集必须频繁</li>
+<li>如果某个子项不频繁，那么他的超集必然不频繁</li>
+</ul>
+<p>相当于一个剪枝算法。</p>
+<p>具体步骤：</p>
+<ol>
+<li>生成某个特定大小的频繁集（一般为1）</li>
+<li>对频繁集进行组合，并删除频繁集</li>
+<li>迭代运行1,2</li>
+</ol>
+<p>核心思想：尽量避免生成不频繁集</p>
+<p>缺点：本算法需要频繁扫描数据库，而这种操作在大型数据库中成本较高</p>
+<h3 id="7-6-1-Sequential-Pattern-序列模式"><a href="#7-6-1-Sequential-Pattern-序列模式" class="headerlink" title="7.6.1 Sequential Pattern 序列模式"></a>7.6.1 Sequential Pattern 序列模式</h3><p>在一般的记录中，不包含记录产生的时间或者购买人，那么对于序列先后或间隔的分析就无法进行。</p>
+<p>目的：分析某事发生后，另一件事就有可能发生</p>
+<p>我们将序列按先后时间排序，若某 元素顺序 持续在序列集中出现，那么该 元素顺序 就是一个序列（不一定要直接连续，允许有间隔）</p>
+<p>方法：先找短序列，不断连接变为长序列，并检验是否频繁即可。</p>
+<h2 id="8-Recommendation-Algorithms"><a href="#8-Recommendation-Algorithms" class="headerlink" title="8 Recommendation Algorithms"></a>8 Recommendation Algorithms</h2><h3 id="8-1-1-Recommend-Algorithm-推荐算法"><a href="#8-1-1-Recommend-Algorithm-推荐算法" class="headerlink" title="8.1.1 Recommend Algorithm 推荐算法"></a>8.1.1 Recommend Algorithm 推荐算法</h3><p>应用：精准广告营销、协同推荐、音乐推荐。</p>
+<h3 id="8-2-1-Text-Analysis-文本分析"><a href="#8-2-1-Text-Analysis-文本分析" class="headerlink" title="8.2.1 Text Analysis 文本分析"></a>8.2.1 Text Analysis 文本分析</h3><p><strong>Tf-idf</strong>：输入关键词，量化该词与数据库词中的关联情况</p>
+<p><strong>关键词频率-TF(Term Frequency)</strong>：关键词的频率<br><img src="https://img-blog.csdnimg.cn/20200814130200373.png#pic_center" alt="List item"><br>（某词在全文中出现的频数 / 全文词总频数)</p>
+<p><strong>逆文档频率-(Inverse Document Frequency)</strong>：该单词在其他文档中的频率（作用：过滤诸如“the”“a”之类的词）<br><img src="https://img-blog.csdnimg.cn/20200814130214496.png#pic_center" alt="在这里插入图片描述"><br>（log(所有文档个数 / 包含特定词文档个数)）</p>
+<p><strong>单词-文本矩阵-(Term-Document matrix)</strong>：在文本处理时，将单词和多个文本的tf-idf值组成矩阵并进行计算<br><img src="https://img-blog.csdnimg.cn/20200814130225820.png#pic_center" alt="在这里插入图片描述"></p>
+<p>在计算机处理文档时，一般将文章处理为向量并进行计算夹角。<br><img src="https://img-blog.csdnimg.cn/20200814131148888.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<p>在文档处理时，近义词（Synonymy）、多义词（Polysemy）的存在会干扰文档处理。</p>
+<p><strong>隐含语义分析-LSA(Later Semantic Analysis)</strong>：将矩阵放进新的空间而不是原空间进行分析。<br><img src="https://img-blog.csdnimg.cn/20200814131346836.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<ol>
+<li>将XX分解为TSD<sup>-1</sup></li>
+<li>选择几个信息量最大的维度并进行降维</li>
+<li>将降维后矩阵乘回去并画图</li>
+<li>对新得的图进行聚类</li>
+</ol>
+<h3 id="8-3-1-PageRank-网页评分"><a href="#8-3-1-PageRank-网页评分" class="headerlink" title="8.3.1 PageRank 网页评分"></a>8.3.1 PageRank 网页评分</h3><p><strong>页面评分-(PageRank)</strong>：网页可以被看为互相有链接的文档，其PageRank值越高代表网页越好。</p>
+<p>指向某网页的链接越多、指向来源的PR值越高、指向来源的指向链接越少，某网页质量越高。</p>
+<ul>
+<li><img src="https://img-blog.csdnimg.cn/20200814132217264.png#pic_center" alt="在这里插入图片描述"><br>即：（来源网站PR值 / 来源网站的链接数）之和</li>
+<li><img src="https://img-blog.csdnimg.cn/202008141324353.png#pic_center" alt="List item"></li>
+</ul>
+<p>即：t+1秒时网站的PR值，是一个迭代值，最终收敛为定值</p>
+<ul>
+<li><strong>d-阻尼参数(damping factor)</strong>：固定参数，一般取0.85</li>
+<li><strong>(1 - d) / N</strong> 是让所有时间所有网页PR值和为1</li>
+</ul>
+<h3 id="8-4-1-Collaborative-Filtering-协同过滤"><a href="#8-4-1-Collaborative-Filtering-协同过滤" class="headerlink" title="8.4.1 Collaborative Filtering 协同过滤"></a>8.4.1 Collaborative Filtering 协同过滤</h3><p>核心思想：收集兴趣相似的用户的打分信息，并制作打分矩阵，表示并推测每个人对每个商品的喜爱程度。</p>
+<p>既可以在用户间计算关联，也可以在商品之间计算关联，也可以建立模型进行计算，在不同情况下采用的算法也不一样。</p>
+<p>可能影响算法的因素：</p>
+<ul>
+<li>灰羊效应：即介于黑白之间的情况</li>
+<li>冷启动：用户新来平台，没有数据，如何推荐</li>
+<li>网络水军的故意攻击</li>
+<li>用户的打分习惯（有人习惯打高分，有人习惯打低分，因此要与平均分进行计算）</li>
+</ul>
+<h2 id="9-Ensemble-Learning-集成学习"><a href="#9-Ensemble-Learning-集成学习" class="headerlink" title="9 Ensemble Learning 集成学习"></a>9 Ensemble Learning 集成学习</h2><h3 id="9-1-1-Ensemble-民主协商"><a href="#9-1-1-Ensemble-民主协商" class="headerlink" title="9.1.1 Ensemble 民主协商"></a>9.1.1 Ensemble 民主协商</h3><p>核心思想：有策略的集中不同类型的分类器，根据综合结果得出结论。</p>
+<p>也可以对模型进行拆分，将复杂的问题拆成简单的问题来解决。本质上是分类器的实用策略。<br><img src="https://img-blog.csdnimg.cn/20200814135722246.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<p>集成学习不是一个算法，而是一大类算法。<br><img src="https://img-blog.csdnimg.cn/20200814135258940.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<h3 id="9-2-1-Bagging-群策群议"><a href="#9-2-1-Bagging-群策群议" class="headerlink" title="9.2.1 Bagging 群策群议"></a>9.2.1 Bagging 群策群议</h3><p>在集成学习中，集中策略可以使用“少数服从多数”或“权重”来决定最终决策走向，且不用担心过学习问题。</p>
+<p>为了保证各个分类器结论相似而不同，可以使用不同部分的数据集来训练每个分类器。</p>
+<p><strong>引导聚集算法-Bagging(Bootstrap Aggregating):</strong></p>
+<ol>
+<li>将数据集用bootstrap法采样为若干子数据集</li>
+<li>在子数据集上训练分类器</li>
+<li>用这些分类器处理数据，根据结果“少数服从多数”得出答案</li>
+</ol>
+<p>此类算法可以有效降低bias，并能够降低variance。</p>
+<p>未选入子数据集的数据（OOB-Out Of Bag，大约⅓）可以用来检验。</p>
+<p><strong>随机森林(Random Forests)</strong>：是一种集成算法（Ensemble Learning），它属于Bagging类型，通过组合多个弱分类器，最终结果通过投票或取均值，使得整体模型的结果具有较高的精确度和泛化性能。其可以取得不错成绩，主要归功于“随机”和“森林”，一个使它具有抗过拟合能力，一个使它更加精准。<br><img src="https://img-blog.csdnimg.cn/20200814141328811.png#pic_center" alt="在这里插入图片描述"></p>
+<h3 id="9-3-1-Boosting-环环相扣"><a href="#9-3-1-Boosting-环环相扣" class="headerlink" title="9.3.1 Boosting 环环相扣"></a>9.3.1 Boosting 环环相扣</h3><p>每个分类器分类效果不同，每个数据集容易被分对的可能性也不同，他们所占的权重也不应该相同，这里的权重也可以学习。</p>
+<p><strong>Stacking算法(并行)</strong>：在原始的分类器（学习输出结果）输出基础上，再过一层分类器（学习各个分类器的权重），从而得出最终结果。可以视为Bagging的升级版。<br><img src="https://img-blog.csdnimg.cn/20200814141724370.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<p><strong>Boosting算法(串行)</strong>：先训练一个分类器，对于分对的和分错的分开划分数据集，针对正误数据集进行继续训练（相当于对训练集加权重，越多分类器分错，该数据集权重越大）</p>
+<p>C1先训练，C2训练C1分类错误的。<br><img src="https://img-blog.csdnimg.cn/20200814142021850.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>找出C1与C2的不一致，训练新的分类器C3。（注意：C1、C2、C3是顺序生成的）<br><img src="https://img-blog.csdnimg.cn/2020081414214560.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTM5OTA3NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<h2 id="10-Evolutionary-Algorithms-进化算法"><a href="#10-Evolutionary-Algorithms-进化算法" class="headerlink" title="10 Evolutionary Algorithms 进化算法"></a>10 Evolutionary Algorithms 进化算法</h2><h3 id="10-1-1-Evolutionary-进化"><a href="#10-1-1-Evolutionary-进化" class="headerlink" title="10.1.1 Evolutionary 进化"></a>10.1.1 Evolutionary 进化</h3><p>进化算法的目的：</p>
+<ul>
+<li>优化（广义的）</li>
+<li>进行模拟，帮助人类理解自然的进化</li>
+</ul>
+<p>特点：</p>
+<ul>
+<li>基于数量的</li>
+<li>有随机性</li>
+<li>并行（不易局部最优）</li>
+<li>适者生存</li>
+<li>不局限于某种特定问题，可能是普适的</li>
+<li>……</li>
+</ul>
+<h3 id="10-2-1-Objective-Function-目标函数"><a href="#10-2-1-Objective-Function-目标函数" class="headerlink" title="10.2.1 Objective Function 目标函数"></a>10.2.1 Objective Function 目标函数</h3><p>机器学习算法本质还是优化问题，只不过有难有易。</p>
+<p>现实中的大部分问题都是复杂的，很难直接暴力解决，必须要进行优化。</p>
+<h3 id="10-4-1-Genetic-Algorithm-1-遗传算法-初探-1"><a href="#10-4-1-Genetic-Algorithm-1-遗传算法-初探-1" class="headerlink" title="10.4.1 Genetic Algorithm(1) 遗传算法-初探(1)"></a>10.4.1 Genetic Algorithm(1) 遗传算法-初探(1)</h3><p>遗传算法是松散的基于达尔文进化论，并不是完全相同的。</p>
+<p>遗传算法的几部分：表示（二进制还是格雷码等）、遗传、选择、变异、表达（向量）</p>
+<p>格雷码与二进制的区别：系统在每一次变化时，码值只会变化一位，更加稳定。</p>
+<p>在设置权重的时候，可以用原始值比例确定，也可以用序号确定（防止过于优秀的个体占据了过大概率）。</p>
+<p>在选择时，可以两两PK选择，可以精英选择（防止突变导致的结果不稳定），可以用百分率选择。</p>
+<h3 id="10-5-1-Genetic-Algorithm-3-遗传算法-可能性-3"><a href="#10-5-1-Genetic-Algorithm-3-遗传算法-可能性-3" class="headerlink" title="10.5.1 Genetic Algorithm(3) 遗传算法-可能性(3)"></a>10.5.1 Genetic Algorithm(3) 遗传算法-可能性(3)</h3><p>遗传算法在维度过大时复杂度会比较高，要进行适当的选择。</p>
+<p>遗传算法在分类和聚类中均可以应用。</p>
+<p>Pareto Front：在多目标优化的情况下，基于不同的评判角度无法选择最优点，此时交给用户选择。</p>
+<h3 id="10-6-1-Genetic-Algorithm-4-遗传算法-遗传程序-4"><a href="#10-6-1-Genetic-Algorithm-4-遗传算法-遗传程序-4" class="headerlink" title="10.6.1 Genetic Algorithm(4) 遗传算法-遗传程序(4)"></a>10.6.1 Genetic Algorithm(4) 遗传算法-遗传程序(4)</h3><p><strong>遗传算法-(Genetic Algorithm)与遗传程序-(Genetic Program)</strong> 的区别：遗传算法输出的是模型参数，遗传程序输出的则是一段计算机程序。</p>
+<p>遗传程序将计算式表示为树，针对树进行杂交进行优化，一模一样的树在杂交后也能产生新树。</p>
+<p>评判方式：用积分计算目标值与当前值之间差异部分的面积，面积大则拟合性不好。</p>
+<h3 id="10-7-1-Genetic-Algorithm-5-遗传算法-遗传硬件-5"><a href="#10-7-1-Genetic-Algorithm-5-遗传算法-遗传硬件-5" class="headerlink" title="10.7.1 Genetic Algorithm(5) 遗传算法-遗传硬件(5)"></a>10.7.1 Genetic Algorithm(5) 遗传算法-遗传硬件(5)</h3><p><strong>可计划电路-(Evolvable Circuits)</strong>：硬件的线路可以变化并改变结构，实现原先没有的功能。</p>
+<p>用途：</p>
+<ul>
+<li>芯片在遇到设计时未想到的情况时，能自行修整并应对环境。</li>
+<li>设计天线形状达到最优性能</li>
+<li>汽车的外形设计</li>
+<li>”人工生命“</li>
+<li>程序绘画、谱曲</li>
+</ul>
+<p>困难的地方：对于运行结果的评价是难以量化并打分的，可能需要人类的评判。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Clustering/" rel="tag"># Clustering</a>
+          
+            <a href="/tags/%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98/" rel="tag"># 数据挖掘</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/08/11/%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98-%E7%90%86%E8%AE%BA%E4%B8%8E%E7%AE%97%E6%B3%95%EF%BC%88%E5%85%AC%E5%BC%80%E8%AF%BE%E7%AC%94%E8%AE%B0%E4%B8%80%EF%BC%89/" rel="next" title="数据挖掘-理论与算法（公开课笔记一）">
+                <i class="fa fa-chevron-left"></i> 数据挖掘-理论与算法（公开课笔记一）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript" target="_blank" rel="noopener">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/panda.jpg"
+                alt="Patrick Yan" />
+            
+              <p class="site-author-name" itemprop="name">Patrick Yan</p>
+              <p class="site-description motion-element" itemprop="description">交个朋友吧 (*^▽^*)</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">37</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">27</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/PatrickYan01" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:yanyx9530@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+		  
+		  
+			
+			  <div class="links-of-blogroll motion-element links-of-blogroll-block">
+				<div class="links-of-blogroll-title">
+				  <!-- modify icon to fire by szw -->
+				  <i class="fa fa-history fa-" aria-hidden="true"></i>
+				  近期文章
+				</div>
+				<ul class="links-of-blogroll-list">
+				  
+				  
+					<li class="recent_posts_li">
+					  <a href="/2020/08/17/%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98-%E7%90%86%E8%AE%BA%E4%B8%8E%E7%AE%97%E6%B3%95%EF%BC%88%E5%85%AC%E5%BC%80%E8%AF%BE%E7%AC%94%E8%AE%B0%E4%BA%8C%EF%BC%89/" title="数据挖掘-理论与算法（公开课笔记二）" target="_blank">数据挖掘-理论与算法（公开课笔记二）</a>
+					</li>
+				  
+					<li class="recent_posts_li">
+					  <a href="/2020/08/11/%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98-%E7%90%86%E8%AE%BA%E4%B8%8E%E7%AE%97%E6%B3%95%EF%BC%88%E5%85%AC%E5%BC%80%E8%AF%BE%E7%AC%94%E8%AE%B0%E4%B8%80%EF%BC%89/" title="数据挖掘-理论与算法（公开课笔记一）" target="_blank">数据挖掘-理论与算法（公开课笔记一）</a>
+					</li>
+				  
+					<li class="recent_posts_li">
+					  <a href="/2020/08/04/%E6%9C%89%E5%BA%8F_%E6%97%A0%E5%BA%8F%E5%88%86%E7%B1%BB%E5%8F%98%E9%87%8F%E7%9A%84%E7%BB%9F%E8%AE%A1%E6%8E%A8%E6%96%AD/" title="有序/无序分类变量的统计推断" target="_blank">有序/无序分类变量的统计推断</a>
+					</li>
+				  
+					<li class="recent_posts_li">
+					  <a href="/2020/08/03/%E8%BF%9E%E7%BB%AD%E5%8F%98%E9%87%8F%E7%9A%84%E7%BB%9F%E8%AE%A1%E6%8E%A8%E6%96%AD/" title="连续变量的统计推断" target="_blank">连续变量的统计推断</a>
+					</li>
+				  
+					<li class="recent_posts_li">
+					  <a href="/2020/08/01/%E5%88%86%E5%B8%83%E7%B1%BB%E5%9E%8B%E7%9A%84%E6%A3%80%E9%AA%8C/" title="分布类型的检验" target="_blank">分布类型的检验</a>
+					</li>
+				  
+				</ul>
+			  </div>
+			
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                友情链接
+              </div>
+              <ul class="links-of-blogroll-list">
+				
+				  <span class="links-of-author-item" style="text-align:left">
+					<a href="https://blog.csdn.net/weixin_45399074" title="CSDN" target="_blank">
+					  CSDN
+					</a>
+				  </span>
+				
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#6-1-Clustering-聚类"><span class="nav-text">6.1 Clustering 聚类</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#6-1-1-Unsupervised-Learning-无监督学习"><span class="nav-text">6.1.1 Unsupervised Learning 无监督学习</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-2-1-Clustering-Algorithm-聚类算法"><span class="nav-text">6.2.1 Clustering Algorithm 聚类算法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-3-1-EM-Method-期望最大法"><span class="nav-text">6.3.1 EM Method 期望最大法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-4-1-Density-Hierarchical-Based-Methods-密度与层次"><span class="nav-text">6.4.1 Density&#x2F;Hierarchical Based Methods 密度与层次</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-Assocation-Role-关联规则"><span class="nav-text">7 Assocation Role 关联规则</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#7-1-1-Assocation-Role-关联规则"><span class="nav-text">7.1.1 Assocation Role 关联规则</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-2-1-Support-amp-Confidence-of-Association-Role-支持度-置信度"><span class="nav-text">7.2.1 Support&amp;Confidence of Association Role 支持度 置信度</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-3-1-About-Assocation-Role-关联规则的误区"><span class="nav-text">7.3.1 About Assocation Role 关联规则的误区</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-4-1-Apriori-Method-Apriori算法"><span class="nav-text">7.4.1 Apriori Method Apriori算法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-6-1-Sequential-Pattern-序列模式"><span class="nav-text">7.6.1 Sequential Pattern 序列模式</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#8-Recommendation-Algorithms"><span class="nav-text">8 Recommendation Algorithms</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#8-1-1-Recommend-Algorithm-推荐算法"><span class="nav-text">8.1.1 Recommend Algorithm 推荐算法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-2-1-Text-Analysis-文本分析"><span class="nav-text">8.2.1 Text Analysis 文本分析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-3-1-PageRank-网页评分"><span class="nav-text">8.3.1 PageRank 网页评分</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-4-1-Collaborative-Filtering-协同过滤"><span class="nav-text">8.4.1 Collaborative Filtering 协同过滤</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#9-Ensemble-Learning-集成学习"><span class="nav-text">9 Ensemble Learning 集成学习</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#9-1-1-Ensemble-民主协商"><span class="nav-text">9.1.1 Ensemble 民主协商</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#9-2-1-Bagging-群策群议"><span class="nav-text">9.2.1 Bagging 群策群议</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#9-3-1-Boosting-环环相扣"><span class="nav-text">9.3.1 Boosting 环环相扣</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#10-Evolutionary-Algorithms-进化算法"><span class="nav-text">10 Evolutionary Algorithms 进化算法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#10-1-1-Evolutionary-进化"><span class="nav-text">10.1.1 Evolutionary 进化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#10-2-1-Objective-Function-目标函数"><span class="nav-text">10.2.1 Objective Function 目标函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#10-4-1-Genetic-Algorithm-1-遗传算法-初探-1"><span class="nav-text">10.4.1 Genetic Algorithm(1) 遗传算法-初探(1)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#10-5-1-Genetic-Algorithm-3-遗传算法-可能性-3"><span class="nav-text">10.5.1 Genetic Algorithm(3) 遗传算法-可能性(3)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#10-6-1-Genetic-Algorithm-4-遗传算法-遗传程序-4"><span class="nav-text">10.6.1 Genetic Algorithm(4) 遗传算法-遗传程序(4)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#10-7-1-Genetic-Algorithm-5-遗传算法-遗传硬件-5"><span class="nav-text">10.7.1 Genetic Algorithm(5) 遗传算法-遗传硬件(5)</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Patrick Yan</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">111.8k</span>
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'http://yoursite.com/2020/08/17/%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98-%E7%90%86%E8%AE%BA%E4%B8%8E%E7%AE%97%E6%B3%95%EF%BC%88%E5%85%AC%E5%BC%80%E8%AF%BE%E7%AC%94%E8%AE%B0%E4%BA%8C%EF%BC%89/';
+          this.page.identifier = '2020/08/17/数据挖掘-理论与算法（公开课笔记二）/';
+          this.page.title = '数据挖掘-理论与算法（公开课笔记二）';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'NBmS0rYRfqeIXHQQIGRmNaPM-gzGzoHsz',
+        appKey: 'aKyem3OJz4CXooX0S5dzuL0m',
+        placeholder: 'Welcome to my blog.',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+</html>
